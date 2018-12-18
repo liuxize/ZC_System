@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.system.mapper.ExamMapper">
+
+
+    <insert id="insert" parameterType="com.system.po.Exam" keyProperty="examid" useGeneratedKeys="true">
+        insert into exam (stuID, examData, updatePerson, examType, mathScore, math, chinese, chineseScore,
+        english, englishScore, physics, phyScore, chemistry, chemScore, politics, polScore,
+        history, hisScore, biology, bioScore, geography, geoScore, examRemark, examSign, recordDate
+        )
+        values (#{stuid,jdbcType=INTEGER}, #{examdata,jdbcType=DATE}, #{updateperson,jdbcType=VARCHAR},
+         #{examtype,jdbcType=VARCHAR}, #{mathscore,jdbcType=INTEGER}, #{math,jdbcType=INTEGER},
+         #{chinese,jdbcType=INTEGER}, #{chinesescore,jdbcType=INTEGER}, #{english,jdbcType=INTEGER},
+         #{englishscore,jdbcType=INTEGER}, #{physics,jdbcType=INTEGER}, #{physcore,jdbcType=INTEGER},
+         #{chemistry,jdbcType=INTEGER}, #{chemscore,jdbcType=INTEGER}, #{politics,jdbcType=INTEGER},
+         #{polscore,jdbcType=INTEGER}, #{history,jdbcType=INTEGER}, #{hisscore,jdbcType=INTEGER},
+         #{ biology,jdbcType=INTEGER}, #{bioscore,jdbcType=INTEGER}, #{geography,jdbcType=INTEGER},
+         #{geoscore,jdbcType=INTEGER}, #{examremark,jdbcType=VARCHAR}, 0, #{recorddate,jdbcType=DATE}
+        )
+    </insert>
+
+    <select id="selectExamByStuID" resultType="com.system.po.Exam" parameterType="java.lang.Integer">
+        select
+        *
+        from exam
+        where stuID = #{stuid,jdbcType=INTEGER}
+    </select>
+
+    <delete id="deleteByStuID" parameterType="java.lang.Integer" >
+        delete from exam
+        where stuID = #{stuID,jdbcType=INTEGER}
+    </delete>
+
+    <delete id="deleteByExamID" parameterType="java.lang.Integer" >
+        delete from exam
+        where examID = #{examID,jdbcType=INTEGER}
+    </delete>
+
+
+    <update id="updateExamSign">
+        UPDATE exam
+        SET
+        examSign = 1
+        where stuID = #{stuid,jdbcType=INTEGER}
+    </update>
+
+    <update id="updateExam" parameterType="com.system.po.Exam">
+        UPDATE exam
+        SET
+        examData = #{examdata,jdbcType=DATE},
+        examType = #{examtype,jdbcType=VARCHAR},
+        mathScore = #{mathscore,jdbcType=INTEGER},
+        math = #{math,jdbcType=INTEGER},
+        chinese = #{chinese,jdbcType=INTEGER},
+        chineseScore = #{chinesescore,jdbcType=INTEGER},
+        english = #{english,jdbcType=INTEGER},
+        englishScore = #{englishscore,jdbcType=INTEGER},
+        physics = #{physics,jdbcType=INTEGER},
+        phyScore = #{physcore,jdbcType=INTEGER},
+        chemistry = #{chemistry,jdbcType=INTEGER},
+        chemScore = #{chemscore,jdbcType=INTEGER},
+        politics = #{politics,jdbcType=INTEGER},
+        polScore = #{polscore,jdbcType=INTEGER},
+        history = #{history,jdbcType=INTEGER},
+        hisScore = #{hisscore,jdbcType=INTEGER},
+        biology =  #{ biology,jdbcType=INTEGER},
+        bioScore = #{bioscore,jdbcType=INTEGER},
+        geography = #{geography,jdbcType=INTEGER},
+        geoScore =  #{geoscore,jdbcType=INTEGER},
+        examRemark =  #{examremark,jdbcType=VARCHAR}
+        where examID = #{examid,jdbcType=INTEGER}
+    </update>
+
+    <select id="selectExamByExamID" resultType="com.system.po.Exam" parameterType="java.lang.Integer">
+        select
+        *
+        from exam
+        where examID = #{examid,jdbcType=INTEGER}
+    </select>
+
+</mapper>

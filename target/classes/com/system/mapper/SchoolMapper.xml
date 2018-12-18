@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.system.mapper.SchoolMapper" >
+
+    <select id="findAll"  resultType="com.system.po.School">
+        select
+        *
+        from school
+    </select>
+
+    <insert id="insert" parameterType="com.system.po.School" keyProperty="schoolid" useGeneratedKeys="true">
+        insert into school (schoolName
+        )
+        values ( #{name,jdbcType=VARCHAR}
+        )
+    </insert>
+
+    <delete id="deleteByID" parameterType="java.lang.Integer" >
+        delete from school
+        where schoolID = #{id,jdbcType=INTEGER}
+    </delete>
+
+</mapper>

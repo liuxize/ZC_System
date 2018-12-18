@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.system.mapper.PermissionMapper" >
+
+    <insert id="insert">
+        insert into permission (teachername, gradeID)
+        values (#{0}, #{1})
+    </insert>
+
+    <delete id="deleteByName" parameterType="java.lang.String" >
+        delete from permission
+        where teacherName = #{username,jdbcType=VARCHAR}
+    </delete>
+
+    <select id="selectGradeIdByName" parameterType="java.lang.String" resultType="java.lang.Integer" >
+        select gradeID
+        from permission
+        WHERE
+        teacherName = #{username,jdbcType=VARCHAR}
+    </select>
+
+    <select id="countByName" parameterType="java.lang.String" resultType="java.lang.Integer" >
+        select count(*)
+        from permission
+        WHERE
+        teacherName = #{username,jdbcType=VARCHAR}
+    </select>
+
+    <select id="countLeaderByGradeID" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+        select count(*)
+        from permission
+        WHERE
+        gradeID = #{gradeid,jdbcType=INTEGER}
+        AND
+        teachername IN
+        (
+        SELECT userName
+        FROM userlogin
+        WHERE role = 3
+         )
+  </select>
+</mapper>

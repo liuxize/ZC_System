@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.system.mapper.TextMapper">
+
+
+    <insert id="insertText" parameterType="com.system.po.TextDic" keyProperty="textid" useGeneratedKeys="true">
+        insert into textdic (userName, title, content, textType
+        )
+        values (#{username,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, #{texttype,jdbcType=INTEGER}
+        )
+    </insert>
+
+    <select id="countTextByName"  resultType="java.lang.Integer" >
+        select count(*) from textdic
+        WHERE
+        userName = #{0}
+        AND
+        textType = #{1}
+    </select>
+
+
+    <delete id="clearNoteTextByName" parameterType="java.lang.String" >
+        delete from textdic
+        where userName = #{name,jdbcType=VARCHAR}
+    </delete>
+
+    <select id="selectTextByName" resultType="com.system.po.TextDic" parameterType="com.system.po.PagingVO">
+        select
+        *
+        from textdic
+        where
+        userName = #{stringtemp,jdbcType=VARCHAR}
+        AND
+        textType = #{intergertemp,jdbcType=INTEGER}
+        limit #{toPageNo}, #{pageSize}
+    </select>
+
+    <select id="selectTextDicByID" resultType="com.system.po.TextDic" parameterType="java.lang.Integer">
+        select
+        *
+        from textdic
+        where
+        textID = #{textid,jdbcType=INTEGER}
+    </select>
+
+    <update id="updateText" parameterType="com.system.po.TextDic">
+        update textdic
+        set
+        content = #{content,jdbcType=VARCHAR}
+        where textID = #{textid,jdbcType=INTEGER}
+    </update>
+
+    <delete id="deleteTectByID" parameterType="java.lang.Integer" >
+        delete from textdic
+        where textID = #{textid,jdbcType=INTEGER}
+    </delete>
+
+</mapper>
+
+

@@ -1,0 +1,205 @@
+/*login界面*/
+
+li {
+    list-style: none;
+} 
+
+.login-wrapper header {
+    margin-top: 100px;
+    margin-bottom: 50px;
+}
+
+
+
+/*logo*/
+
+.logo {
+    text-align: center;
+    width: 150px;
+    height: 55px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.logo img {
+    height: 55px;
+}
+
+
+
+/*登陆表单*/
+
+.login-form {
+    width: 500px;
+    margin: 0 auto;
+    padding: 40px;
+    background-color: #05c5ff;
+    box-shadow: 0 3px 3px rgba(0, 0, 0, .2);
+    text-align: center;
+}
+
+.login-form-title {
+    border-bottom: 2px solid #ffffff;
+    width: 150px;
+    margin: 0 auto 15px;
+}
+
+.login-form-title span {
+    color: #ffffff;
+    font-size: 26px;
+    font-weight: normal;
+}
+
+.login-form .login-input {
+    border-radius: 0;
+    width: 300px;
+    height: 40px;
+    padding: 11px 11px;
+    font-size: 14px;
+    line-height: 18px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.login-form .login-btn {
+    margin-top: 30px;
+    width: 300px;
+    height: 40px;
+    border-radius: 0;
+    background-color: #2792ff;
+    color: #fff;
+}
+
+
+
+
+
+/*end login界面*/
+
+
+/*主页*/
+
+.index-wrapper {
+    padding-top: 50px;
+    min-width: 1025px;
+    background-color: #fff;
+}
+
+
+
+/*导航栏*/
+
+.index-navbar {
+    background-color: #ff4401;
+}
+
+.index-wrapper .index-navbar .index-nav li a {
+    color: #fff;
+}
+
+.index-wrapper .index-navbar .index-nav li a:hover {
+    background-color: #f9dbdb;
+    color: #ff4401;
+}
+
+.index-wrapper .index-navbar .index-nav li.active a {
+    background-color: #F9E6E6;
+    color: #ff4401;
+}
+
+
+
+/*菜单*/
+
+.menu {
+    padding-top: 50px;
+}
+
+.menu .menu-title {
+    font-size: 15px;
+    line-height: 28px;
+    margin: 5px 10px 1px 0;
+    color: #f40;
+}
+
+.menu li {
+    line-height: 28px;
+    color: #000;
+    font-size: 12px;
+    text-decoration: none;
+}
+
+
+
+/*二级列表*/
+
+.menu .sub-list:hover ul {
+    display: block;
+}
+
+.menu li:hover {
+    color: #f40;
+}
+
+.menu ul {
+    padding-left: 15px;
+}
+
+.menu .sub-list ul {
+    display: none;
+}
+
+
+
+.index-content {
+    padding-top: 50px;
+}
+
+.index-content .content-title {
+    background-color: #fefae6;
+    font-size: 18px;
+    line-height: 18px;
+    padding: 11px 10px;
+    color: #fbba00;
+}
+
+.index-content table {
+    text-align: center;
+}
+
+
+
+/*头像*/
+
+.headshot {
+    width: 52px;
+    border-radius: 50%;
+}
+
+
+
+/*根据浏览，猜你喜欢*/
+
+.like {
+    border: 1px solid #fefae6;
+    padding: 0;
+}
+
+.like .like-img {
+    text-align: center;
+    margin: 35px auto;
+}
+
+
+
+/*底部*/
+
+.index-footer {
+    border-top: 1px solid #ddd;
+    text-align: center;
+    padding: 20px 0;
+}
+
+
+
+/*end 主页

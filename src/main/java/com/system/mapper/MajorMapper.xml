@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.system.mapper.MajorMapper" >
+
+    <select id="findAll"  resultType="com.system.po.Major">
+        select
+        *
+        from major
+    </select>
+
+    <insert id="insert" parameterType="com.system.po.Major" keyProperty="majorid" useGeneratedKeys="true">
+        insert into major (majorName
+        )
+        values ( #{name,jdbcType=VARCHAR}
+        )
+    </insert>
+
+    <delete id="deleteByID" parameterType="java.lang.Integer" >
+        delete from major
+        where majorID = #{id,jdbcType=INTEGER}
+    </delete>
+
+</mapper>
