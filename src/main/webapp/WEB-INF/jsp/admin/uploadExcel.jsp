@@ -114,48 +114,14 @@
 <script src="https://cdn.bootcss.com/xlsx/0.11.3/xlsx.full.min.js"></script>
 <script type="text/javascript">
     $("#nav li:nth-child(12)").addClass("active")
-
-    function addTempMess() {
-
-        var name = $("#excelFile").val();
-        if (name == "" || name.length == 0) {
-            alert("请选择上传文件!")
-            return false;
-        }
-        var fileA = name.split("//");
-        var fileB = fileA[fileA.length - 1].toLowerCase().split(".");
-        var fileC = fileB[fileB.length - 1];
-        if (fileC != "xls") {
-            alert("请选择office03版本excel文件!")
-            return false;
-        }
-        var formData = new FormData();
-        formData.append("file",$("#excelFile")[0].files[0]);
-        formData.append("name",name);
-
-         if (confirm("确定进行数据上传吗？确定开始后，请勿进行其他操作并等待上传完毕。")) {
-             $.ajax({
-                 type: 'POST',   //http请求方式
-                 url: '/admin/uploadFile',//发送给服务器的url
-                 async: false,
-                 data: formData, //发送给服务器的参数
-                 // 告诉jQuery不要去处理发送的数据
-                 processData: false,
-                 // 告诉jQuery不要去设置Content-Type请求头
-                 contentType: false,
-                 beforeSend: function () {
-                     console.log("正在进行，请稍候");
-                 },
-                 success: function (responseStr) {
-                     if (responseStr == "01") {
-                         alert("导入成功");
-                     } else {
-                         alert("导入失败，已经导入"+responseStr+"条信息，请检查表格格式");
-                     }
-                 }
-             });
-         }
-    }
+    var timerId;
+    $(function(){
+        //每隔0.5秒自动调用方法，实现进度条的实时更新
+        setInterval(function(){
+            getproess();
+        },500)
+        //timerId=window.setInterval(getForm,500);
+    });
 
 
     $("#excelFile").fileinput({
@@ -197,10 +163,11 @@
         formData.append("name",name);
 
         if (confirm("确定进行数据上传吗？确定开始后，请勿进行其他操作并等待上传完毕。")) {
+
             $.ajax({
                 type: 'POST',   //http请求方式
                 url: '/admin/updateFile',//发送给服务器的url
-                async: false,
+                async: true,
                 data: formData, //发送给服务器的参数
                 // 告诉jQuery不要去处理发送的数据
                 processData: false,
@@ -215,8 +182,7 @@
                     if (responseStr == "01") {
                         alert("导入成功");
                     } else {
-                        $("#prog").removeClass("progress-bar-success");
-                        $("#prog").addClass("progress-bar-danger");
+
                         alert("导入失败，已经导入"+responseStr+"条信息，请检查表格格式");
                     }
                 },
@@ -338,31 +304,70 @@
 
     function getproess() {
         //获取进度信息
+        console.log("kaishi");
         $.ajax({
             type:"post",//请求方式
             url:"/admin/getProgressValue",//发送请求地址
-            timeout:30000,//超时时间：30秒????
+         //   timeout:10,//超时时间：30秒????
             dataType:"json",//设置返回数据的格式
             //请求成功后的回调函数 data为json格式
             success:function(data) {
-                //   if(data.progressValue>=100){
-                //       window.clearInterval(timerId);
-                //   }
-                console.log(typeof(data.progressValue));
+                console.log(data.progressValue);
+                window.clearInterval(timerId);
                 if (data.progressValue == "100") {
                     $("#progressbar").css("width", data.progressValue + "%").text(data.progressValue + "%");
-                    $("#progressbar").removeClass("progress-bar-success");
-                    $("#progressbar").addClass("progress-bar-info");
+
                 } else {
                     $("#progressbar").css("width", data.progressValue + "%").text(data.progressValue + "%");
                 }
             },
             //请求出错的处理
             error:function(){
-               // window.clearInterval(timerId);
-                alert("请求出错");
             }
         });
     }
+
+    function addTempMess() {
+        var name = $("#excelFile").val();
+        if (name == "" || name.length == 0) {
+            alert("请选择上传文件!")
+            return false;
+        }
+        var fileA = name.split("//");
+        var fileB = fileA[fileA.length - 1].toLowerCase().split(".");
+        var fileC = fileB[fileB.length - 1];
+        if (fileC != "xls") {
+            alert("请选择office03版本excel文件!")
+            return false;
+        }
+        var formData = new FormData();
+        formData.append("file",$("#excelFile")[0].files[0]);
+        formData.append("name",name);
+
+        if (confirm("确定进行数据上传吗？确定开始后，请勿进行其他操作并等待上传完毕。")) {
+            $.ajax({
+                type: 'POST',   //http请求方式
+                url: '/admin/uploadFile',//发送给服务器的url
+                async: true,
+                data: formData, //发送给服务器的参数
+                // 告诉jQuery不要去处理发送的数据
+                processData: false,
+                // 告诉jQuery不要去设置Content-Type请求头
+                contentType: false,
+                success: function (responseStr) {
+                    if (responseStr == "01") {
+                        alert("导入成功");
+                    } else {
+
+                        alert("导入失败，已经导入"+responseStr+"条信息，请检查表格格式");
+                    }
+                },
+                complete: function () {
+                    $("#submit").removeAttr("disabled");
+                }
+            });
+        }
+    }
+
 </script>
 </html>

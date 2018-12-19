@@ -14,6 +14,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import java.lang.Number;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -2529,16 +2530,18 @@ public class AdminController {
         return "/admin/uploadExcel";
     }
 
+    public static int index;
     //上传文件  新建学生档案
     //判断用户名是否存在
     @ResponseBody
     @RequestMapping(value = "/uploadFile", method = {RequestMethod.POST})
-    public String uploadExcel(@RequestParam("file") MultipartFile file, ModelMap  model){
-
+    public String uploadExcel(@RequestParam("file") MultipartFile file, HttpServletResponse response){
         excelLogService.deleteExcel();
         String flag ="02";//表示没有保存到数据库
         int iRowNum = 0;// 工作表中的行数量
         int iCellNum = 0;// 每行中的列数量
+        DecimalFormat df=new DecimalFormat("0");
+
         Integer completeNum =0;
         try{
             POIFSFileSystem fs = new POIFSFileSystem(file.getInputStream());
@@ -2549,7 +2552,7 @@ public class AdminController {
 
             iRowNum = sheet.getPhysicalNumberOfRows();// 获取sheet表中总行数
 
-            //System.out.println("表格的总行数"+iRowNum);
+            System.out.println("表格的总行数"+iRowNum);
 
             /** 开始读取行数据 */
 
@@ -2674,6 +2677,8 @@ public class AdminController {
                     excelLogService.saveExcel(excelLog);
                     completeNum++;
                 }
+                index=Integer.parseInt(df.format(Math.floor(completeNum*100/(iRowNum-4)))) ;
+                //System.out.println(index);
             }
             flag="01";
 
@@ -2694,12 +2699,13 @@ public class AdminController {
     }
 
 
-    //上传文件
+    //更新学生信息
     @ResponseBody
     @RequestMapping(value = "/updateFile", method = {RequestMethod.POST})
     public String updateFile(@RequestParam("file") MultipartFile file, ModelMap  model){
 
         excelLogService.deleteExcel();
+        DecimalFormat df=new DecimalFormat("0");
         String flag ="02";//表示没有保存到数据库
         int iRowNum = 0;// 工作表中的行数量
         int iCellNum = 0;// 每行中的列数量
@@ -2817,6 +2823,7 @@ public class AdminController {
                     excelLogService.saveExcel(excelLog);
                     completeNum++;
                 }
+                index=Integer.parseInt(df.format(Math.floor(completeNum*100/(iRowNum-4)))) ;
             }
             flag="01";
 
@@ -2844,44 +2851,45 @@ public class AdminController {
         System.out.println("读取cookie\n");
         //根据名字获取cookie
         //读取cookie
-        String result = null;
-        Cookie[] cookies = request.getCookies();
-        if (cookies == null) {return;}
-        int cookieexit=0;
-        for (Cookie cookie:cookies){
-            if (cookie.getName().equals("test")) {
-                result = cookie.getValue();
-                System.out.println(result+"\n");
-                cookieexit=1;
-            }
-        }
-        if(cookieexit==0){
-            Cookie div = new Cookie("test", "0");
-            response.setCharacterEncoding("UTF-8");
-            response.setContentType("text/html;charset=UTF-8");
-            response.addCookie(div);
-            result="0";
-        }
-
-        Integer progressValue = Integer.parseInt(result);
-        System.out.println("progressValue"+progressValue);
-        progressValue = progressValue+2;
+//        String result = null;
+//        Cookie[] cookies = request.getCookies();
+//        if (cookies == null) {return;}
+//        int cookieexit=0;
+//        for (Cookie cookie:cookies){
+//            if (cookie.getName().equals("test")) {
+//                result = cookie.getValue();
+//                System.out.println(result+"\n");
+//                cookieexit=1;
+//            }
+//        }
+//        if(cookieexit==0){
+//            Cookie div = new Cookie("test", "0");
+//            response.setCharacterEncoding("UTF-8");
+//            response.setContentType("text/html;charset=UTF-8");
+//            response.addCookie(div);
+//            result="0";
+//        }
+//
+//        Integer progressValue = Integer.parseInt(result);
+//        System.out.println("progressValue"+progressValue);
+//        progressValue = progressValue+2;
 
 
         //添加cookie
-        String ValueString = progressValue.toString();
-        Cookie div = new Cookie("test", ValueString);  //设置cook的名字以及值
-       // div.setMaxAge(365*24*60*60);   //如何删除cookie???
-        response.setCharacterEncoding("UTF-8");
-        response.setContentType("text/html;charset=UTF-8");
-        response.addCookie(div);
+//        String ValueString = progressValue.toString();
+//        Cookie div = new Cookie("test", ValueString);  //设置cook的名字以及值
+//        // div.setMaxAge(365*24*60*60);   //如何删除cookie???
+//        response.setCharacterEncoding("UTF-8");
+//        response.setContentType("text/html;charset=UTF-8");
+//        response.addCookie(div);
 
-        String json = "{\"progressValue\":\"" + progressValue + "\"}";
+        String json = "{\"progressValue\":\"" + index + "\"}";
         try{
             response.getWriter().print(json);  //返回json数据格式
         }catch(IOException e){
             e.printStackTrace();
         }
+
 
 
 
