@@ -35,10 +35,10 @@
 			</div>
 			<form action="/login" method="post">
 				<div class="form-group">
-					<input type="text" class="form-control login-input" placeholder="用户名" required name="username">
+					<input type="text" class="form-control login-input" placeholder="用户名" required name="username" value="admin">
 				</div>
 				<div class="form-group">
-					<input type="password" class="form-control login-input" placeholder="密码" required name="password">
+					<input type="password" class="form-control login-input" placeholder="密码" required name="password" value="123">
 				</div>
 				<button type="submit" class="btn login-btn">登录</button>
 

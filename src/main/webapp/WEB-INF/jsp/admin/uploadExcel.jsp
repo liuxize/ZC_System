@@ -63,7 +63,6 @@
                             <%--<div class="form-group">--%>
                                 <%--<input id="showText" style="border:0"  readonly="readonly" value="">--%>
                             <%--</div>--%>
-
                         </form>
 
 
@@ -89,6 +88,16 @@
                             <%--</div>--%>
 
                         </form>
+
+                    <div class="form-group">
+                        <button class="btn btn-default" onClick="getproess();">cookie</button>
+                    </div>
+
+                    <div class="progress progress-striped active">
+                        <div id="progressbar" class="progress-bar progress-bar-success" role="progressbar"
+                              aria-valuemin="0" aria-valuemax="100">
+                        </div>
+                    </div>
 
                 </div>
             </div>
@@ -199,13 +208,20 @@
                 contentType: false,
                 beforeSend: function () {
                     console.log("正在进行，请稍候");
+                    // 禁用按钮防止重复提交
+                    //$("#submit").attr({ disabled: "disabled" });
                 },
                 success: function (responseStr) {
                     if (responseStr == "01") {
                         alert("导入成功");
                     } else {
+                        $("#prog").removeClass("progress-bar-success");
+                        $("#prog").addClass("progress-bar-danger");
                         alert("导入失败，已经导入"+responseStr+"条信息，请检查表格格式");
                     }
+                },
+                complete: function () {
+                    $("#submit").removeAttr("disabled");
                 }
             });
         }
@@ -320,5 +336,33 @@
         saveAs(new Blob([s2ab(wbout)]), fileName); // 保存为文件
     }
 
+    function getproess() {
+        //获取进度信息
+        $.ajax({
+            type:"post",//请求方式
+            url:"/admin/getProgressValue",//发送请求地址
+            timeout:30000,//超时时间：30秒????
+            dataType:"json",//设置返回数据的格式
+            //请求成功后的回调函数 data为json格式
+            success:function(data) {
+                //   if(data.progressValue>=100){
+                //       window.clearInterval(timerId);
+                //   }
+                console.log(typeof(data.progressValue));
+                if (data.progressValue == "100") {
+                    $("#progressbar").css("width", data.progressValue + "%").text(data.progressValue + "%");
+                    $("#progressbar").removeClass("progress-bar-success");
+                    $("#progressbar").addClass("progress-bar-info");
+                } else {
+                    $("#progressbar").css("width", data.progressValue + "%").text(data.progressValue + "%");
+                }
+            },
+            //请求出错的处理
+            error:function(){
+               // window.clearInterval(timerId);
+                alert("请求出错");
+            }
+        });
+    }
 </script>
 </html>

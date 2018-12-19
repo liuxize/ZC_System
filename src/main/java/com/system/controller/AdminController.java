@@ -7,12 +7,16 @@ import org.apache.poi.hssf.usermodel.*;
 import org.apache.poi.poifs.filesystem.POIFSFileSystem;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
+import org.apache.taglibs.standard.lang.jstl.NullLiteral;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.annotation.Resource;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -2831,6 +2835,75 @@ public class AdminController {
         }
         return flag;
     }
+
+    //利用cookie存储当前的进度
+    @ResponseBody
+    @RequestMapping(value = "/getProgressValue", method = {RequestMethod.POST})
+    public void getProgressValue(HttpServletRequest request, HttpServletResponse response){
+
+        System.out.println("读取cookie\n");
+        //根据名字获取cookie
+        //读取cookie
+        String result = null;
+        Cookie[] cookies = request.getCookies();
+        if (cookies == null) {return;}
+        int cookieexit=0;
+        for (Cookie cookie:cookies){
+            if (cookie.getName().equals("test")) {
+                result = cookie.getValue();
+                System.out.println(result+"\n");
+                cookieexit=1;
+            }
+        }
+        if(cookieexit==0){
+            Cookie div = new Cookie("test", "0");
+            response.setCharacterEncoding("UTF-8");
+            response.setContentType("text/html;charset=UTF-8");
+            response.addCookie(div);
+            result="0";
+        }
+
+        Integer progressValue = Integer.parseInt(result);
+        System.out.println("progressValue"+progressValue);
+        progressValue = progressValue+2;
+
+
+        //添加cookie
+        String ValueString = progressValue.toString();
+        Cookie div = new Cookie("test", ValueString);  //设置cook的名字以及值
+       // div.setMaxAge(365*24*60*60);   //如何删除cookie???
+        response.setCharacterEncoding("UTF-8");
+        response.setContentType("text/html;charset=UTF-8");
+        response.addCookie(div);
+
+        String json = "{\"progressValue\":\"" + progressValue + "\"}";
+        try{
+            response.getWriter().print(json);  //返回json数据格式
+        }catch(IOException e){
+            e.printStackTrace();
+        }
+
+
+
+
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
