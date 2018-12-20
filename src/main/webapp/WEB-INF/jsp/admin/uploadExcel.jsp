@@ -353,10 +353,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
-<<<<<<< HEAD
                 dataType:"json",
-=======
->>>>>>> parent of bb55d6c... Procrssbar
 =======
 >>>>>>> parent of bb55d6c... Procrssbar
 =======
