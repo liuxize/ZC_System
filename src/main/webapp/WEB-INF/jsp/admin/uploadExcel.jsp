@@ -350,16 +350,25 @@
                 url: '/admin/uploadFile',//发送给服务器的url
                 async: true,
                 data: formData, //发送给服务器的参数
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+                dataType:"json",
+=======
+>>>>>>> parent of bb55d6c... Procrssbar
+=======
+>>>>>>> parent of bb55d6c... Procrssbar
+=======
+>>>>>>> parent of bb55d6c... Procrssbar
+=======
+>>>>>>> parent of bb55d6c... Procrssbar
                 // 告诉jQuery不要去处理发送的数据
                 processData: false,
                 // 告诉jQuery不要去设置Content-Type请求头
-                contentType: false,
-                beforeSend: function () {
-                    console.log("正在进行，请稍候");
-                    // 禁用按钮防止重复提交
-                    //$("#submit").attr({ disabled: "disabled" });
-                },
-                success: function (responseStr) {
+             //   contentType: false,
+                success: function (data) {
+                    console.log(data.progressValue);
                     if (responseStr == "01") {
                         alert("导入成功");
                     } else {

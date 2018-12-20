@@ -2682,6 +2682,13 @@ public class AdminController {
 
             }
             flag="01";
+            String json = "{\"progressValue\":\"" + completeNum + "\"}";
+            try{
+                response.getWriter().print(json);  //返回json数据格式
+            }catch(IOException e){
+                e.printStackTrace();
+            }
+            //System.out.println(index);
 
         }catch (FileNotFoundException e) {
             // TODO Auto-generated catch block
@@ -2849,7 +2856,7 @@ public class AdminController {
     @RequestMapping(value = "/getProgressValue", method = {RequestMethod.POST})
     public void getProgressValue(HttpServletRequest request, HttpServletResponse response){
 
-      //  System.out.println("读取cookie\n");
+        System.out.println("读取cookie\n");
         //根据名字获取cookie
         //读取cookie
 //        String result = null;
