@@ -355,13 +355,12 @@
                 url: '/admin/uploadFile',//发送给服务器的url
                 async: true,
                 data: formData, //发送给服务器的参数
-                dataType:"json",
+                dataType:'xml',
                 // 告诉jQuery不要去处理发送的数据
                 processData: false,
                 // 告诉jQuery不要去设置Content-Type请求头
-             //   contentType: false,
-                success: function (data) {
-                    console.log(data.progressValue);
+                contentType: false,
+                success: function (responseStr) {
                     if (responseStr == "01") {
                         alert("导入成功");
                     } else {
