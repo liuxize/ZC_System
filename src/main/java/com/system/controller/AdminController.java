@@ -2678,9 +2678,17 @@ public class AdminController {
                     completeNum++;
                 }
                 index=Integer.parseInt(df.format(Math.floor(completeNum*100/(iRowNum-4)))) ;
-                //System.out.println(index);
+
+
             }
             flag="01";
+            String json = "{\"progressValue\":\"" + completeNum + "\"}";
+            try{
+                response.getWriter().print(json);  //返回json数据格式
+            }catch(IOException e){
+                e.printStackTrace();
+            }
+            //System.out.println(index);
 
         }catch (FileNotFoundException e) {
             // TODO Auto-generated catch block
