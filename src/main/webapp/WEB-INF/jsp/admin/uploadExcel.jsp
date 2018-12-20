@@ -352,10 +352,7 @@
                 data: formData, //发送给服务器的参数
 <<<<<<< HEAD
 <<<<<<< HEAD
-<<<<<<< HEAD
                 dataType:"json",
-=======
->>>>>>> parent of bb55d6c... Procrssbar
 =======
 >>>>>>> parent of bb55d6c... Procrssbar
 =======
