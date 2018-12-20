@@ -2846,9 +2846,9 @@ public class AdminController {
     //利用cookie存储当前的进度
     @ResponseBody
     @RequestMapping(value = "/getProgressValue", method = {RequestMethod.POST})
-    public void getProgressValue(HttpServletRequest request, HttpServletResponse response){
+    public void getProgressValue(@RequestParam(value = "isComplated") String isComplated, HttpServletResponse response){
 
-        System.out.println("读取cookie\n");
+        //System.out.println("读取cookie\n");
         //根据名字获取cookie
         //读取cookie
 //        String result = null;
@@ -2883,6 +2883,9 @@ public class AdminController {
 //        response.setContentType("text/html;charset=UTF-8");
 //        response.addCookie(div);
 
+        if(isComplated.equals("true")){
+            index=0;
+        }
         String json = "{\"progressValue\":\"" + index + "\"}";
         try{
             response.getWriter().print(json);  //返回json数据格式
