@@ -2848,6 +2848,7 @@ public class AdminController {
     @ResponseBody
     @RequestMapping(value = "/getProgressValue", method = {RequestMethod.POST})
     public void getProgressValue(@RequestParam(value = "isComplated") String isComplated, HttpServletResponse response){
+
         //根据名字获取cookie
         //读取cookie
 //        String result = null;
