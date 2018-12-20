@@ -89,9 +89,9 @@
 
                         </form>
 
-                    <%--<div class="form-group">--%>
-                        <%--<button class="btn btn-default" onClick="getproess();">cookie</button>--%>
-                    <%--</div>--%>
+                    <div class="form-group">
+                        <button class="btn btn-default" onClick="getproess();">cookie</button>
+                    </div>
 
                     <div class="progress progress-striped active">
                         <div id="progressbar" class="progress-bar progress-bar-success" role="progressbar"
@@ -302,29 +302,24 @@
         saveAs(new Blob([s2ab(wbout)]), fileName); // 保存为文件
     }
 
-    var isComplated = "false"
     function getproess() {
         //获取进度信息
-       // console.log("kaishi");
+        console.log("kaishi");
         $.ajax({
             type:"post",//请求方式
             url:"/admin/getProgressValue",//发送请求地址
          //   timeout:10,//超时时间：30秒????
-            data:{'isComplated':isComplated},
             dataType:"json",//设置返回数据的格式
             //请求成功后的回调函数 data为json格式
             success:function(data) {
-                //console.log(data.progressValue);
-                $("#progressbar").css("width", data.progressValue + "%").text(data.progressValue + "%");
-               // console.log( "aaa"+$("#progressbar")[0].style.width)
-                if(data.progressValue==100){
-                    alert("上传成功");
-                    isComplated = "true"
+                console.log(data.progressValue);
+                window.clearInterval(timerId);
+                if (data.progressValue == "100") {
+                    $("#progressbar").css("width", data.progressValue + "%").text(data.progressValue + "%");
 
-                }else{
-                    isComplated = "false"
+                } else {
+                    $("#progressbar").css("width", data.progressValue + "%").text(data.progressValue + "%");
                 }
-
             },
             //请求出错的处理
             error:function(){
@@ -355,10 +350,6 @@
                 url: '/admin/uploadFile',//发送给服务器的url
                 async: true,
                 data: formData, //发送给服务器的参数
-<<<<<<< HEAD
-=======
-                dataType:"json",
->>>>>>> parent of 26e019a... delete
                 // 告诉jQuery不要去处理发送的数据
                 processData: false,
                 // 告诉jQuery不要去设置Content-Type请求头
