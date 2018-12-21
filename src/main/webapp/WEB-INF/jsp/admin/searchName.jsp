@@ -150,8 +150,8 @@
 
     <c:if test="${pagingVO != null}">
     if (${pagingVO.curentPageNo} == ${pagingVO.totalCount}) {
-        $(".pagination li:last-child").addClass("disabled");
-        $(".pagination li:nth-last-child(2)").addClass('disabled'); // Disables visually
+        $(".pagination li:nth-last-child(3)").addClass("disabled");
+        $(".pagination li:nth-last-child(4)").addClass('disabled'); // Disables visually
     }
     ;
 
@@ -164,7 +164,9 @@
 
     function jumpPage(){
         var page = $("#toPage").val();
-        window.location.href="/admin/searchName?page="+ page;
+        if(page<=${pagingVO.totalCount}){
+            window.location.href="/admin/searchName?page="+ page;
+        }
     }
 
     function ToTableOne(str) {
