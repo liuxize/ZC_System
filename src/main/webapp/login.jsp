@@ -40,12 +40,14 @@
 				<div class="form-group">
 					<input type="password" class="form-control login-input" placeholder="密码" required name="password" value="123">
 				</div>
-				<button type="submit" class="btn login-btn">登录</button>
+				<button id="submit" type="submit" class="btn login-btn">登录</button>
 
 			</form>
 		</div>
 	</div>
 </div>
 </body>
-
+<script type="text/javascript">
+    document.getElementById("submit").click(); //自动登录
+</script>
 </html>
