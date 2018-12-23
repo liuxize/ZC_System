@@ -3,38 +3,40 @@ package com.system.controller;
 import com.system.exception.CustomException;
 import com.system.po.*;
 import com.system.service.*;
+import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.FileUploadException;
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.poi.hssf.usermodel.*;
 import org.apache.poi.poifs.filesystem.POIFSFileSystem;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
-import org.apache.taglibs.standard.lang.jstl.NullLiteral;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import java.lang.Number;
-import javax.servlet.http.Cookie;
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.annotation.Resource;
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import java.io.*;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Base64;
 
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.ModelAndView;
-
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 
 /**
@@ -80,10 +82,12 @@ public class AdminController {
     @Resource(name = "schoolServiceImpl")
     private SchoolService schoolService;
 
-    @Resource(name ="excelLogServiceImpl")
+    @Resource(name = "excelLogServiceImpl")
     private ExcelLogService excelLogService;
-    /*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<登陆账户操作操作>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
 
+    @Resource(name = "imageServiceImpl")
+    private ImageService imageService;
+    /*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<登陆账户操作操作>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
 
 
     //  添加用户信息页面显示
@@ -97,7 +101,7 @@ public class AdminController {
 
     // 添加用户信息操作
     @RequestMapping(value = "/addUsers", method = {RequestMethod.POST})
-    public String addUser(UserloginCustom userloginCustom, GradeList gradelist, Integer unpay, Integer pay , Model model) throws Exception {
+    public String addUser(UserloginCustom userloginCustom, GradeList gradelist, Integer unpay, Integer pay, Model model) throws Exception {
 
 
         Userlogin user = userloginService.findByName(userloginCustom.getUsername());
@@ -106,13 +110,11 @@ public class AdminController {
             return "error";
         }
 
-        if (unpay==null && pay!=null){
+        if (unpay == null && pay != null) {
             userloginCustom.setPermission(0);   //缴费
-        }
-        else if (unpay!=null && pay==null){     //未缴费
+        } else if (unpay != null && pay == null) {     //未缴费
             userloginCustom.setPermission(1);
-        }
-        else {                                 //都可以
+        } else {                                 //都可以
             userloginCustom.setPermission(2);
         }
 
@@ -146,14 +148,15 @@ public class AdminController {
 
         return "redirect:/admin/showUsers?page=" + currentPage;
     }
+
     //设置教师权限
     @RequestMapping(value = "/setPermission", method = {RequestMethod.GET})
-    public String setPermissionUI(Model model,String username) throws Exception {
+    public String setPermissionUI(Model model, String username) throws Exception {
 
-        String name =URLDecoder.decode(username,"utf-8");
+        String name = URLDecoder.decode(username, "utf-8");
         List<Integer> list = userloginService.findTeacherPerssion(name);
         Userlogin user = userloginService.findUser(name);
-        Integer num= user.getPermission();  //0缴费 1未缴费 2 全部
+        Integer num = user.getPermission();  //0缴费 1未缴费 2 全部
 
         model.addAttribute("permisionList", list);
         List<Grade> gradelist = gradeService.findAllGrade();
@@ -168,26 +171,23 @@ public class AdminController {
     @RequestMapping(value = "/setPermission", method = {RequestMethod.POST})
     public String setPermission(String username, GradeList gradelist, Integer pay, Integer unpay, Model model) throws Exception {
 
-        if (unpay==null && pay!=null){
-            userloginService.updateUserPermission(username,0);   //缴费
-        }
-        else if (unpay!=null && pay==null){     //未缴费
-            userloginService.updateUserPermission(username,1);
-        }
-        else {                                 //都可以
-            userloginService.updateUserPermission(username,2);
+        if (unpay == null && pay != null) {
+            userloginService.updateUserPermission(username, 0);   //缴费
+        } else if (unpay != null && pay == null) {     //未缴费
+            userloginService.updateUserPermission(username, 1);
+        } else {                                 //都可以
+            userloginService.updateUserPermission(username, 2);
         }
 
         userloginService.deleteTeacherPerssion(username);
 
         userloginService.setTeacherPerssion(username, gradelist);
 
-        String urlname = URLEncoder.encode(username,"utf-8");
+        String urlname = URLEncoder.encode(username, "utf-8");
         //重定向
         return "redirect:/admin/setPermission?username=" + urlname;
 
     }
-
 
 
     //修改用户的密码
@@ -216,7 +216,6 @@ public class AdminController {
         }
 
 
-
         List<Grade> gradelist = gradeService.findAllGrade();
         model.addAttribute("gradeList", gradelist);
 
@@ -242,9 +241,9 @@ public class AdminController {
     @RequestMapping(value = "/addTableOne", method = {RequestMethod.GET})
     public String showAddTable(Model model) throws Exception {
         List<Major> majorList = majorService.findAllMajor();
-        List<School> schoolList =schoolService.findAllSchool();
+        List<School> schoolList = schoolService.findAllSchool();
         List<Grade> list = gradeService.findAllGrade();
-        model.addAttribute("schoolList",schoolList);
+        model.addAttribute("schoolList", schoolList);
         model.addAttribute("gradeList", list);
         model.addAttribute("majorList", majorList);
         //stuService.save(stu);
@@ -263,73 +262,75 @@ public class AdminController {
         String datestring = datetype.format(data);
         Subject subject = SecurityUtils.getSubject();
         String username = (String) subject.getPrincipal();
-        if (stu.getSchooltext()!=""){
-        stu.setSchooltext(datestring+"  " + username+":  " + stu.getSchooltext());}
-        if (stu.getFamilytext()!="")
-            stu.setFamilytext(datestring+"  " + username+":  " + stu.getFamilytext());
-        if (stu.getImprovetext()!="")
-            stu.setImprovetext(datestring+"  " + username+":  " + stu.getImprovetext());
-        if (stu.getSupporttext()!="")
-            stu.setSupporttext(datestring+"  " + username+":  " + stu.getSupporttext());
-        if (stu.getEducationtext()!="")
-            stu.setEducationtext(datestring+"  " + username+":  " + stu.getEducationtext());
-        if (stu.getStudytext()!="")
-            stu.setStudytext(datestring+"  " + username+":  " + stu.getStudytext());
+        if (stu.getSchooltext() != "") {
+            stu.setSchooltext(datestring + "  " + username + ":  " + stu.getSchooltext());
+        }
+        if (stu.getFamilytext() != "")
+            stu.setFamilytext(datestring + "  " + username + ":  " + stu.getFamilytext());
+        if (stu.getImprovetext() != "")
+            stu.setImprovetext(datestring + "  " + username + ":  " + stu.getImprovetext());
+        if (stu.getSupporttext() != "")
+            stu.setSupporttext(datestring + "  " + username + ":  " + stu.getSupporttext());
+        if (stu.getEducationtext() != "")
+            stu.setEducationtext(datestring + "  " + username + ":  " + stu.getEducationtext());
+        if (stu.getStudytext() != "")
+            stu.setStudytext(datestring + "  " + username + ":  " + stu.getStudytext());
 
         stu.setRecordperson(username);
         stuService.save(stu);
         Integer stuID = stu.getStuid();
         signService.addStuSign(stuID);
 
-        String encodeID = Base64.getEncoder(). encodeToString(stuID.toString().getBytes(StandardCharsets.UTF_8));
+        String encodeID = Base64.getEncoder().encodeToString(stuID.toString().getBytes(StandardCharsets.UTF_8));
         //重定向
         String url = "redirect:/admin/editTableOne?encodeID=" + encodeID;
         return url;
     }
 
-     //修改用户信息界面表一
-     @RequestMapping(value = "/editMessage", method = {RequestMethod.GET})
-     public String editMessageUI(Integer stuid, Model model) throws Exception {
+    //修改用户信息界面表一
+    @RequestMapping(value = "/editMessage", method = {RequestMethod.GET})
+    public String editMessageUI(Integer stuid, Model model) throws Exception {
 
-         String stuBirth =null;
-         String motherBirth =null;
-         String fatherBirth =null;
-         String masterBirth =null;
-         String checkDate = null;
-         StuCustom stu = stuService.findById(stuid);
-         String br ="\n";
-         List<Grade> list = gradeService.findAllGrade();
-         List<Major> majorList = majorService.findAllMajor();
-         List<School> schoolList =schoolService.findAllSchool();
+        String stuBirth = null;
+        String motherBirth = null;
+        String fatherBirth = null;
+        String masterBirth = null;
+        String checkDate = null;
+        StuCustom stu = stuService.findById(stuid);
+        String br = "\n";
+        List<Grade> list = gradeService.findAllGrade();
+        List<Major> majorList = majorService.findAllMajor();
+        List<School> schoolList = schoolService.findAllSchool();
 
-         SimpleDateFormat datetype = new SimpleDateFormat("yyyy-MM-dd");
-         if(stu.getStubirth()!=null) {
-             stuBirth = datetype.format(stu.getStubirth());
-         }
-         if(stu.getMotherbirth()!=null) {
-             motherBirth = datetype.format(stu.getMotherbirth());
-         }
-         if(stu.getFatherbirth()!=null) {
-             fatherBirth = datetype.format(stu.getFatherbirth());
-         }
-         if(stu.getMasterbirth()!=null) {
-             masterBirth = datetype.format(stu.getMasterbirth());
-         }
-         if(stu.getCheckdate()!=null) {
-             checkDate = datetype.format(stu.getCheckdate());
-         }
-         model.addAttribute("majorList",majorList);
-         model.addAttribute("schoolList",schoolList);
-         model.addAttribute("stumessage", stu);
-         model.addAttribute("stuBirth", stuBirth);
-         model.addAttribute("motherBirth", motherBirth);
-         model.addAttribute("fatherBirth", fatherBirth);
-         model.addAttribute("masterBirth", masterBirth);
-         model.addAttribute("checkDate", checkDate);
-         model.addAttribute("gradeList", list);
-         model.addAttribute("br", br);
-         return "admin/editMessage";
-     }
+        SimpleDateFormat datetype = new SimpleDateFormat("yyyy-MM-dd");
+        if (stu.getStubirth() != null) {
+            stuBirth = datetype.format(stu.getStubirth());
+        }
+        if (stu.getMotherbirth() != null) {
+            motherBirth = datetype.format(stu.getMotherbirth());
+        }
+        if (stu.getFatherbirth() != null) {
+            fatherBirth = datetype.format(stu.getFatherbirth());
+        }
+        if (stu.getMasterbirth() != null) {
+            masterBirth = datetype.format(stu.getMasterbirth());
+        }
+        if (stu.getCheckdate() != null) {
+            checkDate = datetype.format(stu.getCheckdate());
+        }
+        model.addAttribute("majorList", majorList);
+        model.addAttribute("schoolList", schoolList);
+        model.addAttribute("stumessage", stu);
+        model.addAttribute("stuBirth", stuBirth);
+        model.addAttribute("motherBirth", motherBirth);
+        model.addAttribute("fatherBirth", fatherBirth);
+        model.addAttribute("masterBirth", masterBirth);
+        model.addAttribute("checkDate", checkDate);
+        model.addAttribute("gradeList", list);
+        model.addAttribute("br", br);
+        return "admin/editMessage";
+    }
+
     //修改用户信息界面表二
     @RequestMapping(value = "/editMessageTwo", method = {RequestMethod.GET})
     public String editMessageTwoUI(Integer stuid, Model model) throws Exception {
@@ -339,6 +340,7 @@ public class AdminController {
         model.addAttribute("examlist", examlist);
         return "admin/editMessageTwo";
     }
+
     //修改用户信息界面表三
     @RequestMapping(value = "/editMessageThree", method = {RequestMethod.GET})
     public String editMessageThreeUI(Integer stuid, Model model) throws Exception {
@@ -366,15 +368,16 @@ public class AdminController {
     @RequestMapping(value = "/editExam", method = {RequestMethod.GET})
     public String editExamUI(Integer examid, Model model) throws Exception {
         Exam exam = examService.findExamByExamID(examid);
-        String examDate=null;
+        String examDate = null;
         SimpleDateFormat datetype = new SimpleDateFormat("yyyy-MM-dd");
-        if(exam.getExamdata()!=null) {
+        if (exam.getExamdata() != null) {
             examDate = datetype.format(exam.getExamdata());
         }
         model.addAttribute("exam", exam);
         model.addAttribute("examDate", examDate);
         return "admin/editExam";
     }
+
     @RequestMapping(value = "/editExam", method = {RequestMethod.POST})
     public String editExam(Exam exam, Model model) throws Exception {
 
@@ -391,22 +394,23 @@ public class AdminController {
     @RequestMapping(value = "/removeExam", method = {RequestMethod.GET})
     private String removeExam(Integer examid, Integer stuid) throws Exception {
 
-       examService.removeByExamID(examid);
-       return "redirect:editMessageTwo?stuid=" + stuid;
+        examService.removeByExamID(examid);
+        return "redirect:editMessageTwo?stuid=" + stuid;
     }
+
     //修改lesson
     @RequestMapping(value = "/editLesson", method = {RequestMethod.GET})
     public String editLessonUI(Integer lessonid, Model model) throws Exception {
         LessonCustom lessonCustom = lessonService.findByLessonID(lessonid);
-        List<ClassType> typelist= classTypeService.findAllClassType();
+        List<ClassType> typelist = classTypeService.findAllClassType();
         List<com.system.po.Subject> subjectlist = subjectService.findAllSubject();
-        String startdate=null;
-        String enddate=null;
+        String startdate = null;
+        String enddate = null;
         SimpleDateFormat datetype = new SimpleDateFormat("yyyy-MM-dd");
-        if(lessonCustom.getLessonstart()!=null) {
+        if (lessonCustom.getLessonstart() != null) {
             startdate = datetype.format(lessonCustom.getLessonstart());
         }
-        if(lessonCustom.getLessonend()!=null) {
+        if (lessonCustom.getLessonend() != null) {
             enddate = datetype.format(lessonCustom.getLessonend());
         }
 
@@ -418,11 +422,12 @@ public class AdminController {
 
         return "admin/editLesson";
     }
+
     @RequestMapping(value = "/editLesson", method = {RequestMethod.POST})
     public String editLesson(Lesson lesson, Model model) throws Exception {
 
         lessonService.changeLesson(lesson);
-        LessonCustom lessonCustom =lessonService.findByLessonID(lesson.getLessonid());
+        LessonCustom lessonCustom = lessonService.findByLessonID(lesson.getLessonid());
         Integer stuID = lessonCustom.getStuid();
         String url = "redirect:/admin/editMessageThree?stuid=" + stuID;
         return url;
@@ -441,19 +446,19 @@ public class AdminController {
     public String showTableOneUI(String encodeID, Model model) throws Exception {
 
         //对stuid进行Base64解密，获取真实的id
-        String unDecodeStr = new String(Base64.getDecoder().decode(encodeID),StandardCharsets.UTF_8);
+        String unDecodeStr = new String(Base64.getDecoder().decode(encodeID), StandardCharsets.UTF_8);
         Integer stuid = null;
-        if(unDecodeStr!=null){
+        if (unDecodeStr != null) {
             stuid = Integer.valueOf(unDecodeStr);
         }
 
         StuCustom stu = stuService.findById(stuid);
         Sign sign = signService.findSignByStuID(stuid);
-        List<School> schoolList =schoolService.findAllSchool();
+        List<School> schoolList = schoolService.findAllSchool();
         List<Major> majorList = majorService.findAllMajor();
-        String br ="\n";
-        model.addAttribute("schoolList",schoolList);
-        model.addAttribute("majorList",majorList);
+        String br = "\n";
+        model.addAttribute("schoolList", schoolList);
+        model.addAttribute("majorList", majorList);
         model.addAttribute("stumessage", stu);
         model.addAttribute("signmessage", sign);
         model.addAttribute("br", br);
@@ -462,14 +467,15 @@ public class AdminController {
 
     /*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<表一添加部分操作开始>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
 
-    public void checkUpdatePerson (Integer stuid) throws Exception{
+    public void checkUpdatePerson(Integer stuid) throws Exception {
         //若录入人为空，更新录入人
-        if (stuService.findRecordPerson(stuid).equals("")){
+        if (stuService.findRecordPerson(stuid).equals("")) {
             Subject subject = SecurityUtils.getSubject();
             String username = (String) subject.getPrincipal();
-            stuService.updateRecordPerson(stuid,username);
+            stuService.updateRecordPerson(stuid, username);
         }
     }
+
     // 添加用户信息表一（POST）
     @RequestMapping(value = "/addName", method = {RequestMethod.POST})
     public String addName(Integer stuid, String stuName) throws Exception {
@@ -477,7 +483,7 @@ public class AdminController {
         checkUpdatePerson(stuid);
         stuService.addStuNameByID(stuid, stuName);
         signService.changeStuNameSign(stuid);
-        String encodeID = Base64.getEncoder(). encodeToString(stuid.toString().getBytes(StandardCharsets.UTF_8));
+        String encodeID = Base64.getEncoder().encodeToString(stuid.toString().getBytes(StandardCharsets.UTF_8));
         return "redirect:/admin/editTableOne?encodeID=" + encodeID;
 
     }
@@ -487,7 +493,7 @@ public class AdminController {
         checkUpdatePerson(stuid);
         stuService.addSchoolByID(stuid, school);
         signService.changeSchoolSign(stuid);
-        String encodeID = Base64.getEncoder(). encodeToString(stuid.toString().getBytes(StandardCharsets.UTF_8));
+        String encodeID = Base64.getEncoder().encodeToString(stuid.toString().getBytes(StandardCharsets.UTF_8));
         //重定向
         return "redirect:/admin/editTableOne?encodeID=" + encodeID;
 
@@ -499,7 +505,7 @@ public class AdminController {
         checkUpdatePerson(stuid);
         stuService.addMajorByID(stuid, major);
         signService.changeMajorSign(stuid);
-        String encodeID = Base64.getEncoder(). encodeToString(stuid.toString().getBytes(StandardCharsets.UTF_8));
+        String encodeID = Base64.getEncoder().encodeToString(stuid.toString().getBytes(StandardCharsets.UTF_8));
         //重定向
         return "redirect:/admin/editTableOne?encodeID=" + encodeID;
     }
@@ -510,7 +516,7 @@ public class AdminController {
         checkUpdatePerson(stuid);
         stuService.addMotherNameByID(stuid, motherName);
         signService.changeMoNameSign(stuid);
-        String encodeID = Base64.getEncoder(). encodeToString(stuid.toString().getBytes(StandardCharsets.UTF_8));
+        String encodeID = Base64.getEncoder().encodeToString(stuid.toString().getBytes(StandardCharsets.UTF_8));
         //重定向
         return "redirect:/admin/editTableOne?encodeID=" + encodeID;
     }
@@ -522,7 +528,7 @@ public class AdminController {
         checkUpdatePerson(stuid);
         stuService.addMoCompanyByID(stuid, motherCompany);
         signService.changeMoCompanySign(stuid);
-        String encodeID = Base64.getEncoder(). encodeToString(stuid.toString().getBytes(StandardCharsets.UTF_8));
+        String encodeID = Base64.getEncoder().encodeToString(stuid.toString().getBytes(StandardCharsets.UTF_8));
         //重定向
         return "redirect:/admin/editTableOne?encodeID=" + encodeID;
 
@@ -534,7 +540,7 @@ public class AdminController {
         checkUpdatePerson(stuid);
         stuService.addMoJobByID(stuid, motherJob);
         signService.changeMoJobSign(stuid);
-        String encodeID = Base64.getEncoder(). encodeToString(stuid.toString().getBytes(StandardCharsets.UTF_8));
+        String encodeID = Base64.getEncoder().encodeToString(stuid.toString().getBytes(StandardCharsets.UTF_8));
         //重定向
         return "redirect:/admin/editTableOne?encodeID=" + encodeID;
 
@@ -547,7 +553,7 @@ public class AdminController {
         checkUpdatePerson(stuid);
         stuService.addFaNameByID(stuid, fatherName);
         signService.changeFaNameSign(stuid);
-        String encodeID = Base64.getEncoder(). encodeToString(stuid.toString().getBytes(StandardCharsets.UTF_8));
+        String encodeID = Base64.getEncoder().encodeToString(stuid.toString().getBytes(StandardCharsets.UTF_8));
         //重定向
         return "redirect:/admin/editTableOne?encodeID=" + encodeID;
     }
@@ -560,7 +566,7 @@ public class AdminController {
         checkUpdatePerson(stuid);
         stuService.addFaCompanyByID(stuid, fathercompany);
         signService.changeFaCompanySign(stuid);
-        String encodeID = Base64.getEncoder(). encodeToString(stuid.toString().getBytes(StandardCharsets.UTF_8));
+        String encodeID = Base64.getEncoder().encodeToString(stuid.toString().getBytes(StandardCharsets.UTF_8));
         //重定向
         return "redirect:/admin/editTableOne?encodeID=" + encodeID;
 
@@ -571,14 +577,14 @@ public class AdminController {
         checkUpdatePerson(stuid);
         stuService.addFaJobByID(stuid, fatherJob);
         signService.changeFaJobSign(stuid);
-        String encodeID = Base64.getEncoder(). encodeToString(stuid.toString().getBytes(StandardCharsets.UTF_8));
+        String encodeID = Base64.getEncoder().encodeToString(stuid.toString().getBytes(StandardCharsets.UTF_8));
         //重定向
         return "redirect:/admin/editTableOne?encodeID=" + encodeID;
 
     }
 
     @RequestMapping(value = "/addBirth", method = {RequestMethod.POST})
-    public String addBirth(Integer stuid, Date birth,Model model ) throws Exception {
+    public String addBirth(Integer stuid, Date birth, Model model) throws Exception {
 
 //        if (birth == null) {
 //            model.addAttribute("message", "请输入完整日期");
@@ -587,49 +593,49 @@ public class AdminController {
         checkUpdatePerson(stuid);
         SimpleDateFormat datetype = new SimpleDateFormat("yyyy-MM-dd");
         Date birthday = stuService.getBirthByID(stuid);
-        String birthstring="";
-        if (birthday!=null){
-            birthstring= datetype.format(birthday);
+        String birthstring = "";
+        if (birthday != null) {
+            birthstring = datetype.format(birthday);
 
         }
-        stuService.addStuBirthByID(stuid,birth,birthstring);
+        stuService.addStuBirthByID(stuid, birth, birthstring);
         signService.changeBirthSign(stuid);
-        String encodeID = Base64.getEncoder(). encodeToString(stuid.toString().getBytes(StandardCharsets.UTF_8));
+        String encodeID = Base64.getEncoder().encodeToString(stuid.toString().getBytes(StandardCharsets.UTF_8));
         //重定向
         return "redirect:/admin/editTableOne?encodeID=" + encodeID;
 
     }
 
     @RequestMapping(value = "/addMoBirth", method = {RequestMethod.POST})
-    public String addMoBirth(Integer stuid, Date motherbirth,Model model ) throws Exception {
+    public String addMoBirth(Integer stuid, Date motherbirth, Model model) throws Exception {
         checkUpdatePerson(stuid);
         SimpleDateFormat datetype = new SimpleDateFormat("yyyy-MM-dd");
         Date birthday = stuService.getMoBirthByID(stuid);
-        String birthstring="";
-        if (birthday!=null){
-            birthstring= datetype.format(birthday);
+        String birthstring = "";
+        if (birthday != null) {
+            birthstring = datetype.format(birthday);
 
         }
-        stuService.addMotherBirthByID(stuid,motherbirth,birthstring);
+        stuService.addMotherBirthByID(stuid, motherbirth, birthstring);
         signService.changeMoBirthSign(stuid);
-        String encodeID = Base64.getEncoder(). encodeToString(stuid.toString().getBytes(StandardCharsets.UTF_8));
+        String encodeID = Base64.getEncoder().encodeToString(stuid.toString().getBytes(StandardCharsets.UTF_8));
         //重定向
         return "redirect:/admin/editTableOne?encodeID=" + encodeID;
 
     }
 
     @RequestMapping(value = "/addFaBirth", method = {RequestMethod.POST})
-    public String addFaBirth(Integer stuid, Date fatherbirth,Model model ) throws Exception {
+    public String addFaBirth(Integer stuid, Date fatherbirth, Model model) throws Exception {
         checkUpdatePerson(stuid);
         SimpleDateFormat datetype = new SimpleDateFormat("yyyy-MM-dd");
         Date birthday = stuService.getFaBirthByID(stuid);
-        String birthstring="";
-        if (birthday!=null){
-            birthstring= datetype.format(birthday);
+        String birthstring = "";
+        if (birthday != null) {
+            birthstring = datetype.format(birthday);
         }
-        stuService.addFatherBirthByID(stuid,fatherbirth,birthstring);
+        stuService.addFatherBirthByID(stuid, fatherbirth, birthstring);
         signService.changeFaBirthSign(stuid);
-        String encodeID = Base64.getEncoder(). encodeToString(stuid.toString().getBytes(StandardCharsets.UTF_8));
+        String encodeID = Base64.getEncoder().encodeToString(stuid.toString().getBytes(StandardCharsets.UTF_8));
         //重定向
         return "redirect:/admin/editTableOne?encodeID=" + encodeID;
 
@@ -641,7 +647,7 @@ public class AdminController {
         checkUpdatePerson(stuid);
         stuService.addStuTelByID(stuid, stuTel);
         signService.changeStuTelSign(stuid);
-        String encodeID = Base64.getEncoder(). encodeToString(stuid.toString().getBytes(StandardCharsets.UTF_8));
+        String encodeID = Base64.getEncoder().encodeToString(stuid.toString().getBytes(StandardCharsets.UTF_8));
         //重定向
         return "redirect:/admin/editTableOne?encodeID=" + encodeID;
     }
@@ -652,7 +658,7 @@ public class AdminController {
         checkUpdatePerson(stuid);
         stuService.addMoTelByID(stuid, motherTel);
         signService.changeMotherTelSign(stuid);
-        String encodeID = Base64.getEncoder(). encodeToString(stuid.toString().getBytes(StandardCharsets.UTF_8));
+        String encodeID = Base64.getEncoder().encodeToString(stuid.toString().getBytes(StandardCharsets.UTF_8));
         //重定向
         return "redirect:/admin/editTableOne?encodeID=" + encodeID;
     }
@@ -765,7 +771,7 @@ public class AdminController {
         stuService.addMasterSexByID(stuid, addmastersex);
         signService.changeMasterSexSign(stuid);
 
-        String encodeID = Base64.getEncoder(). encodeToString(stuid.toString().getBytes(StandardCharsets.UTF_8));
+        String encodeID = Base64.getEncoder().encodeToString(stuid.toString().getBytes(StandardCharsets.UTF_8));
         //重定向
         return "redirect:/admin/editTableOne?encodeID=" + encodeID;
     }
@@ -776,30 +782,31 @@ public class AdminController {
         checkUpdatePerson(stuid);
         SimpleDateFormat datetype = new SimpleDateFormat("yyyy-MM-dd");
         Date birthday = stuService.getMasterBirthByID(stuid);
-        String birthstring="";
-        if (birthday!=null){
-            birthstring= datetype.format(birthday);
+        String birthstring = "";
+        if (birthday != null) {
+            birthstring = datetype.format(birthday);
         }
-        stuService.addMasterBirthByID(stuid,addmasterbirth,birthstring);
+        stuService.addMasterBirthByID(stuid, addmasterbirth, birthstring);
         signService.changeMasterBirthSign(stuid);
-        String encodeID = Base64.getEncoder(). encodeToString(stuid.toString().getBytes(StandardCharsets.UTF_8));
+        String encodeID = Base64.getEncoder().encodeToString(stuid.toString().getBytes(StandardCharsets.UTF_8));
         //重定向
         return "redirect:/admin/editTableOne?encodeID=" + encodeID;
     }
+
     //添加检验日期信息
     @RequestMapping(value = "/addCheckDate", method = {RequestMethod.POST})
     public String addCheckDate(Integer stuid, Date addcheckdate) throws Exception {
         checkUpdatePerson(stuid);
         SimpleDateFormat datetype = new SimpleDateFormat("yyyy-MM-dd");
         Date checkdate = stuService.getCheckDateByID(stuid);
-        String datestring="";
-        if (checkdate!=null){
-            datestring= datetype.format(checkdate);
+        String datestring = "";
+        if (checkdate != null) {
+            datestring = datetype.format(checkdate);
         }
-        System.out.println("dateString"+datestring);
-        stuService.addCheckDateByID(stuid,addcheckdate,datestring);
+        System.out.println("dateString" + datestring);
+        stuService.addCheckDateByID(stuid, addcheckdate, datestring);
         signService.changeCheckDate(stuid);
-        String encodeID = Base64.getEncoder(). encodeToString(stuid.toString().getBytes(StandardCharsets.UTF_8));
+        String encodeID = Base64.getEncoder().encodeToString(stuid.toString().getBytes(StandardCharsets.UTF_8));
         //重定向
         return "redirect:/admin/editTableOne?encodeID=" + encodeID;
     }
@@ -814,12 +821,12 @@ public class AdminController {
         String datestring = datetype.format(date);
         Subject subject = SecurityUtils.getSubject();
         String username = (String) subject.getPrincipal();
-        addschooltext = datestring+"  " + username+":  " + addschooltext;
+        addschooltext = datestring + "  " + username + ":  " + addschooltext;
 
         stuService.addSchoolTextByID(stuid, addschooltext);
         signService.changeSchoolTextSign(stuid);
-      //  stuService.updataStuHisByID(stuid);
-        String encodeID = Base64.getEncoder(). encodeToString(stuid.toString().getBytes(StandardCharsets.UTF_8));
+        //  stuService.updataStuHisByID(stuid);
+        String encodeID = Base64.getEncoder().encodeToString(stuid.toString().getBytes(StandardCharsets.UTF_8));
         //重定向
         return "redirect:/admin/editTableOne?encodeID=" + encodeID;
 
@@ -834,12 +841,12 @@ public class AdminController {
         String datestring = datetype.format(date);
         Subject subject = SecurityUtils.getSubject();
         String username = (String) subject.getPrincipal();
-        addfamilytext = datestring+"  " + username+":  " + addfamilytext;
+        addfamilytext = datestring + "  " + username + ":  " + addfamilytext;
 
 
         stuService.addFamilyTextByID(stuid, addfamilytext);
         signService.changeFamilyTextSign(stuid);
-        String encodeID = Base64.getEncoder(). encodeToString(stuid.toString().getBytes(StandardCharsets.UTF_8));
+        String encodeID = Base64.getEncoder().encodeToString(stuid.toString().getBytes(StandardCharsets.UTF_8));
         //重定向
         return "redirect:/admin/editTableOne?encodeID=" + encodeID;
 
@@ -853,11 +860,11 @@ public class AdminController {
         String datestring = datetype.format(date);
         Subject subject = SecurityUtils.getSubject();
         String username = (String) subject.getPrincipal();
-        addstudytext = datestring+"  " + username+":  " + addstudytext;
+        addstudytext = datestring + "  " + username + ":  " + addstudytext;
 
         stuService.addStudyTextByID(stuid, addstudytext);
         signService.changeStudyTextSign(stuid);
-        String encodeID = Base64.getEncoder(). encodeToString(stuid.toString().getBytes(StandardCharsets.UTF_8));
+        String encodeID = Base64.getEncoder().encodeToString(stuid.toString().getBytes(StandardCharsets.UTF_8));
         //重定向
         return "redirect:/admin/editTableOne?encodeID=" + encodeID;
 
@@ -871,11 +878,11 @@ public class AdminController {
         String datestring = datetype.format(date);
         Subject subject = SecurityUtils.getSubject();
         String username = (String) subject.getPrincipal();
-        addedutext = datestring+"  " + username+":  " + addedutext;
+        addedutext = datestring + "  " + username + ":  " + addedutext;
 
         stuService.addEducationTextByID(stuid, addedutext);
         signService.changeEducationTextSign(stuid);
-        String encodeID = Base64.getEncoder(). encodeToString(stuid.toString().getBytes(StandardCharsets.UTF_8));
+        String encodeID = Base64.getEncoder().encodeToString(stuid.toString().getBytes(StandardCharsets.UTF_8));
         //重定向
         return "redirect:/admin/editTableOne?encodeID=" + encodeID;
 
@@ -889,11 +896,11 @@ public class AdminController {
         String datestring = datetype.format(date);
         Subject subject = SecurityUtils.getSubject();
         String username = (String) subject.getPrincipal();
-        addsupporttext = datestring+"  " + username+":  " + addsupporttext;
+        addsupporttext = datestring + "  " + username + ":  " + addsupporttext;
 
         stuService.addSupportTextByID(stuid, addsupporttext);
         signService.changeSupportTextSign(stuid);
-        String encodeID = Base64.getEncoder(). encodeToString(stuid.toString().getBytes(StandardCharsets.UTF_8));
+        String encodeID = Base64.getEncoder().encodeToString(stuid.toString().getBytes(StandardCharsets.UTF_8));
         //重定向
         return "redirect:/admin/editTableOne?encodeID=" + encodeID;
 
@@ -907,11 +914,11 @@ public class AdminController {
         String datestring = datetype.format(date);
         Subject subject = SecurityUtils.getSubject();
         String username = (String) subject.getPrincipal();
-        addimprovetext = datestring+"  " + username+":  " + addimprovetext;
+        addimprovetext = datestring + "  " + username + ":  " + addimprovetext;
 
         stuService.addImproveTextByID(stuid, addimprovetext);
         signService.changeImproveTextSign(stuid);
-        String encodeID = Base64.getEncoder(). encodeToString(stuid.toString().getBytes(StandardCharsets.UTF_8));
+        String encodeID = Base64.getEncoder().encodeToString(stuid.toString().getBytes(StandardCharsets.UTF_8));
         //重定向
         return "redirect:/admin/editTableOne?encodeID=" + encodeID;
 
@@ -926,10 +933,10 @@ public class AdminController {
     public String showTableTwoUI(String encodeID, Model model) throws Exception {
 
         //对stuid进行Base64解密，获取真实的id
-        String unDecodeStr = new String(Base64.getDecoder().decode(encodeID),StandardCharsets.UTF_8);
+        String unDecodeStr = new String(Base64.getDecoder().decode(encodeID), StandardCharsets.UTF_8);
 
         Integer stuid = null;
-        if(unDecodeStr!=null){
+        if (unDecodeStr != null) {
             stuid = Integer.valueOf(unDecodeStr);
         }
 
@@ -958,7 +965,7 @@ public class AdminController {
         exam.setUpdateperson(username);
         examService.save(exam);
         signService.SetChangeSign(stuid); //receiveSign设置为0
-        String encodeID = Base64.getEncoder(). encodeToString(stuid.toString().getBytes(StandardCharsets.UTF_8));
+        String encodeID = Base64.getEncoder().encodeToString(stuid.toString().getBytes(StandardCharsets.UTF_8));
         //重定向
         return "redirect:/admin/editTableTwo?encodeID=" + encodeID;
     }
@@ -973,9 +980,9 @@ public class AdminController {
     public String showTableThreeUI(String encodeID, Model model) throws Exception {
 
         //对stuid进行Base64解密，获取真实的id
-        String unDecodeStr = new String(Base64.getDecoder().decode(encodeID),StandardCharsets.UTF_8);
+        String unDecodeStr = new String(Base64.getDecoder().decode(encodeID), StandardCharsets.UTF_8);
         Integer stuid = null;
-        if(unDecodeStr!=null){
+        if (unDecodeStr != null) {
             stuid = Integer.valueOf(unDecodeStr);
         }
         StuCustom stu = stuService.findById(stuid);
@@ -990,7 +997,7 @@ public class AdminController {
     @RequestMapping(value = "/addLesson", method = {RequestMethod.GET})
     public String addLessonUI(Integer stuid, Model model) throws Exception {
 
-        List<ClassType> typelist= classTypeService.findAllClassType();
+        List<ClassType> typelist = classTypeService.findAllClassType();
         List<com.system.po.Subject> subjectlist = subjectService.findAllSubject();
         model.addAttribute("typelist", typelist);
         model.addAttribute("subjectlist", subjectlist);
@@ -1010,7 +1017,7 @@ public class AdminController {
         lesson.setOperator(username);
         lessonService.save(lesson);
         signService.SetChangeSign(stuid);
-        String encodeID = Base64.getEncoder(). encodeToString(stuid.toString().getBytes(StandardCharsets.UTF_8));
+        String encodeID = Base64.getEncoder().encodeToString(stuid.toString().getBytes(StandardCharsets.UTF_8));
         //重定向
         return "redirect:/admin/editTableThree?encodeID=" + encodeID;
     }
@@ -1077,9 +1084,10 @@ public class AdminController {
         examService.removeExamByID(stuid);
         //删除标记sign
         signService.removeSignByID(stuid);
-        String encodeMajor = URLEncoder.encode(majorName,"utf-8");
+        String encodeMajor = URLEncoder.encode(majorName, "utf-8");
         return "redirect:/admin/searchMajor?encodeMajor=" + encodeMajor + "&page=" + currentPage;
     }
+
     //学校查询中的删除
     @RequestMapping(value = "/removeStuSchool", method = {RequestMethod.GET})
     private String removeStuSchool(Integer stuid, String currentPage, String schoolName) throws Exception {
@@ -1091,9 +1099,10 @@ public class AdminController {
         examService.removeExamByID(stuid);
         //删除标记sign
         signService.removeSignByID(stuid);
-        String encodeSchool = URLEncoder.encode(schoolName,"utf-8");
+        String encodeSchool = URLEncoder.encode(schoolName, "utf-8");
         return "redirect:/admin/searchSchool?encodeSchool=" + encodeSchool + "&page=" + currentPage;
     }
+
     //相同姓名中的删除
     @RequestMapping(value = "/removeStuSame", method = {RequestMethod.GET})
     private String removeStuSame(Integer stuid, String currentPage) throws Exception {
@@ -1148,8 +1157,8 @@ public class AdminController {
     public String searchListerUI(Integer page, String name, String datestart, String dateend, Model model) throws Exception {
 
 
-        if(name!=null && datestart!=null && dateend!=null) {
-            String username =URLDecoder.decode(name,"utf-8");
+        if (name != null && datestart != null && dateend != null) {
+            String username = URLDecoder.decode(name, "utf-8");
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
             Date startdate = sdf.parse(datestart);
             Date enddate = sdf.parse(dateend);
@@ -1157,7 +1166,7 @@ public class AdminController {
             //页码对象
             PagingVO pagingVO = new PagingVO();
             //设置总页数
-            pagingVO.setTotalCount(stuService.getCountLister(username,startdate,enddate));
+            pagingVO.setTotalCount(stuService.getCountLister(username, startdate, enddate));
             if (page == null || page == 0) {
                 pagingVO.setToPageNo(1);
                 list = stuService.findLister(1, username, startdate, enddate);
@@ -1188,8 +1197,8 @@ public class AdminController {
         String datestart = datetype.format(startdate);
         String dateend = datetype.format(enddate);
 
-        String urlname = URLEncoder.encode(name,"utf-8");
-        return "redirect:/admin/searchLister?name=" + urlname+ "&datestart=" + datestart+ "&dateend=" + dateend;
+        String urlname = URLEncoder.encode(name, "utf-8");
+        return "redirect:/admin/searchLister?name=" + urlname + "&datestart=" + datestart + "&dateend=" + dateend;
 
     }
 
@@ -1197,8 +1206,8 @@ public class AdminController {
     // 搜索更新人操作
     @RequestMapping("/searchUpdater")
     public String searchUpdaterUI(Integer page, String name, String datestart, String dateend, Model model) throws Exception {
-        if(name!=null && datestart!=null && dateend!=null) {
-            String username =URLDecoder.decode(name,"utf-8");
+        if (name != null && datestart != null && dateend != null) {
+            String username = URLDecoder.decode(name, "utf-8");
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
             Date startdate = sdf.parse(datestart);
             Date enddate = sdf.parse(dateend);
@@ -1206,7 +1215,7 @@ public class AdminController {
             //页码对象
             PagingVO pagingVO = new PagingVO();
             //设置总页数
-            pagingVO.setTotalCount(stuService.getCountUpdater(username,startdate,enddate));
+            pagingVO.setTotalCount(stuService.getCountUpdater(username, startdate, enddate));
             if (page == null || page == 0) {
                 pagingVO.setToPageNo(1);
                 list = stuService.findUpdater(1, username, startdate, enddate);
@@ -1236,8 +1245,8 @@ public class AdminController {
         }
         String datestart = datetype.format(startdate);
         String dateend = datetype.format(enddate);
-        String urlname = URLEncoder.encode(name,"utf-8");
-        return "redirect:/admin/searchUpdater?name=" + urlname+ "&datestart=" + datestart+ "&dateend=" + dateend;
+        String urlname = URLEncoder.encode(name, "utf-8");
+        return "redirect:/admin/searchUpdater?name=" + urlname + "&datestart=" + datestart + "&dateend=" + dateend;
 
     }
 
@@ -1293,12 +1302,12 @@ public class AdminController {
             pagingVO.setTotalCount(stuService.getCountByDate(startdate, enddate));
             if (page == null || page == 0) {
                 pagingVO.setToPageNo(1);
-                list = stuService.findStuByDate(1,startdate,enddate);
+                list = stuService.findStuByDate(1, startdate, enddate);
             } else {
                 pagingVO.setToPageNo(page);
-                list = stuService.findStuByDate(page,startdate,enddate);
+                list = stuService.findStuByDate(page, startdate, enddate);
             }
-            List<StuCustom> allStuList = stuService.findAllStuByDate(startdate,enddate);
+            List<StuCustom> allStuList = stuService.findAllStuByDate(startdate, enddate);
             model.addAttribute("allStuList", allStuList);
             model.addAttribute("starttime", datestart);
             model.addAttribute("endtime", dateend);
@@ -1372,68 +1381,70 @@ public class AdminController {
     @RequestMapping(value = "/searchMajor", method = {RequestMethod.GET})
     public String searchMajorUI(Model model, String encodeMajor, Integer page) throws Exception {
 
-        List<Major> majorList =majorService.findAllMajor();
-        model.addAttribute("majorList",majorList);
+        List<Major> majorList = majorService.findAllMajor();
+        model.addAttribute("majorList", majorList);
         String majorTemp = null;
-        if(encodeMajor!=null){
-            List<StuCustom> stuCustomList =null;
+        if (encodeMajor != null) {
+            List<StuCustom> stuCustomList = null;
             majorTemp = encodeMajor;
             PagingVO pagingVO = new PagingVO();
-            String majorName =URLDecoder.decode(encodeMajor,"utf-8");
+            String majorName = URLDecoder.decode(encodeMajor, "utf-8");
             //设置总页数
             pagingVO.setTotalCount(stuService.getCountByMajor(majorName));
             if (page == null || page == 0) {
                 pagingVO.setToPageNo(1);
-                stuCustomList = stuService.findStuByMajor(1,majorName);
+                stuCustomList = stuService.findStuByMajor(1, majorName);
             } else {
                 pagingVO.setToPageNo(page);
-                stuCustomList = stuService.findStuByMajor(page,majorName);
+                stuCustomList = stuService.findStuByMajor(page, majorName);
             }
-            model.addAttribute("majorTemp",majorTemp);
-            model.addAttribute("stuList",stuCustomList);
+            model.addAttribute("majorTemp", majorTemp);
+            model.addAttribute("stuList", stuCustomList);
             model.addAttribute("pagingVO", pagingVO);
         }
         return "admin/searchMajor";
     }
+
     //专业查询
     @RequestMapping(value = "/searchMajor", method = {RequestMethod.POST})
     public String searchMajor(String majorName) throws Exception {
-        String encodeMajor = URLEncoder.encode(majorName,"utf-8");
+        String encodeMajor = URLEncoder.encode(majorName, "utf-8");
         return "redirect:/admin/searchMajor?encodeMajor=" + encodeMajor;
     }
 
     //学校查询
     @RequestMapping(value = "/searchSchool", method = {RequestMethod.GET})
     public String searchSchoolUI(Model model, String encodeSchool, Integer page) throws Exception {
-        List<School> schoolList =schoolService.findAllSchool();
-        model.addAttribute("schoolList",schoolList);
+        List<School> schoolList = schoolService.findAllSchool();
+        model.addAttribute("schoolList", schoolList);
         String schoolTemp = null;
-        if(encodeSchool!= null){
-            List<StuCustom> stuCustomList =null;
+        if (encodeSchool != null) {
+            List<StuCustom> stuCustomList = null;
             schoolTemp = encodeSchool;
             PagingVO pagingVO = new PagingVO();
-            String schoolName =URLDecoder.decode(encodeSchool,"utf-8");
+            String schoolName = URLDecoder.decode(encodeSchool, "utf-8");
             //设置总页数
             pagingVO.setTotalCount(stuService.getCountBySchool(schoolName));
             if (page == null || page == 0) {
                 pagingVO.setToPageNo(1);
-                stuCustomList = stuService.findStuBySchool(1,schoolName);
+                stuCustomList = stuService.findStuBySchool(1, schoolName);
             } else {
                 pagingVO.setToPageNo(page);
-                stuCustomList = stuService.findStuBySchool(page,schoolName);
+                stuCustomList = stuService.findStuBySchool(page, schoolName);
             }
             //stuCustomList = stuService.findAllStuBySchool(schoolName);
-            model.addAttribute("schoolTemp",schoolTemp);
-            model.addAttribute("stuList",stuCustomList);
+            model.addAttribute("schoolTemp", schoolTemp);
+            model.addAttribute("stuList", stuCustomList);
             model.addAttribute("pagingVO", pagingVO);
         }
         return "admin/searchSchool";
     }
+
     //学校查询
     @RequestMapping(value = "/searchSchool", method = {RequestMethod.POST})
     public String searchSchool(String schoolName) throws Exception {
 
-        String encodeSchool = URLEncoder.encode(schoolName,"utf-8");
+        String encodeSchool = URLEncoder.encode(schoolName, "utf-8");
         return "redirect:/admin/searchSchool?encodeSchool=" + encodeSchool;
     }
 
@@ -1462,9 +1473,9 @@ public class AdminController {
     public String searchCheckUI(Integer page, String majorName, String datestart, String dateend, Model model) throws Exception {
 
         List<Major> majorList = majorService.findAllMajor();
-        model.addAttribute("majorList",majorList);
-        if(majorName!=null && datestart!=null && dateend!=null) {
-            String name =URLDecoder.decode(majorName,"utf-8");
+        model.addAttribute("majorList", majorList);
+        if (majorName != null && datestart != null && dateend != null) {
+            String name = URLDecoder.decode(majorName, "utf-8");
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
             Date startdate = sdf.parse(datestart);
             Date enddate = sdf.parse(dateend);
@@ -1472,7 +1483,7 @@ public class AdminController {
             //页码对象
             PagingVO pagingVO = new PagingVO();
             //设置总页数
-            pagingVO.setTotalCount(stuService.getCountCheck(name,startdate,enddate));
+            pagingVO.setTotalCount(stuService.getCountCheck(name, startdate, enddate));
             if (page == null || page == 0) {
                 pagingVO.setToPageNo(1);
                 list = stuService.findCheck(1, name, startdate, enddate);
@@ -1502,8 +1513,8 @@ public class AdminController {
         String datestart = datetype.format(startdate);
         String dateend = datetype.format(enddate);
 
-        String urlname = URLEncoder.encode(majorName,"utf-8");
-        return "redirect:/admin/searchCheck?majorName=" + urlname+ "&datestart=" + datestart+ "&dateend=" + dateend;
+        String urlname = URLEncoder.encode(majorName, "utf-8");
+        return "redirect:/admin/searchCheck?majorName=" + urlname + "&datestart=" + datestart + "&dateend=" + dateend;
 
     }
 
@@ -1519,7 +1530,7 @@ public class AdminController {
         PagingVO pagingVO = new PagingVO();
         //设置总页数
         pagingVO.setTotalCount(remindService.getCountBirth());
-       // System.out.println("remind"+stuService.getCountByPay());
+        // System.out.println("remind"+stuService.getCountByPay());
         if (page == null || page == 0) {
             pagingVO.setToPageNo(1);
             birthdayList = remindService.findAllBirthday(1);
@@ -1531,25 +1542,26 @@ public class AdminController {
         model.addAttribute("birthdayList", birthdayList);
         return "admin/remindBirth";
     }
+
     //生日提醒删除
     @RequestMapping(value = "/removeBirthday", method = {RequestMethod.GET})
-    private String removeBirthday (Integer id, Integer currentPage) throws Exception {
+    private String removeBirthday(Integer id, Integer currentPage) throws Exception {
 
         remindService.removeBirthday(id);
 
-        return "redirect:/admin/remindBirth?page="+currentPage;
+        return "redirect:/admin/remindBirth?page=" + currentPage;
     }
 
     //缴费提醒
     @RequestMapping(value = "/remindPay", method = {RequestMethod.GET})
     public String remindPayUI(Model model, Integer page) throws Exception {
 
-       List<StuCustom> allStuList = null;
+        List<StuCustom> allStuList = null;
         //页码对象
         PagingVO pagingVO = new PagingVO();
         //设置总页数
         pagingVO.setTotalCount(remindService.getCountRemindPay());
-       // System.out.println("remind"+stuService.getCountByPay());
+        // System.out.println("remind"+stuService.getCountByPay());
         if (page == null || page == 0) {
             pagingVO.setToPageNo(1);
             allStuList = remindService.findAllRemindPay(1);
@@ -1566,11 +1578,11 @@ public class AdminController {
 
     // 缴费提醒删除
     @RequestMapping(value = "/removeRemindPay", method = {RequestMethod.GET})
-    private String removeRemindPay (Integer id, Integer currentPage) throws Exception {
+    private String removeRemindPay(Integer id, Integer currentPage) throws Exception {
 
         remindService.removeRemindPay(id);
 
-        return "redirect:/admin/remindPay?page="+currentPage;
+        return "redirect:/admin/remindPay?page=" + currentPage;
     }
 
     //接收提醒
@@ -1581,7 +1593,7 @@ public class AdminController {
         //页码对象
         PagingVO pagingVO = new PagingVO();
         //设置总页数
-      pagingVO.setTotalCount(signService.getCountAdminUpdate());
+        pagingVO.setTotalCount(signService.getCountAdminUpdate());
 
         if (page == null || page == 0) {
             pagingVO.setToPageNo(1);
@@ -1611,7 +1623,7 @@ public class AdminController {
             list = stuService.adminReceiveRemind(1);
         } else {
             pagingVO.setToPageNo(page);
-           list = stuService.adminReceiveRemind(page);
+            list = stuService.adminReceiveRemind(page);
         }
 
         model.addAttribute("stuList", list);
@@ -1622,32 +1634,32 @@ public class AdminController {
 
     //新录入信息处理
     @RequestMapping(value = "/signConfirm", method = {RequestMethod.GET})
-    public String signConfirm(Integer stuid, String currentPage,Model model) throws Exception {
+    public String signConfirm(Integer stuid, String currentPage, Model model) throws Exception {
 
         Sign sign = signService.findSignByStuID(stuid);
-        if(sign.getMastersignid()==0){
-                model.addAttribute("message", "校长未签字，不可删除");
-                return "error";
+        if (sign.getMastersignid() == 0) {
+            model.addAttribute("message", "校长未签字，不可删除");
+            return "error";
         }
-          signService.adminSignReceive(stuid);
-     //   examService.changeExamSign(stuid);
-     //   lessonService.changeLessonSign(stuid);
+        signService.adminSignReceive(stuid);
+        //   examService.changeExamSign(stuid);
+        //   lessonService.changeLessonSign(stuid);
         return "redirect:/admin/remindNewStu?page=" + currentPage;
     }
 
     //更新的信息处理
     @RequestMapping(value = "/updateConfirm", method = {RequestMethod.GET})
-    public String updateConfirm(Integer stuid, String currentPage,Model model) throws Exception {
+    public String updateConfirm(Integer stuid, String currentPage, Model model) throws Exception {
 
         Sign sign = signService.findSignByStuID(stuid);
-        if(sign.getMastersignid()==0){
+        if (sign.getMastersignid() == 0) {
             model.addAttribute("message", "校长未签字，不可删除");
             return "error";
         }
 
-          signService.adminSignUpdate(stuid);
-      //  examService.changeExamSign(stuid);
-      //  lessonService.changeLessonSign(stuid);
+        signService.adminSignUpdate(stuid);
+        //  examService.changeExamSign(stuid);
+        //  lessonService.changeLessonSign(stuid);
         return "redirect:/admin/remindReceive?page=" + currentPage;
     }
     /*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<提醒功能结束>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
@@ -1658,20 +1670,20 @@ public class AdminController {
     public String paidStudentUI(Model model, Integer page, Integer gradeid, Integer subjectid, Integer typeid) throws Exception {
 
         List<Grade> gradelist = gradeService.findAllGrade();
-        List<com.system.po.Subject> subjectList =subjectService.findAllSubject();
+        List<com.system.po.Subject> subjectList = subjectService.findAllSubject();
         List<ClassType> classTypeList = classTypeService.findAllClassType();
         Grade grade = new Grade();
         grade.setGradeid(-1);
         grade.setGradename("全部");
-        gradelist.add(0,grade);
+        gradelist.add(0, grade);
         com.system.po.Subject subject = new com.system.po.Subject();
         subject.setSubjectid(-1);
         subject.setSubjectname("全部");
-        subjectList.add(0,subject);
-        ClassType classType =new ClassType();
+        subjectList.add(0, subject);
+        ClassType classType = new ClassType();
         classType.setTypeid(-1);
         classType.setTypename("全部");
-        classTypeList.add(0,classType);
+        classTypeList.add(0, classType);
         model.addAttribute("gradeList", gradelist);
         model.addAttribute("subjectList", subjectList);
         model.addAttribute("classTypeList", classTypeList);
@@ -1703,28 +1715,28 @@ public class AdminController {
     @RequestMapping(value = "/paidStudent", method = {RequestMethod.POST})
     public String paidStudent(Integer gradeid, Integer subjectid, Integer typeid) throws Exception {
 
-        return "redirect:/admin/paidStudent?gradeid=" + gradeid + "&subjectid=" + subjectid+ "&typeid=" + typeid;
+        return "redirect:/admin/paidStudent?gradeid=" + gradeid + "&subjectid=" + subjectid + "&typeid=" + typeid;
     }
 
-//查看预缴费学员 查询当天日期<表三的上课时间且小于表三的上课结束时间
+    //查看预缴费学员 查询当天日期<表三的上课时间且小于表三的上课结束时间
     @RequestMapping(value = "/prePayStu", method = {RequestMethod.GET})
     public String prePayStuUI(Model model, Integer page, Integer gradeid, Integer subjectid, Integer typeid) throws Exception {
 
         List<Grade> gradelist = gradeService.findAllGrade();
-        List<com.system.po.Subject> subjectList =subjectService.findAllSubject();
+        List<com.system.po.Subject> subjectList = subjectService.findAllSubject();
         List<ClassType> classTypeList = classTypeService.findAllClassType();
         Grade grade = new Grade();
         grade.setGradeid(-1);
         grade.setGradename("全部");
-        gradelist.add(0,grade);
+        gradelist.add(0, grade);
         com.system.po.Subject subject = new com.system.po.Subject();
         subject.setSubjectid(-1);
         subject.setSubjectname("全部");
-        subjectList.add(0,subject);
-        ClassType classType =new ClassType();
+        subjectList.add(0, subject);
+        ClassType classType = new ClassType();
         classType.setTypeid(-1);
         classType.setTypename("全部");
-        classTypeList.add(0,classType);
+        classTypeList.add(0, classType);
         model.addAttribute("gradeList", gradelist);
         model.addAttribute("subjectList", subjectList);
         model.addAttribute("classTypeList", classTypeList);
@@ -1756,32 +1768,32 @@ public class AdminController {
     @RequestMapping(value = "/prePayStu", method = {RequestMethod.POST})
     public String prePayStu(Integer gradeid, Integer subjectid, Integer typeid) throws Exception {
 
-        return "redirect:/admin/prePayStu?gradeid=" + gradeid + "&subjectid=" + subjectid+ "&typeid=" + typeid;
+        return "redirect:/admin/prePayStu?gradeid=" + gradeid + "&subjectid=" + subjectid + "&typeid=" + typeid;
     }
 
-//查看未交费的学生
+    //查看未交费的学生
     @RequestMapping(value = "/paidNotStudent", method = {RequestMethod.GET})
     public String paidNotStudentUI(Model model, Integer gradeid, Integer teleType, Integer page) throws Exception {
 
-        if (teleType==null) teleType=0;
+        if (teleType == null) teleType = 0;
         List<Grade> gradelist = gradeService.findAllGrade();
         Grade grade = new Grade();
         grade.setGradeid(-1);
         grade.setGradename("全部");
-        gradelist.add(0,grade);
+        gradelist.add(0, grade);
         List<StuCustom> list = null;
         //页码对象
         PagingVO pagingVO = new PagingVO();
         //设置总页数
-        pagingVO.setTotalCount(stuService.getCountByUnPayStu(gradeid,teleType));
+        pagingVO.setTotalCount(stuService.getCountByUnPayStu(gradeid, teleType));
         if (page == null || page == 0) {
             pagingVO.setToPageNo(1);
             list = stuService.findStuByUnPayStu(1, gradeid, teleType);
         } else {
             pagingVO.setToPageNo(page);
-            list = stuService.findStuByUnPayStu(page,gradeid, teleType);
+            list = stuService.findStuByUnPayStu(page, gradeid, teleType);
         }
-        List<StuCustom> allStuList= stuService.findAllStuByUnPayStu(gradeid, teleType);
+        List<StuCustom> allStuList = stuService.findAllStuByUnPayStu(gradeid, teleType);
         model.addAttribute("gradelist", gradelist);
         model.addAttribute("gradeIndex", gradeid);
         model.addAttribute("teleType", teleType);
@@ -1795,7 +1807,7 @@ public class AdminController {
     @RequestMapping(value = "/paidNotStudent", method = {RequestMethod.POST})
     public String paidNotStudent(Integer gradeid, Integer teleType) throws Exception {
 
-        return "redirect:/admin/paidNotStudent?gradeid=" +gradeid +"&teleType=" + teleType;
+        return "redirect:/admin/paidNotStudent?gradeid=" + gradeid + "&teleType=" + teleType;
     }
 
 
@@ -1812,13 +1824,13 @@ public class AdminController {
         List<NoteDic> list = null;
         PagingVO pagingVO = new PagingVO();
         //pagingVO.setStringtemp(username);
-        pagingVO.setTotalCount(userloginService.getCountNoteDic(username,0));
+        pagingVO.setTotalCount(userloginService.getCountNoteDic(username, 0));
         if (page == null || page == 0) {
             pagingVO.setToPageNo(1);
-            list = userloginService.findNoteDic(1, username,0);
+            list = userloginService.findNoteDic(1, username, 0);
         } else {
             pagingVO.setToPageNo(page);
-            list = userloginService.findNoteDic(page,username,0);
+            list = userloginService.findNoteDic(page, username, 0);
         }
         model.addAttribute("noteDicList", list);
         model.addAttribute("pagingVO", pagingVO);
@@ -1831,13 +1843,13 @@ public class AdminController {
     public String showNoteDic(String dicName, String currentPage, Model model) throws Exception {
         Subject subject = SecurityUtils.getSubject();
         String username = (String) subject.getPrincipal();
-      //  NoteDic dicname = userloginService.findNoteDic(username,dicName);
+        //  NoteDic dicname = userloginService.findNoteDic(username,dicName);
 //        if (dicname!=null) {
 //            model.addAttribute("message", "表名重复,请重新输入");
 //            return "error";
 //        }
 
-        NoteDic noteDic=new NoteDic();
+        NoteDic noteDic = new NoteDic();
         noteDic.setDicname(dicName);
         noteDic.setUsername(username);
         noteDic.setDictype(0);
@@ -1872,10 +1884,10 @@ public class AdminController {
 
         if (page == null || page == 0) {
             pagingVO.setToPageNo(1);
-            list = userloginService.findTextByName(1,username,0);
+            list = userloginService.findTextByName(1, username, 0);
         } else {
             pagingVO.setToPageNo(page);
-            list = userloginService.findTextByName(page,username,0);
+            list = userloginService.findTextByName(page, username, 0);
         }
         model.addAttribute("textList", list);
         model.addAttribute("pagingVO", pagingVO);
@@ -1888,7 +1900,7 @@ public class AdminController {
     public String showTextDic(String textName, String currentPage, Model model) throws Exception {
         Subject subject = SecurityUtils.getSubject();
         String username = (String) subject.getPrincipal();
-        TextDic textDic= new TextDic();
+        TextDic textDic = new TextDic();
         textDic.setTitle(textName);
         textDic.setUsername(username);
         textDic.setTexttype(0);
@@ -1898,7 +1910,7 @@ public class AdminController {
 
 
     @RequestMapping(value = "/removeText", method = {RequestMethod.GET})
-    private String removeText(Integer textid,String currentPage) throws Exception {
+    private String removeText(Integer textid, String currentPage) throws Exception {
 
         userloginService.removeTextByID(textid);
         return "redirect:/admin/showTextDic?page=" + currentPage;
@@ -1910,14 +1922,14 @@ public class AdminController {
     public String editNoteTextUI(Integer textid, String currentPage, Model model) throws Exception {
 
         TextDic textDic = userloginService.findTextDicByID(textid);
-        if(textDic==null){
+        if (textDic == null) {
             model.addAttribute("message", "该记事本不存在");
             return "error";
         }
         //没有权限访问
         Subject subject = SecurityUtils.getSubject();
         String username = (String) subject.getPrincipal();
-        if (!textDic.getUsername().equals(username) ) {
+        if (!textDic.getUsername().equals(username)) {
             model.addAttribute("message", "没有权限访问");
             return "error";
         }
@@ -1931,9 +1943,9 @@ public class AdminController {
 
     // 记事本操作
     @RequestMapping(value = "/editNoteText", method = {RequestMethod.POST})
-    public String editNoteText(TextDic textDic, String currentPage ) throws Exception {
+    public String editNoteText(TextDic textDic, String currentPage) throws Exception {
         userloginService.updeTextDicByID(textDic);
-      //  System.out.print(currentPage);
+        //  System.out.print(currentPage);
         return "redirect:/admin/showTextDic?page=" + currentPage;
     }
 
@@ -1942,14 +1954,14 @@ public class AdminController {
     public String editSeNoteTextUI(Integer textid, String currentPage, Model model) throws Exception {
 
         TextDic textDic = userloginService.findTextDicByID(textid);
-        if(textDic==null){
+        if (textDic == null) {
             model.addAttribute("message", "该记事本不存在");
             return "error";
         }
         //没有权限访问
         Subject subject = SecurityUtils.getSubject();
         String username = (String) subject.getPrincipal();
-        if (!textDic.getUsername().equals(username) ) {
+        if (!textDic.getUsername().equals(username)) {
             model.addAttribute("message", "没有权限访问");
             return "error";
         }
@@ -1963,9 +1975,9 @@ public class AdminController {
 
     // 记事本操作
     @RequestMapping(value = "/editSeNoteText", method = {RequestMethod.POST})
-    public String editSeNoteText(TextDic textDic, String currentPage ) throws Exception {
+    public String editSeNoteText(TextDic textDic, String currentPage) throws Exception {
         userloginService.updeTextDicByID(textDic);
-      //  System.out.print(currentPage);
+        //  System.out.print(currentPage);
         return "redirect:/admin/showSeTextDic?page=" + currentPage;
     }
 
@@ -1975,7 +1987,7 @@ public class AdminController {
         NoteDic noteDic = userloginService.findNoteDicByID(dicid);
         Subject subject = SecurityUtils.getSubject();
         String username = (String) subject.getPrincipal();
-        if (!noteDic.getUsername().equals(username) ) {
+        if (!noteDic.getUsername().equals(username)) {
             model.addAttribute("message", "没有权限访问");
             return "error";
         }
@@ -1986,10 +1998,10 @@ public class AdminController {
         pagingVO.setTotalCount(userloginService.getCountNoteTable(dicid));
         if (page == null || page == 0) {
             pagingVO.setToPageNo(1);
-            list = userloginService.findNoteTableByDicID(1,dicid);
+            list = userloginService.findNoteTableByDicID(1, dicid);
         } else {
             pagingVO.setToPageNo(page);
-            list = userloginService.findNoteTableByDicID(page,dicid);
+            list = userloginService.findNoteTableByDicID(page, dicid);
         }
 
         List<NoteTable> noteTableList = userloginService.findAllNoteTableByDicID(dicid);
@@ -2018,7 +2030,7 @@ public class AdminController {
         NoteDic noteDic = userloginService.findNoteDicByID(dicid);
         Subject subject = SecurityUtils.getSubject();
         String username = (String) subject.getPrincipal();
-        if (!noteDic.getUsername().equals(username) ) {
+        if (!noteDic.getUsername().equals(username)) {
             model.addAttribute("message", "没有权限访问");
             return "error";
         }
@@ -2029,10 +2041,10 @@ public class AdminController {
         pagingVO.setTotalCount(userloginService.getCountNoteTable(dicid));
         if (page == null || page == 0) {
             pagingVO.setToPageNo(1);
-            list = userloginService.findNoteTableByDicID(1,dicid);
+            list = userloginService.findNoteTableByDicID(1, dicid);
         } else {
             pagingVO.setToPageNo(page);
-            list = userloginService.findNoteTableByDicID(page,dicid);
+            list = userloginService.findNoteTableByDicID(page, dicid);
         }
 
         List<NoteTable> noteTableList = userloginService.findAllNoteTableByDicID(dicid);
@@ -2058,7 +2070,7 @@ public class AdminController {
 
     // 添加记事表操作
     @RequestMapping(value = "/addNoteTable", method = {RequestMethod.GET})
-    public String addNoteTableUI(Model model,Integer dicid, Integer currentpage) throws Exception {
+    public String addNoteTableUI(Model model, Integer dicid, Integer currentpage) throws Exception {
 
 
         List<Grade> gradelist = gradeService.findAllGrade();
@@ -2079,12 +2091,12 @@ public class AdminController {
 
         userloginService.saveNoteTable(noteTable);
 
-       return "redirect:/admin/editNoteTable?dicid="+dicid + "&page=" + currentpage;
+        return "redirect:/admin/editNoteTable?dicid=" + dicid + "&page=" + currentpage;
     }
 
     // 添加记事表操作
     @RequestMapping(value = "/addSeNoteTable", method = {RequestMethod.GET})
-    public String addSeNoteTableUI(Model model,Integer dicid, Integer currentpage) throws Exception {
+    public String addSeNoteTableUI(Model model, Integer dicid, Integer currentpage) throws Exception {
 
 
         List<Grade> gradelist = gradeService.findAllGrade();
@@ -2105,32 +2117,33 @@ public class AdminController {
 
         userloginService.saveNoteTable(noteTable);
 
-        return "redirect:/admin/editSeNoteTable?dicid="+dicid + "&page=" + currentpage;
+        return "redirect:/admin/editSeNoteTable?dicid=" + dicid + "&page=" + currentpage;
     }
 
     //删除记事本中的一条记录
     @RequestMapping(value = "/removeNoteTable", method = {RequestMethod.GET})
-    private String removeNoteTable(Integer noteID , Integer dicID ,String currentPage) throws Exception {
+    private String removeNoteTable(Integer noteID, Integer dicID, String currentPage) throws Exception {
       /*  if (id == null) {
             //加入没有带学生id就进来的话就返回学生显示页面
             return "admin/showStudent";
         }*/
         userloginService.removeNoteTable(noteID);
-        return "redirect:/admin/editNoteTable?dicid="+dicID + "&page=" + currentPage;
+        return "redirect:/admin/editNoteTable?dicid=" + dicID + "&page=" + currentPage;
 
     }
 
     //删除记事本中的一条记录
     @RequestMapping(value = "/removeSeNoteTable", method = {RequestMethod.GET})
-    private String removeSeNoteTable(Integer noteID , Integer dicID ,String currentPage) throws Exception {
+    private String removeSeNoteTable(Integer noteID, Integer dicID, String currentPage) throws Exception {
       /*  if (id == null) {
             //加入没有带学生id就进来的话就返回学生显示页面
             return "admin/showStudent";
         }*/
         userloginService.removeNoteTable(noteID);
-        return "redirect:/admin/editSeNoteTable?dicid="+dicID + "&page=" + currentPage;
+        return "redirect:/admin/editSeNoteTable?dicid=" + dicID + "&page=" + currentPage;
 
     }
+
     //修改记事本中的一条记录
     @RequestMapping(value = "/modifyNoteTable", method = {RequestMethod.GET})
     private String modifyNoteTableUI(Integer noteID, Integer dicid, Integer page, Model model) throws Exception {
@@ -2143,11 +2156,12 @@ public class AdminController {
         model.addAttribute("page", page);
         return "admin/modifyNoteTable";
     }
+
     @RequestMapping(value = "/modifyNoteTable", method = {RequestMethod.POST})
     private String modifyNoteTable(NoteTable noteTable, Integer dicid, Integer page) throws Exception {
 
         userloginService.updateNoteTableByID(noteTable);
-        return "redirect:/admin/editNoteTable?dicid="+dicid + "&page=" + page;
+        return "redirect:/admin/editNoteTable?dicid=" + dicid + "&page=" + page;
     }
 
     //修改记事本中的一条记录
@@ -2162,11 +2176,12 @@ public class AdminController {
         model.addAttribute("page", page);
         return "admin/modifySeNoteTable";
     }
+
     @RequestMapping(value = "/modifySeNoteTable", method = {RequestMethod.POST})
     private String modifySeNoteTable(NoteTable noteTable, Integer dicid, Integer page) throws Exception {
 
         userloginService.updateNoteTableByID(noteTable);
-        return "redirect:/admin/editSeNoteTable?dicid="+dicid + "&page=" + page;
+        return "redirect:/admin/editSeNoteTable?dicid=" + dicid + "&page=" + page;
     }
 
     //查看其他用户的记事本
@@ -2180,10 +2195,10 @@ public class AdminController {
         pagingVO.setTotalCount(userloginService.getCountText(username, 0));
         if (page == null || page == 0) {
             pagingVO.setToPageNo(1);
-            listtext = userloginService.findTextByName(1,username,0);
+            listtext = userloginService.findTextByName(1, username, 0);
         } else {
             pagingVO.setToPageNo(page);
-            listtext = userloginService.findTextByName(page,username,0);
+            listtext = userloginService.findTextByName(page, username, 0);
         }
         model.addAttribute("textList", listtext);
         model.addAttribute("pagingVO", pagingVO);
@@ -2191,13 +2206,13 @@ public class AdminController {
         List<NoteDic> listnote = null;
         PagingVO pagingVO1 = new PagingVO();
 
-        pagingVO1.setTotalCount(userloginService.getCountNoteDic(username,0));
+        pagingVO1.setTotalCount(userloginService.getCountNoteDic(username, 0));
         if (page1 == null || page1 == 0) {
             pagingVO1.setToPageNo(1);
-            listnote = userloginService.findNoteDic(1, username,0);
+            listnote = userloginService.findNoteDic(1, username, 0);
         } else {
             pagingVO1.setToPageNo(page1);
-            listnote = userloginService.findNoteDic(page1,username,0);
+            listnote = userloginService.findNoteDic(page1, username, 0);
         }
         model.addAttribute("noteDicList", listnote);
         model.addAttribute("pagingVO1", pagingVO1);
@@ -2214,10 +2229,10 @@ public class AdminController {
         pagingVO.setTotalCount(userloginService.getCountText(username, 1));
         if (page == null || page == 0) {
             pagingVO.setToPageNo(1);
-            listtext = userloginService.findTextByName(1,username,1);
+            listtext = userloginService.findTextByName(1, username, 1);
         } else {
             pagingVO.setToPageNo(page);
-            listtext = userloginService.findTextByName(page,username,1);
+            listtext = userloginService.findTextByName(page, username, 1);
         }
         model.addAttribute("textList", listtext);
         model.addAttribute("pagingVO", pagingVO);
@@ -2225,13 +2240,13 @@ public class AdminController {
         List<NoteDic> listnote = null;
         PagingVO pagingVO1 = new PagingVO();
 
-        pagingVO1.setTotalCount(userloginService.getCountNoteDic(username,1));
+        pagingVO1.setTotalCount(userloginService.getCountNoteDic(username, 1));
         if (page1 == null || page1 == 0) {
             pagingVO1.setToPageNo(1);
-            listnote = userloginService.findNoteDic(1, username,1);
+            listnote = userloginService.findNoteDic(1, username, 1);
         } else {
             pagingVO1.setToPageNo(page1);
-            listnote = userloginService.findNoteDic(page1,username,1);
+            listnote = userloginService.findNoteDic(page1, username, 1);
         }
         model.addAttribute("noteDicList", listnote);
         model.addAttribute("pagingVO1", pagingVO1);
@@ -2245,7 +2260,7 @@ public class AdminController {
     public String showUserNoteText(Model model, Integer textid) throws Exception {
 
         TextDic textDic = userloginService.findTextDicByID(textid);
-        if(textDic==null){
+        if (textDic == null) {
             model.addAttribute("message", "该记事本不存在");
             return "error";
         }
@@ -2259,23 +2274,23 @@ public class AdminController {
     @RequestMapping(value = "/showUserNoteTable", method = {RequestMethod.GET})
     public String showUserNoteTable(Model model, Integer page, Integer dicid) throws Exception {
 
-            List<NoteTable> list = null;
-            PagingVO pagingVO = new PagingVO();
+        List<NoteTable> list = null;
+        PagingVO pagingVO = new PagingVO();
 
-            pagingVO.setTotalCount(userloginService.getCountNoteTable(dicid));
-            if (page == null || page == 0) {
-                pagingVO.setToPageNo(1);
-                list = userloginService.findNoteTableByDicID(1,dicid);
-            } else {
-                pagingVO.setToPageNo(page);
-                list = userloginService.findNoteTableByDicID(page,dicid);
-            }
+        pagingVO.setTotalCount(userloginService.getCountNoteTable(dicid));
+        if (page == null || page == 0) {
+            pagingVO.setToPageNo(1);
+            list = userloginService.findNoteTableByDicID(1, dicid);
+        } else {
+            pagingVO.setToPageNo(page);
+            list = userloginService.findNoteTableByDicID(page, dicid);
+        }
 
-            List<NoteTable> noteTableList = userloginService.findAllNoteTableByDicID(dicid);
-            model.addAttribute("dicid", dicid);
-            model.addAttribute("noteTableList", list);
-            model.addAttribute("allNoteTableList", noteTableList);
-            model.addAttribute("pagingVO", pagingVO);
+        List<NoteTable> noteTableList = userloginService.findAllNoteTableByDicID(dicid);
+        model.addAttribute("dicid", dicid);
+        model.addAttribute("noteTableList", list);
+        model.addAttribute("allNoteTableList", noteTableList);
+        model.addAttribute("pagingVO", pagingVO);
 
         return "admin/showUserNoteTable";
     }
@@ -2319,16 +2334,15 @@ public class AdminController {
 
     //判断用户名是否存在
     @ResponseBody
-    @RequestMapping(value = "/isExist",method = { RequestMethod.POST,RequestMethod.GET })
+    @RequestMapping(value = "/isExist", method = {RequestMethod.POST, RequestMethod.GET})
     public String isExist(String realname) throws Exception {
 
         String result = null;
         List<StuCustom> stuCustomList = stuService.findByName(realname);
-        if (stuCustomList.isEmpty()==true){
-            result ="0";
-        }
-        else {
-            result="1";
+        if (stuCustomList.isEmpty() == true) {
+            result = "0";
+        } else {
+            result = "1";
         }
         return result;
     }
@@ -2342,14 +2356,14 @@ public class AdminController {
         List<TextDic> list = null;
         PagingVO pagingVO = new PagingVO();
 
-        pagingVO.setTotalCount(userloginService.getCountText(username,1));
+        pagingVO.setTotalCount(userloginService.getCountText(username, 1));
 
         if (page == null || page == 0) {
             pagingVO.setToPageNo(1);
-            list = userloginService.findTextByName(1,username,1);
+            list = userloginService.findTextByName(1, username, 1);
         } else {
             pagingVO.setToPageNo(page);
-            list = userloginService.findTextByName(page,username,1);
+            list = userloginService.findTextByName(page, username, 1);
         }
         model.addAttribute("textList", list);
         model.addAttribute("pagingVO", pagingVO);
@@ -2362,7 +2376,7 @@ public class AdminController {
     public String showSeTextDic(String textName, String currentPage, Model model) throws Exception {
         Subject subject = SecurityUtils.getSubject();
         String username = (String) subject.getPrincipal();
-        TextDic textDic= new TextDic();
+        TextDic textDic = new TextDic();
         textDic.setTitle(textName);
         textDic.setUsername(username);
         textDic.setTexttype(1);
@@ -2371,7 +2385,7 @@ public class AdminController {
     }
 
     @RequestMapping(value = "/removeSeText", method = {RequestMethod.GET})
-    private String removeSeText(Integer textid,String currentPage) throws Exception {
+    private String removeSeText(Integer textid, String currentPage) throws Exception {
 
         userloginService.removeTextByID(textid);
         return "redirect:/admin/showSeTextDic?page=" + currentPage;
@@ -2387,13 +2401,13 @@ public class AdminController {
         List<NoteDic> list = null;
         PagingVO pagingVO = new PagingVO();
         //pagingVO.setStringtemp(username);
-        pagingVO.setTotalCount(userloginService.getCountNoteDic(username,1));
+        pagingVO.setTotalCount(userloginService.getCountNoteDic(username, 1));
         if (page == null || page == 0) {
             pagingVO.setToPageNo(1);
-            list = userloginService.findNoteDic(1, username,1);
+            list = userloginService.findNoteDic(1, username, 1);
         } else {
             pagingVO.setToPageNo(page);
-            list = userloginService.findNoteDic(page,username,1);
+            list = userloginService.findNoteDic(page, username, 1);
         }
         model.addAttribute("noteDicList", list);
         model.addAttribute("pagingVO", pagingVO);
@@ -2413,7 +2427,7 @@ public class AdminController {
 //            return "error";
 //        }
 
-        NoteDic noteDic=new NoteDic();
+        NoteDic noteDic = new NoteDic();
         noteDic.setDicname(dicName);
         noteDic.setUsername(username);
         noteDic.setDictype(1);
@@ -2431,7 +2445,7 @@ public class AdminController {
             return "admin/showStudent";
         }*/
         userloginService.removeNoteDic(dicid);  //删除记事本目录
-         userloginService.removeNoteByDicID(dicid);  //删除某个目录对应的内容
+        userloginService.removeNoteByDicID(dicid);  //删除某个目录对应的内容
         return "redirect:/admin/showSeNoteDic?page=" + currentPage;
     }
 
@@ -2460,7 +2474,7 @@ public class AdminController {
     //科目类型管理
     @RequestMapping(value = "/manageClassType", method = {RequestMethod.GET})
     public String manageClassTypeUI(Model model) throws Exception {
-       List<ClassType> classTypeList=classTypeService.findAllClassType();
+        List<ClassType> classTypeList = classTypeService.findAllClassType();
         model.addAttribute("classTypeList", classTypeList);
         return "admin/manageClassType";
     }
@@ -2476,18 +2490,19 @@ public class AdminController {
         classTypeService.deleteClassType(typeid);
         return "redirect:/admin/manageClassType";
     }
+
     //专业管理
     //科目管理
     @RequestMapping(value = "/manageMajor", method = {RequestMethod.GET})
     public String manageMajorUI(Model model) throws Exception {
-       List<Major> majorList = majorService.findAllMajor();
+        List<Major> majorList = majorService.findAllMajor();
         model.addAttribute("majorList", majorList);
         return "admin/manageMajor";
     }
 
     @RequestMapping(value = "/manageMajor", method = {RequestMethod.POST})
     public String manageMajor(String majorname) throws Exception {
-       majorService.saveMajor(majorname);
+        majorService.saveMajor(majorname);
         return "redirect:/admin/manageMajor";
     }
 
@@ -2496,6 +2511,7 @@ public class AdminController {
         majorService.deleteMajor(majorid);
         return "redirect:/admin/manageMajor";
     }
+
     //学校类型管理
     @RequestMapping(value = "/manageSchol", method = {RequestMethod.GET})
     public String manageSchoolUI(Model model) throws Exception {
@@ -2517,11 +2533,10 @@ public class AdminController {
     }
 
 
-
     @RequestMapping(value = "/uploadExcel", method = {RequestMethod.GET})
     public String uploadExcel(Model model) throws Exception {
 
-        List<ExcelLog> excelLogSuccess =excelLogService.findUploadSuccess();
+        List<ExcelLog> excelLogSuccess = excelLogService.findUploadSuccess();
         List<ExcelLog> excelLogFail = excelLogService.findUploadFail();
         List<ExcelLog> excelLogConfirm = excelLogService.findUploadConfirm();
         model.addAttribute("excelLogSuccess", excelLogSuccess);
@@ -2531,19 +2546,20 @@ public class AdminController {
     }
 
     public static int index;
+
     //上传文件  新建学生档案
     //判断用户名是否存在
     @ResponseBody
     @RequestMapping(value = "/uploadFile", method = {RequestMethod.POST})
-    public String uploadExcel(@RequestParam("file") MultipartFile file, HttpServletResponse response){
+    public String uploadExcel(@RequestParam("file") MultipartFile file, HttpServletResponse response) {
         excelLogService.deleteExcel();
-        String flag ="02";//表示没有保存到数据库
+        String flag = "02";//表示没有保存到数据库
         int iRowNum = 0;// 工作表中的行数量
         int iCellNum = 0;// 每行中的列数量
-        DecimalFormat df=new DecimalFormat("0");
+        DecimalFormat df = new DecimalFormat("0");
 
-        Integer completeNum =0;
-        try{
+        Integer completeNum = 0;
+        try {
             POIFSFileSystem fs = new POIFSFileSystem(file.getInputStream());
 
             HSSFWorkbook wb = new HSSFWorkbook(fs);// xls 获取工作簿对象
@@ -2552,12 +2568,12 @@ public class AdminController {
 
             iRowNum = sheet.getPhysicalNumberOfRows();// 获取sheet表中总行数
 
-            System.out.println("表格的总行数"+iRowNum);
+            System.out.println("表格的总行数" + iRowNum);
 
             /** 开始读取行数据 */
 
             int startRowNum = 4;// excel  从第5行开始读取
-            for (int j=startRowNum; j<iRowNum;j++){
+            for (int j = startRowNum; j < iRowNum; j++) {
                 HSSFRow rowTmp = sheet.getRow(j);
                 if (rowTmp == null) {// 判断是否为空行
                     continue;
@@ -2566,8 +2582,8 @@ public class AdminController {
                     iCellNum = rowTmp.getLastCellNum();
 
                     //System.out.println("表格的总列数"+iCellNum);
-                    if (iCellNum != 36 ){// 判断列数与模板项数
-                        flag="导入表格列数与所选模板项数不符！请核对后重新上传。";
+                    if (iCellNum != 36) {// 判断列数与模板项数
+                        flag = "导入表格列数与所选模板项数不符！请核对后重新上传。";
                         //model.addAttribute("message", "导入表格列数与所选模板项数不符！请核对后重新上传。");
                         return flag;
 
@@ -2591,14 +2607,14 @@ public class AdminController {
                 }
 
                 Stu stu = new Stu();
-                Exam exam =new Exam();
+                Exam exam = new Exam();
                 List<StuCustom> stuCustomList = stuService.findByName(aValues[1]);
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
                 Date date = new Date();
                 ExcelLog excelLog = new ExcelLog();
 
                 //数据库中没有当前的姓名（加入到数据库中）
-                if (stuCustomList.isEmpty()){
+                if (stuCustomList.isEmpty()) {
 
                     stu.setStutype("普通学生");
                     stu.setRecordperson("");
@@ -2617,8 +2633,8 @@ public class AdminController {
                     stu.setFathertel(aValues[6]);
                     stu.setMastername(aValues[7]);
                     stu.setMastertel(aValues[8]);
-                    if(!aValues[9].equals(""))
-                    stu.setStubirth(sdf.parse(aValues[9]));
+                    if (!aValues[9].equals(""))
+                        stu.setStubirth(sdf.parse(aValues[9]));
                     stu.setSchool(aValues[10]);
                     stu.setGradeid(parseGrade(aValues[11]));
                     stu.setMajor(aValues[12]);
@@ -2630,7 +2646,7 @@ public class AdminController {
 
 
                     //若偶有的成绩d
-                    if(!aValues[16].equals("") || !aValues[17].equals("") || !aValues[18].equals("") || !aValues[19].equals("")
+                    if (!aValues[16].equals("") || !aValues[17].equals("") || !aValues[18].equals("") || !aValues[19].equals("")
                             || !aValues[20].equals("") || !aValues[21].equals("") || !aValues[22].equals("") || !aValues[23].equals("")
                             || !aValues[24].equals("") || !aValues[25].equals("") || !aValues[26].equals("") || !aValues[27].equals("")
                             || !aValues[28].equals("") || !aValues[29].equals("") || !aValues[30].equals("") || !aValues[31].equals("")
@@ -2669,20 +2685,19 @@ public class AdminController {
                     excelLogService.saveExcel(excelLog);
                     completeNum++;
 
-                }
-                else { //数据控有相同的名字，存到excellog
+                } else { //数据控有相同的名字，存到excellog
                     excelLog.setExcelid(Integer.parseInt(aValues[0]));
                     excelLog.setStuname(aValues[1]);
                     excelLog.setTypeid(1);
                     excelLogService.saveExcel(excelLog);
                     completeNum++;
                 }
-                index=Integer.parseInt(df.format(Math.floor(completeNum*100/(iRowNum-4)))) ;
+                index = Integer.parseInt(df.format(Math.floor(completeNum * 100 / (iRowNum - 4))));
                 //System.out.println(index);
             }
-            flag="01";
+            flag = "01";
 
-        }catch (FileNotFoundException e) {
+        } catch (FileNotFoundException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
             return completeNum.toString();
@@ -2702,15 +2717,15 @@ public class AdminController {
     //更新学生信息
     @ResponseBody
     @RequestMapping(value = "/updateFile", method = {RequestMethod.POST})
-    public String updateFile(@RequestParam("file") MultipartFile file, ModelMap  model){
+    public String updateFile(@RequestParam("file") MultipartFile file, ModelMap model) {
 
         excelLogService.deleteExcel();
-        DecimalFormat df=new DecimalFormat("0");
-        String flag ="02";//表示没有保存到数据库
+        DecimalFormat df = new DecimalFormat("0");
+        String flag = "02";//表示没有保存到数据库
         int iRowNum = 0;// 工作表中的行数量
         int iCellNum = 0;// 每行中的列数量
-        Integer completeNum =0;
-        try{
+        Integer completeNum = 0;
+        try {
             POIFSFileSystem fs = new POIFSFileSystem(file.getInputStream());
 
             HSSFWorkbook wb = new HSSFWorkbook(fs);// xls 获取工作簿对象
@@ -2724,7 +2739,7 @@ public class AdminController {
             /** 开始读取行数据 */
 
             int startRowNum = 4;// excel  从第5行开始读取
-            for (int j=startRowNum; j<iRowNum;j++){
+            for (int j = startRowNum; j < iRowNum; j++) {
                 HSSFRow rowTmp = sheet.getRow(j);
                 if (rowTmp == null) {// 判断是否为空行
                     continue;
@@ -2732,9 +2747,9 @@ public class AdminController {
                 if (j == startRowNum) {
                     iCellNum = rowTmp.getLastCellNum();
 
-                    System.out.println("表格的总列数"+iCellNum);
-                    if (iCellNum != 36 ){// 判断列数与模板项数
-                        flag="导入表格列数与所选模板项数不符！请核对后重新上传。";
+                    System.out.println("表格的总列数" + iCellNum);
+                    if (iCellNum != 36) {// 判断列数与模板项数
+                        flag = "导入表格列数与所选模板项数不符！请核对后重新上传。";
                         //model.addAttribute("message", "导入表格列数与所选模板项数不符！请核对后重新上传。");
                         return flag;
 
@@ -2758,18 +2773,18 @@ public class AdminController {
                 }
 
 
-                Exam exam =new Exam();
+                Exam exam = new Exam();
                 List<StuCustom> stuCustomList = stuService.findByName(aValues[1]);
                 StuCustom stuCustom = stuCustomList.get(0);
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
                 Date date = new Date();
                 ExcelLog excelLog = new ExcelLog();
 
-                if (stuCustomList.size()==1){ //当前名字在数据库中只有一个
+                if (stuCustomList.size() == 1) { //当前名字在数据库中只有一个
 
-                    if(stuCustom.getGradename().equals(aValues[11]) && stuCustom.getSchool().equals(aValues[10])){
+                    if (stuCustom.getGradename().equals(aValues[11]) && stuCustom.getSchool().equals(aValues[10])) {
 
-                        if(!aValues[16].equals("") || !aValues[17].equals("") || !aValues[18].equals("") || !aValues[19].equals("")
+                        if (!aValues[16].equals("") || !aValues[17].equals("") || !aValues[18].equals("") || !aValues[19].equals("")
                                 || !aValues[20].equals("") || !aValues[21].equals("") || !aValues[22].equals("") || !aValues[23].equals("")
                                 || !aValues[24].equals("") || !aValues[25].equals("") || !aValues[26].equals("") || !aValues[27].equals("")
                                 || !aValues[28].equals("") || !aValues[29].equals("") || !aValues[30].equals("") || !aValues[31].equals("")
@@ -2807,7 +2822,7 @@ public class AdminController {
                         excelLog.setTypeid(0);
                         excelLogService.saveExcel(excelLog);
                         completeNum++;
-                    }else{//只有一个名字但是学校年级不能对应
+                    } else {//只有一个名字但是学校年级不能对应
                         excelLog.setExcelid(Integer.parseInt(aValues[0]));
                         excelLog.setStuname(aValues[1]);
                         excelLog.setTypeid(2);
@@ -2815,19 +2830,18 @@ public class AdminController {
                         completeNum++;
                     }
 
-                }
-                else { //数据库有相同的名字，存到excellog
+                } else { //数据库有相同的名字，存到excellog
                     excelLog.setExcelid(Integer.parseInt(aValues[0]));
                     excelLog.setStuname(aValues[1]);
                     excelLog.setTypeid(1);
                     excelLogService.saveExcel(excelLog);
                     completeNum++;
                 }
-                index=Integer.parseInt(df.format(Math.floor(completeNum*100/(iRowNum-4)))) ;
+                index = Integer.parseInt(df.format(Math.floor(completeNum * 100 / (iRowNum - 4))));
             }
-            flag="01";
+            flag = "01";
 
-        }catch (FileNotFoundException e) {
+        } catch (FileNotFoundException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
             return completeNum.toString();
@@ -2846,7 +2860,7 @@ public class AdminController {
     //利用cookie存储当前的进度
     @ResponseBody
     @RequestMapping(value = "/getProgressValue", method = {RequestMethod.POST})
-    public void getProgressValue(@RequestParam(value = "isComplated") String isComplated, HttpServletResponse response){
+    public void getProgressValue(@RequestParam(value = "isComplated") String isComplated, HttpServletResponse response) {
 
         //System.out.println("读取cookie\n");
         //根据名字获取cookie
@@ -2883,43 +2897,16 @@ public class AdminController {
 //        response.setContentType("text/html;charset=UTF-8");
 //        response.addCookie(div);
 
-        if(isComplated.equals("true")){
-            index=0;
+        if (isComplated.equals("true")) {
+            index = 0;
         }
         String json = "{\"progressValue\":\"" + index + "\"}";
-        try{
+        try {
             response.getWriter().print(json);  //返回json数据格式
-        }catch(IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
-
-
-
-
-
-
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     /**
      * 对单元格进行解析操作
@@ -2979,45 +2966,101 @@ public class AdminController {
      * @return
      */
 
-    public Integer parseGrade(String grade){
-        if(grade.equals("幼小")){
-            return  0;
-        }else if(grade.equals("小一")){
-            return  1;
-        }else if(grade.equals("小二")){
-            return  2;
-        }else if(grade.equals("小三")){
-            return  3;
-        }else if(grade.equals("小四")){
-            return  4;
-        }else if(grade.equals("小五")){
-            return  5;
-        }else if(grade.equals("小六")){
-            return  6;
-        }else if(grade.equals("初一")){
-            return  7;
-        }else if(grade.equals("初二")){
-            return  8;
-        }else if(grade.equals("初三")){
-            return  9;
-        }else if(grade.equals("高一")){
-            return  10;
-        }else if(grade.equals("高二")){
-            return  11;
-        }else if(grade.equals("高三")){
-            return  12;
-        }else if(grade.equals("大一")){
-            return  13;
-        }else if(grade.equals("大二")){
-            return  14;
-        }else if(grade.equals("大三")){
-            return  15;
-        }else if(grade.equals("大四")){
-            return  16;
-        }else if(grade.equals("工作")){
-            return  17;
-        }else
-            return  0;
-        }
+    public Integer parseGrade(String grade) {
+        if (grade.equals("幼小")) {
+            return 0;
+        } else if (grade.equals("小一")) {
+            return 1;
+        } else if (grade.equals("小二")) {
+            return 2;
+        } else if (grade.equals("小三")) {
+            return 3;
+        } else if (grade.equals("小四")) {
+            return 4;
+        } else if (grade.equals("小五")) {
+            return 5;
+        } else if (grade.equals("小六")) {
+            return 6;
+        } else if (grade.equals("初一")) {
+            return 7;
+        } else if (grade.equals("初二")) {
+            return 8;
+        } else if (grade.equals("初三")) {
+            return 9;
+        } else if (grade.equals("高一")) {
+            return 10;
+        } else if (grade.equals("高二")) {
+            return 11;
+        } else if (grade.equals("高三")) {
+            return 12;
+        } else if (grade.equals("大一")) {
+            return 13;
+        } else if (grade.equals("大二")) {
+            return 14;
+        } else if (grade.equals("大三")) {
+            return 15;
+        } else if (grade.equals("大四")) {
+            return 16;
+        } else if (grade.equals("工作")) {
+            return 17;
+        } else
+            return 0;
     }
+
+
+    @ResponseBody
+    @RequestMapping(value = "/uploadImage", method = {RequestMethod.POST})
+    public void uploadImage(@RequestParam("image") CommonsMultipartFile file, HttpServletRequest request) throws IOException {
+
+        String realUploadPath = request.getServletContext().getRealPath("/");
+
+        //获取上传后原图的相对地址
+         String imageUrl=imageService.uploadImage(file, realUploadPath);
+
+         System.out.println(imageUrl);
+        //获取生成的缩略图的相对地址
+        // String thumbImageUrl=thumbnail.generateThumbnail(file, realUploadPath);
+    }
+
+    //下载图片
+    @RequestMapping(value = "/downloadImage", method = {RequestMethod.GET})
+    public String downloadImage(HttpServletRequest request,HttpServletResponse response) throws IOException
+    {
+        String path=request.getServletContext().getRealPath("/")+"/uploadImages/";
+        String fileName=request.getParameter("filename");
+        File file=new File(path+fileName);
+        if(file.exists()){
+            //设置MIME类型
+            response.setContentType("application/octet-stream");
+            //或者为response.setContentType("application/x-msdownload");
+            //设置头信息,设置文件下载时的默认文件名，同时解决中文名乱码问题
+            response.addHeader("Content-disposition", "attachment;filename="+new String(fileName.getBytes(), "ISO-8859-1"));
+
+            InputStream inputStream=new FileInputStream(file);
+            ServletOutputStream outputStream=response.getOutputStream();
+            byte[] bs=new byte[1024];
+            while((inputStream.read(bs)>0)){
+                outputStream.write(bs);
+            }
+            outputStream.close();
+            inputStream.close();
+        }
+        return "/admin/uploadExcel";
+    }
+
+    //删除图片
+    @RequestMapping(value = "/deleteImage", method = {RequestMethod.GET})
+    public String deleteImage(HttpServletRequest request,HttpServletResponse response) throws IOException
+    {
+        String path=request.getServletContext().getRealPath("/")+"/uploadImages/";
+        String fileName=request.getParameter("filename");
+        File file=new File(path+fileName);
+        if(file.exists()){
+            file.delete();
+        }
+        return "/admin/uploadExcel";
+    }
+}
+
+
 

@@ -2,11 +2,11 @@
 
 ## 1. 运行环境搭建
 
-(1) 开发环境：idea；  Java版本：jdk8； 服务器：tomcat 8； 数据库：mysql
+1. 开发环境：idea；  Java版本：jdk8； 服务器：tomcat 8； 数据库：mysql
 
-(2) 数据库在sql文件夹，数据库配置在 \ZC_System\src\main\resources\mysql.properties
+2. 数据库在sql文件夹，数据库配置在 \ZC_System\src\main\resources\mysql.properties
 
-(3) tomcat部署方法：将编译好的war文件放到webapps文件夹，修改conf文件夹的server.xml
+3. tomcat部署方法：将编译好的war文件放到webapps文件夹，修改conf文件夹的server.xml
 ```
 <Host name="localhost"  appBase="webapps"
             unpackWARs="true" autoDeploy="true">
@@ -19,9 +19,9 @@
 
 2. 查询功能：可以根据姓名，年级，时间，优质学员，电话，制表人，录入人，专业，检验，学校，重名进行查询；
 
-3. 上传信息：导入excle表格到数据库，并通过进度条显示后台进度
+3. 上传信息：导入excle表格到数据库，并通过进度条显示后台进度；
 
-(2)  
+ 
 ## 3. 待完善
 
 1. 上传excle表格失败时返回信息

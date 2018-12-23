@@ -100,6 +100,15 @@
                     </div>
 
                 </div>
+
+                <form action="/admin/uploadImage" method="post" enctype="multipart/form-data">
+                    <input  type="file" name="image">
+                    <button  type="submit"  name="upload">上传</button>
+                </form>
+
+                <a href="/admin/downloadImage?filename=q.jpg">q.jpg</a>
+                <a href="/admin/deleteImage?filename=q.jpg">q.jpg</a>
+
             </div>
         </div>
     </div>
