@@ -3010,16 +3010,16 @@ public class AdminController {
 
     @ResponseBody
     @RequestMapping(value = "/uploadImage", method = {RequestMethod.POST})
-    public void uploadImage(@RequestParam("image") CommonsMultipartFile file, HttpServletRequest request) throws IOException {
+    public void uploadImage(@RequestParam("image") CommonsMultipartFile file, Integer stuID, String imageTitle,HttpServletRequest request) throws IOException {
+
+        Images images = new Images();
+        images.setStuid(1);
+        images.setTitle("wewe");
 
         String realUploadPath = request.getServletContext().getRealPath("/");
 
-        //获取上传后原图的相对地址
-         String imageUrl=imageService.uploadImage(file, realUploadPath);
-
-         System.out.println(imageUrl);
-        //获取生成的缩略图的相对地址
-        // String thumbImageUrl=thumbnail.generateThumbnail(file, realUploadPath);
+        //上传原图,保存到数据库
+        imageService.uploadImage(file, images, realUploadPath);
     }
 
     //下载图片
@@ -3050,13 +3050,14 @@ public class AdminController {
 
     //删除图片
     @RequestMapping(value = "/deleteImage", method = {RequestMethod.GET})
-    public String deleteImage(HttpServletRequest request,HttpServletResponse response) throws IOException
+    public String deleteImage(HttpServletRequest request) throws IOException
     {
         String path=request.getServletContext().getRealPath("/")+"/uploadImages/";
         String fileName=request.getParameter("filename");
         File file=new File(path+fileName);
         if(file.exists()){
             file.delete();
+            imageService.removeImageByName(fileName);
         }
         return "/admin/uploadExcel";
     }

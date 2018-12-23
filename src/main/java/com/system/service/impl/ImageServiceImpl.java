@@ -1,5 +1,7 @@
 package com.system.service.impl;
 
+import com.system.mapper.ImageMapper;
+import com.system.po.Images;
 import com.system.service.ImageService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,16 +9,19 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import java.io.*;
+import java.util.List;
 import java.util.UUID;
 
 @Service
 public class ImageServiceImpl implements ImageService {
 
+    @Autowired
+    private ImageMapper imageMapper;
 
     /*
      * 上传图片并返回图片的相对地址
      */
-    public String uploadImage(CommonsMultipartFile  file, String realUploadPath) throws  IOException
+    public void uploadImage(CommonsMultipartFile  file, Images images, String realUploadPath) throws  IOException
     {
         //如果目录不存在则创建目录
         File uploadFile=new File(realUploadPath+"/uploadImages");
@@ -33,6 +38,10 @@ public class ImageServiceImpl implements ImageService {
         String uuid = UUID.randomUUID().toString().replace("-", "");
         //新名称
         String newName = uuid+extName;     //在这里用UUID来生成新的文件夹名字，这样就不会导致重名
+        //保存到数据库
+        images.setPath(newName);
+        imageMapper.insertImage(images);
+
         //创建输入流
         InputStream inputStream=file.getInputStream();
         //生成输出地址URL
@@ -50,7 +59,19 @@ public class ImageServiceImpl implements ImageService {
         outputStream.close();
 
         //返回原图上传后的相对地址
-        return "uploadImages/"+newName;
+       // return "uploadImages/"+newName;
+    }
+
+    public void save (Images images ){
+        imageMapper.insertImage(images);
+    }
+    //删除图片信息
+    public  void removeImageByName (String filename) {
+        imageMapper.deleteImageByName(filename);
+    }
+    //根据stuid查询图片
+    public List<Images> findImageByStuID (Integer stuid) throws Exception{
+        return imageMapper.selectImageByStuID(stuid);
     }
 
 }

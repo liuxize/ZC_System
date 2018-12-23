@@ -1,20 +1,21 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.system.mapper.ImageMapper" >
-    <resultMap id="BaseResultMap" type="com.system.po.Grade" >
-        <id column="gradeID" property="gradeid" jdbcType="INTEGER" />
-        <result column="gradeName" property="gradename" jdbcType="VARCHAR" />
-    </resultMap>
 
-    <sql id="Base_Column_List" >
-        gradeID, gradeName
-    </sql>
+    <insert id="insertImage" parameterType="com.system.po.Images" keyProperty="imageid" useGeneratedKeys="true">
+        INSERT INTO image (stuID, title, path)
+        values (#{stuid, jdbcType=INTEGER}, #{title, jdbcType=VARCHAR}, #{path, jdbcType=VARCHAR})
+    </insert>
 
-    <select id="findAll"  resultType="com.system.po.Grade">
-        select
-        *
-        from grade
+    <select id="selectImageByStuID" parameterType="java.lang.Integer" resultType="com.system.po.Images" >
+        SELECT * FROM image
+        WHERE
+         stuID = #{stuid, jdbcType=INTEGER}
     </select>
 
+    <delete id="deleteImageByName" parameterType="java.lang.String" >
+        delete from image
+        where path = #{filename,jdbcType=VARCHAR}
+    </delete>
 
 </mapper>
