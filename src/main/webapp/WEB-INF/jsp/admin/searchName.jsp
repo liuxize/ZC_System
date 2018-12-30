@@ -95,6 +95,7 @@
                                 <c:if test="${pagingVO.curentPageNo > 1}">
                                     <li><a href="/admin/searchName?page=${pagingVO.upPageNo}">&laquo;上一页</a></li>
                                 </c:if>
+
                                 <li class="active"><a href="">${pagingVO.curentPageNo}</a></li>
                                 <c:if test="${pagingVO.curentPageNo+1 <= pagingVO.totalCount}">
                                     <li>
