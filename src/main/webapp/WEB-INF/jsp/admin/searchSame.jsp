@@ -146,14 +146,12 @@
     if (${pagingVO.curentPageNo} == ${pagingVO.totalCount}) {
         $(".pagination li:nth-last-child(3)").addClass("disabled");
         $(".pagination li:nth-last-child(4)").addClass('disabled'); // Disables visually
-    }
-    ;
+    };
 
     if (${pagingVO.curentPageNo} == ${1}) {
         $(".pagination li:nth-child(1)").addClass("disabled");
         $(".pagination li:nth-child(2)").addClass("disabled");
-    }
-    ;
+    };
     </c:if>
 
     function jumpPage(){
