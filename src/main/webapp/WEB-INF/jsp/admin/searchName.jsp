@@ -156,8 +156,8 @@
     ;
 
     if (${pagingVO.curentPageNo} == ${1}) {
-        $(".pagination li:nth-child(1)").addClass("disabled");
-        $(".pagination li:nth-child(2)").addClass("disabled");
+        $(".pagination li:nth-child(1)").addClass("disabled")
+        $(".pagination li:nth-child(2)").addClass("disabled")
     }
     ;
     </c:if>
