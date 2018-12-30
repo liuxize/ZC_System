@@ -177,6 +177,7 @@
 
     function jumpPage(){
         var page = $("#toPage").val();
+        if (page==''){return;}
         if(page<=${pagingVO.totalCount}){
             window.location.href="/admin/searchOutstand?page="+ page;
         }

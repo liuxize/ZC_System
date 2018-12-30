@@ -184,6 +184,7 @@
     </c:if>
     function jumpPage(){
         var page = $("#toPage").val();
+        if (page==''){return;}
         if(page<=${pagingVO.totalCount}){
             window.location.href="/admin/searchUpdater?page="+ page + "&datestart=" +'${starttime}' + "&dateend=" + '${endtime}' +"&name=" +'${name}';
         }
