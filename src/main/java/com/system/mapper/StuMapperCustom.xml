@@ -611,7 +611,6 @@
         WHERE
         DATEDIFF(CAST(DATE_FORMAT(lesson.lessonEnd,'%y-%m-%d')AS DATE),CAST(DATE_FORMAT(NOW(),'%y-%m-%d') AS DATE)) > 0
         )
-
         limit #{toPageNo}, #{pageSize}
     </select>
 

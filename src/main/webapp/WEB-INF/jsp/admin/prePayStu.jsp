@@ -179,7 +179,7 @@
 
                                 <li><a><input id="toPage" style="height: 18px; width: 50px;border: 0px;outline:none;" type="text" placeholder="共${pagingVO.totalCount}页"/></a></li>
                                 <li><a href="javascript:void(0);" onclick="jumpPage()">跳转</a></li>
-                                
+
                             </ul>
                         </nav>
                     </c:if>

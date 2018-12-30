@@ -270,12 +270,6 @@ public class StuServiceImpl implements StuService {
 
     //统计未缴费学生人数
     public int getCountByUnPayStu(Integer gradeid, Integer teleType) throws Exception {
-//
-//        if(gradeid == -1){
-//            return stuMapper.countStuByUnPayStu();
-//        }else {
-//
-//        }
 
         if(gradeid==-1 && teleType==0){  //全部 全部
 

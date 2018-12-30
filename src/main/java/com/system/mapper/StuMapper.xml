@@ -410,11 +410,11 @@
     <select id="countStuByUnPayStuTel" resultType="java.lang.Integer" >
         select count(*) from stu
         WHERE
-        stu.stuTel !=''
+        (stu.stuTel !=''
         OR
         stu.motherTel !=''
         OR
-        stu.fatherTel !=''
+        stu.fatherTel !='')
         AND
         stu.stuID NOT IN
         (
@@ -461,11 +461,11 @@
     <select id="countUnPayStuByGradeTel" parameterType="java.lang.Integer" resultType="java.lang.Integer" >
         select count(*) from stu
         WHERE
-        stu.stuTel !=''
+        (stu.stuTel !=''
         OR
         stu.motherTel !=''
         OR
-        stu.fatherTel !=''
+        stu.fatherTel !='')
         AND
         stu.gradeID = #{gradeid,jdbcType=INTEGER}
         AND
