@@ -103,7 +103,7 @@
                                 <c:if test="${pagingVO.curentPageNo <= 1}">
                                     <li><a href="/admin/searchMajor?page=1&encodeMajor=${majorTemp}">&laquo;上一页</a></li>
                                 </c:if>
-                                <c:if test="${pagingVO.curentPageNo <= 1}">
+                                <c:if test="${pagingVO.curentPageNo > 1}">
                                     <li><a href="/admin/searchMajor?page=${pagingVO.upPageNo}&encodeMajor=${majorTemp}">&laquo;上一页</a></li>
                                 </c:if>
                                 <li class="active"><a href="">${pagingVO.curentPageNo}</a></li>
@@ -132,7 +132,7 @@
                                     <li><a href="/admin/searchMajor?page=${pagingVO.nextPageNo}&encodeMajor=${majorTemp}">下一页&raquo;</a></li>
                                 </c:if>
                                 <c:if test="${pagingVO.curentPageNo >=pagingVO.totalCount}">
-                                    <li><a href="/admin/searchMajor?page=${pagingVO.totalCount}&encodeMajor=${majorTemp}">最后一页&raquo;</a></li>
+                                    <li><a href="/admin/searchMajor?page=${pagingVO.totalCount}&encodeMajor=${majorTemp}">下一页&raquo;</a></li>
                                 </c:if>
                                 <li><a href="/admin/searchMajor?page=${pagingVO.totalCount}&encodeMajor=${majorTemp}">尾页</a></li>
 
