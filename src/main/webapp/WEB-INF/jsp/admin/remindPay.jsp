@@ -175,15 +175,23 @@
 
     <c:if test="${pagingVO != null}">
     if (${pagingVO.curentPageNo} == ${pagingVO.totalCount}) {
-        $(".pagination li:last-child").addClass("disabled")
-    }
-    ;
+        $(".pagination li:nth-last-child(3)").addClass("disabled");
+        $(".pagination li:nth-last-child(4)").addClass('disabled'); // Disables visually
+    };
 
     if (${pagingVO.curentPageNo} == ${1}) {
-        $(".pagination li:nth-child(1)").addClass("disabled")
-    }
-    ;
+        $(".pagination li:nth-child(1)").addClass("disabled");
+        $(".pagination li:nth-child(2)").addClass("disabled");
+    };
     </c:if>
+
+    function jumpPage(){
+        var page = $("#toPage").val();
+        if (page==''){return;}
+        if(page<=${pagingVO.totalCount}){
+            window.location.href="/admin/remindPay?page="+ page;
+        }
+    }
 
     function s2ab(s) {
         const buf = new ArrayBuffer(s.length);
