@@ -140,7 +140,14 @@
                     <c:if test="${pagingVO != null}">
                         <nav style="text-align: center">
                             <ul class="pagination">
-                                <li><a href="/admin/paidStudent?page=${pagingVO.upPageNo}&gradeid=${gradeIndex}&subjectid=${subjectIndex}&typeid=${typeIndex}">&laquo;上一页</a>
+                                <li><a href="/admin/paidStudent?page=1&gradeid=${gradeIndex}&subjectid=${subjectIndex}&typeid=${typeIndex}">首页</a>
+                                <c:if test="${pagingVO.curentPageNo <= 1}">
+                                    <li><a href="/admin/paidStudent?page=1&gradeid=${gradeIndex}&subjectid=${subjectIndex}&typeid=${typeIndex}">&laquo;上一页</a>
+                                </c:if>
+                                <c:if test="${pagingVO.curentPageNo > 1}">
+                                    <li><a href="/admin/paidStudent?page=${pagingVO.upPageNo}&gradeid=${gradeIndex}&subjectid=${subjectIndex}&typeid=${typeIndex}">&laquo;上一页</a>
+                                </c:if>
+
                                 </li>
                                 <li class="active"><a href="">${pagingVO.curentPageNo}</a></li>
                                 <c:if test="${pagingVO.curentPageNo+1 <= pagingVO.totalCount}">
@@ -163,8 +170,17 @@
                                         <a href="/admin/paidStudent?page=${pagingVO.curentPageNo+4}&gradeid=${gradeIndex}&subjectid=${subjectIndex}&typeid=${typeIndex}">${pagingVO.curentPageNo+4}</a>
                                     </li>
                                 </c:if>
-                                <li><a href="/admin/paidStudent?page=${pagingVO.totalCount}&gradeid=${gradeIndex}&subjectid=${subjectIndex}&typeid=${typeIndex}">最后一页&raquo;</a>
-                                </li>
+
+                                <c:if test="${pagingVO.curentPageNo <pagingVO.totalCount}">
+                                    <li><a href="/admin/paidStudent?page=${pagingVO.nextPageNo}&gradeid=${gradeIndex}&subjectid=${subjectIndex}&typeid=${typeIndex}">下一页&raquo;</a></li>
+                                </c:if>
+                                <c:if test="${pagingVO.curentPageNo >=pagingVO.totalCount}">
+                                    <li><a href="/admin/paidStudent?page=${pagingVO.totalCount}&gradeid=${gradeIndex}&subjectid=${subjectIndex}&typeid=${typeIndex}">下一页&raquo;</a></li>
+                                </c:if>
+                                <li><a href="/admin/paidStudent?page=${pagingVO.totalCount}&gradeid=${gradeIndex}&subjectid=${subjectIndex}&typeid=${typeIndex}">最后一页&raquo;</a></li>
+                                <li><a><input id="toPage" style="height: 18px; width: 50px;border: 0px;outline:none;" type="text" placeholder="共${pagingVO.totalCount}页"/></a></li>
+                                <li><a href="javascript:void(0);" onclick="jumpPage()">跳转</a></li>
+
                             </ul>
                         </nav>
                     </c:if>
@@ -201,15 +217,23 @@
 
     <c:if test="${pagingVO != null}">
     if (${pagingVO.curentPageNo} == ${pagingVO.totalCount}) {
-        $(".pagination li:last-child").addClass("disabled")
-    }
-    ;
+        $(".pagination li:nth-last-child(3)").addClass("disabled");
+        $(".pagination li:nth-last-child(4)").addClass('disabled'); // Disables visually
+    };
 
     if (${pagingVO.curentPageNo} == ${1}) {
-        $(".pagination li:nth-child(1)").addClass("disabled")
-    }
-    ;
+        $(".pagination li:nth-child(1)").addClass("disabled");
+        $(".pagination li:nth-child(2)").addClass("disabled");
+    };
     </c:if>
+
+    function jumpPage(){
+        var page = $("#toPage").val();
+        if (page==''){return;}
+        if(page<=${pagingVO.totalCount}){
+            window.location.href="/admin/paidStudent?page="+ page+ "&gradeid=" + ${gradeIndex} + "&subjectid=" + ${subjectIndex} + "&typeid=" + ${typeIndex};
+        }
+    }
 
     function s2ab(s) {
         const buf = new ArrayBuffer(s.length);
