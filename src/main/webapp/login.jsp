@@ -14,7 +14,7 @@
 </head>
 
 
-<body style="background: #ffffff">
+<body style="background: #ffffff" onkeydown="keyLogin();">
 <div id="Layer1" style="position:absolute; width:100%; height:100%; z-index:-1">
 	<img src="images/b1.jpg" height="100%" width="100%"/></div>
 <div class="login-wrapper container-fluid">
@@ -35,10 +35,10 @@
 			</div>
 			<form action="/login" method="post">
 				<div class="form-group">
-					<input type="text" class="form-control login-input" placeholder="用户名" required name="username" value="刘娟">
+					<input type="text" class="form-control login-input" placeholder="用户名" required name="username" value="admin">
 				</div>
 				<div class="form-group">
-					<input type="password" class="form-control login-input" placeholder="密码" required name="password" value="753698">
+					<input type="password" class="form-control login-input" placeholder="密码" required name="password" value="123">
 				</div>
 				<button id="submit" type="submit" class="btn login-btn">登录</button>
 
@@ -48,6 +48,11 @@
 </div>
 </body>
 <script type="text/javascript">
+    function keyLogin(){
+        if (event.keyCode==13)  //回车键的键值为13
+            document.getElementById("submit").click(); //调用登录按钮的登录事件
+    }
+
     document.getElementById("submit").click(); //自动登录
 </script>
 </html>
