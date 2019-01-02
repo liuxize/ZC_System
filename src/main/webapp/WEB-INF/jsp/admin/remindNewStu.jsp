@@ -33,41 +33,47 @@
                         <h1 class="col-md-5">新录入信息</h1>
                     </div>
                 </div>
+                <ul class="nav nav-tabs">
+                    <li class="active"><a href="">已签字</a></li>
+                    <li><a href="/admin/remindNewStuUnsign?page=1">未签字</a></li>
+                </ul>
 
-                <table class="table table-bordered">
-                    <thead>
-                    <tr>
-                        <th style="width:5%">序号</th>
-                        <th>姓名</th>
-                        <th>学校</th>
-                        <th>年级</th>
-                        <th>电话</th>
-                        <th style="width: 15%">操作</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <c:forEach items="${stuList}" var="item" varStatus="status">
+                <div>
+                    <table class="table table-bordered">
+                        <thead>
                         <tr>
-                            <td>${(pagingVO.curentPageNo-1)*(pagingVO.pageSize)+status.index + 1}</td>
-                            <td>${item.stuname}</td>
-                            <td>${item.school}</td>
-                            <td>${item.gradename}</td>
-                            <td>${item.stutel}</td>
-                            <td>
-                                <button type="button" class="btn btn-primary btn-xs"
-                                        onClick="ToTableOne(${item.stuid})">查看信息
-                                </button>
-
-                                <button type="button" class="btn btn-success btn-xs"
-                                        onclick="signConfirm('${item.stuid}','${pagingVO.curentPageNo}')"
-                                        >删除
-                                </button>
-
-                            </td>
+                            <th style="width:5%">序号</th>
+                            <th>姓名</th>
+                            <th>学校</th>
+                            <th>年级</th>
+                            <th>电话</th>
+                            <th style="width: 15%">操作</th>
                         </tr>
-                    </c:forEach>
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                        <c:forEach items="${stuList}" var="item" varStatus="status">
+                            <tr>
+                                <td>${(pagingVO.curentPageNo-1)*(pagingVO.pageSize)+status.index + 1}</td>
+                                <td>${item.stuname}</td>
+                                <td>${item.school}</td>
+                                <td>${item.gradename}</td>
+                                <td>${item.stutel}</td>
+                                <td>
+                                    <button type="button" class="btn btn-primary btn-xs"
+                                            onClick="ToTableOne(${item.stuid})">查看信息
+                                    </button>
+
+                                    <button type="button" class="btn btn-success btn-xs"
+                                            onclick="signConfirm('${item.stuid}','${pagingVO.curentPageNo}')"
+                                    >删除
+                                    </button>
+
+                                </td>
+                            </tr>
+                        </c:forEach>
+                        </tbody>
+                    </table>
+                </div>
                 <div class="panel-footer">
                     <c:if test="${pagingVO != null}">
                         <nav style="text-align: center">
@@ -108,7 +114,8 @@
                                 </c:if>
                                 <li><a href="/admin/remindNewStu?page=${pagingVO.totalCount}">尾页</a></li>
 
-                                <li><a><input id="toPage" style="height: 18px; width: 50px;border: 0px;outline:none;" type="text" placeholder="共${pagingVO.totalCount}页"/></a></li>
+                                <li><a><input id="toPage" style="height: 18px; width: 50px;border: 0px;outline:none;"
+                                              type="text" placeholder="共${pagingVO.totalCount}页"/></a></li>
                                 <li><a href="javascript:void(0);" onclick="jumpPage()">跳转</a></li>
                             </ul>
                         </nav>
@@ -139,31 +146,35 @@
     if (${pagingVO.curentPageNo} == ${pagingVO.totalCount}) {
         $(".pagination li:nth-last-child(3)").addClass("disabled");
         $(".pagination li:nth-last-child(4)").addClass('disabled'); // Disables visually
-    };
+    }
+    ;
 
     if (${pagingVO.curentPageNo} == ${1}) {
         $(".pagination li:nth-child(1)").addClass("disabled");
         $(".pagination li:nth-child(2)").addClass("disabled");
-    };
+    }
+    ;
     </c:if>
 
-    function jumpPage(){
+    function jumpPage() {
         var page = $("#toPage").val();
-        if (page==''){return;}
-        if(page<=${pagingVO.totalCount}){
-            window.location.href="/admin/remindNewStu?page="+ page;
+        if (page == '') {
+            return;
+        }
+        if (page <=${pagingVO.totalCount}) {
+            window.location.href = "/admin/remindNewStu?page=" + page;
         }
     }
 
     function ToTableOne(str) {
-        var a=btoa(str);
-        window.open('/admin/editTableOne?encodeID='+a);
+        var a = btoa(str);
+        window.open('/admin/editTableOne?encodeID=' + a);
     }
 
-    function signConfirm(stuid,page) {
+    function signConfirm(stuid, page) {
         var msg = "您确定要删除吗";
         if (confirm(msg) == true) {
-            window.location.href="/admin/signConfirm?stuid=" + stuid + "&currentPage=" +page;
+            window.location.href = "/admin/signConfirm?stuid=" + stuid + "&currentPage=" + page;
             return true;
         } else {
             return false;

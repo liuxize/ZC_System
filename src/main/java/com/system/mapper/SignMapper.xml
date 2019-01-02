@@ -416,6 +416,17 @@
         FROM sign
         WHERE
         receiveSign = 0
+        AND
+        masterSignID = 1
+    </select>
+
+    <select id="countAdminReceiveUnsign" resultType="java.lang.Integer">
+        SELECT count(*)
+        FROM sign
+        WHERE
+        receiveSign = 0
+        AND
+        masterSignID = 0
     </select>
 
     <select id="countAdminUpdate" resultType="java.lang.Integer">
@@ -423,6 +434,17 @@
         FROM sign
         WHERE
         adminSignID = 1
+        AND
+        masterSignID = 1
+    </select>
+
+    <select id="countAdminUpdateUnsign" resultType="java.lang.Integer">
+        SELECT count(*)
+        FROM sign
+        WHERE
+        adminSignID = 1
+        AND
+        masterSignID = 0
     </select>
 
     <!--添加表二，三的时候调用-->

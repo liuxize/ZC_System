@@ -40,7 +40,7 @@ import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 
 /**
- 30.
+ * 30.
  */
 @Controller
 @RequestMapping("/admin")
@@ -208,6 +208,7 @@ public class AdminController {
         //设置总页数
         pagingVO.setTotalCount(userloginService.getCountUsers());
         if (page == null || page == 0) {
+            pagingVO.setCurentPageNo(1);
             pagingVO.setToPageNo(1);
             list = userloginService.findByPaging(1);
         } else {
@@ -1130,6 +1131,7 @@ public class AdminController {
         //设置总页数
         pagingVO.setTotalCount(stuService.getCountStudent());
         if (page == null || page == 0) {
+            pagingVO.setCurentPageNo(1);
             pagingVO.setToPageNo(1);
             list = stuService.findByPaging(1);
         } else {
@@ -1168,6 +1170,7 @@ public class AdminController {
             //设置总页数
             pagingVO.setTotalCount(stuService.getCountLister(username, startdate, enddate));
             if (page == null || page == 0) {
+                pagingVO.setCurentPageNo(1);
                 pagingVO.setToPageNo(1);
                 list = stuService.findLister(1, username, startdate, enddate);
             } else {
@@ -1217,6 +1220,7 @@ public class AdminController {
             //设置总页数
             pagingVO.setTotalCount(stuService.getCountUpdater(username, startdate, enddate));
             if (page == null || page == 0) {
+                pagingVO.setCurentPageNo(1);
                 pagingVO.setToPageNo(1);
                 list = stuService.findUpdater(1, username, startdate, enddate);
             } else {
@@ -1266,6 +1270,7 @@ public class AdminController {
 
             pagingVO.setTotalCount(stuService.getCountByGrade(gradeid));
             if (page == null || page == 0) {
+                pagingVO.setCurentPageNo(1);
                 pagingVO.setToPageNo(1);
                 list = stuService.findStuByGrade(1, gradeid);
             } else {
@@ -1301,6 +1306,7 @@ public class AdminController {
             PagingVO pagingVO = new PagingVO();
             pagingVO.setTotalCount(stuService.getCountByDate(startdate, enddate));
             if (page == null || page == 0) {
+                pagingVO.setCurentPageNo(1);
                 pagingVO.setToPageNo(1);
                 list = stuService.findStuByDate(1, startdate, enddate);
             } else {
@@ -1342,6 +1348,7 @@ public class AdminController {
         //设置总页数
         pagingVO.setTotalCount(stuService.getCountByOutstand());
         if (page == null || page == 0) {
+            pagingVO.setCurentPageNo(1);
             pagingVO.setToPageNo(1);
             list = stuService.findOutStandStu(1);
         } else {
@@ -1392,6 +1399,7 @@ public class AdminController {
             //设置总页数
             pagingVO.setTotalCount(stuService.getCountByMajor(majorName));
             if (page == null || page == 0) {
+                pagingVO.setCurentPageNo(1);
                 pagingVO.setToPageNo(1);
                 stuCustomList = stuService.findStuByMajor(1, majorName);
             } else {
@@ -1426,6 +1434,7 @@ public class AdminController {
             //设置总页数
             pagingVO.setTotalCount(stuService.getCountBySchool(schoolName));
             if (page == null || page == 0) {
+                pagingVO.setCurentPageNo(1);
                 pagingVO.setToPageNo(1);
                 stuCustomList = stuService.findStuBySchool(1, schoolName);
             } else {
@@ -1457,6 +1466,7 @@ public class AdminController {
         pagingVO.setTotalCount(stuService.getCountBySameStu());
         System.out.println(stuService.getCountBySameStu());
         if (page == null || page == 0) {
+            pagingVO.setCurentPageNo(1);
             pagingVO.setToPageNo(1);
             stuCustomList = stuService.findStuBySameName(1);
         } else {
@@ -1485,6 +1495,7 @@ public class AdminController {
             //设置总页数
             pagingVO.setTotalCount(stuService.getCountCheck(name, startdate, enddate));
             if (page == null || page == 0) {
+                pagingVO.setCurentPageNo(1);
                 pagingVO.setToPageNo(1);
                 list = stuService.findCheck(1, name, startdate, enddate);
             } else {
@@ -1532,6 +1543,7 @@ public class AdminController {
         pagingVO.setTotalCount(remindService.getCountBirth());
         // System.out.println("remind"+stuService.getCountByPay());
         if (page == null || page == 0) {
+            pagingVO.setCurentPageNo(1);
             pagingVO.setToPageNo(1);
             birthdayList = remindService.findAllBirthday(1);
         } else {
@@ -1563,6 +1575,7 @@ public class AdminController {
         pagingVO.setTotalCount(remindService.getCountRemindPay());
         // System.out.println("remind"+stuService.getCountByPay());
         if (page == null || page == 0) {
+            pagingVO.setCurentPageNo(1);
             pagingVO.setToPageNo(1);
             allStuList = remindService.findAllRemindPay(1);
         } else {
@@ -1585,7 +1598,7 @@ public class AdminController {
         return "redirect:/admin/remindPay?page=" + currentPage;
     }
 
-    //接收提醒
+    //接收提醒(校长已签字)
     @RequestMapping(value = "/remindReceive", method = {RequestMethod.GET})
     public String remindReceive(Model model, Integer page) throws Exception {
 
@@ -1596,6 +1609,7 @@ public class AdminController {
         pagingVO.setTotalCount(signService.getCountAdminUpdate());
 
         if (page == null || page == 0) {
+            pagingVO.setCurentPageNo(1);
             pagingVO.setToPageNo(1);
             list = stuService.adminUpdateRemind(1);
         } else {
@@ -1608,7 +1622,31 @@ public class AdminController {
         return "admin/remindReceive";
     }
 
-    //新录入信息提醒
+    //接收提醒(校长未签字)
+    @RequestMapping(value = "/remindReceiveUnsign", method = {RequestMethod.GET})
+    public String remindReceiveUnsign(Model model, Integer page) throws Exception {
+
+        List<StuCustom> list = null;
+        //页码对象
+        PagingVO pagingVO = new PagingVO();
+        //设置总页数
+        pagingVO.setTotalCount(signService.getCountAdminUpdateUnsign());
+
+        if (page == null || page == 0) {
+            pagingVO.setCurentPageNo(1);
+            pagingVO.setToPageNo(1);
+            list = stuService.adminUpdateRemindUnsign(1);
+        } else {
+            pagingVO.setToPageNo(page);
+            list = stuService.adminUpdateRemindUnsign(page);
+        }
+
+        model.addAttribute("stuList", list);
+        model.addAttribute("pagingVO", pagingVO);
+        return "admin/remindReceiveUnsign";
+    }
+
+    //新录入信息提醒 （已经签字）
     @RequestMapping(value = "/remindNewStu", method = {RequestMethod.GET})
     public String remindNewStu(Model model, Integer page) throws Exception {
 
@@ -1619,6 +1657,7 @@ public class AdminController {
         pagingVO.setTotalCount(signService.getCountAdminReceive());
 
         if (page == null || page == 0) {
+            pagingVO.setCurentPageNo(1);
             pagingVO.setToPageNo(1);
             list = stuService.adminReceiveRemind(1);
         } else {
@@ -1629,6 +1668,30 @@ public class AdminController {
         model.addAttribute("stuList", list);
         model.addAttribute("pagingVO", pagingVO);
         return "admin/remindNewStu";
+    }
+
+    //新录入信息提醒（未签字）
+    @RequestMapping(value = "/remindNewStuUnsign", method = {RequestMethod.GET})
+    public String remindNewStuUnsign(Model model, Integer page) throws Exception {
+
+        List<StuCustom> list = null;
+        //页码对象
+        PagingVO pagingVO = new PagingVO();
+        //设置总页数
+        pagingVO.setTotalCount(signService.getCountAdminReceiveUnsign());
+
+        if (page == null || page == 0) {
+            pagingVO.setCurentPageNo(1);
+            pagingVO.setToPageNo(1);
+            list = stuService.adminReceiveRemindUnsign(1);
+        } else {
+            pagingVO.setToPageNo(page);
+            list = stuService.adminReceiveRemindUnsign(page);
+        }
+
+        model.addAttribute("stuList", list);
+        model.addAttribute("pagingVO", pagingVO);
+        return "admin/remindNewStuUnsign";
     }
 
 
@@ -1695,6 +1758,7 @@ public class AdminController {
 
         pagingVO.setTotalCount(stuService.countPayStuBySelect(gradeid, subjectid, typeid));
         if (page == null || page == 0) {
+            pagingVO.setCurentPageNo(1);
             pagingVO.setToPageNo(1);
             list = stuService.findStuByPayStuAndSelect(1, gradeid, subjectid, typeid);
         } else {
@@ -1748,6 +1812,7 @@ public class AdminController {
 
         pagingVO.setTotalCount(stuService.countPrePayStuBySelect(gradeid, subjectid, typeid));
         if (page == null || page == 0) {
+            pagingVO.setCurentPageNo(1);
             pagingVO.setToPageNo(1);
             list = stuService.findStuByPrePayStuAndSelect(1, gradeid, subjectid, typeid);
         } else {
@@ -1787,6 +1852,7 @@ public class AdminController {
         //设置总页数
         pagingVO.setTotalCount(stuService.getCountByUnPayStu(gradeid, teleType));
         if (page == null || page == 0) {
+            pagingVO.setCurentPageNo(1);
             pagingVO.setToPageNo(1);
             list = stuService.findStuByUnPayStu(1, gradeid, teleType);
         } else {
@@ -1826,6 +1892,7 @@ public class AdminController {
         //pagingVO.setStringtemp(username);
         pagingVO.setTotalCount(userloginService.getCountNoteDic(username, 0));
         if (page == null || page == 0) {
+            pagingVO.setCurentPageNo(1);
             pagingVO.setToPageNo(1);
             list = userloginService.findNoteDic(1, username, 0);
         } else {
@@ -1883,6 +1950,7 @@ public class AdminController {
         pagingVO.setTotalCount(userloginService.getCountText(username, 0));
 
         if (page == null || page == 0) {
+            pagingVO.setCurentPageNo(1);
             pagingVO.setToPageNo(1);
             list = userloginService.findTextByName(1, username, 0);
         } else {
@@ -1997,6 +2065,7 @@ public class AdminController {
 
         pagingVO.setTotalCount(userloginService.getCountNoteTable(dicid));
         if (page == null || page == 0) {
+            pagingVO.setCurentPageNo(1);
             pagingVO.setToPageNo(1);
             list = userloginService.findNoteTableByDicID(1, dicid);
         } else {
@@ -2040,6 +2109,7 @@ public class AdminController {
 
         pagingVO.setTotalCount(userloginService.getCountNoteTable(dicid));
         if (page == null || page == 0) {
+            pagingVO.setCurentPageNo(1);
             pagingVO.setToPageNo(1);
             list = userloginService.findNoteTableByDicID(1, dicid);
         } else {
@@ -2194,6 +2264,7 @@ public class AdminController {
         List<TextDic> listtext = null;
         pagingVO.setTotalCount(userloginService.getCountText(username, 0));
         if (page == null || page == 0) {
+            pagingVO.setCurentPageNo(1);
             pagingVO.setToPageNo(1);
             listtext = userloginService.findTextByName(1, username, 0);
         } else {
@@ -2228,6 +2299,7 @@ public class AdminController {
         List<TextDic> listtext = null;
         pagingVO.setTotalCount(userloginService.getCountText(username, 1));
         if (page == null || page == 0) {
+            pagingVO.setCurentPageNo(1);
             pagingVO.setToPageNo(1);
             listtext = userloginService.findTextByName(1, username, 1);
         } else {
@@ -2279,6 +2351,7 @@ public class AdminController {
 
         pagingVO.setTotalCount(userloginService.getCountNoteTable(dicid));
         if (page == null || page == 0) {
+            pagingVO.setCurentPageNo(1);
             pagingVO.setToPageNo(1);
             list = userloginService.findNoteTableByDicID(1, dicid);
         } else {
@@ -2359,6 +2432,7 @@ public class AdminController {
         pagingVO.setTotalCount(userloginService.getCountText(username, 1));
 
         if (page == null || page == 0) {
+            pagingVO.setCurentPageNo(1);
             pagingVO.setToPageNo(1);
             list = userloginService.findTextByName(1, username, 1);
         } else {
@@ -2403,6 +2477,7 @@ public class AdminController {
         //pagingVO.setStringtemp(username);
         pagingVO.setTotalCount(userloginService.getCountNoteDic(username, 1));
         if (page == null || page == 0) {
+            pagingVO.setCurentPageNo(1);
             pagingVO.setToPageNo(1);
             list = userloginService.findNoteDic(1, username, 1);
         } else {
@@ -3010,7 +3085,7 @@ public class AdminController {
 
     @ResponseBody
     @RequestMapping(value = "/uploadImage", method = {RequestMethod.POST})
-    public void uploadImage(@RequestParam("image") CommonsMultipartFile file, Integer stuID, String imageTitle,HttpServletRequest request) throws IOException {
+    public void uploadImage(@RequestParam("image") CommonsMultipartFile file, Integer stuID, String imageTitle, HttpServletRequest request) throws IOException {
 
         Images images = new Images();
         images.setStuid(1);
@@ -3024,22 +3099,21 @@ public class AdminController {
 
     //下载图片
     @RequestMapping(value = "/downloadImage", method = {RequestMethod.GET})
-    public String downloadImage(HttpServletRequest request,HttpServletResponse response) throws IOException
-    {
-        String path=request.getServletContext().getRealPath("/")+"/uploadImages/";
-        String fileName=request.getParameter("filename");
-        File file=new File(path+fileName);
-        if(file.exists()){
+    public String downloadImage(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        String path = request.getServletContext().getRealPath("/") + "/uploadImages/";
+        String fileName = request.getParameter("filename");
+        File file = new File(path + fileName);
+        if (file.exists()) {
             //设置MIME类型
             response.setContentType("application/octet-stream");
             //或者为response.setContentType("application/x-msdownload");
             //设置头信息,设置文件下载时的默认文件名，同时解决中文名乱码问题
-            response.addHeader("Content-disposition", "attachment;filename="+new String(fileName.getBytes(), "ISO-8859-1"));
+            response.addHeader("Content-disposition", "attachment;filename=" + new String(fileName.getBytes(), "ISO-8859-1"));
 
-            InputStream inputStream=new FileInputStream(file);
-            ServletOutputStream outputStream=response.getOutputStream();
-            byte[] bs=new byte[1024];
-            while((inputStream.read(bs)>0)){
+            InputStream inputStream = new FileInputStream(file);
+            ServletOutputStream outputStream = response.getOutputStream();
+            byte[] bs = new byte[1024];
+            while ((inputStream.read(bs) > 0)) {
                 outputStream.write(bs);
             }
             outputStream.close();
@@ -3050,12 +3124,11 @@ public class AdminController {
 
     //删除图片
     @RequestMapping(value = "/deleteImage", method = {RequestMethod.GET})
-    public String deleteImage(HttpServletRequest request) throws IOException
-    {
-        String path=request.getServletContext().getRealPath("/")+"/uploadImages/";
-        String fileName=request.getParameter("filename");
-        File file=new File(path+fileName);
-        if(file.exists()){
+    public String deleteImage(HttpServletRequest request) throws IOException {
+        String path = request.getServletContext().getRealPath("/") + "/uploadImages/";
+        String fileName = request.getParameter("filename");
+        File file = new File(path + fileName);
+        if (file.exists()) {
             file.delete();
             imageService.removeImageByName(fileName);
         }

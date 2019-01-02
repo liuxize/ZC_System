@@ -254,9 +254,10 @@ public interface StuMapperCustom {
 
     /////////////////////////////////////////////////////管理员录入信息提醒//////////////////////////////////////////
     List<StuCustom> selectAdminReceive(PagingVO pagingVO);
-
+    List<StuCustom> selectAdminReceiveUnsign(PagingVO pagingVO);
     /////////////////////////////////////////////////////管理员更新信息提醒//////////////////////////////////////////
     List<StuCustom> selectAdminUpdate(PagingVO pagingVO);
+    List<StuCustom> selectAdminUpdateUnsign(PagingVO pagingVO);
 
     //选出姓名相同的信息
     List<StuCustom> selectSameName(PagingVO pagingVO);

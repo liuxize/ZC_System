@@ -745,25 +745,9 @@ public class LeaderController {
 
     /*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<表三操作结束>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
 
-    // 搜索姓名操作
     @RequestMapping("/searchName")
     public String searchNameUI(Model model, Integer page) throws Exception {
-//        List<StuCustom> list = null;
-//        //页码对象
-//        PagingVO pagingVO = new PagingVO();
-//        //设置总页数
-//        pagingVO.setTotalCount(stuService.getCountStudent());
-//        if (page == null || page == 0) {
-//            pagingVO.setToPageNo(1);
-//            list = stuService.findByPaging(1);
-//        } else {
-//            pagingVO.setToPageNo(page);
-//            list = stuService.findByPaging(page);
-//        }
-//        model.addAttribute("stuList", list);
-//        model.addAttribute("pagingVO", pagingVO);
-
-        return "leader/searchName";
+        return "master/searchName";
     }
 
     // 搜索姓名操作
@@ -792,6 +776,7 @@ public class LeaderController {
          pagingVO.setTotalCount(stuService.countLeaderUpdateRemind(permission,permissionList));
 
         if (page == null || page == 0) {
+            pagingVO.setCurentPageNo(1);
             pagingVO.setToPageNo(1);
             list=stuService.leaderUpdateRemind(1,permission,permissionList);
         } else {
@@ -821,6 +806,7 @@ public class LeaderController {
         pagingVO.setTotalCount(stuService.countLeaderReceiveRemind(permission,permissionList));
 
         if (page == null || page == 0) {
+            pagingVO.setCurentPageNo(1);
             pagingVO.setToPageNo(1);
             list=stuService.leaderReceiveRemind(1,permission,permissionList);
         } else {
@@ -868,6 +854,7 @@ public class LeaderController {
         pagingVO.setTotalCount(remindService.getCountBirth());
         // System.out.println("remind"+stuService.getCountByPay());
         if (page == null || page == 0) {
+            pagingVO.setCurentPageNo(1);
             pagingVO.setToPageNo(1);
             birthdayList = remindService.findAllBirthday(1);
         } else {
@@ -890,6 +877,7 @@ public class LeaderController {
         pagingVO.setTotalCount(remindService.getCountRemindPay());
         // System.out.println("remind"+stuService.getCountByPay());
         if (page == null || page == 0) {
+            pagingVO.setCurentPageNo(1);
             pagingVO.setToPageNo(1);
             allStuList = remindService.findAllRemindPay(1);
         } else {
@@ -930,6 +918,7 @@ public class LeaderController {
         pagingVO.setTotalCount(userloginService.getCountText(username, 0));
 
         if (page == null || page == 0) {
+            pagingVO.setCurentPageNo(1);
             pagingVO.setToPageNo(1);
             list = userloginService.findTextByName(1,username,0);
         } else {
@@ -1039,6 +1028,7 @@ public class LeaderController {
         //pagingVO.setStringtemp(username);
         pagingVO.setTotalCount(userloginService.getCountNoteDic(username,0));
         if (page == null || page == 0) {
+            pagingVO.setCurentPageNo(1);
             pagingVO.setToPageNo(1);
             list = userloginService.findNoteDic(1, username,0);
         } else {
@@ -1158,6 +1148,7 @@ public class LeaderController {
 
         pagingVO.setTotalCount(userloginService.getCountNoteTable(dicid));
         if (page == null || page == 0) {
+            pagingVO.setCurentPageNo(1);
             pagingVO.setToPageNo(1);
             list = userloginService.findNoteTableByDicID(1,dicid);
         } else {
@@ -1198,6 +1189,7 @@ public class LeaderController {
         pagingVO.setTotalCount(userloginService.getCountText(username,1));
 
         if (page == null || page == 0) {
+            pagingVO.setCurentPageNo(1);
             pagingVO.setToPageNo(1);
             list = userloginService.findTextByName(1,username,1);
         } else {
@@ -1242,6 +1234,7 @@ public class LeaderController {
         //pagingVO.setStringtemp(username);
         pagingVO.setTotalCount(userloginService.getCountNoteDic(username,1));
         if (page == null || page == 0) {
+            pagingVO.setCurentPageNo(1);
             pagingVO.setToPageNo(1);
             list = userloginService.findNoteDic(1, username,1);
         } else {
@@ -1304,6 +1297,7 @@ public class LeaderController {
 
         pagingVO.setTotalCount(userloginService.getCountNoteTable(dicid));
         if (page == null || page == 0) {
+            pagingVO.setCurentPageNo(1);
             pagingVO.setToPageNo(1);
             list = userloginService.findNoteTableByDicID(1,dicid);
         } else {

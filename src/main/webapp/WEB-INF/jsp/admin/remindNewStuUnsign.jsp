@@ -1,8 +1,8 @@
 <%--
   Created by IntelliJ IDEA.
   User: liuxize
-  Date: 2018/3/29
-  Time: 17:17
+  Date: 2018/4/2
+  Time: 14:16
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -11,7 +11,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>学生信息更新</title>
+    <title>新录入信息</title>
     <link rel="shortcut icon" type="image/x-icon" href="/images/logo-dt.png" media="screen">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- 引入bootstrap -->
@@ -30,12 +30,12 @@
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <div class="row">
-                        <h1 class="col-md-5">信息更新处理</h1>
+                        <h1 class="col-md-5">新录入信息</h1>
                     </div>
                 </div>
                 <ul class="nav nav-tabs">
-                    <li class="active"><a href="">已签字</a></li>
-                    <li><a href="/admin/remindReceiveUnsign?page=1">未签字</a></li>
+                    <li><a href="/admin/remindNewStu?page=1">已签字</a></li>
+                    <li class="active"><a href="">未签字</a></li>
                 </ul>
 
                 <div>
@@ -64,9 +64,10 @@
                                     </button>
 
                                     <button type="button" class="btn btn-success btn-xs"
-                                            onclick="updateConfirm('${item.stuid}','${pagingVO.curentPageNo}')"
+                                            onclick="signConfirm('${item.stuid}','${pagingVO.curentPageNo}')"
                                     >删除
                                     </button>
+
                                 </td>
                             </tr>
                         </c:forEach>
@@ -77,41 +78,41 @@
                     <c:if test="${pagingVO != null}">
                         <nav style="text-align: center">
                             <ul class="pagination">
-                                <li><a href="/admin/remindReceive?page=1">首页</a></li>
+                                <li><a href="/admin/remindNewStuUnsign?page=1">首页</a></li>
                                 <c:if test="${pagingVO.curentPageNo <= 1}">
-                                    <li><a href="/admin/remindReceive?page=1">&laquo;上一页</a></li>
+                                    <li><a href="/admin/remindNewStuUnsign?page=1">&laquo;上一页</a></li>
                                 </c:if>
                                 <c:if test="${pagingVO.curentPageNo > 1}">
-                                    <li><a href="/admin/remindReceive?page=${pagingVO.upPageNo}">&laquo;上一页</a></li>
+                                    <li><a href="/admin/remindNewStuUnsign?page=${pagingVO.upPageNo}">&laquo;上一页</a></li>
                                 </c:if>
                                 <li class="active"><a href="">${pagingVO.curentPageNo}</a></li>
                                 <c:if test="${pagingVO.curentPageNo+1 <= pagingVO.totalCount}">
                                     <li>
-                                        <a href="/admin/remindReceive?page=${pagingVO.curentPageNo+1}">${pagingVO.curentPageNo+1}</a>
+                                        <a href="/admin/remindNewStuUnsign?page=${pagingVO.curentPageNo+1}">${pagingVO.curentPageNo+1}</a>
                                     </li>
                                 </c:if>
                                 <c:if test="${pagingVO.curentPageNo+2 <= pagingVO.totalCount}">
                                     <li>
-                                        <a href="/admin/remindReceive?page=${pagingVO.curentPageNo+2}">${pagingVO.curentPageNo+2}</a>
+                                        <a href="/admin/remindNewStuUnsign?page=${pagingVO.curentPageNo+2}">${pagingVO.curentPageNo+2}</a>
                                     </li>
                                 </c:if>
                                 <c:if test="${pagingVO.curentPageNo+3 <= pagingVO.totalCount}">
                                     <li>
-                                        <a href="/admin/remindReceive?page=${pagingVO.curentPageNo+3}">${pagingVO.curentPageNo+3}</a>
+                                        <a href="/admin/remindNewStuUnsign?page=${pagingVO.curentPageNo+3}">${pagingVO.curentPageNo+3}</a>
                                     </li>
                                 </c:if>
                                 <c:if test="${pagingVO.curentPageNo+4 <= pagingVO.totalCount}">
                                     <li>
-                                        <a href="/admin/remindReceive?page=${pagingVO.curentPageNo+4}">${pagingVO.curentPageNo+4}</a>
+                                        <a href="/admin/remindNewStuUnsign?page=${pagingVO.curentPageNo+4}">${pagingVO.curentPageNo+4}</a>
                                     </li>
                                 </c:if>
                                 <c:if test="${pagingVO.curentPageNo <pagingVO.totalCount}">
-                                    <li><a href="/admin/remindReceive?page=${pagingVO.nextPageNo}">下一页&raquo;</a></li>
+                                    <li><a href="/admin/remindNewStuUnsign?page=${pagingVO.nextPageNo}">下一页&raquo;</a></li>
                                 </c:if>
                                 <c:if test="${pagingVO.curentPageNo >=pagingVO.totalCount}">
-                                    <li><a href="/admin/remindReceive?page=${pagingVO.totalCount}">下一页&raquo;</a></li>
+                                    <li><a href="/admin/remindNewStuUnsign?page=${pagingVO.totalCount}">下一页&raquo;</a></li>
                                 </c:if>
-                                <li><a href="/admin/remindReceive?page=${pagingVO.totalCount}">尾页</a></li>
+                                <li><a href="/admin/remindNewStuUnsign?page=${pagingVO.totalCount}">尾页</a></li>
 
                                 <li><a><input id="toPage" style="height: 18px; width: 50px;border: 0px;outline:none;"
                                               type="text" placeholder="共${pagingVO.totalCount}页"/></a></li>
@@ -161,7 +162,7 @@
             return;
         }
         if (page <=${pagingVO.totalCount}) {
-            window.location.href = "/admin/remindReceive?page=" + page;
+            window.location.href = "/admin/remindNewStuUnsign?page=" + page;
         }
     }
 
@@ -170,18 +171,15 @@
         window.open('/admin/editTableOne?encodeID=' + a);
     }
 
-
-    function updateConfirm(stuid, page) {
+    function signConfirm(stuid, page) {
         var msg = "您确定要删除吗";
         if (confirm(msg) == true) {
-            window.location.href = "/admin/updateConfirm?stuid=" + stuid + "&currentPage=" + page;
-
+            window.location.href = "/admin/signConfirm?stuid=" + stuid + "&currentPage=" + page;
             return true;
         } else {
             return false;
         }
     }
-
-
 </script>
 </html>
+

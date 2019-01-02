@@ -180,9 +180,18 @@ public class SignServiceImpl implements SignService{
         return signMapper.countAdminReceive();
     }
 
+    public int getCountAdminReceiveUnsign()throws Exception{
+        return signMapper.countAdminReceiveUnsign();
+    }
+
     public int getCountAdminUpdate()throws Exception{
         return signMapper.countAdminUpdate();
     }
+
+    public int getCountAdminUpdateUnsign()throws Exception{
+        return signMapper.countAdminUpdateUnsign();
+    }
+
 
     public void SetChangeSign(Integer stuid)throws Exception{
         signMapper.changeSign(stuid);

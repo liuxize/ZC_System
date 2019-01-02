@@ -91,7 +91,11 @@ public interface SignService {
 
      int getCountAdminReceive()throws Exception;
 
+     int getCountAdminReceiveUnsign()throws Exception;
+
      int getCountAdminUpdate()throws Exception;
+
+     int getCountAdminUpdateUnsign()throws Exception;
 
      void SetChangeSign(Integer stuid)throws Exception; //添加表二，三的时候调用
 

@@ -80,10 +80,12 @@ public interface SignMapper {
 
     int updateAdminUpdateSign(Integer stuid);
 
-    //统计 管理员的新录入信息的数量
+    //统计 管理员的新录入信息的数量(校长签字 和 校长未签字)
     int countAdminReceive();
-    //统计管理员的更新的信息数量
+    int countAdminReceiveUnsign();
+    //统计管理员的更新的信息数量(校长签字 和 校长未签字)
     int countAdminUpdate();
+    int countAdminUpdateUnsign();
 
     void changeSign(Integer stuid); //添加表二，三的时候调用
 

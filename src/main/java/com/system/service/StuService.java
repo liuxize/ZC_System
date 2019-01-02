@@ -242,9 +242,10 @@ public interface StuService {
     int countMasterUpdateRemind(Integer permission, List<Integer> gradeList) throws Exception;
     /////////////////////////////////////////////////////管理员新录入信息提醒//////////////////////////////////////////
     List<StuCustom> adminReceiveRemind(Integer toPageNo) throws Exception;
-
+    List<StuCustom> adminReceiveRemindUnsign(Integer toPageNo) throws Exception;
     /////////////////////////////////////////////////////管理员更新信息提醒//////////////////////////////////////////
     List<StuCustom> adminUpdateRemind(Integer toPageNo) throws Exception;
+    List<StuCustom> adminUpdateRemindUnsign(Integer toPageNo) throws Exception;
 
     //查找录入人
     String findRecordPerson(Integer stuid) throws Exception;

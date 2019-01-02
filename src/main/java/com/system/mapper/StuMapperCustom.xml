@@ -1079,7 +1079,7 @@
         limit #{pagingVO.toPageNo}, #{pagingVO.pageSize}
     </select>
 
-    <!--管理员新录入信息提醒-->
+    <!--管理员新录入信息提醒-校长已经签字-->
     <select id="selectAdminReceive"  parameterType="com.system.po.PagingVO" resultType="com.system.po.StuCustom">
         select stu.* , grade.gradeName
         from stu,sign, grade
@@ -1089,10 +1089,27 @@
         stu.gradeID = grade.gradeID
         AND
         sign.receiveSign = 0
+        AND
+        sign.masterSignID = 1
         limit #{toPageNo}, #{pageSize}
     </select>
 
-    <!--管理员更新信息提醒-->
+    <!--管理员新录入信息提醒-校长未签字-->
+    <select id="selectAdminReceiveUnsign"  parameterType="com.system.po.PagingVO" resultType="com.system.po.StuCustom">
+        select stu.* , grade.gradeName
+        from stu,sign, grade
+        WHERE
+        stu.stuID = sign.stuID
+        AND
+        stu.gradeID = grade.gradeID
+        AND
+        sign.receiveSign = 0
+        AND
+        sign.masterSignID = 0
+        limit #{toPageNo}, #{pageSize}
+    </select>
+
+    <!--管理员更新信息提醒-校长已经签字-->
     <select id="selectAdminUpdate"  parameterType="com.system.po.PagingVO" resultType="com.system.po.StuCustom">
         select stu.* , grade.gradeName
         from stu,sign, grade
@@ -1102,9 +1119,25 @@
         stu.gradeID = grade.gradeID
         AND
         sign.adminSignID = 1
+        AND
+        sign.masterSignID = 1
         limit #{toPageNo}, #{pageSize}
     </select>
 
+    <!--管理员更新信息提醒-校长未签字-->
+    <select id="selectAdminUpdateUnsign"  parameterType="com.system.po.PagingVO" resultType="com.system.po.StuCustom">
+        select stu.* , grade.gradeName
+        from stu,sign, grade
+        WHERE
+        stu.stuID = sign.stuID
+        AND
+        stu.gradeID = grade.gradeID
+        AND
+        sign.adminSignID = 1
+        AND
+        sign.masterSignID = 0
+        limit #{toPageNo}, #{pageSize}
+    </select>
 
 
     <!--搜索学校-->

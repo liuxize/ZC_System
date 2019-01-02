@@ -922,10 +922,22 @@ public class StuServiceImpl implements StuService {
         return stuMapperCustom.selectAdminReceive(pagingVO);
     }
 
+    public   List<StuCustom> adminReceiveRemindUnsign(Integer toPageNo) throws Exception{
+        PagingVO pagingVO = new PagingVO();
+        pagingVO.setToPageNo(toPageNo);
+        return stuMapperCustom.selectAdminReceiveUnsign(pagingVO);
+    }
+
     public   List<StuCustom> adminUpdateRemind(Integer toPageNo) throws Exception{
         PagingVO pagingVO = new PagingVO();
         pagingVO.setToPageNo(toPageNo);
         return stuMapperCustom.selectAdminUpdate(pagingVO);
+    }
+
+    public   List<StuCustom> adminUpdateRemindUnsign(Integer toPageNo) throws Exception{
+        PagingVO pagingVO = new PagingVO();
+        pagingVO.setToPageNo(toPageNo);
+        return stuMapperCustom.selectAdminUpdateUnsign(pagingVO);
     }
 
      //查找录入人

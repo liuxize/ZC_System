@@ -33,9 +33,10 @@
                         <h1 class="col-md-5">信息更新处理</h1>
                     </div>
                 </div>
+
                 <ul class="nav nav-tabs">
-                    <li class="active"><a href="">已签字</a></li>
-                    <li><a href="/admin/remindReceiveUnsign?page=1">未签字</a></li>
+                    <li><a href="/admin/remindReceive?page=1">已签字</a></li>
+                    <li class="active"><a href="">未签字</a></li>
                 </ul>
 
                 <div>
@@ -77,41 +78,44 @@
                     <c:if test="${pagingVO != null}">
                         <nav style="text-align: center">
                             <ul class="pagination">
-                                <li><a href="/admin/remindReceive?page=1">首页</a></li>
+                                <li><a href="/admin/remindReceiveUnsign?page=1">首页</a></li>
                                 <c:if test="${pagingVO.curentPageNo <= 1}">
-                                    <li><a href="/admin/remindReceive?page=1">&laquo;上一页</a></li>
+                                    <li><a href="/admin/remindReceiveUnsign?page=1">&laquo;上一页</a></li>
                                 </c:if>
                                 <c:if test="${pagingVO.curentPageNo > 1}">
-                                    <li><a href="/admin/remindReceive?page=${pagingVO.upPageNo}">&laquo;上一页</a></li>
+                                    <li><a href="/admin/remindReceiveUnsign?page=${pagingVO.upPageNo}">&laquo;上一页</a>
+                                    </li>
                                 </c:if>
                                 <li class="active"><a href="">${pagingVO.curentPageNo}</a></li>
                                 <c:if test="${pagingVO.curentPageNo+1 <= pagingVO.totalCount}">
                                     <li>
-                                        <a href="/admin/remindReceive?page=${pagingVO.curentPageNo+1}">${pagingVO.curentPageNo+1}</a>
+                                        <a href="/admin/remindReceiveUnsign?page=${pagingVO.curentPageNo+1}">${pagingVO.curentPageNo+1}</a>
                                     </li>
                                 </c:if>
                                 <c:if test="${pagingVO.curentPageNo+2 <= pagingVO.totalCount}">
                                     <li>
-                                        <a href="/admin/remindReceive?page=${pagingVO.curentPageNo+2}">${pagingVO.curentPageNo+2}</a>
+                                        <a href="/admin/remindReceiveUnsign?page=${pagingVO.curentPageNo+2}">${pagingVO.curentPageNo+2}</a>
                                     </li>
                                 </c:if>
                                 <c:if test="${pagingVO.curentPageNo+3 <= pagingVO.totalCount}">
                                     <li>
-                                        <a href="/admin/remindReceive?page=${pagingVO.curentPageNo+3}">${pagingVO.curentPageNo+3}</a>
+                                        <a href="/admin/remindReceiveUnsign?page=${pagingVO.curentPageNo+3}">${pagingVO.curentPageNo+3}</a>
                                     </li>
                                 </c:if>
                                 <c:if test="${pagingVO.curentPageNo+4 <= pagingVO.totalCount}">
                                     <li>
-                                        <a href="/admin/remindReceive?page=${pagingVO.curentPageNo+4}">${pagingVO.curentPageNo+4}</a>
+                                        <a href="/admin/remindReceiveUnsign?page=${pagingVO.curentPageNo+4}">${pagingVO.curentPageNo+4}</a>
                                     </li>
                                 </c:if>
                                 <c:if test="${pagingVO.curentPageNo <pagingVO.totalCount}">
-                                    <li><a href="/admin/remindReceive?page=${pagingVO.nextPageNo}">下一页&raquo;</a></li>
+                                    <li><a href="/admin/remindReceiveUnsign?page=${pagingVO.nextPageNo}">下一页&raquo;</a>
+                                    </li>
                                 </c:if>
                                 <c:if test="${pagingVO.curentPageNo >=pagingVO.totalCount}">
-                                    <li><a href="/admin/remindReceive?page=${pagingVO.totalCount}">下一页&raquo;</a></li>
+                                    <li><a href="/admin/remindReceiveUnsign?page=${pagingVO.totalCount}">下一页&raquo;</a>
+                                    </li>
                                 </c:if>
-                                <li><a href="/admin/remindReceive?page=${pagingVO.totalCount}">尾页</a></li>
+                                <li><a href="/admin/remindReceiveUnsign?page=${pagingVO.totalCount}">尾页</a></li>
 
                                 <li><a><input id="toPage" style="height: 18px; width: 50px;border: 0px;outline:none;"
                                               type="text" placeholder="共${pagingVO.totalCount}页"/></a></li>
@@ -161,7 +165,7 @@
             return;
         }
         if (page <=${pagingVO.totalCount}) {
-            window.location.href = "/admin/remindReceive?page=" + page;
+            window.location.href = "/admin/remindReceiveUnsign?page=" + page;
         }
     }
 
