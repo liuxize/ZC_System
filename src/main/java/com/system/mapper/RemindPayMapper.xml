@@ -30,6 +30,7 @@
         remindpay.stuID = stu.stuID
         AND
         stu.gradeID = grade.gradeID
+        ORDER BY remindID DESC
         limit #{toPageNo}, #{pageSize}
     </select>
 
