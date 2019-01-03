@@ -805,7 +805,7 @@ public class TeacherController {
     @RequestMapping(value = "/remindPay", method = {RequestMethod.GET})
     public String remindPayUI(Model model,Integer page) throws Exception {
 
-        List<StuCustom> allStuList = null;
+        List<LessonCustom> allStuList = null;
         //页码对象
         PagingVO pagingVO = new PagingVO();
         //设置总页数

@@ -1,6 +1,7 @@
 package com.system.service;
 
 import com.system.po.Birthday;
+import com.system.po.LessonCustom;
 import com.system.po.RemindPay;
 import com.system.po.StuCustom;
 
@@ -19,11 +20,9 @@ public interface RemindService {   //生日提醒和缴费提醒
 
     int getCountBirth() throws Exception;
 
-    List<StuCustom> findAllRemindPay(Integer toPageNo) throws  Exception;//分页
+    List<LessonCustom> findAllRemindPay(Integer toPageNo) throws  Exception;//分页
 
     List<StuCustom> findAllRemindList() throws  Exception; //全部
-
-    RemindPay  findRemindPayByStuID(Integer stuid) throws Exception;
 
     int getCountRemindPay() throws Exception;
 

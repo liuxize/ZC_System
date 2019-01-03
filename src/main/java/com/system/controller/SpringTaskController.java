@@ -1,9 +1,6 @@
 package com.system.controller;
 
-import com.system.po.Birthday;
-import com.system.po.RemindPay;
-import com.system.po.StuCustom;
-import com.system.po.Userlogin;
+import com.system.po.*;
 import com.system.service.*;
 import java.text.Format;
 import java.text.SimpleDateFormat;
@@ -20,13 +17,14 @@ public class SpringTaskController {
     @Resource(name = "userloginServiceImpl")
     private UserloginService userloginService;
 
-
-
     @Resource(name = "stuServiceImpl")
     private StuService stuService;
 
     @Resource(name = "remindServiceImpl")
     private RemindService remindService;
+
+    @Resource(name = "lessonServiceImpl")
+    private LessonService lessonService;
 
 
     /**
@@ -40,10 +38,8 @@ public class SpringTaskController {
 //        System.out.println("--------" + format.format(current) + "---------");
 //    }
 
-    /**
-     * 0秒的时候打印
-     */
-    @Scheduled(cron="0 0 12 ? * *" )    // 每天早上10：15触发
+
+    @Scheduled(cron="0 0 12 ? * *" )    // 每天早上12:00触发
     public void addBirth() throws Exception {
 
         //System.out.println("kjkjkjk");
@@ -112,16 +108,13 @@ public class SpringTaskController {
 
         //更新缴费提醒的表
         RemindPay remindPay = new RemindPay();
-        Integer stuid =null;
-        List<StuCustom> stuList= stuService.findAllStuByPay();
-        if(stuList.isEmpty()==false){
-            for (int j = 0; j < stuList.size(); j++) {
-                stuid =stuList.get(j).getStuid();
-                remindPay.setStuid(stuid);
-                if(remindService.findRemindPayByStuID(stuid)==null){  //若表中不存在，则假如
-                    remindService.saveRemindPay(remindPay);
-                }
-
+        Integer lessonid =null;
+        List<LessonCustom> lessonCustoms = lessonService.findLessonByPay();
+        if(lessonCustoms.isEmpty()==false){
+            for (int j = 0; j < lessonCustoms.size(); j++) {
+                lessonid =lessonCustoms.get(j).getLessonid();
+                remindPay.setLessonid(lessonid);
+                remindService.saveRemindPay(remindPay);
             }
         }
     }

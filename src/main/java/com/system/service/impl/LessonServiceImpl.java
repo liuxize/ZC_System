@@ -55,5 +55,7 @@ public class LessonServiceImpl implements LessonService {
     public int getcountLessonByPay(Integer stuid) throws Exception{
        return lessonMapper.countLessonByPay(stuid);
     }
-   // public void editExam(Exam exam)
+   public List<LessonCustom> findLessonByPay() throws Exception{
+        return lessonMapper.selectLessonByPay();
+   }
 }

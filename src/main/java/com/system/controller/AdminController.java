@@ -1568,23 +1568,24 @@ public class AdminController {
     @RequestMapping(value = "/remindPay", method = {RequestMethod.GET})
     public String remindPayUI(Model model, Integer page) throws Exception {
 
-        List<StuCustom> allStuList = null;
+        List<LessonCustom> lessonCustoms = null;
         //页码对象
         PagingVO pagingVO = new PagingVO();
         //设置总页数
         pagingVO.setTotalCount(remindService.getCountRemindPay());
-        // System.out.println("remind"+stuService.getCountByPay());
+         System.out.println("remind"+remindService.getCountRemindPay());
         if (page == null || page == 0) {
             pagingVO.setCurentPageNo(1);
             pagingVO.setToPageNo(1);
-            allStuList = remindService.findAllRemindPay(1);
+            lessonCustoms = remindService.findAllRemindPay(1);
         } else {
             pagingVO.setToPageNo(page);
-            allStuList = remindService.findAllRemindPay(page);
+            lessonCustoms = remindService.findAllRemindPay(page);
         }
-        List<StuCustom> stuCustomList = remindService.findAllRemindList();
-        model.addAttribute("stuCustomList", stuCustomList);
-        model.addAttribute("allStuList", allStuList);
+        System.out.println("SDsd");
+ //       List<StuCustom> stuCustomList = remindService.findAllRemindList();
+//        model.addAttribute("stuCustomList", stuCustomList);
+        model.addAttribute("allStuList", lessonCustoms);
         model.addAttribute("pagingVO", pagingVO);
         return "admin/remindPay";
     }

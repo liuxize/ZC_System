@@ -45,19 +45,16 @@ public class RemindServiceImpl implements RemindService {
     public  int getCountBirth() throws Exception{
         return birthdayMapper.countBirth();
     }
-    public List<StuCustom> findAllRemindPay(Integer toPageNo) throws  Exception{
+    public List<LessonCustom> findAllRemindPay(Integer toPageNo) throws  Exception{
         PagingVO pagingVO = new PagingVO();
         pagingVO.setToPageNo(toPageNo);
-        return remindPayMapper.selectAll(pagingVO);
+        return remindPayMapper.selectAllByPay(pagingVO);
     }
 
     public List<StuCustom> findAllRemindList() throws  Exception{
         return remindPayMapper.selectAllRemindPay();
     }
 
-    public  RemindPay findRemindPayByStuID(Integer stuid) throws Exception{
-        return remindPayMapper.selectByRemindID(stuid);
-    }
 
     public  int getCountRemindPay() throws Exception{
         return remindPayMapper.countRemindPay();

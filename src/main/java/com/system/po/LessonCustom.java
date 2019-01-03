@@ -9,6 +9,12 @@ public class LessonCustom extends Lesson{
 
     private String subjectname;
 
+    private String stuname;
+
+    private String school;
+
+    private String gradename;
+    
     public String getTypename() {
         return typename;
     }
@@ -24,4 +30,29 @@ public class LessonCustom extends Lesson{
     public void setSubjectname(String subjectname) {
         this.subjectname = subjectname;
     }
+
+    public String getStuname() {
+        return stuname;
+    }
+
+    public void setStuname(String stuname) {
+        this.stuname = stuname;
+    }
+
+    public String getSchool() {
+        return school;
+    }
+
+    public void setSchool(String school) {
+        this.school = school;
+    }
+
+    public String getGradename() {
+        return gradename;
+    }
+
+    public void setGradename(String gradename) {
+        this.gradename = gradename;
+    }
+
 }

@@ -1,44 +1,38 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.system.mapper.RemindPayMapper" >
+<mapper namespace="com.system.mapper.RemindPayMapper">
 
     <insert id="insert" parameterType="com.system.po.RemindPay" keyProperty="remindid" useGeneratedKeys="true">
         insert into remindpay (stuID
         )
-        values ( #{stuid,jdbcType=INTEGER}
+        values ( #{lessonid,jdbcType=INTEGER}
         )
     </insert>
 
 
-    <delete id="deleteByID" parameterType="java.lang.Integer" >
+    <delete id="deleteByID" parameterType="java.lang.Integer">
         delete from remindpay
-        where stuID = #{id,jdbcType=INTEGER}
+        where lessonID = #{id,jdbcType=INTEGER}
     </delete>
 
 
-    <select id="selectByRemindID" parameterType="java.lang.Integer" resultType="com.system.po.RemindPay">
-         select *
-         from remindpay
-         where stuID = #{id,jdbcType=INTEGER}
+    <select id="selectAllByPay" parameterType="com.system.po.PagingVO" resultType="com.system.po.LessonCustom">
+          select
+          lesson.*, classtype.typeName, subject.subjectName, stu.stuName, stu.school, grade.gradeName
+          from remindpay, lesson, classtype, subject, grade, stu
+          where remindpay.lessonID = lesson.lessonID
+          AND lesson.stuID = stu.stuID
+          AND lesson.typeID = classtype.typeID
+          AND lesson.subjectID = subject.subjectID
+          AND stu.gradeID = grade.gradeID
+          limit #{toPageNo}, #{pageSize}
     </select>
 
-    <select id="selectAll" parameterType="com.system.po.PagingVO" resultType="com.system.po.StuCustom">
-        select
-        stu.*, grade.gradeName
-        from stu, grade, remindpay
-        WHERE
-        remindpay.stuID = stu.stuID
-        AND
-        stu.gradeID = grade.gradeID
-        ORDER BY remindID DESC
-        limit #{toPageNo}, #{pageSize}
-    </select>
-
-    <select id="countRemindPay" resultType="java.lang.Integer" >
+    <select id="countRemindPay" resultType="java.lang.Integer">
         select count(*) from remindpay
     </select>
 
-    <select id="selectAllRemindPay"  resultType="com.system.po.StuCustom">
+    <select id="selectAllRemindPay" resultType="com.system.po.StuCustom">
         select
         stu.*, grade.gradeName
         from stu, grade, remindpay

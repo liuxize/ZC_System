@@ -23,4 +23,8 @@ public interface LessonMapper {
 
     //计算学生缴费的科目数量，用于判断学生是否缴费
     int countLessonByPay(Integer stuid);
+
+    // 缴费科目提醒 提前7天提醒
+    List<LessonCustom> selectLessonByPay();
+
 }

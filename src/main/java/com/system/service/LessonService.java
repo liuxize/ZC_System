@@ -22,4 +22,7 @@ public interface LessonService {
     void changeLesson(Lesson lesson) throws Exception;
 
     int getcountLessonByPay(Integer stuid) throws Exception;
+
+    List<LessonCustom> findLessonByPay() throws Exception;
+
 }
