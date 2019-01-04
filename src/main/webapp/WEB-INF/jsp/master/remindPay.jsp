@@ -7,7 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -43,11 +43,14 @@
                     <thead>
                     <tr>
                         <th style="width:5%">序号</th>
-                        <th>姓名</th>
-                        <th>学校</th>
-                        <th>年级</th>
-                        <th colspan="3">电话</th>
-                        <th style="width: 15%">操作</th>
+                        <th style="width: 7%">姓名</th>
+                        <th style="width: 15%">学校</th>
+                        <th style="width: 7%">年级</th>
+                        <th style="width: 8%">科目</th>
+                        <th style="width: 8%">类型</th>
+                        <th style="width: 10%">时间</th>
+                        <th>内容</th>
+                        <th style="width: 8%">操作</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -57,9 +60,10 @@
                             <td>${item.stuname}</td>
                             <td>${item.school}</td>
                             <td>${item.gradename}</td>
-                            <td style="border-right-color:transparent; width: 17%">学生：${item.stutel}</td>
-                            <td style="border-right-color:transparent; width: 17%">父亲：${item.fathertel}</td>
-                            <td style="width: 17%">母亲：${item.mothertel}</td>
+                            <td>${item.subjectname}</td>
+                            <td>${item.typename}</td>
+                            <td><fmt:formatDate value="${item.lessonend}" dateStyle="medium"/></td>
+                            <td>${item.remark}</td>
                             <td>
                                 <button type="button" class="btn btn-primary btn-xs"
                                         onClick="ToTableOne(${item.stuid})">查看信息

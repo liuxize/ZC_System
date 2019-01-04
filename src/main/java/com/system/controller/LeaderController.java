@@ -747,7 +747,7 @@ public class LeaderController {
 
     @RequestMapping("/searchName")
     public String searchNameUI(Model model, Integer page) throws Exception {
-        return "master/searchName";
+        return "leader/searchName";
     }
 
     // 搜索姓名操作
@@ -875,7 +875,6 @@ public class LeaderController {
         PagingVO pagingVO = new PagingVO();
         //设置总页数
         pagingVO.setTotalCount(remindService.getCountRemindPay());
-        // System.out.println("remind"+stuService.getCountByPay());
         if (page == null || page == 0) {
             pagingVO.setCurentPageNo(1);
             pagingVO.setToPageNo(1);

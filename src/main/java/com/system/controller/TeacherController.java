@@ -810,7 +810,6 @@ public class TeacherController {
         PagingVO pagingVO = new PagingVO();
         //设置总页数
         pagingVO.setTotalCount(remindService.getCountRemindPay());
-        // System.out.println("remind"+stuService.getCountByPay());
         if (page == null || page == 0) {
             pagingVO.setCurentPageNo(1);
             pagingVO.setToPageNo(1);
