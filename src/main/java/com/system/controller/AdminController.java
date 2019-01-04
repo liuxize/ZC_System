@@ -1572,8 +1572,7 @@ public class AdminController {
         //页码对象
         PagingVO pagingVO = new PagingVO();
         //设置总页数
-        pagingVO.setTotalCount(remindService.getCountRemindPay());
-         System.out.println("remind"+remindService.getCountRemindPay());
+         pagingVO.setTotalCount(remindService.getCountRemindPay());
         if (page == null || page == 0) {
             pagingVO.setCurentPageNo(1);
             pagingVO.setToPageNo(1);
@@ -1583,8 +1582,8 @@ public class AdminController {
             lessonCustoms = remindService.findAllRemindPay(page);
         }
         System.out.println("SDsd");
- //       List<StuCustom> stuCustomList = remindService.findAllRemindList();
-//        model.addAttribute("stuCustomList", stuCustomList);
+        List<StuCustom> stuCustomList = remindService.findAllRemindList();
+        model.addAttribute("stuCustomList", stuCustomList);
         model.addAttribute("allStuList", lessonCustoms);
         model.addAttribute("pagingVO", pagingVO);
         return "admin/remindPay";
@@ -1593,7 +1592,7 @@ public class AdminController {
     // 缴费提醒删除
     @RequestMapping(value = "/removeRemindPay", method = {RequestMethod.GET})
     private String removeRemindPay(Integer id, Integer currentPage) throws Exception {
-
+        System.out.println(id);
         remindService.removeRemindPay(id);
 
         return "redirect:/admin/remindPay?page=" + currentPage;

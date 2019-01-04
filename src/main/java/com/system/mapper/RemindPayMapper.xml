@@ -3,7 +3,7 @@
 <mapper namespace="com.system.mapper.RemindPayMapper">
 
     <insert id="insert" parameterType="com.system.po.RemindPay" keyProperty="remindid" useGeneratedKeys="true">
-        insert into remindpay (stuID
+        insert into remindpay (lessonID
         )
         values ( #{lessonid,jdbcType=INTEGER}
         )
@@ -35,9 +35,11 @@
     <select id="selectAllRemindPay" resultType="com.system.po.StuCustom">
         select
         stu.*, grade.gradeName
-        from stu, grade, remindpay
+        from stu, grade, remindpay,lesson
         WHERE
-        remindpay.stuID = stu.stuID
+        remindpay.lessonID = lesson.lessonID
+        AND
+        lesson.stuID = stu.stuID
         AND
         stu.gradeID = grade.gradeID
     </select>

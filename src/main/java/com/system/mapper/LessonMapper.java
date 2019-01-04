@@ -25,6 +25,6 @@ public interface LessonMapper {
     int countLessonByPay(Integer stuid);
 
     // 缴费科目提醒 提前7天提醒
-    List<LessonCustom> selectLessonByPay();
+    List<Lesson> selectLessonByPay();
 
 }

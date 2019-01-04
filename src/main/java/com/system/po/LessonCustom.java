@@ -14,7 +14,7 @@ public class LessonCustom extends Lesson{
     private String school;
 
     private String gradename;
-    
+
     public String getTypename() {
         return typename;
     }

@@ -75,7 +75,7 @@
         DATEDIFF(CAST(DATE_FORMAT(lesson.lessonEnd,'%y-%m-%d')AS DATE),CAST(DATE_FORMAT(NOW(),'%y-%m-%d') AS DATE)) > 0
     </select>
 
-    <select id="selectLessonByPay"  resultType="com.system.po.LessonCustom">
+    <select id="selectLessonByPay"  resultType="com.system.po.Lesson">
         select *
         from lesson
         WHERE

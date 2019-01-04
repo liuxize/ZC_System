@@ -109,10 +109,10 @@ public class SpringTaskController {
         //更新缴费提醒的表
         RemindPay remindPay = new RemindPay();
         Integer lessonid =null;
-        List<LessonCustom> lessonCustoms = lessonService.findLessonByPay();
-        if(lessonCustoms.isEmpty()==false){
-            for (int j = 0; j < lessonCustoms.size(); j++) {
-                lessonid =lessonCustoms.get(j).getLessonid();
+        List<Lesson> lessons = lessonService.findLessonByPay();
+        if(lessons.isEmpty()==false){
+            for (int j = 0; j < lessons.size(); j++) {
+                lessonid =lessons.get(j).getLessonid();
                 remindPay.setLessonid(lessonid);
                 remindService.saveRemindPay(remindPay);
             }

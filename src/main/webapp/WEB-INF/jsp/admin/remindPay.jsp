@@ -8,7 +8,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -33,9 +32,9 @@
                     <div class="row">
                         <h1 class="col-md-5">缴费提醒</h1>
                         <button class="btn btn-warning col-md-2" style="margin-top: 20px; float:right"
-                                onClick="saveAsExcelFile()">
-                            打印
-                            <sapn class="glyphicon glyphicon-align-justify"/>
+                        onClick="saveAsExcelFile()">
+                        打印
+                        <sapn class="glyphicon glyphicon-align-justify"/>
                         </button>
                     </div>
                 </div>
@@ -65,14 +64,17 @@
                             <td>${item.typename}</td>
                             <td><fmt:formatDate value="${item.lessonend}" dateStyle="medium"/></td>
                             <td>${item.remark}</td>
+
                             <td>
                                 <button type="button" class="btn btn-primary btn-xs"
                                         onClick="ToTableOne(${item.stuid})">查看信息
                                 </button>
-                                &nbsp;&nbsp;&nbsp;
+                                &nbsp; &nbsp;
+
                                 <button type="button" class="btn btn-danger  btn-xs"
-                                        onclick="remove('${item.stuid}','${pagingVO.curentPageNo}')">删除
+                                        onclick="remove('${item.lessonid}','${pagingVO.curentPageNo}')">删除
                                 </button>
+
                             </td>
                         </tr>
                     </c:forEach>
@@ -145,26 +147,6 @@
 <script type="text/javascript">
     $("#nav11").addClass("active");
 
-    <c:if test="${pagingVO != null}">
-    if (${pagingVO.curentPageNo} == ${pagingVO.totalCount}) {
-        $(".pagination li:nth-last-child(3)").addClass("disabled");
-        $(".pagination li:nth-last-child(4)").addClass('disabled'); // Disables visually
-    };
-
-    if (${pagingVO.curentPageNo} == ${1}) {
-        $(".pagination li:nth-child(1)").addClass("disabled");
-        $(".pagination li:nth-child(2)").addClass("disabled");
-    };
-    </c:if>
-
-    function jumpPage(){
-        var page = $("#toPage").val();
-        if (page==''){return;}
-        if(page<=${pagingVO.totalCount}){
-            window.location.href="/admin/remindPay?page=" + page;
-        }
-    }
-
     function confirmd() {
         var msg = "您真的确定要删除吗？！";
         if (confirm(msg) == true) {
@@ -198,47 +180,46 @@
         }
     }
 
-    function s2ab(s) {
-        const buf = new ArrayBuffer(s.length);
-        const view = new Uint8Array(buf);
-        for (var i = 0; i !== s.length; ++i) {
-            view[i] = s.charCodeAt(i) & 0xFF;
-        };
-        return buf;
-    }
-    function saveAsExcelFile() {
-
-        var data = new Array();   //先声明一维
-        for(var k=0;k<=${stuCustomList.size()};k++){        //一维长度为i,i为变量，可以根据实际情况改变
-            data[k]=new Array();    //声明二维，每一个一维数组里面的一个元素都是一个数组
-
-        }
-        data[0] =  ["序号", "姓名", "学校", "年级", "电话", "备注"];
-
-        <c:forEach items="${stuCustomList}" var="item" varStatus="status" >
-        data[${status.index+1}]=[ ${status.index+1},'${item.stuname}','${item.school}','${item.gradename}',
-            "学生:"+'${item.stutel}'+"  父亲:"+'${item.fathertel}'+"  母亲:"+'${item.mothertel}'];
-        </c:forEach>
-
-        var wopts = { bookType:'xlsx', type:'binary' };
-        var fileName = "download.xlsx";
-        const ws = XLSX.utils.aoa_to_sheet(data);
-        const wb = XLSX.utils.book_new();
-        XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
-        const wbout = XLSX.write(wb, wopts);
-        saveAs(new Blob([s2ab(wbout)]), fileName); // 保存为文件
-    }
-
     function ToTableOne(str) {
         var a=btoa(str);
         window.open('/admin/editTableOne?encodeID='+a);
+    }
+
+    function s2ab(s) {
+    const buf = new ArrayBuffer(s.length);
+    const view = new Uint8Array(buf);
+    for (var i = 0; i !== s.length; ++i) {
+    view[i] = s.charCodeAt(i) & 0xFF;
+    };
+    return buf;
+    }
+    function saveAsExcelFile() {
+
+    var data = new Array();   //先声明一维
+    for(var k=0;k<=${allStuList.size()};k++){        //一维长度为i,i为变量，可以根据实际情况改变
+    data[k]=new Array();    //声明二维，每一个一维数组里面的一个元素都是一个数组
+
+    }
+    data[0] =  ["序号", "姓名", "学校", "年级", "电话", "备注"];
+
+    <c:forEach items="${stuCustomList}" var="item" varStatus="status" >
+    data[${status.index+1}]=[ ${status.index+1},'${item.stuname}','${item.school}','${item.gradename}',
+    "学生:"+'${item.stutel}'+"  父亲:"+'${item.fathertel}'+"  母亲:"+'${item.mothertel}'];
+    </c:forEach>
+
+    var wopts = { bookType:'xlsx', type:'binary' };
+    var fileName = "download.xlsx";
+    const ws = XLSX.utils.aoa_to_sheet(data);
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+    const wbout = XLSX.write(wb, wopts);
+    saveAs(new Blob([s2ab(wbout)]), fileName); // 保存为文件
     }
 
     function remove(id,page) {
         var msg = "您确定要删除吗";
         if (confirm(msg) == true) {
             window.location.href="/admin/removeRemindPay?id=" + id + "&currentPage=" +page;
-
             return true;
         } else {
             return false;
