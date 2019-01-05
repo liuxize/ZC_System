@@ -145,6 +145,7 @@
         stu.stuID = lesson.stuID
         AND
         DATEDIFF(CAST(DATE_FORMAT(lesson.lessonEnd,'%y-%m-%d')AS DATE),CAST(DATE_FORMAT(NOW(),'%y-%m-%d') AS DATE)) = 7
+        ORDER BY lesson.lessonEnd DESC
         limit #{toPageNo}, #{pageSize}
     </select>
 
@@ -159,6 +160,7 @@
         stu.stuID = lesson.stuID
         AND
         DATEDIFF(CAST(DATE_FORMAT(lesson.lessonEnd,'%y-%m-%d')AS DATE),CAST(DATE_FORMAT(NOW(),'%y-%m-%d') AS DATE)) = 7
+        ORDER BY lesson.lessonEnd DESC
     </select>
 
     <!--缴费学员 分页显示（全部年级 全部学科 全部类型）-->
@@ -174,6 +176,7 @@
         DATEDIFF(CAST(DATE_FORMAT(lesson.lessonEnd,'%y-%m-%d')AS DATE),CAST(DATE_FORMAT(NOW(),'%y-%m-%d') AS DATE)) >=0
         AND
         DATEDIFF(CAST(DATE_FORMAT(NOW(),'%y-%m-%d')AS DATE),CAST(DATE_FORMAT(lesson.lessonStart,'%y-%m-%d') AS DATE)) >= 0
+        ORDER BY lesson.lessonStart DESC
         limit #{toPageNo}, #{pageSize}
     </select>
 
@@ -190,6 +193,7 @@
         DATEDIFF(CAST(DATE_FORMAT(lesson.lessonEnd,'%y-%m-%d')AS DATE),CAST(DATE_FORMAT(NOW(),'%y-%m-%d') AS DATE)) >= 0
         AND
         DATEDIFF(CAST(DATE_FORMAT(NOW(),'%y-%m-%d')AS DATE),CAST(DATE_FORMAT(lesson.lessonStart,'%y-%m-%d') AS DATE)) >= 0
+        ORDER BY lesson.lessonStart DESC
     </select>
 
     <!--缴费学员1 分页显示（学科 类型）-->
@@ -209,6 +213,7 @@
         DATEDIFF(CAST(DATE_FORMAT(lesson.lessonEnd,'%y-%m-%d')AS DATE),CAST(DATE_FORMAT(NOW(),'%y-%m-%d') AS DATE)) >= 0
         AND
         DATEDIFF(CAST(DATE_FORMAT(NOW(),'%y-%m-%d')AS DATE),CAST(DATE_FORMAT(lesson.lessonStart,'%y-%m-%d') AS DATE)) >= 0
+        ORDER BY lesson.lessonStart DESC
         limit #{toPageNo}, #{pageSize}
     </select>
 
@@ -229,6 +234,7 @@
         DATEDIFF(CAST(DATE_FORMAT(lesson.lessonEnd,'%y-%m-%d')AS DATE),CAST(DATE_FORMAT(NOW(),'%y-%m-%d') AS DATE)) >= 0
         AND
         DATEDIFF(CAST(DATE_FORMAT(NOW(),'%y-%m-%d')AS DATE),CAST(DATE_FORMAT(lesson.lessonStart,'%y-%m-%d') AS DATE)) >= 0
+        ORDER BY lesson.lessonStart DESC
     </select>
 
     <!--缴费学员2 分页显示（年级 类型）-->
@@ -248,6 +254,7 @@
         DATEDIFF(CAST(DATE_FORMAT(lesson.lessonEnd,'%y-%m-%d')AS DATE),CAST(DATE_FORMAT(NOW(),'%y-%m-%d') AS DATE)) >= 0
         AND
         DATEDIFF(CAST(DATE_FORMAT(NOW(),'%y-%m-%d')AS DATE),CAST(DATE_FORMAT(lesson.lessonStart,'%y-%m-%d') AS DATE)) >= 0
+        ORDER BY lesson.lessonStart DESC
         limit #{toPageNo}, #{pageSize}
     </select>
 
@@ -268,6 +275,7 @@
         DATEDIFF(CAST(DATE_FORMAT(lesson.lessonEnd,'%y-%m-%d')AS DATE),CAST(DATE_FORMAT(NOW(),'%y-%m-%d') AS DATE)) >= 0
         AND
         DATEDIFF(CAST(DATE_FORMAT(NOW(),'%y-%m-%d')AS DATE),CAST(DATE_FORMAT(lesson.lessonStart,'%y-%m-%d') AS DATE)) >= 0
+        ORDER BY lesson.lessonStart DESC
     </select>
 
     <!--缴费学员3 分页显示（年级 学科）-->
@@ -287,6 +295,7 @@
         DATEDIFF(CAST(DATE_FORMAT(lesson.lessonEnd,'%y-%m-%d')AS DATE),CAST(DATE_FORMAT(NOW(),'%y-%m-%d') AS DATE)) >= 0
         AND
         DATEDIFF(CAST(DATE_FORMAT(NOW(),'%y-%m-%d')AS DATE),CAST(DATE_FORMAT(lesson.lessonStart,'%y-%m-%d') AS DATE)) >= 0
+        ORDER BY lesson.lessonStart DESC
         limit #{toPageNo}, #{pageSize}
     </select>
 
@@ -307,6 +316,7 @@
         DATEDIFF(CAST(DATE_FORMAT(lesson.lessonEnd,'%y-%m-%d')AS DATE),CAST(DATE_FORMAT(NOW(),'%y-%m-%d') AS DATE)) >= 0
         AND
         DATEDIFF(CAST(DATE_FORMAT(NOW(),'%y-%m-%d')AS DATE),CAST(DATE_FORMAT(lesson.lessonStart,'%y-%m-%d') AS DATE)) >= 0
+        ORDER BY lesson.lessonStart DESC
     </select>
 
     <!--缴费学员4 分页显示（年级 ）-->
@@ -324,6 +334,7 @@
         DATEDIFF(CAST(DATE_FORMAT(lesson.lessonEnd,'%y-%m-%d')AS DATE),CAST(DATE_FORMAT(NOW(),'%y-%m-%d') AS DATE)) >= 0
         AND
         DATEDIFF(CAST(DATE_FORMAT(NOW(),'%y-%m-%d')AS DATE),CAST(DATE_FORMAT(lesson.lessonStart,'%y-%m-%d') AS DATE)) >= 0
+        ORDER BY lesson.lessonStart DESC
         limit #{toPageNo}, #{pageSize}
     </select>
 
@@ -342,6 +353,7 @@
         DATEDIFF(CAST(DATE_FORMAT(lesson.lessonEnd,'%y-%m-%d')AS DATE),CAST(DATE_FORMAT(NOW(),'%y-%m-%d') AS DATE)) >= 0
         AND
         DATEDIFF(CAST(DATE_FORMAT(NOW(),'%y-%m-%d')AS DATE),CAST(DATE_FORMAT(lesson.lessonStart,'%y-%m-%d') AS DATE)) >= 0
+        ORDER BY lesson.lessonStart DESC
     </select>
 
     <!--缴费学员5 分页显示（学科 ）-->
@@ -359,6 +371,7 @@
         DATEDIFF(CAST(DATE_FORMAT(lesson.lessonEnd,'%y-%m-%d')AS DATE),CAST(DATE_FORMAT(NOW(),'%y-%m-%d') AS DATE)) >= 0
         AND
         DATEDIFF(CAST(DATE_FORMAT(NOW(),'%y-%m-%d')AS DATE),CAST(DATE_FORMAT(lesson.lessonStart,'%y-%m-%d') AS DATE)) >= 0
+        ORDER BY lesson.lessonStart DESC
         limit #{toPageNo}, #{pageSize}
     </select>
 
@@ -377,6 +390,7 @@
         DATEDIFF(CAST(DATE_FORMAT(lesson.lessonEnd,'%y-%m-%d')AS DATE),CAST(DATE_FORMAT(NOW(),'%y-%m-%d') AS DATE)) >= 0
         AND
         DATEDIFF(CAST(DATE_FORMAT(NOW(),'%y-%m-%d')AS DATE),CAST(DATE_FORMAT(lesson.lessonStart,'%y-%m-%d') AS DATE)) >= 0
+        ORDER BY lesson.lessonStart DESC
     </select>
 
     <!--缴费学员6 分页显示（类型 ）-->
@@ -394,6 +408,7 @@
         DATEDIFF(CAST(DATE_FORMAT(lesson.lessonEnd,'%y-%m-%d')AS DATE),CAST(DATE_FORMAT(NOW(),'%y-%m-%d') AS DATE)) >= 0
         AND
         DATEDIFF(CAST(DATE_FORMAT(NOW(),'%y-%m-%d')AS DATE),CAST(DATE_FORMAT(lesson.lessonStart,'%y-%m-%d') AS DATE)) >= 0
+        ORDER BY lesson.lessonStart DESC
         limit #{toPageNo}, #{pageSize}
     </select>
 
@@ -412,6 +427,7 @@
         DATEDIFF(CAST(DATE_FORMAT(lesson.lessonEnd,'%y-%m-%d')AS DATE),CAST(DATE_FORMAT(NOW(),'%y-%m-%d') AS DATE)) >= 0
         AND
         DATEDIFF(CAST(DATE_FORMAT(NOW(),'%y-%m-%d')AS DATE),CAST(DATE_FORMAT(lesson.lessonStart,'%y-%m-%d') AS DATE)) >= 0
+        ORDER BY lesson.lessonStart DESC
     </select>
 
     <!--缴费学员7 分页显示（类型 ）-->
@@ -433,6 +449,7 @@
         DATEDIFF(CAST(DATE_FORMAT(lesson.lessonEnd,'%y-%m-%d')AS DATE),CAST(DATE_FORMAT(NOW(),'%y-%m-%d') AS DATE)) >= 0
         AND
         DATEDIFF(CAST(DATE_FORMAT(NOW(),'%y-%m-%d')AS DATE),CAST(DATE_FORMAT(lesson.lessonStart,'%y-%m-%d') AS DATE)) >= 0
+        ORDER BY lesson.lessonStart DESC
         limit #{toPageNo}, #{pageSize}
     </select>
 
@@ -455,6 +472,7 @@
         DATEDIFF(CAST(DATE_FORMAT(lesson.lessonEnd,'%y-%m-%d')AS DATE),CAST(DATE_FORMAT(NOW(),'%y-%m-%d') AS DATE)) >= 0
         AND
         DATEDIFF(CAST(DATE_FORMAT(NOW(),'%y-%m-%d')AS DATE),CAST(DATE_FORMAT(lesson.lessonStart,'%y-%m-%d') AS DATE)) >= 0
+        ORDER BY lesson.lessonStart DESC
     </select>
 
 
@@ -548,7 +566,6 @@
         WHERE
         DATEDIFF(CAST(DATE_FORMAT(lesson.lessonEnd,'%y-%m-%d')AS DATE),CAST(DATE_FORMAT(NOW(),'%y-%m-%d') AS DATE)) > 0
         )
-
     </select>
 
 
@@ -635,7 +652,6 @@
         WHERE
         DATEDIFF(CAST(DATE_FORMAT(lesson.lessonEnd,'%y-%m-%d')AS DATE),CAST(DATE_FORMAT(NOW(),'%y-%m-%d') AS DATE)) > 0
         )
-
     </select>
 
 
@@ -684,7 +700,6 @@
         WHERE
         DATEDIFF(CAST(DATE_FORMAT(lesson.lessonEnd,'%y-%m-%d')AS DATE),CAST(DATE_FORMAT(NOW(),'%y-%m-%d') AS DATE)) > 0
         )
-
     </select>
 
     <!--//分页 分年级 有电话-->
@@ -810,6 +825,7 @@
         WHERE
         DATEDIFF(CAST(DATE_FORMAT(lesson.lessonEnd,'%y-%m-%d')AS DATE),CAST(DATE_FORMAT(NOW(),'%y-%m-%d') AS DATE)) > 0
         )
+        ORDER BY lesson.lessonEnd DESC
         limit #{pagingVO.toPageNo}, #{pagingVO.pageSize}
     </select>
 
@@ -836,6 +852,7 @@
         WHERE
         DATEDIFF(CAST(DATE_FORMAT(lesson.lessonEnd,'%y-%m-%d')AS DATE),CAST(DATE_FORMAT(NOW(),'%y-%m-%d') AS DATE)) > 0
         )
+        ORDER BY lesson.lessonEnd DESC
         limit #{pagingVO.toPageNo}, #{pagingVO.pageSize}
     </select>
 
@@ -862,6 +879,7 @@
         WHERE
         DATEDIFF(CAST(DATE_FORMAT(lesson.lessonEnd,'%y-%m-%d')AS DATE),CAST(DATE_FORMAT(NOW(),'%y-%m-%d') AS DATE)) > 0
         )
+        ORDER BY lesson.lessonEnd DESC
         limit #{pagingVO.toPageNo}, #{pagingVO.pageSize}
     </select>
 
@@ -888,6 +906,7 @@
         WHERE
         DATEDIFF(CAST(DATE_FORMAT(lesson.lessonEnd,'%y-%m-%d')AS DATE),CAST(DATE_FORMAT(NOW(),'%y-%m-%d') AS DATE)) > 0
         )
+        ORDER BY lesson.lessonEnd DESC
         limit #{pagingVO.toPageNo}, #{pagingVO.pageSize}
     </select>
 
@@ -952,6 +971,7 @@
         WHERE
         DATEDIFF(CAST(DATE_FORMAT(lesson.lessonEnd,'%y-%m-%d')AS DATE),CAST(DATE_FORMAT(NOW(),'%y-%m-%d') AS DATE)) > 0
         )
+        ORDER BY lesson.lessonEnd DESC
         limit #{pagingVO.toPageNo}, #{pagingVO.pageSize}
     </select>
 
@@ -980,6 +1000,7 @@
         WHERE
         DATEDIFF(CAST(DATE_FORMAT(lesson.lessonEnd,'%y-%m-%d')AS DATE),CAST(DATE_FORMAT(NOW(),'%y-%m-%d') AS DATE)) > 0
         )
+        ORDER BY lesson.lessonEnd DESC
         limit #{pagingVO.toPageNo}, #{pagingVO.pageSize}
     </select>
 
@@ -1008,6 +1029,7 @@
         WHERE
         DATEDIFF(CAST(DATE_FORMAT(lesson.lessonEnd,'%y-%m-%d')AS DATE),CAST(DATE_FORMAT(NOW(),'%y-%m-%d') AS DATE)) > 0
         )
+        ORDER BY lesson.lessonEnd DESC
         limit #{pagingVO.toPageNo}, #{pagingVO.pageSize}
     </select>
 
@@ -1036,6 +1058,7 @@
         WHERE
         DATEDIFF(CAST(DATE_FORMAT(lesson.lessonEnd,'%y-%m-%d')AS DATE),CAST(DATE_FORMAT(NOW(),'%y-%m-%d') AS DATE)) > 0
         )
+        ORDER BY lesson.lessonEnd DESC
         limit #{pagingVO.toPageNo}, #{pagingVO.pageSize}
     </select>
 
@@ -1229,6 +1252,7 @@
         stu.stuID = lesson.stuID
         AND
         DATEDIFF(CAST(DATE_FORMAT(lesson.lessonStart,'%y-%m-%d')AS DATE),CAST(DATE_FORMAT(NOW(),'%y-%m-%d') AS DATE)) > 0
+        ORDER BY lesson.lessonStart DESC
         limit #{toPageNo}, #{pageSize}
     </select>
 
@@ -1243,6 +1267,7 @@
         stu.stuID = lesson.stuID
         AND
         DATEDIFF(CAST(DATE_FORMAT(lesson.lessonStart,'%y-%m-%d')AS DATE),CAST(DATE_FORMAT(NOW(),'%y-%m-%d') AS DATE)) > 0
+        ORDER BY lesson.lessonStart DESC
     </select>
 
     <!--预缴费学员1 分页显示（学科 类型）-->
@@ -1260,6 +1285,7 @@
         stu.stuID = lesson.stuID
         AND
         DATEDIFF(CAST(DATE_FORMAT(lesson.lessonStart,'%y-%m-%d')AS DATE),CAST(DATE_FORMAT(NOW(),'%y-%m-%d') AS DATE)) > 0
+        ORDER BY lesson.lessonStart DESC
         limit #{toPageNo}, #{pageSize}
     </select>
 
@@ -1278,6 +1304,7 @@
         stu.stuID = lesson.stuID
         AND
         DATEDIFF(CAST(DATE_FORMAT(lesson.lessonStart,'%y-%m-%d')AS DATE),CAST(DATE_FORMAT(NOW(),'%y-%m-%d') AS DATE)) > 0
+        ORDER BY lesson.lessonStart DESC
     </select>
 
     <!--预缴费学员2 分页显示（年级 类型）-->
@@ -1295,6 +1322,7 @@
         stu.stuID = lesson.stuID
         AND
         DATEDIFF(CAST(DATE_FORMAT(lesson.lessonStart,'%y-%m-%d')AS DATE),CAST(DATE_FORMAT(NOW(),'%y-%m-%d') AS DATE)) > 0
+        ORDER BY lesson.lessonStart DESC
         limit #{toPageNo}, #{pageSize}
     </select>
 
@@ -1313,6 +1341,7 @@
         stu.stuID = lesson.stuID
         AND
         DATEDIFF(CAST(DATE_FORMAT(lesson.lessonStart,'%y-%m-%d')AS DATE),CAST(DATE_FORMAT(NOW(),'%y-%m-%d') AS DATE)) > 0
+        ORDER BY lesson.lessonStart DESC
     </select>
 
     <!--预缴费学员3 分页显示（年级 学科）-->
@@ -1330,6 +1359,7 @@
         stu.stuID = lesson.stuID
         AND
         DATEDIFF(CAST(DATE_FORMAT(lesson.lessonStart,'%y-%m-%d')AS DATE),CAST(DATE_FORMAT(NOW(),'%y-%m-%d') AS DATE)) > 0
+        ORDER BY lesson.lessonStart DESC
         limit #{toPageNo}, #{pageSize}
     </select>
 
@@ -1348,6 +1378,7 @@
         stu.stuID = lesson.stuID
         AND
         DATEDIFF(CAST(DATE_FORMAT(lesson.lessonStart,'%y-%m-%d')AS DATE),CAST(DATE_FORMAT(NOW(),'%y-%m-%d') AS DATE)) > 0
+        ORDER BY lesson.lessonStart DESC
     </select>
 
     <!--预缴费学员4 分页显示（年级 ）-->
@@ -1363,6 +1394,7 @@
         stu.stuID = lesson.stuID
         AND
         DATEDIFF(CAST(DATE_FORMAT(lesson.lessonStart,'%y-%m-%d')AS DATE),CAST(DATE_FORMAT(NOW(),'%y-%m-%d') AS DATE)) > 0
+        ORDER BY lesson.lessonStart DESC
         limit #{toPageNo}, #{pageSize}
     </select>
 
@@ -1379,6 +1411,7 @@
         stu.stuID = lesson.stuID
         AND
         DATEDIFF(CAST(DATE_FORMAT(lesson.lessonStart,'%y-%m-%d')AS DATE),CAST(DATE_FORMAT(NOW(),'%y-%m-%d') AS DATE)) > 0
+        ORDER BY lesson.lessonStart DESC
     </select>
 
     <!--预缴费学员5 分页显示（学科 ）-->
@@ -1394,6 +1427,7 @@
         stu.stuID = lesson.stuID
         AND
         DATEDIFF(CAST(DATE_FORMAT(lesson.lessonStart,'%y-%m-%d')AS DATE),CAST(DATE_FORMAT(NOW(),'%y-%m-%d') AS DATE)) > 0
+        ORDER BY lesson.lessonStart DESC
         limit #{toPageNo}, #{pageSize}
     </select>
 
@@ -1410,6 +1444,7 @@
         stu.stuID = lesson.stuID
         AND
         DATEDIFF(CAST(DATE_FORMAT(lesson.lessonStart,'%y-%m-%d')AS DATE),CAST(DATE_FORMAT(NOW(),'%y-%m-%d') AS DATE)) > 0
+        ORDER BY lesson.lessonStart DESC
     </select>
 
     <!--预缴费学员6 分页显示（类型 ）-->
@@ -1425,6 +1460,7 @@
         stu.stuID = lesson.stuID
         AND
         DATEDIFF(CAST(DATE_FORMAT(lesson.lessonStart,'%y-%m-%d')AS DATE),CAST(DATE_FORMAT(NOW(),'%y-%m-%d') AS DATE)) > 0
+        ORDER BY lesson.lessonStart DESC
         limit #{toPageNo}, #{pageSize}
     </select>
 
@@ -1441,6 +1477,7 @@
         stu.stuID = lesson.stuID
         AND
         DATEDIFF(CAST(DATE_FORMAT(lesson.lessonStart,'%y-%m-%d')AS DATE),CAST(DATE_FORMAT(NOW(),'%y-%m-%d') AS DATE)) > 0
+        ORDER BY lesson.lessonStart DESC
     </select>
 
 
@@ -1461,6 +1498,7 @@
         stu.stuID = lesson.stuID
         AND
         DATEDIFF(CAST(DATE_FORMAT(lesson.lessonStart,'%y-%m-%d')AS DATE),CAST(DATE_FORMAT(NOW(),'%y-%m-%d') AS DATE)) > 0
+        ORDER BY lesson.lessonStart DESC
         limit #{toPageNo}, #{pageSize}
     </select>
 
@@ -1481,6 +1519,7 @@
         stu.stuID = lesson.stuID
         AND
         DATEDIFF(CAST(DATE_FORMAT(lesson.lessonStart,'%y-%m-%d')AS DATE),CAST(DATE_FORMAT(NOW(),'%y-%m-%d') AS DATE)) > 0
+        ORDER BY lesson.lessonStart DESC
     </select>
 
 </mapper>

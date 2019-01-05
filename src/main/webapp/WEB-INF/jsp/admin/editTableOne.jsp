@@ -2104,8 +2104,8 @@
                 </tr>
                 <tr>
                     <td colspan="3">
-                        <C:if test="${signmessage.schooltextsign==0}"><font color="red">在校状况<br>或<br>工作情况</font></C:if>
-                        <C:if test="${signmessage.schooltextsign==1}">在校状况<br>或<br>工作情况</C:if>
+                        <C:if test="${signmessage.schooltextsign==0}"><font color="red">基础情况</font></C:if>
+                        <C:if test="${signmessage.schooltextsign==1}">基础情况</C:if>
                     </td>
                     <td class="text-left" colspan="10">
 

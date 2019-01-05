@@ -283,7 +283,7 @@
                         <td style="font-size: 20px; " colspan="11">三教两管一提</td>
                     </tr>
                     <tr>
-                        <td colspan="3">在校状况<br>或<br>工作情况</td>
+                        <td colspan="3">基础情况</td>
                         <td class="text-left" colspan="8">
                             <div class="form-group">
                                 <!--label for="name"></label>-->

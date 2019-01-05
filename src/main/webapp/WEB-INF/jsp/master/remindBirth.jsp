@@ -42,14 +42,11 @@
                 <table class="table table-bordered">
                     <thead>
                     <tr>
-
                         <th width="5%">序号</th>
-                        <th width="18%">姓名</th>
-                        <th>身份</th>
-                        <th width="18%">生日</th>
-                        <th>电话</th>
-                        <th width="20%">操作</th>
-
+                        <th width="25%">姓名</th>
+                        <th width="25%">身份</th>
+                        <th>生日</th>
+                        <th width="15%">操作</th>
                     </tr>
                     </thead>
                     <tbody>

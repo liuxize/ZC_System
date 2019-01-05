@@ -42,14 +42,11 @@
                 <table class="table table-bordered">
                     <thead>
                     <tr>
-
                         <th width="5%">序号</th>
-                        <th width="18%">姓名</th>
-                        <th>身份</th>
-                        <th width="18%">生日</th>
-                        <th>电话</th>
-                        <th width="20%">操作</th>
-
+                        <th width="25%">姓名</th>
+                        <th width="25%">身份</th>
+                        <th>生日</th>
+                        <th width="15%">操作</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -59,11 +56,12 @@
                             <td>${item.birthname}</td>
                             <td>${item.status}</td>
                             <td><fmt:formatDate value="${item.birthday}" dateStyle="medium"/></td>
-                            <td>${item.telephone}</td>
+
                             <td>
                                 <button type="button" class="btn btn-primary btn-xs"
                                         onClick="ToTableOne(${item.stuid})">查看信息
                                 </button>
+                                &nbsp; &nbsp;
 
                                 <button type="button" class="btn btn-danger  btn-xs"
                                         onclick="remove('${item.birthid}','${pagingVO.curentPageNo}')">删除

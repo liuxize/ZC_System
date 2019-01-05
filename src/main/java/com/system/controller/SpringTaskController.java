@@ -86,24 +86,25 @@ public class SpringTaskController {
                 remindService.saveBirthday(birthday);
             }
         }
-        if(userList.isEmpty()==false){
-            for (int j = 0; j < userList.size(); j++) {
-                userlogin= userList.get(j);
-                if (userlogin.getRole()==0){
-                    birthday.setStatus("管理员");
-                }else  if (userlogin.getRole()==1){
-                    birthday.setStatus("校长");
-                }else  if (userlogin.getRole()==2){
-                    birthday.setStatus("教师");
-                }else  if (userlogin.getRole()==3){
-                    birthday.setStatus("负责人");
-                }
-
-                birthday.setBirthday(userlogin.getUserbirth());
-                birthday.setBirthname(stuCustom.getFathername());
-                remindService.saveBirthday(birthday);
-            }
-        }
+        //用户生日提醒
+//        if(userList.isEmpty()==false){
+//            for (int j = 0; j < userList.size(); j++) {
+//                userlogin= userList.get(j);
+//                if (userlogin.getRole()==0){
+//                    birthday.setStatus("管理员");
+//                }else  if (userlogin.getRole()==1){
+//                    birthday.setStatus("校长");
+//                }else  if (userlogin.getRole()==2){
+//                    birthday.setStatus("教师");
+//                }else  if (userlogin.getRole()==3){
+//                    birthday.setStatus("负责人");
+//                }
+//
+//                birthday.setBirthday(userlogin.getUserbirth());
+//                birthday.setBirthname(stuCustom.getFathername());
+//                remindService.saveBirthday(birthday);
+//            }
+//        }
 
 
         //更新缴费提醒的表
