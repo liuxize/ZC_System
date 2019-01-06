@@ -66,7 +66,7 @@ public interface StuMapperCustom {
     //缴费提醒(提前7天全部)
     List<StuCustom> selectAllByPay();
 
-    ////////////////////////已缴费查看//////////////////////////////////////////////////////
+    ////////////////////////已缴费查看  按照lesson.lessonStart降序排序///////////////////////////////////
 
     //缴费学员(全部学科 全部类型 全部年级) 分页显示
     List<StuCustom> selectByPayStu(PagingVO pagingVO);
@@ -117,9 +117,9 @@ public interface StuMapperCustom {
     List<StuCustom> selectAllPayStuByGradeSubType(PagingVO pagingVO);
 
 
-////////////////////////预缴费查看/////////////////////////////////////////////////////////
+////////////////////////预缴费查看  按照lesson.lessonStart降序排序/////////////////////////////////////////////////////
 
-    //预缴费学员(全部学科 全部类型 全部年级) 分页显示
+    //预缴费学员(全部学科 全部类型 全部年级) 分页显示 //
     List<StuCustom> selectByPrePayStu(PagingVO pagingVO);
 
     List<StuCustom> selectAllByPrePayStu();

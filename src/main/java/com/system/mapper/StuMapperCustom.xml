@@ -145,7 +145,6 @@
         stu.stuID = lesson.stuID
         AND
         DATEDIFF(CAST(DATE_FORMAT(lesson.lessonEnd,'%y-%m-%d')AS DATE),CAST(DATE_FORMAT(NOW(),'%y-%m-%d') AS DATE)) = 7
-        ORDER BY lesson.lessonEnd DESC
         limit #{toPageNo}, #{pageSize}
     </select>
 
@@ -160,7 +159,6 @@
         stu.stuID = lesson.stuID
         AND
         DATEDIFF(CAST(DATE_FORMAT(lesson.lessonEnd,'%y-%m-%d')AS DATE),CAST(DATE_FORMAT(NOW(),'%y-%m-%d') AS DATE)) = 7
-        ORDER BY lesson.lessonEnd DESC
     </select>
 
     <!--缴费学员 分页显示（全部年级 全部学科 全部类型）-->
@@ -825,7 +823,6 @@
         WHERE
         DATEDIFF(CAST(DATE_FORMAT(lesson.lessonEnd,'%y-%m-%d')AS DATE),CAST(DATE_FORMAT(NOW(),'%y-%m-%d') AS DATE)) > 0
         )
-        ORDER BY lesson.lessonEnd DESC
         limit #{pagingVO.toPageNo}, #{pagingVO.pageSize}
     </select>
 
@@ -852,7 +849,6 @@
         WHERE
         DATEDIFF(CAST(DATE_FORMAT(lesson.lessonEnd,'%y-%m-%d')AS DATE),CAST(DATE_FORMAT(NOW(),'%y-%m-%d') AS DATE)) > 0
         )
-        ORDER BY lesson.lessonEnd DESC
         limit #{pagingVO.toPageNo}, #{pagingVO.pageSize}
     </select>
 
@@ -879,7 +875,6 @@
         WHERE
         DATEDIFF(CAST(DATE_FORMAT(lesson.lessonEnd,'%y-%m-%d')AS DATE),CAST(DATE_FORMAT(NOW(),'%y-%m-%d') AS DATE)) > 0
         )
-        ORDER BY lesson.lessonEnd DESC
         limit #{pagingVO.toPageNo}, #{pagingVO.pageSize}
     </select>
 
@@ -906,7 +901,6 @@
         WHERE
         DATEDIFF(CAST(DATE_FORMAT(lesson.lessonEnd,'%y-%m-%d')AS DATE),CAST(DATE_FORMAT(NOW(),'%y-%m-%d') AS DATE)) > 0
         )
-        ORDER BY lesson.lessonEnd DESC
         limit #{pagingVO.toPageNo}, #{pagingVO.pageSize}
     </select>
 
@@ -971,7 +965,6 @@
         WHERE
         DATEDIFF(CAST(DATE_FORMAT(lesson.lessonEnd,'%y-%m-%d')AS DATE),CAST(DATE_FORMAT(NOW(),'%y-%m-%d') AS DATE)) > 0
         )
-        ORDER BY lesson.lessonEnd DESC
         limit #{pagingVO.toPageNo}, #{pagingVO.pageSize}
     </select>
 
@@ -1000,7 +993,6 @@
         WHERE
         DATEDIFF(CAST(DATE_FORMAT(lesson.lessonEnd,'%y-%m-%d')AS DATE),CAST(DATE_FORMAT(NOW(),'%y-%m-%d') AS DATE)) > 0
         )
-        ORDER BY lesson.lessonEnd DESC
         limit #{pagingVO.toPageNo}, #{pagingVO.pageSize}
     </select>
 
@@ -1029,7 +1021,6 @@
         WHERE
         DATEDIFF(CAST(DATE_FORMAT(lesson.lessonEnd,'%y-%m-%d')AS DATE),CAST(DATE_FORMAT(NOW(),'%y-%m-%d') AS DATE)) > 0
         )
-        ORDER BY lesson.lessonEnd DESC
         limit #{pagingVO.toPageNo}, #{pagingVO.pageSize}
     </select>
 
@@ -1058,7 +1049,6 @@
         WHERE
         DATEDIFF(CAST(DATE_FORMAT(lesson.lessonEnd,'%y-%m-%d')AS DATE),CAST(DATE_FORMAT(NOW(),'%y-%m-%d') AS DATE)) > 0
         )
-        ORDER BY lesson.lessonEnd DESC
         limit #{pagingVO.toPageNo}, #{pagingVO.pageSize}
     </select>
 
