@@ -1753,11 +1753,10 @@ public class AdminController {
         model.addAttribute("gradeList", gradelist);
         model.addAttribute("subjectList", subjectList);
         model.addAttribute("classTypeList", classTypeList);
-//        Integer gradeIndex;  //????????
-//        gradeIndex = gradeid;  //????????
         List<LessonCustom> list = null;
         //页码对象
         PagingVO pagingVO = new PagingVO();
+        System.out.println("lklkl");
 
         pagingVO.setTotalCount(stuService.countPayStuBySelect(gradeid, subjectid, typeid));
         if (page == null || page == 0) {

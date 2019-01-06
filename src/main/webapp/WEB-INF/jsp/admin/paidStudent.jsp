@@ -104,13 +104,15 @@
                 <table class="table table-bordered">
                     <thead>
                     <tr>
-                        <th style="width:4%">序号</th>
-                        <th style="width: 8%">姓名</th>
-                        <th>学校</th>
-                        <th style="width: 6%">年级</th>
-                        <th colspan="3">电话</th>
-                        <%--60%--%>
-                        <th width="8%">操作</th>
+                        <th style="width:5%">序号</th>
+                        <th style="width: 7%">姓名</th>
+                        <th style="width: 15%">学校</th>
+                        <th style="width: 7%">年级</th>
+                        <th style="width: 8%">科目</th>
+                        <th style="width: 8%">类型</th>
+                        <th style="width: 10%">时间</th>
+                        <th>内容</th>
+                        <th style="width: 12%">操作</th>
 
                     </tr>
                     </thead>
@@ -121,9 +123,10 @@
                             <td>${item.stuname}</td>
                             <td>${item.school}</td>
                             <td>${item.gradename}</td>
-                            <td style="border-right-color:transparent; width: 20%">学生：${item.stutel}</td>
-                            <td style="border-right-color:transparent; width: 20%">父亲：${item.fathertel}</td>
-                            <td style="width: 20%">母亲：${item.mothertel}</td>
+                            <td>${item.subjectname}</td>
+                            <td>${item.typename}</td>
+                            <td><fmt:formatDate value="${item.lessonend}" dateStyle="medium"/></td>
+                            <td>${item.remark}</td>
                             <td>
 
                                 <button type="button" class="btn btn-primary btn-xs"
@@ -250,11 +253,11 @@
             data[k]=new Array();    //声明二维，每一个一维数组里面的一个元素都是一个数组
 
         }
-        data[0] =  ["序号", "姓名", "学校", "年级", "电话", "备注"];
+        data[0] =  ["序号", "姓名", "学校", "年级", "科目", "类型", "时间", "内容"];
 
         <c:forEach items="${allStuList}" var="item" varStatus="status" >
         data[${status.index+1}]=[ ${status.index+1},'${item.stuname}','${item.school}','${item.gradename}',
-            "学生:"+'${item.stutel}'+"  父亲:"+'${item.fathertel}'+"  母亲:"+'${item.mothertel}'];
+            '${item.subjectname}','${item.typename}','<fmt:formatDate value="${item.lessonend}" dateStyle="medium"/>','${item.remark}'];
         </c:forEach>
 
         var wopts = { bookType:'xlsx', type:'binary' };
