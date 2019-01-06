@@ -1,5 +1,6 @@
 package com.system.mapper;
 
+import com.system.po.LessonCustom;
 import com.system.po.PagingVO;
 import com.system.po.Stu;
 import com.system.po.StuCustom;
@@ -69,52 +70,52 @@ public interface StuMapperCustom {
     ////////////////////////已缴费查看  按照lesson.lessonStart降序排序///////////////////////////////////
 
     //缴费学员(全部学科 全部类型 全部年级) 分页显示
-    List<StuCustom> selectByPayStu(PagingVO pagingVO);
+    List<LessonCustom> selectByPayStu(PagingVO pagingVO);
 
     //缴费学员(全部学科 全部类型 全部年级) 全部显示
-    List<StuCustom> selectAllByPayStu();
+    List<LessonCustom> selectAllByPayStu();
 
     // 缴费学员1 （学科 类型）分页显示
-    List<StuCustom> selectPayStuBySubAndType(PagingVO pagingVO);
+    List<LessonCustom> selectPayStuBySubAndType(PagingVO pagingVO);
 
     // 缴费学员1 （学科 类型）全部显示
-    List<StuCustom> selectAllPayStuBySubAndType(PagingVO pagingVO);
+    List<LessonCustom> selectAllPayStuBySubAndType(PagingVO pagingVO);
 
     //缴费学员2 （年级 类型）分页显示
-    List<StuCustom> selectPayStuByGradeAndType(PagingVO pagingVO);
+    List<LessonCustom> selectPayStuByGradeAndType(PagingVO pagingVO);
 
     //缴费学员2 （年级 类型）全部显示
-    List<StuCustom> selectAllPayStuByGradeAndType(PagingVO pagingVO);
+    List<LessonCustom> selectAllPayStuByGradeAndType(PagingVO pagingVO);
 
     //缴费学员3 （年级 学科）分页显示
-    List<StuCustom> selectPayStuByGradeAndSub(PagingVO pagingVO);
+    List<LessonCustom> selectPayStuByGradeAndSub(PagingVO pagingVO);
 
     //缴费学员3 （年级 学科）全部显示
-    List<StuCustom> selectAllPayStuByGradeAndSub(PagingVO pagingVO);
+    List<LessonCustom> selectAllPayStuByGradeAndSub(PagingVO pagingVO);
 
     //缴费学员4 （年级）分页显示
-    List<StuCustom> selectPayStuByGrade(PagingVO pagingVO);
+    List<LessonCustom> selectPayStuByGrade(PagingVO pagingVO);
 
     //缴费学员4 （年级）全部显示
-    List<StuCustom> selectAllPayStuByGrade(PagingVO pagingVO);
+    List<LessonCustom> selectAllPayStuByGrade(PagingVO pagingVO);
 
     //缴费学员5 （学科）分页显示
-    List<StuCustom> selectPayStuBySub(PagingVO pagingVO);
+    List<LessonCustom> selectPayStuBySub(PagingVO pagingVO);
 
     //缴费学员5 （学科）全部显示
-    List<StuCustom> selectAllPayStuBySub(PagingVO pagingVO);
+    List<LessonCustom> selectAllPayStuBySub(PagingVO pagingVO);
 
     //缴费学员6 （类型）分页显示
-    List<StuCustom> selectPayStuByType(PagingVO pagingVO);
+    List<LessonCustom> selectPayStuByType(PagingVO pagingVO);
 
     //缴费学员6 （类型）全部显示
-    List<StuCustom> selectAllPayStuByType(PagingVO pagingVO);
+    List<LessonCustom> selectAllPayStuByType(PagingVO pagingVO);
 
     //缴费学员7 （年级 学科 类型）分页显示
-    List<StuCustom> selectPayStuByGradeSubType(PagingVO pagingVO);
+    List<LessonCustom> selectPayStuByGradeSubType(PagingVO pagingVO);
 
     //缴费学员7 （年级 学科 类型）全部显示
-    List<StuCustom> selectAllPayStuByGradeSubType(PagingVO pagingVO);
+    List<LessonCustom> selectAllPayStuByGradeSubType(PagingVO pagingVO);
 
 
 ////////////////////////预缴费查看  按照lesson.lessonStart降序排序/////////////////////////////////////////////////////

@@ -1,8 +1,5 @@
 package com.system.service;
-import com.system.po.PagingVO;
-import com.system.po.Stu;
-import com.system.po.StuCustom;
-import com.system.po.TextDic;
+import com.system.po.*;
 
 import java.util.Date;
 import java.util.List;
@@ -160,9 +157,9 @@ public interface StuService {
     List<StuCustom> findAllStuByPay() throws Exception;
 
     //根据选项查找已经缴费的学生
-    List<StuCustom> findStuByPayStuAndSelect(Integer toPageNo, Integer gradeid, Integer subjectid, Integer typeid) throws Exception;
+    List<LessonCustom> findStuByPayStuAndSelect(Integer toPageNo, Integer gradeid, Integer subjectid, Integer typeid) throws Exception;
 
-    List<StuCustom> findAllStuByPayStuAndSelect(Integer gradeid, Integer subjectid, Integer typeid) throws Exception;
+    List<LessonCustom> findAllStuByPayStuAndSelect(Integer gradeid, Integer subjectid, Integer typeid) throws Exception;
 
     int countPayStuBySelect(Integer gradeid, Integer subjectid, Integer typeid) throws  Exception;
 

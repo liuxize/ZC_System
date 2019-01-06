@@ -1148,6 +1148,9 @@ public class AdminController {
     @RequestMapping(value = "/selectName", method = {RequestMethod.POST})
     public String searchName(String StudentName, Model model) throws Exception {
         List<StuCustom> list = stuService.findByName(StudentName);
+        PagingVO pagingVO = new PagingVO();
+        pagingVO.setTotalCount(0);
+        model.addAttribute("pagingVO", pagingVO);
         model.addAttribute("stuList", list);
         return "admin/searchName";
     }
@@ -1752,7 +1755,7 @@ public class AdminController {
         model.addAttribute("classTypeList", classTypeList);
 //        Integer gradeIndex;  //????????
 //        gradeIndex = gradeid;  //????????
-        List<StuCustom> list = null;
+        List<LessonCustom> list = null;
         //页码对象
         PagingVO pagingVO = new PagingVO();
 
@@ -1765,7 +1768,7 @@ public class AdminController {
             pagingVO.setToPageNo(page);
             list = stuService.findStuByPayStuAndSelect(page, gradeid, subjectid, typeid);
         }
-        List<StuCustom> allStuList = stuService.findAllStuByPayStuAndSelect(gradeid, subjectid, typeid);  //用于保存为excle 表格
+        List<LessonCustom> allStuList = stuService.findAllStuByPayStuAndSelect(gradeid, subjectid, typeid);  //用于保存为excle 表格
         model.addAttribute("allStuList", allStuList);
         model.addAttribute("stuList", list);
         model.addAttribute("pagingVO", pagingVO);

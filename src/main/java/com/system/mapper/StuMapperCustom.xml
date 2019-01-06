@@ -162,7 +162,7 @@
     </select>
 
     <!--缴费学员 分页显示（全部年级 全部学科 全部类型）-->
-    <select id="selectByPayStu"  parameterType="PagingVO" resultType="com.system.po.StuCustom">
+    <select id="selectByPayStu"  parameterType="PagingVO" resultType="com.system.po.LessonCustom">
         select distinct
         stu.*, grade.gradeName
         from stu, grade, lesson
@@ -179,7 +179,7 @@
     </select>
 
     <!--缴费学员 全部显示（全部年级 全部学科 全部类型）-->
-    <select id="selectAllByPayStu"  resultType="com.system.po.StuCustom">
+    <select id="selectAllByPayStu"  resultType="com.system.po.LessonCustom">
         select distinct
         stu.*, grade.gradeName
         from stu, grade, lesson
@@ -195,7 +195,7 @@
     </select>
 
     <!--缴费学员1 分页显示（学科 类型）-->
-    <select id="selectPayStuBySubAndType" parameterType="PagingVO" resultType="com.system.po.StuCustom">
+    <select id="selectPayStuBySubAndType" parameterType="PagingVO" resultType="com.system.po.LessonCustom">
         select distinct
         stu.*, grade.gradeName
         from stu, grade, lesson
@@ -216,7 +216,7 @@
     </select>
 
     <!--缴费学员1   全部显示（学科 类型）-->
-    <select id="selectAllPayStuBySubAndType" parameterType="PagingVO" resultType="com.system.po.StuCustom">
+    <select id="selectAllPayStuBySubAndType" parameterType="PagingVO" resultType="com.system.po.LessonCustom">
         select distinct
         stu.*, grade.gradeName
         from stu, grade, lesson
@@ -236,7 +236,7 @@
     </select>
 
     <!--缴费学员2 分页显示（年级 类型）-->
-    <select id="selectPayStuByGradeAndType" parameterType="PagingVO" resultType="com.system.po.StuCustom">
+    <select id="selectPayStuByGradeAndType" parameterType="PagingVO" resultType="com.system.po.LessonCustom">
         select distinct
         stu.*, grade.gradeName
         from stu, grade, lesson
@@ -257,7 +257,7 @@
     </select>
 
     <!--缴费学员2 全部显示（年级 类型）-->
-    <select id="selectAllPayStuByGradeAndType" parameterType="PagingVO" resultType="com.system.po.StuCustom">
+    <select id="selectAllPayStuByGradeAndType" parameterType="PagingVO" resultType="com.system.po.LessonCustom">
         select distinct
         stu.*, grade.gradeName
         from stu, grade, lesson
@@ -277,7 +277,7 @@
     </select>
 
     <!--缴费学员3 分页显示（年级 学科）-->
-    <select id="selectPayStuByGradeAndSub" parameterType="PagingVO" resultType="com.system.po.StuCustom">
+    <select id="selectPayStuByGradeAndSub" parameterType="PagingVO" resultType="com.system.po.LessonCustom">
         select distinct
         stu.*, grade.gradeName
         from stu, grade, lesson
@@ -298,7 +298,7 @@
     </select>
 
     <!--缴费学员3 全部显示（年级 学科）-->
-    <select id="selectAllPayStuByGradeAndSub" parameterType="PagingVO" resultType="com.system.po.StuCustom">
+    <select id="selectAllPayStuByGradeAndSub" parameterType="PagingVO" resultType="com.system.po.LessonCustom">
         select distinct
         stu.*, grade.gradeName
         from stu, grade, lesson
@@ -318,7 +318,7 @@
     </select>
 
     <!--缴费学员4 分页显示（年级 ）-->
-    <select id="selectPayStuByGrade" parameterType="PagingVO" resultType="com.system.po.StuCustom">
+    <select id="selectPayStuByGrade" parameterType="PagingVO" resultType="com.system.po.LessonCustom">
         select distinct
         stu.*, grade.gradeName
         from stu, grade, lesson
@@ -337,7 +337,7 @@
     </select>
 
     <!--缴费学员4 全部显示（年级 ）-->
-    <select id="selectAllPayStuByGrade" parameterType="PagingVO" resultType="com.system.po.StuCustom">
+    <select id="selectAllPayStuByGrade" parameterType="PagingVO" resultType="com.system.po.LessonCustom">
         select distinct
         stu.*, grade.gradeName
         from stu, grade, lesson
@@ -355,7 +355,7 @@
     </select>
 
     <!--缴费学员5 分页显示（学科 ）-->
-    <select id="selectPayStuBySub" parameterType="PagingVO" resultType="com.system.po.StuCustom">
+    <select id="selectPayStuBySub" parameterType="PagingVO" resultType="com.system.po.LessonCustom">
         select distinct
         stu.*, grade.gradeName
         from stu, grade, lesson
@@ -374,7 +374,7 @@
     </select>
 
     <!--缴费学员5 全部显示（学科 ）-->
-    <select id="selectAllPayStuBySub" parameterType="PagingVO" resultType="com.system.po.StuCustom">
+    <select id="selectAllPayStuBySub" parameterType="PagingVO" resultType="com.system.po.LessonCustom">
         select distinct
         stu.*, grade.gradeName
         from stu, grade, lesson
@@ -392,7 +392,7 @@
     </select>
 
     <!--缴费学员6 分页显示（类型 ）-->
-    <select id="selectPayStuByType" parameterType="PagingVO" resultType="com.system.po.StuCustom">
+    <select id="selectPayStuByType" parameterType="PagingVO" resultType="com.system.po.LessonCustom">
         select distinct
         stu.*, grade.gradeName
         from stu, grade, lesson
@@ -411,7 +411,7 @@
     </select>
 
     <!--缴费学员6 全部显示（类型 ）-->
-    <select id="selectAllPayStuByType" parameterType="PagingVO" resultType="com.system.po.StuCustom">
+    <select id="selectAllPayStuByType" parameterType="PagingVO" resultType="com.system.po.LessonCustom">
         select distinct
         stu.*, grade.gradeName
         from stu, grade, lesson
@@ -429,7 +429,7 @@
     </select>
 
     <!--缴费学员7 分页显示（类型 ）-->
-    <select id="selectPayStuByGradeSubType" parameterType="PagingVO" resultType="com.system.po.StuCustom">
+    <select id="selectPayStuByGradeSubType" parameterType="PagingVO" resultType="com.system.po.LessonCustom">
         select distinct
         stu.*, grade.gradeName
         from stu, grade, lesson
@@ -452,7 +452,7 @@
     </select>
 
     <!--缴费学员7 全部显示（类型 ）-->
-    <select id="selectAllPayStuByGradeSubType" parameterType="PagingVO" resultType="com.system.po.StuCustom" >
+    <select id="selectAllPayStuByGradeSubType" parameterType="PagingVO" resultType="com.system.po.LessonCustom" >
         select distinct
         stu.*, grade.gradeName
         from stu, grade, lesson

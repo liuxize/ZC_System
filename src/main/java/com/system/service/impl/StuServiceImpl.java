@@ -2,14 +2,11 @@ package com.system.service.impl;
 
 import com.system.mapper.StuMapper;
 import com.system.mapper.StuMapperCustom;
-import com.system.po.PagingVO;
-import com.system.po.StuCustom;
-import com.system.po.TextDic;
+import com.system.po.*;
 import com.system.service.StuService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.system.po.Stu;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -412,7 +409,7 @@ public class StuServiceImpl implements StuService {
 
 
     //根据选项分页查找已经缴费的学生
-    public List<StuCustom> findStuByPayStuAndSelect(Integer toPageNo, Integer gradeid, Integer subjectid, Integer typeid) throws Exception{
+    public List<LessonCustom> findStuByPayStuAndSelect(Integer toPageNo, Integer gradeid, Integer subjectid, Integer typeid) throws Exception{
         PagingVO pagingVO = new PagingVO();
         pagingVO.setToPageNo(toPageNo);
         //pagingVO.setIntergertemp(gradeid);
@@ -458,7 +455,7 @@ public class StuServiceImpl implements StuService {
 
 
     //根据选项全部查找已经缴费的学生
-    public List<StuCustom> findAllStuByPayStuAndSelect(Integer gradeid, Integer subjectid, Integer typeid) throws Exception{
+    public List<LessonCustom> findAllStuByPayStuAndSelect(Integer gradeid, Integer subjectid, Integer typeid) throws Exception{
         PagingVO pagingVO = new PagingVO();
         if(gradeid==-1 && subjectid !=-1 && typeid!=-1) {    //学科 类型
             pagingVO.setIntergertwo(subjectid);
