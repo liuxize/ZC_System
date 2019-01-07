@@ -527,7 +527,7 @@ public class StuServiceImpl implements StuService {
 
 
     //根据选项分页查找预缴费的学生
-    public List<StuCustom> findStuByPrePayStuAndSelect(Integer toPageNo, Integer gradeid, Integer subjectid, Integer typeid) throws Exception{
+    public List<LessonCustom> findStuByPrePayStuAndSelect(Integer toPageNo, Integer gradeid, Integer subjectid, Integer typeid) throws Exception{
         PagingVO pagingVO = new PagingVO();
         pagingVO.setToPageNo(toPageNo);
         //pagingVO.setIntergertemp(gradeid);
@@ -573,7 +573,7 @@ public class StuServiceImpl implements StuService {
 
 
     //根据选项全部查找预缴费的学生
-    public List<StuCustom> findAllStuByPrePayStuAndSelect(Integer gradeid, Integer subjectid, Integer typeid) throws Exception{
+    public List<LessonCustom> findAllStuByPrePayStuAndSelect(Integer gradeid, Integer subjectid, Integer typeid) throws Exception{
         PagingVO pagingVO = new PagingVO();
         if(gradeid==-1 && subjectid !=-1 && typeid!=-1) {    //学科 类型
             pagingVO.setIntergertwo(subjectid);

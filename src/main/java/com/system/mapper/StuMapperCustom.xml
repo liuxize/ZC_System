@@ -1249,12 +1249,13 @@
     </select>
 
     <!--预缴费学员 分页显示（全部年级 全部学科 全部类型）-->
-    <select id="selectByPrePayStu"  parameterType="PagingVO" resultType="com.system.po.StuCustom">
-        select distinct
-        stu.*, grade.gradeName
-        from stu, grade, lesson
-        WHERE
-        stu.gradeID = grade.gradeID
+    <select id="selectByPrePayStu"  parameterType="PagingVO" resultType="com.system.po.LessonCustom">
+        select
+        lesson.*, classtype.typeName, subject.subjectName, stu.stuName, stu.school, grade.gradeName
+        from stu, grade, lesson, classtype, subject
+        WHERE stu.gradeID = grade.gradeID
+        AND lesson.typeID = classtype.typeID
+        AND lesson.subjectID = subject.subjectID
         AND
         stu.stuID = lesson.stuID
         AND
@@ -1264,12 +1265,13 @@
     </select>
 
     <!--预缴费学员 全部显示（全部年级 全部学科 全部类型）-->
-    <select id="selectAllByPrePayStu"  resultType="com.system.po.StuCustom">
-        select distinct
-        stu.*, grade.gradeName
-        from stu, grade, lesson
-        WHERE
-        stu.gradeID = grade.gradeID
+    <select id="selectAllByPrePayStu"  resultType="com.system.po.LessonCustom">
+        select
+        lesson.*, classtype.typeName, subject.subjectName, stu.stuName, stu.school, grade.gradeName
+        from stu, grade, lesson, classtype, subject
+        WHERE stu.gradeID = grade.gradeID
+        AND lesson.typeID = classtype.typeID
+        AND lesson.subjectID = subject.subjectID
         AND
         stu.stuID = lesson.stuID
         AND
@@ -1278,12 +1280,13 @@
     </select>
 
     <!--预缴费学员1 分页显示（学科 类型）-->
-    <select id="selectPrePayStuBySubAndType" parameterType="PagingVO" resultType="com.system.po.StuCustom">
-        select distinct
-        stu.*, grade.gradeName
-        from stu, grade, lesson
-        WHERE
-        stu.gradeID = grade.gradeID
+    <select id="selectPrePayStuBySubAndType" parameterType="PagingVO" resultType="com.system.po.LessonCustom">
+        select
+        lesson.*, classtype.typeName, subject.subjectName, stu.stuName, stu.school, grade.gradeName
+        from stu, grade, lesson, classtype, subject
+        WHERE stu.gradeID = grade.gradeID
+        AND lesson.typeID = classtype.typeID
+        AND lesson.subjectID = subject.subjectID
         AND
         lesson.subjectID = #{intergertwo,jdbcType=INTEGER}
         AND
@@ -1297,12 +1300,13 @@
     </select>
 
     <!--预缴费学员1   全部显示（学科 类型）-->
-    <select id="selectAllPrePayStuBySubAndType" parameterType="PagingVO" resultType="com.system.po.StuCustom">
-        select distinct
-        stu.*, grade.gradeName
-        from stu, grade, lesson
-        WHERE
-        stu.gradeID = grade.gradeID
+    <select id="selectAllPrePayStuBySubAndType" parameterType="PagingVO" resultType="com.system.po.LessonCustom">
+        select
+        lesson.*, classtype.typeName, subject.subjectName, stu.stuName, stu.school, grade.gradeName
+        from stu, grade, lesson, classtype, subject
+        WHERE stu.gradeID = grade.gradeID
+        AND lesson.typeID = classtype.typeID
+        AND lesson.subjectID = subject.subjectID
         AND
         lesson.subjectID = #{intergertwo,jdbcType=INTEGER}
         AND
@@ -1315,12 +1319,13 @@
     </select>
 
     <!--预缴费学员2 分页显示（年级 类型）-->
-    <select id="selectPrePayStuByGradeAndType" parameterType="PagingVO" resultType="com.system.po.StuCustom">
-        select distinct
-        stu.*, grade.gradeName
-        from stu, grade, lesson
-        WHERE
-        stu.gradeID = grade.gradeID
+    <select id="selectPrePayStuByGradeAndType" parameterType="PagingVO" resultType="com.system.po.LessonCustom">
+       select
+        lesson.*, classtype.typeName, subject.subjectName, stu.stuName, stu.school, grade.gradeName
+        from stu, grade, lesson, classtype, subject
+        WHERE stu.gradeID = grade.gradeID
+        AND lesson.typeID = classtype.typeID
+        AND lesson.subjectID = subject.subjectID
         AND
         stu.gradeID = #{intergertemp, jdbcType=INTEGER}
         AND
@@ -1334,12 +1339,13 @@
     </select>
 
     <!--预缴费学员2 全部显示（年级 类型）-->
-    <select id="selectAllPrePayStuByGradeAndType" parameterType="PagingVO" resultType="com.system.po.StuCustom">
-        select distinct
-        stu.*, grade.gradeName
-        from stu, grade, lesson
-        WHERE
-        stu.gradeID = grade.gradeID
+    <select id="selectAllPrePayStuByGradeAndType" parameterType="PagingVO" resultType="com.system.po.LessonCustom">
+        select
+        lesson.*, classtype.typeName, subject.subjectName, stu.stuName, stu.school, grade.gradeName
+        from stu, grade, lesson, classtype, subject
+        WHERE stu.gradeID = grade.gradeID
+        AND lesson.typeID = classtype.typeID
+        AND lesson.subjectID = subject.subjectID
         AND
         stu.gradeID = #{intergertemp, jdbcType=INTEGER}
         AND
@@ -1352,12 +1358,13 @@
     </select>
 
     <!--预缴费学员3 分页显示（年级 学科）-->
-    <select id="selectPrePayStuByGradeAndSub" parameterType="PagingVO" resultType="com.system.po.StuCustom">
-        select distinct
-        stu.*, grade.gradeName
-        from stu, grade, lesson
-        WHERE
-        stu.gradeID = grade.gradeID
+    <select id="selectPrePayStuByGradeAndSub" parameterType="PagingVO" resultType="com.system.po.LessonCustom">
+        select
+        lesson.*, classtype.typeName, subject.subjectName, stu.stuName, stu.school, grade.gradeName
+        from stu, grade, lesson, classtype, subject
+        WHERE stu.gradeID = grade.gradeID
+        AND lesson.typeID = classtype.typeID
+        AND lesson.subjectID = subject.subjectID
         AND
         stu.gradeID = #{intergertemp, jdbcType=INTEGER}
         AND
@@ -1371,12 +1378,13 @@
     </select>
 
     <!--预缴费学员3 全部显示（年级 学科）-->
-    <select id="selectAllPrePayStuByGradeAndSub" parameterType="PagingVO" resultType="com.system.po.StuCustom">
-        select distinct
-        stu.*, grade.gradeName
-        from stu, grade, lesson
-        WHERE
-        stu.gradeID = grade.gradeID
+    <select id="selectAllPrePayStuByGradeAndSub" parameterType="PagingVO" resultType="com.system.po.LessonCustom">
+        select
+        lesson.*, classtype.typeName, subject.subjectName, stu.stuName, stu.school, grade.gradeName
+        from stu, grade, lesson, classtype, subject
+        WHERE stu.gradeID = grade.gradeID
+        AND lesson.typeID = classtype.typeID
+        AND lesson.subjectID = subject.subjectID
         AND
         stu.gradeID = #{intergertemp, jdbcType=INTEGER}
         AND
@@ -1389,12 +1397,13 @@
     </select>
 
     <!--预缴费学员4 分页显示（年级 ）-->
-    <select id="selectPrePayStuByGrade" parameterType="PagingVO" resultType="com.system.po.StuCustom">
-        select distinct
-        stu.*, grade.gradeName
-        from stu, grade, lesson
-        WHERE
-        stu.gradeID = grade.gradeID
+    <select id="selectPrePayStuByGrade" parameterType="PagingVO" resultType="com.system.po.LessonCustom">
+        select
+        lesson.*, classtype.typeName, subject.subjectName, stu.stuName, stu.school, grade.gradeName
+        from stu, grade, lesson, classtype, subject
+        WHERE stu.gradeID = grade.gradeID
+        AND lesson.typeID = classtype.typeID
+        AND lesson.subjectID = subject.subjectID
         AND
         stu.gradeID = #{intergertemp, jdbcType=INTEGER}
         AND
@@ -1406,12 +1415,13 @@
     </select>
 
     <!--预缴费学员4 全部显示（年级 ）-->
-    <select id="selectAllPrePayStuByGrade" parameterType="PagingVO" resultType="com.system.po.StuCustom">
-        select distinct
-        stu.*, grade.gradeName
-        from stu, grade, lesson
-        WHERE
-        stu.gradeID = grade.gradeID
+    <select id="selectAllPrePayStuByGrade" parameterType="PagingVO" resultType="com.system.po.LessonCustom">
+        select
+        lesson.*, classtype.typeName, subject.subjectName, stu.stuName, stu.school, grade.gradeName
+        from stu, grade, lesson, classtype, subject
+        WHERE stu.gradeID = grade.gradeID
+        AND lesson.typeID = classtype.typeID
+        AND lesson.subjectID = subject.subjectID
         AND
         stu.gradeID = #{intergertemp, jdbcType=INTEGER}
         AND
@@ -1422,12 +1432,13 @@
     </select>
 
     <!--预缴费学员5 分页显示（学科 ）-->
-    <select id="selectPrePayStuBySub" parameterType="PagingVO" resultType="com.system.po.StuCustom">
-        select distinct
-        stu.*, grade.gradeName
-        from stu, grade, lesson
-        WHERE
-        stu.gradeID = grade.gradeID
+    <select id="selectPrePayStuBySub" parameterType="PagingVO" resultType="com.system.po.LessonCustom">
+        select
+        lesson.*, classtype.typeName, subject.subjectName, stu.stuName, stu.school, grade.gradeName
+        from stu, grade, lesson, classtype, subject
+        WHERE stu.gradeID = grade.gradeID
+        AND lesson.typeID = classtype.typeID
+        AND lesson.subjectID = subject.subjectID
         AND
         lesson.subjectID = #{intergertwo,jdbcType=INTEGER}
         AND
@@ -1439,12 +1450,13 @@
     </select>
 
     <!--预缴费学员5 全部显示（学科 ）-->
-    <select id="selectAllPrePayStuBySub" parameterType="PagingVO" resultType="com.system.po.StuCustom">
-        select distinct
-        stu.*, grade.gradeName
-        from stu, grade, lesson
-        WHERE
-        stu.gradeID = grade.gradeID
+    <select id="selectAllPrePayStuBySub" parameterType="PagingVO" resultType="com.system.po.LessonCustom">
+        select
+        lesson.*, classtype.typeName, subject.subjectName, stu.stuName, stu.school, grade.gradeName
+        from stu, grade, lesson, classtype, subject
+        WHERE stu.gradeID = grade.gradeID
+        AND lesson.typeID = classtype.typeID
+        AND lesson.subjectID = subject.subjectID
         AND
         lesson.subjectID = #{intergertwo,jdbcType=INTEGER}
         AND
@@ -1455,12 +1467,13 @@
     </select>
 
     <!--预缴费学员6 分页显示（类型 ）-->
-    <select id="selectPrePayStuByType" parameterType="PagingVO" resultType="com.system.po.StuCustom">
-        select distinct
-        stu.*, grade.gradeName
-        from stu, grade, lesson
-        WHERE
-        stu.gradeID = grade.gradeID
+    <select id="selectPrePayStuByType" parameterType="PagingVO" resultType="com.system.po.LessonCustom">
+        select
+        lesson.*, classtype.typeName, subject.subjectName, stu.stuName, stu.school, grade.gradeName
+        from stu, grade, lesson, classtype, subject
+        WHERE stu.gradeID = grade.gradeID
+        AND lesson.typeID = classtype.typeID
+        AND lesson.subjectID = subject.subjectID
         AND
         lesson.typeID = #{intergerthree,jdbcType=INTEGER}
         AND
@@ -1472,12 +1485,13 @@
     </select>
 
     <!--预缴费学员6 全部显示（类型 ）-->
-    <select id="selectAllPrePayStuByType" parameterType="PagingVO" resultType="com.system.po.StuCustom">
-        select distinct
-        stu.*, grade.gradeName
-        from stu, grade, lesson
-        WHERE
-        stu.gradeID = grade.gradeID
+    <select id="selectAllPrePayStuByType" parameterType="PagingVO" resultType="com.system.po.LessonCustom">
+        select
+        lesson.*, classtype.typeName, subject.subjectName, stu.stuName, stu.school, grade.gradeName
+        from stu, grade, lesson, classtype, subject
+        WHERE stu.gradeID = grade.gradeID
+        AND lesson.typeID = classtype.typeID
+        AND lesson.subjectID = subject.subjectID
         AND
         lesson.typeID = #{intergerthree,jdbcType=INTEGER}
         AND
@@ -1489,12 +1503,13 @@
 
 
     <!--预缴费学员7 分页显示（类型 ）-->
-    <select id="selectPrePayStuByGradeSubType" parameterType="PagingVO" resultType="com.system.po.StuCustom">
-        select distinct
-        stu.*, grade.gradeName
-        from stu, grade, lesson
-        WHERE
-        stu.gradeID = grade.gradeID
+    <select id="selectPrePayStuByGradeSubType" parameterType="PagingVO" resultType="com.system.po.LessonCustom">
+        select
+        lesson.*, classtype.typeName, subject.subjectName, stu.stuName, stu.school, grade.gradeName
+        from stu, grade, lesson, classtype, subject
+        WHERE stu.gradeID = grade.gradeID
+        AND lesson.typeID = classtype.typeID
+        AND lesson.subjectID = subject.subjectID
         AND
         stu.gradeID = #{intergertemp, jdbcType=INTEGER}
         AND
@@ -1510,12 +1525,13 @@
     </select>
 
     <!--预缴费学员7 全部显示（类型 ）-->
-    <select id="selectAllPrePayStuByGradeSubType" parameterType="PagingVO" resultType="com.system.po.StuCustom">
-        select distinct
-        stu.*, grade.gradeName
-        from stu, grade, lesson
-        WHERE
-        stu.gradeID = grade.gradeID
+    <select id="selectAllPrePayStuByGradeSubType" parameterType="PagingVO" resultType="com.system.po.LessonCustom">
+        select
+        lesson.*, classtype.typeName, subject.subjectName, stu.stuName, stu.school, grade.gradeName
+        from stu, grade, lesson, classtype, subject
+        WHERE stu.gradeID = grade.gradeID
+        AND lesson.typeID = classtype.typeID
+        AND lesson.subjectID = subject.subjectID
         AND
         stu.gradeID = #{intergertemp, jdbcType=INTEGER}
         AND

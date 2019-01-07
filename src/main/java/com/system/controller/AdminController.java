@@ -1808,7 +1808,7 @@ public class AdminController {
         model.addAttribute("classTypeList", classTypeList);
 //        Integer gradeIndex;  //????????
 //        gradeIndex = gradeid;  //????????
-        List<StuCustom> list = null;
+        List<LessonCustom> list = null;
         //页码对象
         PagingVO pagingVO = new PagingVO();
 
@@ -1821,7 +1821,7 @@ public class AdminController {
             pagingVO.setToPageNo(page);
             list = stuService.findStuByPrePayStuAndSelect(page, gradeid, subjectid, typeid);
         }
-        List<StuCustom> allStuList = stuService.findAllStuByPrePayStuAndSelect(gradeid, subjectid, typeid);  //用于保存为excle 表格
+        List<LessonCustom> allStuList = stuService.findAllStuByPrePayStuAndSelect(gradeid, subjectid, typeid);  //用于保存为excle 表格
         model.addAttribute("allStuList", allStuList);
         model.addAttribute("stuList", list);
         model.addAttribute("pagingVO", pagingVO);

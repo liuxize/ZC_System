@@ -121,51 +121,51 @@ public interface StuMapperCustom {
 ////////////////////////预缴费查看  按照lesson.lessonStart降序排序/////////////////////////////////////////////////////
 
     //预缴费学员(全部学科 全部类型 全部年级) 分页显示 //
-    List<StuCustom> selectByPrePayStu(PagingVO pagingVO);
+    List<LessonCustom> selectByPrePayStu(PagingVO pagingVO);
 
-    List<StuCustom> selectAllByPrePayStu();
+    List<LessonCustom> selectAllByPrePayStu();
 
     // 预缴费学员1 （学科 类型）分页显示
-    List<StuCustom> selectPrePayStuBySubAndType(PagingVO pagingVO);
+    List<LessonCustom> selectPrePayStuBySubAndType(PagingVO pagingVO);
 
     // 预缴费学员1 （学科 类型）全部显示
-    List<StuCustom> selectAllPrePayStuBySubAndType(PagingVO pagingVO);
+    List<LessonCustom> selectAllPrePayStuBySubAndType(PagingVO pagingVO);
 
     //预缴费学员2 （年级 类型）分页显示
-    List<StuCustom> selectPrePayStuByGradeAndType(PagingVO pagingVO);
+    List<LessonCustom> selectPrePayStuByGradeAndType(PagingVO pagingVO);
 
     //预缴费学员2 （年级 类型）全部显示
-    List<StuCustom> selectAllPrePayStuByGradeAndType(PagingVO pagingVO);
+    List<LessonCustom> selectAllPrePayStuByGradeAndType(PagingVO pagingVO);
 
     //预缴费学员3 （年级 学科）分页显示
-    List<StuCustom> selectPrePayStuByGradeAndSub(PagingVO pagingVO);
+    List<LessonCustom> selectPrePayStuByGradeAndSub(PagingVO pagingVO);
 
     //预缴费学员3 （年级 学科）全部显示
-    List<StuCustom> selectAllPrePayStuByGradeAndSub(PagingVO pagingVO);
+    List<LessonCustom> selectAllPrePayStuByGradeAndSub(PagingVO pagingVO);
 
     //预缴费学员4 （年级）分页显示
-    List<StuCustom> selectPrePayStuByGrade(PagingVO pagingVO);
+    List<LessonCustom> selectPrePayStuByGrade(PagingVO pagingVO);
 
     //预缴费学员4 （年级）全部显示
-    List<StuCustom> selectAllPrePayStuByGrade(PagingVO pagingVO);
+    List<LessonCustom> selectAllPrePayStuByGrade(PagingVO pagingVO);
 
     //预缴费学员5 （学科）分页显示
-    List<StuCustom> selectPrePayStuBySub(PagingVO pagingVO);
+    List<LessonCustom> selectPrePayStuBySub(PagingVO pagingVO);
 
     //预缴费学员5 （学科）全部显示
-    List<StuCustom> selectAllPrePayStuBySub(PagingVO pagingVO);
+    List<LessonCustom> selectAllPrePayStuBySub(PagingVO pagingVO);
 
     //缴费学员6 （类型）分页显示
-    List<StuCustom> selectPrePayStuByType(PagingVO pagingVO);
+    List<LessonCustom> selectPrePayStuByType(PagingVO pagingVO);
 
     //预缴费学员6 （类型）全部显示
-    List<StuCustom> selectAllPrePayStuByType(PagingVO pagingVO);
+    List<LessonCustom> selectAllPrePayStuByType(PagingVO pagingVO);
 
     //预缴费学员7 （年级 学科 类型）分页显示
-    List<StuCustom> selectPrePayStuByGradeSubType(PagingVO pagingVO);
+    List<LessonCustom> selectPrePayStuByGradeSubType(PagingVO pagingVO);
 
     //预缴费学员7 （年级 学科 类型）全部显示
-    List<StuCustom> selectAllPrePayStuByGradeSubType(PagingVO pagingVO);
+    List<LessonCustom> selectAllPrePayStuByGradeSubType(PagingVO pagingVO);
 
 ////////////////////////未缴费查看/////////////////////////////////////////////////////////
 
