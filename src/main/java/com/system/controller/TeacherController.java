@@ -764,7 +764,7 @@ public class TeacherController {
     /*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<搜索姓名操作开始>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
     @RequestMapping("/searchName")
     public String searchNameUI(Model model, Integer page) throws Exception {
-        return "master/searchName";
+        return "teacher/searchName";
     }
 
     // 搜索姓名操作
