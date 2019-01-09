@@ -2026,7 +2026,7 @@
                         <c:if test="${signmessage.checkdatesign==0}"><font color="red">检验日期</font></c:if>
                         <c:if test="${signmessage.checkdatesign==1}">检验日期</c:if>
                     </td>
-                    <td class="text-left" colspan="7"
+                    <td class="text-left"
                         style="border-right-color:transparent;">
                         <fmt:formatDate value="${stumessage.checkdate}" dateStyle="medium"/>
 
@@ -2098,7 +2098,74 @@
                         <!-- 模态框（Modal）添加学校历史 结束-->
 
                     </td>
+
+                    <td>
+                       照片
+                    </td>
+                    <td colspan="3" align="center" style="border-right-color:transparent;">
+                        <button type="button" class="btn btn-default" data-toggle="modal" data-target="#addFigure"
+                                style="background-color:transparent;border:0">添加</button>
+
+                        <div class="modal fade" id="addFigure" tabindex="-1" role="dialog"
+                             aria-labelledby="myModalLabel" aria-hidden="true" style="z-index:9999">
+                            <div class="modal-dialog"> <!-- modal-lg 放大版-->
+                                <div class="modal-content">
+                                    <form action="/admin/uploadImage" method="post" enctype="multipart/form-data">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                                &times;
+                                            </button>
+                                            <h4 class="modal-title">添加图片</h4>
+                                        </div>
+                                        <div class="modal-body">
+
+                                            <input type="text" class="form-control" placeholder="图片名称"
+                                                   name="imageTitle">
+                                            <div style="height: 10px"></div>
+                                            <input type="file" class="form-control" id="updateFile" name="image"
+                                                   accept="image/*"/>
+                                            <input type="hidden" name="stuid" value=${stumessage.stuid}>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                                            </button>
+                                            <button class="btn btn-default" type="submit">保存</button>
+                                        </div>
+                                    </form>
+                                </div><!-- /.modal-content -->
+                            </div><!-- /.modal -->
+                        </div>
+
+                    </td>
+                    <td colspan="2" align="center">
+                        <button type="button" class="btn btn-default" data-toggle="modal" data-target="#figureList"
+                                style="background-color:transparent;border:0">查阅</button>
+                        <div class="modal fade" id="figureList" tabindex="-1" role="dialog"
+                             aria-labelledby="myModalLabel" aria-hidden="true" style="z-index:9999">
+                            <div class="modal-dialog"> <!-- modal-lg 放大版-->
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                            &times;
+                                        </button>
+                                        <h4 class="modal-title">查阅图片</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                            <textarea class="inp5" rows="10" name="improvetext"
+                                                      readonly="readonly">${stumessage.mastertelhis}</textarea>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                                        </button>
+                                    </div>
+                                </div><!-- /.modal-content -->
+                            </div><!-- /.modal -->
+                        </div>
+                    </td>
+
+
                 </tr>
+
                 <tr>
                     <td style="font-size: 20px; " colspan="13">三教两管一提</td>
                 </tr>

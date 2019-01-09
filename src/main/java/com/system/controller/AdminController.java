@@ -3084,20 +3084,22 @@ public class AdminController {
             return 0;
     }
 
-
-    @ResponseBody
     @RequestMapping(value = "/uploadImage", method = {RequestMethod.POST})
-    public void uploadImage(@RequestParam("image") CommonsMultipartFile file, Integer stuID, String imageTitle, HttpServletRequest request) throws IOException {
+    public String uploadImage(@RequestParam("image") CommonsMultipartFile file, Integer stuid, String imageTitle, HttpServletRequest request) throws IOException {
 
         Images images = new Images();
-        images.setStuid(1);
-        images.setTitle("wewe");
-
+        System.out.println(stuid);
+        System.out.println(imageTitle);
+        images.setStuid(stuid);
+        images.setTitle(imageTitle);
         String realUploadPath = request.getServletContext().getRealPath("/");
-
         //上传原图,保存到数据库
         imageService.uploadImage(file, images, realUploadPath);
+        String encodeID = Base64.getEncoder().encodeToString(stuid.toString().getBytes(StandardCharsets.UTF_8));
+        //重定向
+        return "redirect:/admin/editTableOne?encodeID=" + encodeID;
     }
+
 
     //下载图片
     @RequestMapping(value = "/downloadImage", method = {RequestMethod.GET})
