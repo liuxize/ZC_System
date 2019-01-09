@@ -3090,6 +3090,7 @@ public class AdminController {
             return 0;
     }
 
+    //上传图片
     @RequestMapping(value = "/uploadImage", method = {RequestMethod.POST})
     public String uploadImage(@RequestParam("image") CommonsMultipartFile file, Integer stuid, String imageTitle, HttpServletRequest request) throws IOException,Exception {
         Images images = new Images();

@@ -8,9 +8,18 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import javax.annotation.Resource;
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
 import java.util.Base64;
@@ -61,6 +70,9 @@ public class LeaderController {
 
     @Resource(name = "schoolServiceImpl")
     private SchoolService schoolService;
+
+    @Resource(name = "imageServiceImpl")
+    private ImageService imageService;
 
     // 添加用户信息表一（Get？？？）
     @RequestMapping(value = "/addTableOne", method = {RequestMethod.GET})
@@ -178,6 +190,12 @@ public class LeaderController {
             stu.setCheckdate(null);
 
         }
+        List<Images> imagesList = imageService.findImageByStuID(stuid);
+        Integer imagesNum = imagesList.size(); //所有图片的数量
+        Integer unsignImageNum = imageService.getCountUnsignImage(stuid);//未签字图片的数量
+        model.addAttribute("unsignImageNum",unsignImageNum);
+        model.addAttribute("imagesNum",imagesNum);
+        model.addAttribute("imagesList",imagesList);
         String br ="\n";
         List<School> schoolList =schoolService.findAllSchool();
         List<Major> majorList = majorService.findAllMajor();
@@ -1381,6 +1399,20 @@ public class LeaderController {
         return "redirect:/leader/editSeNoteTable?dicid="+dicid + "&page=" + page;
     }
 
+    //上传图片
+    @RequestMapping(value = "/uploadImage", method = {RequestMethod.POST})
+    public String uploadImage(@RequestParam("image") CommonsMultipartFile file, Integer stuid, String imageTitle, HttpServletRequest request) throws IOException,Exception {
+        Images images = new Images();
+        images.setStuid(stuid);
+        images.setTitle(imageTitle);
+        String realUploadPath = request.getServletContext().getRealPath("/");
+        //上传原图,保存到数据库
+        imageService.uploadImage(file, images, realUploadPath);
+        signService.SetChangeSign(stuid);//状态改为未签字
+        String encodeID = Base64.getEncoder().encodeToString(stuid.toString().getBytes(StandardCharsets.UTF_8));
+        //重定向
+        return "redirect:/leader/editTableOne?encodeID=" + encodeID;
+    }
 
 }
 

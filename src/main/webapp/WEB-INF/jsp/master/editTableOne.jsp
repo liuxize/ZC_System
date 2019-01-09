@@ -2071,7 +2071,7 @@
                         <c:if test="${signmessage.checkdatesign==0}"><font color="red">检验日期</font></c:if>
                         <c:if test="${signmessage.checkdatesign==1}">检验日期</c:if>
                     </td>
-                    <td class="text-left" colspan="7"
+                    <td class="text-left"
                         style="border-right-color:transparent;">
                         <fmt:formatDate value="${stumessage.checkdate}" dateStyle="medium"/>
 
@@ -2142,8 +2142,98 @@
                                 </div><!-- /.modal-content -->
                             </div><!-- /.modal -->
                         </div>
-                        <!-- 模态框（Modal）添加学校历史 结束-->
+                    </td>
+                    <td>
+                        照片
+                    </td>
+                    <td colspan="3" align="center" style="border-right-color:transparent;">
+                        <c:if test="${unsignImageNum==0}">
+                            <button type="button" class="btn btn-default" data-toggle="modal" data-target="#addFigure"
+                                    style="background-color:transparent;border:0">添加</button>
+                        </c:if>
+                        <c:if test="${unsignImageNum>0}">
+                            <button type="button" class="btn btn-default" data-toggle="modal" data-target="#addFigure"
+                                    style="background-color:transparent;border:0;color: red;">添加&nbsp;(${unsignImageNum})</button>
+                        </c:if>
 
+                        <div class="modal fade" id="addFigure" tabindex="-1" role="dialog"
+                             aria-labelledby="myModalLabel" aria-hidden="true" style="z-index:9999">
+                            <div class="modal-dialog"> <!-- modal-lg 放大版-->
+                                <div class="modal-content">
+                                    <form action="/master/uploadImage" method="post" enctype="multipart/form-data">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                                &times;
+                                            </button>
+                                            <h4 class="modal-title">添加图片</h4>
+                                        </div>
+                                        <div class="modal-body">
+
+                                            <input type="text" class="form-control" placeholder="图片名称" required="required"
+                                                   name="imageTitle">
+                                            <div style="height: 10px"></div>
+                                            <input type="file" class="form-control" id="updateFile" name="image" required="required"
+                                                   accept="image/*"/>
+                                            <input type="hidden" name="stuid" value=${stumessage.stuid}>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                                            </button>
+                                            <button class="btn btn-default" type="submit">保存</button>
+                                        </div>
+                                    </form>
+                                </div><!-- /.modal-content -->
+                            </div><!-- /.modal -->
+                        </div>
+
+                    </td>
+                    <td colspan="2" align="center">
+                        <button type="button" class="btn btn-default" data-toggle="modal" data-target="#figureList"
+                                style="background-color:transparent;border:0">查阅&nbsp;(${imagesNum})</button>
+                        <div class="modal fade" id="figureList" tabindex="-1" role="dialog"
+                             aria-labelledby="myModalLabel" aria-hidden="true" style="z-index:9999">
+                            <div class="modal-dialog"> <!-- modal-lg 放大版-->
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                            &times;
+                                        </button>
+                                        <h4 class="modal-title">查阅图片</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <table class="table table-bordered">
+                                            <thead>
+                                            <tr>
+                                                <th style="width: 10%">编号</th>
+                                                <th style="width: 80%">图片名称</th>
+                                                <th style="width: 10%;">操作</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <c:forEach items="${imagesList}" var="item" varStatus="status">
+                                            <tr>
+                                                <td>${status.index + 1}</td>
+                                                <td>
+                                                    <c:if test="${item.imagesign==0}"><font color="red">${item.title}</font></c:if>
+                                                    <c:if test="${item.imagesign==1}">${item.title}</c:if>
+                                                </td>
+                                                <td>
+                                                    <button type="button" class="btn btn-primary btn-xs"
+                                                            onClick=" window.open('/uploadImages/${item.path}')">查看
+                                                    </button>
+
+                                                </td>
+                                            </tr>
+                                            </c:forEach>
+                                        </table>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                                        </button>
+                                    </div>
+                                </div><!-- /.modal-content -->
+                            </div><!-- /.modal -->
+                        </div>
                     </td>
                 </tr>
                 <tr>

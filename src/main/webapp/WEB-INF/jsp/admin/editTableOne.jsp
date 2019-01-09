@@ -2029,7 +2029,6 @@
                     <td class="text-left"
                         style="border-right-color:transparent;">
                         <fmt:formatDate value="${stumessage.checkdate}" dateStyle="medium"/>
-
                     </td>
                     <td>
                         <!--按键开始-->
@@ -2199,7 +2198,6 @@
                             </div><!-- /.modal -->
                         </div>
                     </td>
-
 
                 </tr>
 
