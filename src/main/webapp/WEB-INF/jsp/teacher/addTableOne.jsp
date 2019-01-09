@@ -275,11 +275,42 @@
                         </td>
 
                         <td>检验日期</td>
-                        <td colspan="5">
+                        <td colspan="2">
                             <input class="inp4" type="date"  max="9999-12-31" style="width: 300px" name="checkdate"/>
                         </td>
+                        <td>
+                            <button type="button" class="btn btn-default" data-toggle="modal" data-target="#addFigure"
+                                    style="background-color:transparent;border:0">添加照片</button>
+                            <div class="modal fade" id="addFigure" tabindex="-1" role="dialog"
+                                 aria-labelledby="myModalLabel" aria-hidden="true" style="z-index:9999">
+                                <div class="modal-dialog"> <!-- modal-lg 放大版-->
+                                    <div class="modal-content">
+                                        <form action="/teacher/uploadImage" method="post" enctype="multipart/form-data">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                                    &times;
+                                                </button>
+                                                <h4 class="modal-title">添加图片</h4>
+                                            </div>
+                                            <div class="modal-body">
 
-
+                                                <input type="text" class="form-control" placeholder="图片名称" required="required"
+                                                       name="imageTitle">
+                                                <div style="height: 10px"></div>
+                                                <input type="file" class="form-control" id="updateFile" name="image" required="required"
+                                                       accept="image/*"/>
+                                                <input type="hidden" name="stuid" value=${stumessage.stuid}>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                                                </button>
+                                                <button class="btn btn-default" type="submit">保存</button>
+                                            </div>
+                                        </form>
+                                    </div><!-- /.modal-content -->
+                                </div><!-- /.modal -->
+                            </div>
+                        </td>
                     </tr>
                     <tr>
                         <td style="font-size: 20px; " colspan="11">三教两管一提</td>

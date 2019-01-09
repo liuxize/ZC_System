@@ -83,16 +83,9 @@
                             <div class="form-group">
                                 <button class="btn btn-default" onClick="saveAsExcelFile();">下载更新日志</button>
                             </div>
-                            <%--<div class="form-group">--%>
-                            <%--<input id="showText" style="border:0"  readonly="readonly" value="">--%>
-                            <%--</div>--%>
 
                         </form>
-
-                    <%--<div class="form-group">--%>
-                        <%--<button class="btn btn-default" onClick="getproess();">cookie</button>--%>
-                    <%--</div>--%>
-
+                    <%--进度条--%>
                     <div class="progress progress-striped active">
                         <div id="progressbar" class="progress-bar progress-bar-success" role="progressbar"
                               aria-valuemin="0" aria-valuemax="100">
@@ -101,13 +94,6 @@
 
                 </div>
 
-                <form action="/admin/uploadImage" method="post" enctype="multipart/form-data">
-                    <input  type="file" name="image">
-                    <button  type="submit"  name="upload">上传</button>
-                </form>
-
-                <a href="/admin/downloadImage?filename=q.jpg">q.jpg</a>
-                <a href="/admin/deleteImage?filename=q.jpg">q.jpg</a>
 
             </div>
         </div>
