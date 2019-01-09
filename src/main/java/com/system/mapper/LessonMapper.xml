@@ -26,7 +26,7 @@
         where lessonID = #{lessonID,jdbcType=INTEGER}
     </delete>
 
-    <update id="updateLessonSign">
+    <update id="updateLessonSign" parameterType="java.lang.Integer" >
         UPDATE lesson
         SET
         LessonSign = 1

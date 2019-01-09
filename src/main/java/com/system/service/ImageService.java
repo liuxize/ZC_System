@@ -15,4 +15,10 @@ public interface ImageService {
      void removeImageByName (String filename) ;
      //根据stuid查询图片
      List<Images> findImageByStuID (Integer stuid) throws Exception;
+
+     List<Images> findUnsignImage(Integer stuid);
+
+     int getCountUnsignImage(Integer stuid);
+
+     void changeImageSign(Integer stuid);
 }

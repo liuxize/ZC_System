@@ -74,4 +74,16 @@ public class ImageServiceImpl implements ImageService {
         return imageMapper.selectImageByStuID(stuid);
     }
 
+    public List<Images> findUnsignImage(Integer stuid){
+        return imageMapper.selectUnsignImage(stuid);
+    }
+
+    public int getCountUnsignImage(Integer stuid){
+        return imageMapper.countUnsignImage(stuid);
+    }
+
+    public void  changeImageSign(Integer stuid){
+        imageMapper.updateImageSign(stuid);
+    }
+
 }

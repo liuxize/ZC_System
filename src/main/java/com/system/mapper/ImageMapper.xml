@@ -3,19 +3,44 @@
 <mapper namespace="com.system.mapper.ImageMapper" >
 
     <insert id="insertImage" parameterType="com.system.po.Images" keyProperty="imageid" useGeneratedKeys="true">
-        INSERT INTO image (stuID, title, path)
-        values (#{stuid, jdbcType=INTEGER}, #{title, jdbcType=VARCHAR}, #{path, jdbcType=VARCHAR})
+        INSERT INTO image (stuID, title, path, imageSign)
+        values (#{stuid, jdbcType=INTEGER}, #{title, jdbcType=VARCHAR}, #{path, jdbcType=VARCHAR},0)
     </insert>
 
     <select id="selectImageByStuID" parameterType="java.lang.Integer" resultType="com.system.po.Images" >
         SELECT * FROM image
         WHERE
-         stuID = #{stuid, jdbcType=INTEGER}
+        stuID = #{stuid, jdbcType=INTEGER}
+        ORDER BY imageID DESC
     </select>
 
     <delete id="deleteImageByName" parameterType="java.lang.String" >
         delete from image
         where path = #{filename,jdbcType=VARCHAR}
     </delete>
+
+    <select id="selectUnsignImage" parameterType="java.lang.Integer" resultType="com.system.po.Images" >
+        SELECT * FROM image
+        WHERE
+        stuID = #{stuid, jdbcType=INTEGER}
+        AND
+        imageSign = 0
+    </select>
+
+    <select id="countUnsignImage" parameterType="java.lang.Integer" resultType="java.lang.Integer" >
+        select count(*)
+        from image
+        WHERE
+        stuID = #{stuid, jdbcType=INTEGER}
+        AND
+        imageSign = 0
+    </select>
+
+    <update id="updateImageSign" parameterType="java.lang.Integer" >
+        UPDATE image
+        SET
+        imageSign = 1
+        where stuID = #{stuid,jdbcType=INTEGER}
+    </update>
 
 </mapper>

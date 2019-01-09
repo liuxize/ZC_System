@@ -2104,7 +2104,7 @@
                     </td>
                     <td colspan="3" align="center" style="border-right-color:transparent;">
                         <button type="button" class="btn btn-default" data-toggle="modal" data-target="#addFigure"
-                                style="background-color:transparent;border:0">添加</button>
+                                style="background-color:transparent;border:0">添加&nbsp;(${unsignImageNum})</button>
 
                         <div class="modal fade" id="addFigure" tabindex="-1" role="dialog"
                              aria-labelledby="myModalLabel" aria-hidden="true" style="z-index:9999">
@@ -2119,10 +2119,10 @@
                                         </div>
                                         <div class="modal-body">
 
-                                            <input type="text" class="form-control" placeholder="图片名称"
+                                            <input type="text" class="form-control" placeholder="图片名称" required="required"
                                                    name="imageTitle">
                                             <div style="height: 10px"></div>
-                                            <input type="file" class="form-control" id="updateFile" name="image"
+                                            <input type="file" class="form-control" id="updateFile" name="image" required="required"
                                                    accept="image/*"/>
                                             <input type="hidden" name="stuid" value=${stumessage.stuid}>
                                         </div>
@@ -2139,7 +2139,7 @@
                     </td>
                     <td colspan="2" align="center">
                         <button type="button" class="btn btn-default" data-toggle="modal" data-target="#figureList"
-                                style="background-color:transparent;border:0">查阅</button>
+                                style="background-color:transparent;border:0">查阅&nbsp;(${imagesNum})</button>
                         <div class="modal fade" id="figureList" tabindex="-1" role="dialog"
                              aria-labelledby="myModalLabel" aria-hidden="true" style="z-index:9999">
                             <div class="modal-dialog"> <!-- modal-lg 放大版-->
@@ -2151,8 +2151,39 @@
                                         <h4 class="modal-title">查阅图片</h4>
                                     </div>
                                     <div class="modal-body">
-                                            <textarea class="inp5" rows="10" name="improvetext"
-                                                      readonly="readonly">${stumessage.mastertelhis}</textarea>
+                                        <table class="table table-bordered">
+                                            <thead>
+                                            <tr>
+                                                <th style="width: 10%">编号</th>
+                                                <th style="width: 60%">图片名称</th>
+                                                <th style="width: 30%;">操作</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <c:forEach items="${imagesList}" var="item" varStatus="status">
+                                            <tr>
+                                                <td>${status.index + 1}</td>
+                                                <td>
+                                                <c:if test="${item.imagesign==0}"><font color="red">${item.title}</font></c:if>
+                                                <c:if test="${item.imagesign==1}">${item.title}</c:if>
+                                                </td>
+                                                <td>
+                                                    <button type="button" class="btn btn-primary btn-xs"
+                                                            onClick=" window.open('/uploadImages/${item.path}')">查看
+                                                    </button>
+                                                    &nbsp; &nbsp;
+                                                    <button type="button" class="btn btn-success btn-xs"
+                                                            onClick="location.href='/admin/downloadImage?filename=${item.path}&stuid=${item.stuid}&title=${item.title}'">下载
+                                                    </button>
+                                                    &nbsp; &nbsp;
+                                                    <button type="button" class="btn btn-danger  btn-xs"
+                                                            onclick="removeFigure('${item.path}','${item.stuid}')">删除
+                                                    </button>
+
+                                                </td>
+                                            </tr>
+                                            </c:forEach>
+                                        </table>
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-default" data-dismiss="modal">关闭
@@ -2509,7 +2540,15 @@
 </body>
 <script type="text/javascript">
     $("#nav li:nth-child(1)").addClass("active");
-
+    function removeFigure(filename,stuid) {
+        var msg = "您确定要删除吗";
+        if (confirm(msg) == true) {
+            window.location.href="/admin/deleteImage?filename=" + filename + "&stuid="+ stuid;
+            return true;
+        } else {
+            return false;
+        }
+    }
     function ToTableOne(str) {
         var a = btoa(str);
         window.location.href = "/admin/editTableOne?encodeID=" + a;

@@ -458,6 +458,12 @@ public class AdminController {
         List<School> schoolList = schoolService.findAllSchool();
         List<Major> majorList = majorService.findAllMajor();
         String br = "\n";
+        List<Images> imagesList = imageService.findImageByStuID(stuid);
+        Integer imagesNum = imagesList.size(); //所有图片的数量
+        Integer unsignImageNum = imageService.getCountUnsignImage(stuid);//未签字图片的数量
+        model.addAttribute("unsignImageNum",unsignImageNum);
+        model.addAttribute("imagesNum",imagesNum);
+        model.addAttribute("imagesList",imagesList);
         model.addAttribute("schoolList", schoolList);
         model.addAttribute("majorList", majorList);
         model.addAttribute("stumessage", stu);
@@ -3085,16 +3091,14 @@ public class AdminController {
     }
 
     @RequestMapping(value = "/uploadImage", method = {RequestMethod.POST})
-    public String uploadImage(@RequestParam("image") CommonsMultipartFile file, Integer stuid, String imageTitle, HttpServletRequest request) throws IOException {
-
+    public String uploadImage(@RequestParam("image") CommonsMultipartFile file, Integer stuid, String imageTitle, HttpServletRequest request) throws IOException,Exception {
         Images images = new Images();
-        System.out.println(stuid);
-        System.out.println(imageTitle);
         images.setStuid(stuid);
         images.setTitle(imageTitle);
         String realUploadPath = request.getServletContext().getRealPath("/");
         //上传原图,保存到数据库
         imageService.uploadImage(file, images, realUploadPath);
+        signService.SetChangeSign(stuid);//状态改为未签字
         String encodeID = Base64.getEncoder().encodeToString(stuid.toString().getBytes(StandardCharsets.UTF_8));
         //重定向
         return "redirect:/admin/editTableOne?encodeID=" + encodeID;
@@ -3106,14 +3110,17 @@ public class AdminController {
     public String downloadImage(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String path = request.getServletContext().getRealPath("/") + "/uploadImages/";
         String fileName = request.getParameter("filename");
+        //获取扩展
+        String extName = fileName.substring(fileName.lastIndexOf("."));//.jpg
+        String title = request.getParameter("title")+extName;
+        Integer stuid = Integer.parseInt(request.getParameter("stuid"));
         File file = new File(path + fileName);
         if (file.exists()) {
             //设置MIME类型
             response.setContentType("application/octet-stream");
             //或者为response.setContentType("application/x-msdownload");
             //设置头信息,设置文件下载时的默认文件名，同时解决中文名乱码问题
-            response.addHeader("Content-disposition", "attachment;filename=" + new String(fileName.getBytes(), "ISO-8859-1"));
-
+            response.addHeader("Content-disposition", "attachment;filename=" + new String(title.getBytes(), "ISO-8859-1"));
             InputStream inputStream = new FileInputStream(file);
             ServletOutputStream outputStream = response.getOutputStream();
             byte[] bs = new byte[1024];
@@ -3123,7 +3130,9 @@ public class AdminController {
             outputStream.close();
             inputStream.close();
         }
-        return "/admin/uploadExcel";
+        String encodeID = Base64.getEncoder().encodeToString(stuid.toString().getBytes(StandardCharsets.UTF_8));
+        //重定向
+        return "redirect:/admin/editTableOne?encodeID=" + encodeID;
     }
 
     //删除图片
@@ -3131,12 +3140,15 @@ public class AdminController {
     public String deleteImage(HttpServletRequest request) throws IOException {
         String path = request.getServletContext().getRealPath("/") + "/uploadImages/";
         String fileName = request.getParameter("filename");
+        Integer stuid = Integer.parseInt(request.getParameter("stuid"));
         File file = new File(path + fileName);
         if (file.exists()) {
             file.delete();
             imageService.removeImageByName(fileName);
         }
-        return "/admin/uploadExcel";
+        String encodeID = Base64.getEncoder().encodeToString(stuid.toString().getBytes(StandardCharsets.UTF_8));
+        //重定向
+        return "redirect:/admin/editTableOne?encodeID=" + encodeID;
     }
 }
 

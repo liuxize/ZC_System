@@ -5,6 +5,7 @@ public class Images {
     Integer stuid;  //学生id
     String title;   //图片名称
     String path;    //图片路径
+    Integer imagesign;
 
     public Integer getImageid() {
         return imageid;
@@ -36,5 +37,13 @@ public class Images {
 
     public void setPath(String path) {
         this.path = path;
+    }
+
+    public Integer getImagesign() {
+        return imagesign;
+    }
+
+    public void setImagesign(Integer imagesign) {
+        this.imagesign = imagesign;
     }
 }

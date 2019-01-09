@@ -63,6 +63,9 @@ public class MasterController {
     @Resource(name = "schoolServiceImpl")
     private SchoolService schoolService;
 
+    @Resource(name = "imageServiceImpl")
+    private ImageService imageService;
+
     // 添加用户信息表一（Get？？？）
     @RequestMapping(value = "/addTableOne", method = {RequestMethod.GET})
     public String showAddTable(Model model) throws Exception {
@@ -833,11 +836,8 @@ public class MasterController {
     private String signConfirm(Integer stuid, String currentPage, Model model) throws Exception {
 
         Sign sign = signService.findSignByStuID(stuid);
-//        System.out.println(sign.getLeadersign());
         Stu stu = stuService.findById(stuid);
         Integer leadernum = userloginService.getCountLeaderByGradeID(stu.getGradeid());
-       // System.out.println("signid"+ sign.getLeadersignid());
-        //System.out.println(leadernum);
         if ((sign.getLeadersignid().equals(0) && (leadernum != 0))) {     //如果负责人未签字, 且当前有对应年级的负责人
              //   (sign.getLeadersignid().equals(1) && (leadernum == 0))) {  //负责人被删除, 负责人标志是1
             model.addAttribute("message", "负责人未签字");
@@ -850,6 +850,7 @@ public class MasterController {
         stuService.updataStuHisByID(stuid);
         examService.changeExamSign(stuid);
         lessonService.changeLessonSign(stuid);
+        imageService.changeImageSign(stuid);
         return "redirect:/master/remindNewStu?page=" + currentPage;
     }
 
@@ -871,6 +872,7 @@ public class MasterController {
         stuService.updataStuHisByID(stuid);
         examService.changeExamSign(stuid);
         lessonService.changeLessonSign(stuid);
+        imageService.changeImageSign(stuid);
         return "redirect:/master/remindReceive?page=" + currentPage;
     }
 

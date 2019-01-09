@@ -97,7 +97,7 @@ public interface SignService {
 
      int getCountAdminUpdateUnsign()throws Exception;
 
-     void SetChangeSign(Integer stuid)throws Exception; //添加表二，三的时候调用
+     void SetChangeSign(Integer stuid)throws Exception; //添加表二，三和图片时候调用
 
      void removeSignByID(Integer stuid) throws Exception;
 }
