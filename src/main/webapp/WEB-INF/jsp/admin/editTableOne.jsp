@@ -2103,8 +2103,14 @@
                        照片
                     </td>
                     <td colspan="3" align="center" style="border-right-color:transparent;">
-                        <button type="button" class="btn btn-default" data-toggle="modal" data-target="#addFigure"
-                                style="background-color:transparent;border:0">添加&nbsp;(${unsignImageNum})</button>
+                        <c:if test="${unsignImageNum==0}">
+                            <button type="button" class="btn btn-default" data-toggle="modal" data-target="#addFigure"
+                                    style="background-color:transparent;border:0">添加</button>
+                        </c:if>
+                        <c:if test="${unsignImageNum>0}">
+                            <button type="button" class="btn btn-default" data-toggle="modal" data-target="#addFigure"
+                                    style="background-color:transparent;border:0;color: red;">添加&nbsp;(${unsignImageNum})</button>
+                        </c:if>
 
                         <div class="modal fade" id="addFigure" tabindex="-1" role="dialog"
                              aria-labelledby="myModalLabel" aria-hidden="true" style="z-index:9999">
