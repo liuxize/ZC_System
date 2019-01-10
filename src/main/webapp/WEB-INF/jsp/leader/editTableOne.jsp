@@ -97,8 +97,10 @@
 
             <ul class="nav nav-tabs">
                 <li class="active"><a href="javascript:void(0);" onclick="ToTableOne(${stumessage.stuid})">表一</a></li>
-                <li><a href="javascript:void(0);" onclick="ToTableTwo(${stumessage.stuid})">表二</a></li>
-                <li><a href="javascript:void(0);" onclick="ToTableThree(${stumessage.stuid})">表三</a></li>
+                <c:if test="${permission==true}">
+                    <li><a href="javascript:void(0);" onclick="ToTableTwo(${stumessage.stuid})">表二</a></li>
+                    <li><a href="javascript:void(0);" onclick="ToTableThree(${stumessage.stuid})">表三</a></li>
+                </c:if>
             </ul>
 
 
@@ -2149,11 +2151,11 @@
                         照片
                     </td>
                     <td colspan="3" align="center" style="border-right-color:transparent;">
-                        <c:if test="${unsignImageNum==0}">
+                        <c:if test="${unsignImageNum==0&&permission==true}">
                             <button type="button" class="btn btn-default" data-toggle="modal" data-target="#addFigure"
                                     style="background-color:transparent;border:0">添加</button>
                         </c:if>
-                        <c:if test="${unsignImageNum>0}">
+                        <c:if test="${unsignImageNum>0&&permission==true}">
                             <button type="button" class="btn btn-default" data-toggle="modal" data-target="#addFigure"
                                     style="background-color:transparent;border:0;color: red;">添加&nbsp;(${unsignImageNum})</button>
                         </c:if>
@@ -2190,8 +2192,11 @@
 
                     </td>
                     <td colspan="2" align="center">
-                        <button type="button" class="btn btn-default" data-toggle="modal" data-target="#figureList"
-                                style="background-color:transparent;border:0">查阅&nbsp;(${imagesNum})</button>
+                        <c:if test="${permission==true}">
+                            <button type="button" class="btn btn-default" data-toggle="modal" data-target="#figureList"
+                                    style="background-color:transparent;border:0">查阅&nbsp;(${imagesNum})
+                            </button>
+                        </c:if>
                         <div class="modal fade" id="figureList" tabindex="-1" role="dialog"
                              aria-labelledby="myModalLabel" aria-hidden="true" style="z-index:9999">
                             <div class="modal-dialog"> <!-- modal-lg 放大版-->
@@ -2256,13 +2261,15 @@
                         </div>
 
                         <!--按键开始-->
-                        <div class="btnc">
-                            <button type="button" class="btn btn-default btn-xs"
-                                    style="background-color:transparent;" data-toggle="modal"
-                                    data-target="#addSchoolText" style="color: #2e6da4">添加
-                                <span class="glyphicon glyphicon-plus" style="color: #2e6da4"></span>
-                            </button>
-                        </div>
+                        <c:if test="${permission==true}">
+                            <div class="btnc">
+                                <button type="button" class="btn btn-default btn-xs"
+                                        style="background-color:transparent;" data-toggle="modal"
+                                        data-target="#addSchoolText" style="color: #2e6da4">添加
+                                    <span class="glyphicon glyphicon-plus" style="color: #2e6da4"></span>
+                                </button>
+                            </div>
+                        </c:if>
                         <!--按键结束-->
                         <!-- 模态框-->
                         <div class="modal fade" id="addSchoolText" tabindex="-1" role="dialog"
@@ -2309,13 +2316,15 @@
                         </div>
 
                         <!--按键开始-->
-                        <div class="btnc">
-                            <button type="button" class="btn btn-default btn-xs"
-                                    style="background-color:transparent;" data-toggle="modal"
-                                    data-target="#addFamilyText" style="color: #2e6da4">添加
-                                <span class="glyphicon glyphicon-plus" style="color: #2e6da4"></span>
-                            </button>
-                        </div>
+                        <c:if test="${permission==true}">
+                            <div class="btnc">
+                                <button type="button" class="btn btn-default btn-xs"
+                                        style="background-color:transparent;" data-toggle="modal"
+                                        data-target="#addFamilyText" style="color: #2e6da4">添加
+                                    <span class="glyphicon glyphicon-plus" style="color: #2e6da4"></span>
+                                </button>
+                            </div>
+                        </c:if>
                         <!--按键结束-->
 
                         <!-- 模态框-->
@@ -2365,13 +2374,15 @@
                         </div>
 
                         <!--按键开始-->
-                        <div class="btnc">
-                            <button type="button" class="btn btn-default btn-xs"
-                                    style="background-color:transparent;" data-toggle="modal"
-                                    data-target="#addStudyText" style="color: #2e6da4">添加
-                                <span class="glyphicon glyphicon-plus" style="color: #2e6da4"></span>
-                            </button>
-                        </div>
+                        <c:if test="${permission==true}">
+                            <div class="btnc">
+                                <button type="button" class="btn btn-default btn-xs"
+                                        style="background-color:transparent;" data-toggle="modal"
+                                        data-target="#addStudyText" style="color: #2e6da4">添加
+                                    <span class="glyphicon glyphicon-plus" style="color: #2e6da4"></span>
+                                </button>
+                            </div>
+                        </c:if>
                         <!--按键结束-->
 
                         <!-- 模态框-->
@@ -2422,13 +2433,15 @@
                         </div>
 
                         <!--按键开始-->
-                        <div class="btnc">
-                            <button type="button" class="btn btn-default btn-xs"
-                                    style="background-color:transparent;" data-toggle="modal"
-                                    data-target="#addEduText" style="color: #2e6da4">添加
-                                <span class="glyphicon glyphicon-plus" style="color: #2e6da4"></span>
-                            </button>
-                        </div>
+                        <c:if test="${permission==true}">
+                            <div class="btnc">
+                                <button type="button" class="btn btn-default btn-xs"
+                                        style="background-color:transparent;" data-toggle="modal"
+                                        data-target="#addEduText" style="color: #2e6da4">添加
+                                    <span class="glyphicon glyphicon-plus" style="color: #2e6da4"></span>
+                                </button>
+                            </div>
+                        </c:if>
                         <!--按键结束-->
                         <!-- 模态框-->
                         <div class="modal fade" id="addEduText" tabindex="-1" role="dialog"
@@ -2476,13 +2489,15 @@
                         </div>
 
                         <!--按键开始-->
-                        <div class="btnc">
-                            <button type="button" class="btn btn-default btn-xs"
-                                    style="background-color:transparent;" data-toggle="modal"
-                                    data-target="#addSupportText" style="color: #2e6da4">添加
-                                <span class="glyphicon glyphicon-plus" style="color: #2e6da4"></span>
-                            </button>
-                        </div>
+                        <c:if test="${permission==true}">
+                            <div class="btnc">
+                                <button type="button" class="btn btn-default btn-xs"
+                                        style="background-color:transparent;" data-toggle="modal"
+                                        data-target="#addSupportText" style="color: #2e6da4">添加
+                                    <span class="glyphicon glyphicon-plus" style="color: #2e6da4"></span>
+                                </button>
+                            </div>
+                        </c:if>
                         <!--按键结束-->
                         <!-- 模态框-->
                         <div class="modal fade" id="addSupportText" tabindex="-1" role="dialog"
@@ -2529,14 +2544,16 @@
                             </textarea>
                         </div>
 
-                        <!--按键开始-->
-                        <div class="btnc">
-                            <button type="button" class="btn btn-default btn-xs"
-                                    style="background-color:transparent;" data-toggle="modal"
-                                    data-target="#addImproveText" style="color: #2e6da4">添加
-                                <span class="glyphicon glyphicon-plus" style="color: #2e6da4"></span>
-                            </button>
-                        </div>
+                        <c:if test="${permission==true}">
+                            <!--按键开始-->
+                            <div class="btnc">
+                                <button type="button" class="btn btn-default btn-xs"
+                                        style="background-color:transparent;" data-toggle="modal"
+                                        data-target="#addImproveText" style="color: #2e6da4">添加
+                                    <span class="glyphicon glyphicon-plus" style="color: #2e6da4"></span>
+                                </button>
+                            </div>
+                        </c:if>
                         <!--按键结束-->
                         <!-- 模态框-->
                         <div class="modal fade" id="addImproveText" tabindex="-1" role="dialog"
