@@ -188,6 +188,19 @@ public class TeacherController {
             stu.setMajor("");
             stu.setCheckdate(null);
 
+            stu.setSchooltext("");
+            stu.setSchooltexthis("");
+            stu.setFamilytext("");
+            stu.setFamilytexthis("");
+            stu.setStudytext("");
+            stu.setStudytexthis("");
+            stu.setEducationtext("");
+            stu.setEducationtexthis("");
+            stu.setSupporttext("");
+            stu.setSupporttexthis("");
+            stu.setImprovetext("");
+            stu.setImprovetexthis("");
+
         }
         String br ="\n";
         List<Images> imagesList = imageService.findImageByStuID(stuid);
