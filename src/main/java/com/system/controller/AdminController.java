@@ -2841,7 +2841,8 @@ public class AdminController {
                 }
                 if (j == startRowNum) {
                     iCellNum = rowTmp.getLastCellNum();
-                    
+
+                    System.out.println("表格的总列数" + iCellNum);
                     if (iCellNum != 36) {// 判断列数与模板项数
                         flag = "导入表格列数与所选模板项数不符！请核对后重新上传。";
                         //model.addAttribute("message", "导入表格列数与所选模板项数不符！请核对后重新上传。");

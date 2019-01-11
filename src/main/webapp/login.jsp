@@ -20,10 +20,12 @@
 <div class="login-wrapper container-fluid">
 	<!-- 头部 -->
 	<header>
-		<%--<h2 class="text-center" style="font-size: 60px;color:black; font-family: microsoft yahei">众成教育学生档案管理</h2>--%>
+		<%--<h2 class="text-center" style="font-size: 60px;color:black; font-family: microsoft yahei"></h2>--%>
 		<div class="text-center">
-			<img src="/images/logo.png">
-			<%--https://www.qt86.com/random.php 72  华文新魏--%>
+			<img src="/images/logoo.png">
+			<%--https://www.qt86.com/random.php 72 华文新魏 大小 75 --%>
+			<%--图片宽度 815 图片高度 140 字体大小 75 旋转角度 0 左侧间距 10 上侧间距 110--%>
+
 		</div>
 	</header>
 	<!-- 内容 -->
@@ -53,6 +55,6 @@
             document.getElementById("submit").click(); //调用登录按钮的登录事件
     }
 
-    document.getElementById("submit").click(); //自动登录
+    //document.getElementById("submit").click(); //自动登录
 </script>
 </html>
