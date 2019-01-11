@@ -70,7 +70,8 @@
         typeID = #{typeid,jdbcType=INTEGER},
         subjectID = #{subjectid,jdbcType=INTEGER},
         schoolTime = #{schooltime,jdbcType=VARCHAR},
-        schoolDate = #{schooldate,jdbcType=VARCHAR}
+        schoolDate = #{schooldate,jdbcType=VARCHAR},
+        dutyDate = #{dutydate,jdbcType=VARCHAR}
         where lessonID = #{lessonid,jdbcType=INTEGER}
     </update>
 

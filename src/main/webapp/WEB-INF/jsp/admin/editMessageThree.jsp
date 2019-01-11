@@ -68,7 +68,7 @@
                 </tr>
                 <c:forEach items="${lesList}" var="item">
                     <tr>
-                        <td rowspan="2" colspan="2"><fmt:formatDate value="${item.lessonstart}" dateStyle="medium"/>至
+                        <td rowspan="3" colspan="2"><fmt:formatDate value="${item.lessonstart}" dateStyle="medium"/>至
                             <fmt:formatDate value="${item.lessonend}" dateStyle="medium"/></td>
                         <td>
                             <c:if test="${item.lessonsign==0}">
@@ -85,8 +85,8 @@
                         <td>${item.typename}</td>
                         <td>${item.schooltime}</td>
                         <td>${item.lessontime}</td>
-                        <td rowspan="2">${item.remark}</td>
-                        <td rowspan="2">
+                        <td rowspan="3">${item.remark}</td>
+                        <td rowspan="3">
                             <button type="button" class="btn btn-primary btn-xs"
                                     onClick="location.href='/admin/editLesson?lessonid=${item.lessonid}'">修改
                             </button>
@@ -98,6 +98,9 @@
                     </tr>
                     <tr>
                         <td colspan="6" align="left">上课日期: ${item.schooldate}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="6" align="left">出勤日期: ${item.dutydate}</td>
                     </tr>
                 </c:forEach>
             </table>
