@@ -85,6 +85,16 @@
                             </div>
 
                         </form>
+
+                        <form class="form-inline"  role="form" style="height: 100px ; margin: 0 0 0 20%;">
+                            <div class="form-group " style=" font-size: 18px">
+                                已经处理数目： &nbsp; &nbsp;
+                            </div>
+
+                            <div class="form-group " style=" margin: 0 3% 0 0; ">
+                                <input  id="currentIndex" class="form-control" type="text" disabled="disabled" style="width: 40%">
+                            </div>
+                        </form>
                     <%--进度条--%>
                     <div class="progress progress-striped active">
                         <div id="progressbar" class="progress-bar progress-bar-success" role="progressbar"
@@ -311,19 +321,21 @@
             success:function(data) {
                 //console.log(data.progressValue);
                 $("#progressbar").css("width", data.progressValue + "%").text(data.progressValue + "%");
-                // console.log( "aaa"+$("#progressbar")[0].style.width)
-                if(data.progressValue==100){
-                    alert("上传成功");
-                    isComplated = "true"
+                document.getElementById('currentIndex').value= data.currentValue;
 
+                if(data.progressValue==100){
+                    isComplated = "true"
                 }else{
                     isComplated = "false"
                 }
             },
             //请求出错的处理
             error:function(){
-            }
+            },
         });
+        if(isComplated == "true"){
+            alert("导入成功")
+        }
     }
 
     function addTempMess() {

@@ -2639,6 +2639,7 @@ public class AdminController {
     }
 
     public static int index;
+    public static int currentindex;
 
     //上传文件  新建学生档案
     //判断用户名是否存在
@@ -2785,6 +2786,7 @@ public class AdminController {
                     excelLogService.saveExcel(excelLog);
                     completeNum++;
                 }
+                currentindex = completeNum;
                 index = Integer.parseInt(df.format(Math.floor(completeNum * 100 / (iRowNum - 4))));
                 //System.out.println(index);
             }
@@ -2839,8 +2841,7 @@ public class AdminController {
                 }
                 if (j == startRowNum) {
                     iCellNum = rowTmp.getLastCellNum();
-
-                    System.out.println("表格的总列数" + iCellNum);
+                    
                     if (iCellNum != 36) {// 判断列数与模板项数
                         flag = "导入表格列数与所选模板项数不符！请核对后重新上传。";
                         //model.addAttribute("message", "导入表格列数与所选模板项数不符！请核对后重新上传。");
@@ -2930,6 +2931,7 @@ public class AdminController {
                     excelLogService.saveExcel(excelLog);
                     completeNum++;
                 }
+                currentindex = completeNum;
                 index = Integer.parseInt(df.format(Math.floor(completeNum * 100 / (iRowNum - 4))));
             }
             flag = "01";
@@ -2955,45 +2957,12 @@ public class AdminController {
     @RequestMapping(value = "/getProgressValue", method = {RequestMethod.POST})
     public void getProgressValue(@RequestParam(value = "isComplated") String isComplated, HttpServletResponse response) {
 
-        //System.out.println("读取cookie\n");
-        //根据名字获取cookie
-        //读取cookie
-//        String result = null;
-//        Cookie[] cookies = request.getCookies();
-//        if (cookies == null) {return;}
-//        int cookieexit=0;
-//        for (Cookie cookie:cookies){
-//            if (cookie.getName().equals("test")) {
-//                result = cookie.getValue();
-//                System.out.println(result+"\n");
-//                cookieexit=1;
-//            }
-//        }
-//        if(cookieexit==0){
-//            Cookie div = new Cookie("test", "0");
-//            response.setCharacterEncoding("UTF-8");
-//            response.setContentType("text/html;charset=UTF-8");
-//            response.addCookie(div);
-//            result="0";
-//        }
-//
-//        Integer progressValue = Integer.parseInt(result);
-//        System.out.println("progressValue"+progressValue);
-//        progressValue = progressValue+2;
-
-
-        //添加cookie
-//        String ValueString = progressValue.toString();
-//        Cookie div = new Cookie("test", ValueString);  //设置cook的名字以及值
-//        // div.setMaxAge(365*24*60*60);   //如何删除cookie???
-//        response.setCharacterEncoding("UTF-8");
-//        response.setContentType("text/html;charset=UTF-8");
-//        response.addCookie(div);
 
         if (isComplated.equals("true")) {
             index = 0;
+            currentindex = 0;
         }
-        String json = "{\"progressValue\":\"" + index + "\"}";
+        String json = "{\"progressValue\":\"" + index + "\" , \"currentValue\":\"" + currentindex + "\"}";
         try {
             response.getWriter().print(json);  //返回json数据格式
         } catch (IOException e) {
