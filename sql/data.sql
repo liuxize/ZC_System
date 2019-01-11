@@ -2,7 +2,7 @@
 MySQL Backup
 Source Server Version: 5.6.35
 Source Database: examination_system
-Date: 2018/12/21 11:32:31
+Date: 2019/1/11 15:00:51
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -29,7 +29,7 @@ CREATE TABLE `classtype` (
   `typeID` int(11) NOT NULL AUTO_INCREMENT,
   `typeName` varchar(20) DEFAULT NULL,
   PRIMARY KEY (`typeID`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 --  Table structure for `daterecord`
@@ -98,6 +98,19 @@ CREATE TABLE `grade` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
+--  Table structure for `image`
+-- ----------------------------
+DROP TABLE IF EXISTS `image`;
+CREATE TABLE `image` (
+  `imageID` int(11) NOT NULL AUTO_INCREMENT,
+  `stuID` int(11) NOT NULL,
+  `title` varchar(200) DEFAULT NULL,
+  `path` varchar(200) DEFAULT NULL,
+  `imageSign` int(11) NOT NULL,
+  PRIMARY KEY (`imageID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
 --  Table structure for `lesson`
 -- ----------------------------
 DROP TABLE IF EXISTS `lesson`;
@@ -116,6 +129,7 @@ CREATE TABLE `lesson` (
   `schoolDate` varchar(800) DEFAULT NULL,
   `lessonSign` int(11) DEFAULT NULL,
   `recordDate` date DEFAULT NULL,
+  `dutyDate` varchar(800) DEFAULT '',
   PRIMARY KEY (`lessonID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -127,7 +141,7 @@ CREATE TABLE `major` (
   `majorID` int(11) NOT NULL AUTO_INCREMENT,
   `majorName` varchar(20) DEFAULT NULL,
   PRIMARY KEY (`majorID`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 --  Table structure for `notedic`
@@ -174,7 +188,7 @@ CREATE TABLE `permission` (
 DROP TABLE IF EXISTS `remindpay`;
 CREATE TABLE `remindpay` (
   `remindID` int(10) NOT NULL AUTO_INCREMENT,
-  `stuID` int(10) NOT NULL,
+  `lessonID` int(10) NOT NULL,
   PRIMARY KEY (`remindID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -197,7 +211,7 @@ CREATE TABLE `school` (
   `schoolID` int(10) NOT NULL AUTO_INCREMENT,
   `schoolName` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`schoolID`)
-) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=52 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 --  Table structure for `sign`
@@ -245,7 +259,7 @@ CREATE TABLE `sign` (
   `leaderSignID` int(11) DEFAULT NULL,
   `receiveSign` int(5) DEFAULT NULL,
   PRIMARY KEY (`signID`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 --  Table structure for `stu`
@@ -322,7 +336,7 @@ CREATE TABLE `stu` (
   `checkDate` date DEFAULT NULL,
   `checkDateHis` text,
   PRIMARY KEY (`stuID`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 --  Table structure for `subject`
@@ -332,7 +346,7 @@ CREATE TABLE `subject` (
   `subjectID` int(11) NOT NULL AUTO_INCREMENT,
   `subjectName` varchar(20) DEFAULT NULL,
   PRIMARY KEY (`subjectID`)
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 --  Table structure for `textdic`
@@ -359,7 +373,7 @@ CREATE TABLE `userlogin` (
   `userBirth` date DEFAULT NULL,
   `permission` int(10) DEFAULT NULL,
   PRIMARY KEY (`userID`)
-) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 --  Procedure definition for `f_not_leap_year`
@@ -392,13 +406,11 @@ DELIMITER ;
 -- ----------------------------
 --  Records 
 -- ----------------------------
-INSERT INTO `classtype` VALUES ('1','班课'), ('2','晚自习'), ('3','托管'), ('4','一对一');
+INSERT INTO `classtype` VALUES ('1','班课'), ('2','晚自习'), ('3','托管'), ('4','一对一'), ('5','全日制');
 INSERT INTO `daterecord` VALUES ('0','2018-07-18');
 INSERT INTO `grade` VALUES ('0','幼小'), ('1','小一'), ('2','小二'), ('3','小三'), ('4','小四'), ('5','小五'), ('6','小六'), ('7','初一'), ('8','初二'), ('9','初三'), ('10','高一'), ('11','高二'), ('12','高三'), ('13','大一'), ('14','大二'), ('15','大三'), ('16','大四'), ('17','工作');
-INSERT INTO `major` VALUES ('1','无'), ('2','电工作业（高压）'), ('4','电工作业（低压）'), ('5','焊接与热切割作业'), ('10','制冷与空调作业'), ('11','高处作业'), ('12','高空作业');
+INSERT INTO `major` VALUES ('1','无'), ('2','电工作业（高压）'), ('4','电工作业（低压）'), ('5','焊接与热切割作业'), ('10','制冷与空调作业'), ('11','高处作业'), ('12','高空作业'), ('13','空调安装与维修');
 INSERT INTO `role` VALUES ('0','admin','管理员'), ('1','master','校长'), ('2','teacher','教师'), ('3','leader','负责人');
-INSERT INTO `school` VALUES ('1','无'), ('2','大连市第三十中学'), ('3','金南路小学'), ('4','千山路小学'), ('5','水仙小学'), ('6','华中小学'), ('7','大连市第七十六中学'), ('8','大连市第二十二中学'), ('9','大连市第八十中学'), ('10','大连市第十九中学'), ('11','博雅中学'), ('12','博伦中学'), ('13','福佳中学'), ('14','华西小学'), ('15','六一小学'), ('16','金二小学'), ('17','金三小学'), ('18','椒房小学'), ('19','兴华路小学'), ('20','奥林小学'), ('21','大连金石高级中学'), ('22','芙蓉小学'), ('24','大连理工大学附属高级中学'), ('25','嘉汇三中'), ('26','大连市第四十八中学'), ('27','大连市第三十六中学'), ('29','大连铁路中学'), ('30','大连市第七十七中学'), ('31','大连市第七中学'), ('32','大连市第二十五中学'), ('33','大连市第二十高级中学'), ('34','大连市第十一中学'), ('36','周二小学'), ('37','大连市第二十三中学'), ('38','华南中学'), ('39','大连市第一中学'), ('40','大连市第五中学'), ('41','大连中音高中'), ('42','大连东方实验高中'), ('43','大连信息综合高中'), ('44','大连教育学院附属高级中学'), ('45','大连枫叶国际学校'), ('47','大连市西岗中学'), ('50','成人再就业培训学校');
-INSERT INTO `sign` VALUES ('1','1','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','','','0','0','0','0');
-INSERT INTO `stu` VALUES ('1','we','','','','普通学生',NULL,'','大连市第三十中学','','无','','','','','','','','','','','','','',NULL,'','','','','','','','','','','',NULL,'','','','','','','','','','','','','',NULL,'','','','','','','','','','','','','','0','2018-12-21','admin',NULL,'');
-INSERT INTO `subject` VALUES ('1','数学'), ('2','语文'), ('3','英语'), ('4','物理'), ('5','化学'), ('6','日语'), ('7','政治'), ('8','历史'), ('9','生物'), ('10','体育'), ('11','新概念'), ('12','剑桥'), ('13','奥数'), ('15','托管'), ('16','晚自习'), ('17','音标'), ('20','书法（硬笔）');
-INSERT INTO `userlogin` VALUES ('1','admin','123','0',NULL,NULL);
+INSERT INTO `school` VALUES ('1','无'), ('2','大连市第三十中学'), ('3','金南路小学'), ('4','千山路小学'), ('5','水仙小学'), ('6','华中小学'), ('7','大连市第七十六中学'), ('8','大连市第二十二中学'), ('9','大连市第八十中学'), ('10','大连市第十九中学'), ('11','博雅中学'), ('12','博伦中学'), ('13','福佳中学'), ('14','华西小学'), ('15','六一小学'), ('16','金二小学'), ('17','金三小学'), ('18','椒房小学'), ('19','兴华路小学'), ('20','奥林小学'), ('21','大连金石高级中学'), ('22','芙蓉小学'), ('24','大连理工大学附属高级中学'), ('25','嘉汇三中'), ('26','大连市第四十八中学'), ('27','大连市第三十六中学'), ('29','大连铁路中学'), ('30','大连市第七十七中学'), ('31','大连市第七中学'), ('32','大连市第二十五中学'), ('33','大连市第二十高级中学'), ('34','大连市第十一中学'), ('36','周二小学'), ('37','大连市第二十三中学'), ('38','华南中学'), ('39','大连市第一中学'), ('40','大连市第五中学'), ('41','大连中音高中'), ('42','大连东方实验高中'), ('43','大连信息综合高中'), ('44','大连教育学院附属高级中学'), ('45','大连枫叶国际学校'), ('47','大连市西岗中学'), ('50','成人再就业培训学校'), ('51','青泥洼桥小学');
+INSERT INTO `subject` VALUES ('1','数学'), ('2','语文'), ('3','英语'), ('4','物理'), ('5','化学'), ('6','日语'), ('7','政治'), ('8','历史'), ('9','生物'), ('10','体育'), ('11','新概念'), ('12','剑桥'), ('13','奥数'), ('15','托管'), ('16','晚自习'), ('17','音标'), ('21','硬笔书法'), ('22','幼小衔接'), ('24','阅读写作');
+INSERT INTO `userlogin` VALUES ('1','管理员','123','0',NULL,NULL);
