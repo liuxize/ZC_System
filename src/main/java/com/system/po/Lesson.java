@@ -31,6 +31,16 @@ public class Lesson {
 
     private Date recorddate;
 
+    private String dutydate;  //出勤日期
+
+    public String getDutydate() {
+        return dutydate;
+    }
+
+    public void setDutydate(String dutydate) {
+        this.dutydate = dutydate;
+    }
+
     public String getSchooldate() {
         return schooldate;
     }

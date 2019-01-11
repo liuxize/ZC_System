@@ -777,6 +777,16 @@ public class MasterController {
         return "redirect:/master/editTableThree?encodeID=" + encodeID;
     }
 
+    //添加签到信息
+    @RequestMapping(value = "/addDutyDate", method = {RequestMethod.POST})
+    public String addMajor(Integer stuid, Integer lessonid, String dutydate) throws Exception {
+        dutydate = dutydate + "  ";
+        lessonService.updateDutyDateByLessonID(dutydate, lessonid);
+        signService.SetChangeSign(stuid);
+        String encodeID = Base64.getEncoder().encodeToString(stuid.toString().getBytes(StandardCharsets.UTF_8));
+        //重定向
+        return "redirect:/master/editTableThree?encodeID=" + encodeID;
+    }
     /*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<表三操作结束>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
 
     // 搜索姓名操作

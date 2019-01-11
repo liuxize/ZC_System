@@ -70,13 +70,13 @@
                     <td style="width: 12%;">上课老师</td>
                     <td style="width: 8%;">科目</td>
                     <td style="width: 8%;">课程类型</td>
-                    <td style="width: 10%;">每日上课时间</td>
-                    <td width="7%">课时</td>
+                    <td style="width: 12%;">每日上课时间</td>
+                    <td width="5%">课时</td>
                     <td colspan="2">备注</td>
                 </tr>
                 <c:forEach items="${lesList}" var="item">
                     <tr>
-                        <td rowspan="2" colspan="2"><fmt:formatDate value="${item.lessonstart}" dateStyle="medium"/>至
+                        <td rowspan="3" colspan="2"><fmt:formatDate value="${item.lessonstart}" dateStyle="medium"/>至
                             <fmt:formatDate value="${item.lessonend}" dateStyle="medium"/></td>
                         <td>
                             <c:if test="${item.lessonsign==0}">
@@ -93,10 +93,46 @@
                         <td>${item.typename}</td>
                         <td>${item.schooltime}</td>
                         <td>${item.lessontime}</td>
-                        <td rowspan="2" colspan="2">${item.remark}</td>
+                        <td rowspan="3" colspan="2">${item.remark}</td>
                     </tr>
                     <tr>
                         <td colspan="6" align="left">上课日期: ${item.schooldate}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="5" align="left">出勤日期: ${item.dutydate}</td>
+                        <td>
+                            <button type="button" class="btn btn-default btn-xs" data-toggle="modal"
+                                    data-target="#modal${item.lessonid}">增加
+                            </button>
+                            <div class="modal fade" id="modal${item.lessonid}" tabindex="-1" role="dialog"
+                                 aria-labelledby="myModalLabel" aria-hidden="true" style="z-index:9999">
+                                <div class="modal-dialog"> <!-- modal-lg 放大版-->
+                                    <div class="modal-content">
+
+                                        <form role="form" action="/teacher/addDutyDate" id="editstu" method="post">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                                    &times;
+                                                </button>
+                                                <h4 class="modal-title">添加签到</h4>
+                                            </div>
+                                            <div class="modal-body">
+                                                <input type="text" class="form-control" name="dutydate" required="required"
+                                                       placeholder="请输入">
+                                                <input type="hidden" name="lessonid" value=${item.lessonid}>
+                                                <input type="hidden" name="stuid" value=${item.stuid}>
+
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                                                </button>
+                                                <button class="btn btn-default" type="submit">提交</button>
+                                            </div>
+                                        </form>
+                                    </div><!-- /.modal-content -->
+                                </div><!-- /.modal -->
+                            </div>
+                        </td>
                     </tr>
                 </c:forEach>
 

@@ -58,4 +58,8 @@ public class LessonServiceImpl implements LessonService {
    public List<Lesson> findLessonByPay() throws Exception{
         return lessonMapper.selectLessonByPay();
    }
+
+   public void updateDutyDateByLessonID(String dutydate, Integer lessonid) throws Exception{
+        lessonMapper.updateDutyDate(dutydate, lessonid);
+   }
 }

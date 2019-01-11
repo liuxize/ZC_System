@@ -25,4 +25,6 @@ public interface LessonService {
 
     List<Lesson> findLessonByPay() throws Exception;
 
+    void updateDutyDateByLessonID(String dutydate, Integer lessonid) throws Exception;
+
 }

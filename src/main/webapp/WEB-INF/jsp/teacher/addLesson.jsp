@@ -109,6 +109,13 @@
                             </div>
                         </div>
 
+                        <div class="form-group">
+                            <label for="inputDutyDate" class="col-sm-2 control-label">出勤日期</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="inputDutyDate" name="dutydate" placeholder="请输入">
+                                <input type="hidden" name="stuid" value=${StuID}>
+                            </div>
+                        </div>
                         <div class="form-group" style="text-align: center">
                             <button class="btn btn-default" type="submit">提交</button>
                             <button class="btn btn-default" type="reset">重置</button>
