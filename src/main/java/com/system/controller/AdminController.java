@@ -1600,7 +1600,6 @@ public class AdminController {
             pagingVO.setToPageNo(page);
             lessonCustoms = remindService.findAllRemindPay(page);
         }
-        System.out.println("SDsd");
         List<StuCustom> stuCustomList = remindService.findAllRemindList();
         model.addAttribute("stuCustomList", stuCustomList);
         model.addAttribute("allStuList", lessonCustoms);
@@ -1772,7 +1771,6 @@ public class AdminController {
         List<LessonCustom> list = null;
         //页码对象
         PagingVO pagingVO = new PagingVO();
-        System.out.println("lklkl");
 
         pagingVO.setTotalCount(stuService.countPayStuBySelect(gradeid, subjectid, typeid));
         if (page == null || page == 0) {
