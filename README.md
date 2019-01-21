@@ -7,11 +7,11 @@
 2. 数据库在sql文件夹，数据库配置在 \ZC_System\src\main\resources\mysql.properties
 
 3. tomcat部署方法：将编译好的war文件放到webapps文件夹，修改conf文件夹的server.xml
-```
+```xml
 <Host name="localhost"  appBase="webapps"
             unpackWARs="true" autoDeploy="true">
 			 <!--加入路径信息-->
-		    <Context path="/ZC_System" docBase="ZC_System" debug="0" privileged="true"/>
+		    <Context path="" docBase="ZC_System" debug="0" privileged="true"/>
 ```
 ## 2. 功能介绍
 

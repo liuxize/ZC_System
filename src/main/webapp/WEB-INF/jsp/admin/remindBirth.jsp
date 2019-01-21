@@ -76,7 +76,7 @@
                     <c:if test="${pagingVO != null}">
                         <nav style="text-align: center">
                             <ul class="pagination">
-                                <li><a href="/admin/remindBirth?page=1">&laquo;上一页</a>
+                                <li><a href="/admin/remindBirth?page=1">&laquo;首页</a>
                                 <c:if test="${pagingVO.curentPageNo <= 1}">
                                     <li><a href="/admin/remindBirth?page=1">&laquo;上一页</a>
                                 </c:if>
