@@ -5,12 +5,12 @@
 
     <insert id="insert" parameterType="com.system.po.Lesson" keyProperty="lessonid" useGeneratedKeys="true">
         insert into lesson (stuID, lessonStart, lessonEnd, operator, lecturer, remark, lessonTime, typeID,
-       subjectID, schoolTime, schoolDate, lessonSign, recordDate, dutyDate
+       subjectID, schoolTime, schoolDate, lessonSign, recordDate, dutyDate, dutyDateHis
         )
         values (#{stuid,jdbcType=INTEGER}, #{lessonstart,jdbcType=DATE}, #{lessonend,jdbcType=DATE}
         , #{operator,jdbcType=VARCHAR}, #{lecturer,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, #{lessontime,jdbcType=VARCHAR},
         #{typeid,jdbcType=INTEGER}, #{subjectid,jdbcType=INTEGER}, #{schooltime,jdbcType=VARCHAR},
-         #{schooldate,jdbcType=VARCHAR}, 0, #{recorddate,jdbcType=DATE}, #{dutydate,jdbcType=VARCHAR}
+         #{schooldate,jdbcType=VARCHAR}, 0, #{recorddate,jdbcType=DATE}, #{dutydate,jdbcType=VARCHAR}, ''
         )
     </insert>
 
@@ -29,8 +29,11 @@
     <update id="updateLessonSign" parameterType="java.lang.Integer" >
         UPDATE lesson
         SET
-        LessonSign = 1
+        LessonSign = 1,
+        dutyDateHis = concat(dutyDateHis,dutyDate),
+        dutyDate = ''
         where stuID = #{stuid,jdbcType=INTEGER}
+        AND LessonSign = 0
     </update>
 
     <update id="updateDutyDate">

@@ -99,7 +99,10 @@
                         <td colspan="6" align="left">上课日期: ${item.schooldate}</td>
                     </tr>
                     <tr>
-                        <td colspan="5" align="left">出勤日期: ${item.dutydate}</td>
+                        <td colspan="5" align="left">
+                            出勤日期:${item.dutydatehis}
+                            <c:if test="${item.dutydate !=''}"><font color="red">${item.dutydate}</font></c:if>
+                        </td>
                         <td>
                             <button type="button" class="btn btn-default btn-xs" data-toggle="modal"
                                     data-target="#modal${item.lessonid}">增加

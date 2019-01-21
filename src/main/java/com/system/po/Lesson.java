@@ -33,6 +33,8 @@ public class Lesson {
 
     private String dutydate;  //出勤日期
 
+    private String dutydatehis;  //出勤历史
+
     public String getDutydate() {
         return dutydate;
     }
@@ -155,5 +157,13 @@ public class Lesson {
 
     public void setRecorddate(Date recorddate) {
         this.recorddate = recorddate;
+    }
+
+    public String getDutydatehis() {
+        return dutydatehis;
+    }
+
+    public void setDutydatehis(String dutydatehis) {
+        this.dutydatehis = dutydatehis;
     }
 }
