@@ -43,11 +43,11 @@
                         <thead>
                         <tr>
                             <th style="width:5%">序号</th>
-                            <th>姓名</th>
-                            <th>学校</th>
-                            <th>年级</th>
-                            <th>电话</th>
-                            <th style="width: 15%">操作</th>
+                            <th style="width: 15%">姓名</th>
+                            <th style="width: 27%">学校</th>
+                            <th style="width: 13%">年级</th>
+                            <th style="width: 25%">电话</th>
+                            <th>操作</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -62,10 +62,11 @@
                                     <button type="button" class="btn btn-primary btn-xs"
                                             onClick="ToTableOne(${item.stuid})">查看信息
                                     </button>
+                                    &nbsp; &nbsp; &nbsp;
 
                                     <button type="button" class="btn btn-success btn-xs"
                                             onclick="signConfirm('${item.stuid}','${pagingVO.curentPageNo}')"
-                                    >删除
+                                    >删除信息
                                     </button>
 
                                 </td>
