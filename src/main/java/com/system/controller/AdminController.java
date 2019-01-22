@@ -474,20 +474,11 @@ public class AdminController {
 
     /*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<表一添加部分操作开始>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
 
-    public void checkUpdatePerson(Integer stuid) throws Exception {
-        //若录入人为空，更新录入人
-        if (stuService.findRecordPerson(stuid).equals("")) {
-            Subject subject = SecurityUtils.getSubject();
-            String username = (String) subject.getPrincipal();
-            stuService.updateRecordPerson(stuid, username);
-        }
-    }
 
     // 添加用户信息表一（POST）
     @RequestMapping(value = "/addName", method = {RequestMethod.POST})
     public String addName(Integer stuid, String stuName) throws Exception {
 
-        checkUpdatePerson(stuid);
         stuService.addStuNameByID(stuid, stuName);
         signService.changeStuNameSign(stuid);
         String encodeID = Base64.getEncoder().encodeToString(stuid.toString().getBytes(StandardCharsets.UTF_8));
@@ -497,7 +488,7 @@ public class AdminController {
 
     @RequestMapping(value = "/addSchool", method = {RequestMethod.POST})
     public String addSchool(Integer stuid, String school) throws Exception {
-        checkUpdatePerson(stuid);
+
         stuService.addSchoolByID(stuid, school);
         signService.changeSchoolSign(stuid);
         String encodeID = Base64.getEncoder().encodeToString(stuid.toString().getBytes(StandardCharsets.UTF_8));
@@ -509,7 +500,6 @@ public class AdminController {
     @RequestMapping(value = "/addMajor", method = {RequestMethod.POST})
     public String addMajor(Integer stuid, String major) throws Exception {
 
-        checkUpdatePerson(stuid);
         stuService.addMajorByID(stuid, major);
         signService.changeMajorSign(stuid);
         String encodeID = Base64.getEncoder().encodeToString(stuid.toString().getBytes(StandardCharsets.UTF_8));
@@ -520,7 +510,6 @@ public class AdminController {
     @RequestMapping(value = "/addMother", method = {RequestMethod.POST})
     public String addMother(Integer stuid, String motherName) throws Exception {
 
-        checkUpdatePerson(stuid);
         stuService.addMotherNameByID(stuid, motherName);
         signService.changeMoNameSign(stuid);
         String encodeID = Base64.getEncoder().encodeToString(stuid.toString().getBytes(StandardCharsets.UTF_8));
@@ -532,7 +521,6 @@ public class AdminController {
     @RequestMapping(value = "/addMoCompany", method = {RequestMethod.POST})
     public String addMoCompany(Integer stuid, String motherCompany) throws Exception {
 
-        checkUpdatePerson(stuid);
         stuService.addMoCompanyByID(stuid, motherCompany);
         signService.changeMoCompanySign(stuid);
         String encodeID = Base64.getEncoder().encodeToString(stuid.toString().getBytes(StandardCharsets.UTF_8));
@@ -544,7 +532,6 @@ public class AdminController {
     @RequestMapping(value = "/addMoJob", method = {RequestMethod.POST})
     public String addMoJob(Integer stuid, String motherJob) throws Exception {
 
-        checkUpdatePerson(stuid);
         stuService.addMoJobByID(stuid, motherJob);
         signService.changeMoJobSign(stuid);
         String encodeID = Base64.getEncoder().encodeToString(stuid.toString().getBytes(StandardCharsets.UTF_8));
@@ -556,8 +543,6 @@ public class AdminController {
     @RequestMapping(value = "/addFather", method = {RequestMethod.POST})
     public String addFather(Integer stuid, String fatherName) throws Exception {
 
-
-        checkUpdatePerson(stuid);
         stuService.addFaNameByID(stuid, fatherName);
         signService.changeFaNameSign(stuid);
         String encodeID = Base64.getEncoder().encodeToString(stuid.toString().getBytes(StandardCharsets.UTF_8));
@@ -569,8 +554,6 @@ public class AdminController {
     @RequestMapping(value = "/addFaCompany", method = {RequestMethod.POST})
     public String addFaCompany(Integer stuid, String fathercompany) throws Exception {
 
-
-        checkUpdatePerson(stuid);
         stuService.addFaCompanyByID(stuid, fathercompany);
         signService.changeFaCompanySign(stuid);
         String encodeID = Base64.getEncoder().encodeToString(stuid.toString().getBytes(StandardCharsets.UTF_8));
@@ -581,7 +564,7 @@ public class AdminController {
 
     @RequestMapping(value = "/addFaJob", method = {RequestMethod.POST})
     public String addFaJob(Integer stuid, String fatherJob) throws Exception {
-        checkUpdatePerson(stuid);
+
         stuService.addFaJobByID(stuid, fatherJob);
         signService.changeFaJobSign(stuid);
         String encodeID = Base64.getEncoder().encodeToString(stuid.toString().getBytes(StandardCharsets.UTF_8));
@@ -593,11 +576,6 @@ public class AdminController {
     @RequestMapping(value = "/addBirth", method = {RequestMethod.POST})
     public String addBirth(Integer stuid, Date birth, Model model) throws Exception {
 
-//        if (birth == null) {
-//            model.addAttribute("message", "请输入完整日期");
-//            return "error";
-//        }
-        checkUpdatePerson(stuid);
         SimpleDateFormat datetype = new SimpleDateFormat("yyyy-MM-dd");
         Date birthday = stuService.getBirthByID(stuid);
         String birthstring = "";
@@ -615,7 +593,7 @@ public class AdminController {
 
     @RequestMapping(value = "/addMoBirth", method = {RequestMethod.POST})
     public String addMoBirth(Integer stuid, Date motherbirth, Model model) throws Exception {
-        checkUpdatePerson(stuid);
+
         SimpleDateFormat datetype = new SimpleDateFormat("yyyy-MM-dd");
         Date birthday = stuService.getMoBirthByID(stuid);
         String birthstring = "";
@@ -633,7 +611,7 @@ public class AdminController {
 
     @RequestMapping(value = "/addFaBirth", method = {RequestMethod.POST})
     public String addFaBirth(Integer stuid, Date fatherbirth, Model model) throws Exception {
-        checkUpdatePerson(stuid);
+
         SimpleDateFormat datetype = new SimpleDateFormat("yyyy-MM-dd");
         Date birthday = stuService.getFaBirthByID(stuid);
         String birthstring = "";
@@ -651,7 +629,6 @@ public class AdminController {
     @RequestMapping(value = "/addStuTel", method = {RequestMethod.POST})
     public String addStuTel(Integer stuid, String stuTel) throws Exception {
 
-        checkUpdatePerson(stuid);
         stuService.addStuTelByID(stuid, stuTel);
         signService.changeStuTelSign(stuid);
         String encodeID = Base64.getEncoder().encodeToString(stuid.toString().getBytes(StandardCharsets.UTF_8));
@@ -662,7 +639,6 @@ public class AdminController {
     @RequestMapping(value = "/addMotherTel", method = {RequestMethod.POST})
     public String addMotherTel(Integer stuid, String motherTel) throws Exception {
 
-        checkUpdatePerson(stuid);
         stuService.addMoTelByID(stuid, motherTel);
         signService.changeMotherTelSign(stuid);
         String encodeID = Base64.getEncoder().encodeToString(stuid.toString().getBytes(StandardCharsets.UTF_8));
@@ -673,7 +649,6 @@ public class AdminController {
     @RequestMapping(value = "/addFatherTel", method = {RequestMethod.POST})
     public String addFatherTel(Integer stuid, String fatherTel) throws Exception {
 
-        checkUpdatePerson(stuid);
         stuService.addFaTelByID(stuid, fatherTel);
         signService.changeFatherTelSign(stuid);
         String encodeID = Base64.getEncoder().encodeToString(stuid.toString().getBytes(StandardCharsets.UTF_8));
@@ -684,7 +659,6 @@ public class AdminController {
     @RequestMapping(value = "/addFatherGegree", method = {RequestMethod.POST})
     public String addFatherGegree(Integer stuid, String fatherDegree) throws Exception {
 
-        checkUpdatePerson(stuid);
         stuService.addFatherDegreeByID(stuid, fatherDegree);
         signService.changeFaDegreeSign(stuid);
         String encodeID = Base64.getEncoder().encodeToString(stuid.toString().getBytes(StandardCharsets.UTF_8));
@@ -695,7 +669,6 @@ public class AdminController {
     @RequestMapping(value = "/addMotherGegree", method = {RequestMethod.POST})
     public String addMotherGegree(Integer stuid, String motherDegree) throws Exception {
 
-        checkUpdatePerson(stuid);
         stuService.addMotherDegreeByID(stuid, motherDegree);
         signService.changeMoDegreeSign(stuid);
         String encodeID = Base64.getEncoder().encodeToString(stuid.toString().getBytes(StandardCharsets.UTF_8));
@@ -706,7 +679,6 @@ public class AdminController {
     @RequestMapping(value = "/addAddress", method = {RequestMethod.POST})
     public String addAddress(Integer stuid, String addAddress) throws Exception {
 
-        checkUpdatePerson(stuid);
         stuService.addAddressByID(stuid, addAddress);
         signService.changeAddressSign(stuid);
         String encodeID = Base64.getEncoder().encodeToString(stuid.toString().getBytes(StandardCharsets.UTF_8));
@@ -717,7 +689,7 @@ public class AdminController {
 
     @RequestMapping(value = "/addMaster", method = {RequestMethod.POST})
     public String addMaster(Integer stuid, String addMaster) throws Exception {
-        checkUpdatePerson(stuid);
+
         stuService.addMasterByID(stuid, addMaster);
         signService.changeMasterSign(stuid);
         String encodeID = Base64.getEncoder().encodeToString(stuid.toString().getBytes(StandardCharsets.UTF_8));
@@ -729,7 +701,6 @@ public class AdminController {
     @RequestMapping(value = "/addMasterTel", method = {RequestMethod.POST})
     public String addMasterTel(Integer stuid, String addmastertel) throws Exception {
 
-        checkUpdatePerson(stuid);
         stuService.addMasterTelByID(stuid, addmastertel);
         signService.changeMasterTelSign(stuid);
         String encodeID = Base64.getEncoder().encodeToString(stuid.toString().getBytes(StandardCharsets.UTF_8));
@@ -741,7 +712,7 @@ public class AdminController {
     //添加学生性别
     @RequestMapping(value = "/addStuSex", method = {RequestMethod.POST})
     public String addStuSex(Integer stuid, String addstusex) throws Exception {
-        checkUpdatePerson(stuid);
+
         stuService.addStuSexByID(stuid, addstusex);
         signService.changeStuSexSign(stuid);
         String encodeID = Base64.getEncoder().encodeToString(stuid.toString().getBytes(StandardCharsets.UTF_8));
@@ -752,7 +723,7 @@ public class AdminController {
     //添加班主任地址
     @RequestMapping(value = "/addMasterAddress", method = {RequestMethod.POST})
     public String addMasterAddress(Integer stuid, String addmasteraddress) throws Exception {
-        checkUpdatePerson(stuid);
+
         stuService.addMasterAddressByID(stuid, addmasteraddress);
         signService.changeMasterAddressSign(stuid);
         String encodeID = Base64.getEncoder().encodeToString(stuid.toString().getBytes(StandardCharsets.UTF_8));
@@ -763,7 +734,7 @@ public class AdminController {
     //添加班主任学历
     @RequestMapping(value = "/addMasterDegree", method = {RequestMethod.POST})
     public String addMasterDegree(Integer stuid, String addmasterdegree) throws Exception {
-        checkUpdatePerson(stuid);
+
         stuService.addMasterDegreeByID(stuid, addmasterdegree);
         signService.changeMasterDegreeSign(stuid);
         String encodeID = Base64.getEncoder().encodeToString(stuid.toString().getBytes(StandardCharsets.UTF_8));
@@ -774,7 +745,7 @@ public class AdminController {
     //添加班主任性别
     @RequestMapping(value = "/addMasterSex", method = {RequestMethod.POST})
     public String addMasterSex(Integer stuid, String addmastersex) throws Exception {
-        checkUpdatePerson(stuid);
+
         stuService.addMasterSexByID(stuid, addmastersex);
         signService.changeMasterSexSign(stuid);
 
@@ -786,7 +757,7 @@ public class AdminController {
     //添加班主任生日
     @RequestMapping(value = "/addMasterBirth", method = {RequestMethod.POST})
     public String addMasterBirth(Integer stuid, Date addmasterbirth) throws Exception {
-        checkUpdatePerson(stuid);
+
         SimpleDateFormat datetype = new SimpleDateFormat("yyyy-MM-dd");
         Date birthday = stuService.getMasterBirthByID(stuid);
         String birthstring = "";
@@ -803,7 +774,7 @@ public class AdminController {
     //添加检验日期信息
     @RequestMapping(value = "/addCheckDate", method = {RequestMethod.POST})
     public String addCheckDate(Integer stuid, Date addcheckdate) throws Exception {
-        checkUpdatePerson(stuid);
+
         SimpleDateFormat datetype = new SimpleDateFormat("yyyy-MM-dd");
         Date checkdate = stuService.getCheckDateByID(stuid);
         String datestring = "";
@@ -822,7 +793,6 @@ public class AdminController {
     @RequestMapping(value = "/addSchoolText", method = {RequestMethod.POST})
     public String addSchoolText(Integer stuid, String addschooltext) throws Exception {
 
-        checkUpdatePerson(stuid);
         Date date = new Date();
         SimpleDateFormat datetype = new SimpleDateFormat("yyyy-MM-dd");
         String datestring = datetype.format(date);
@@ -842,7 +812,6 @@ public class AdminController {
     @RequestMapping(value = "/addFamilyText", method = {RequestMethod.POST})
     public String addFamilyText(Integer stuid, String addfamilytext) throws Exception {
 
-        checkUpdatePerson(stuid);
         Date date = new Date();
         SimpleDateFormat datetype = new SimpleDateFormat("yyyy-MM-dd");
         String datestring = datetype.format(date);
@@ -861,7 +830,7 @@ public class AdminController {
 
     @RequestMapping(value = "/addStudyText", method = {RequestMethod.POST})
     public String addStudyText(Integer stuid, String addstudytext) throws Exception {
-        checkUpdatePerson(stuid);
+
         Date date = new Date();
         SimpleDateFormat datetype = new SimpleDateFormat("yyyy-MM-dd");
         String datestring = datetype.format(date);
@@ -879,7 +848,7 @@ public class AdminController {
 
     @RequestMapping(value = "/addEducationText", method = {RequestMethod.POST})
     public String addEducationText(Integer stuid, String addedutext) throws Exception {
-        checkUpdatePerson(stuid);
+
         Date date = new Date();
         SimpleDateFormat datetype = new SimpleDateFormat("yyyy-MM-dd");
         String datestring = datetype.format(date);
@@ -897,7 +866,7 @@ public class AdminController {
 
     @RequestMapping(value = "/addSupportText", method = {RequestMethod.POST})
     public String addSupportText(Integer stuid, String addsupporttext) throws Exception {
-        checkUpdatePerson(stuid);
+
         Date date = new Date();
         SimpleDateFormat datetype = new SimpleDateFormat("yyyy-MM-dd");
         String datestring = datetype.format(date);
@@ -915,7 +884,7 @@ public class AdminController {
 
     @RequestMapping(value = "/addImproveText", method = {RequestMethod.POST})
     public String addImproveText(Integer stuid, String addimprovetext) throws Exception {
-        checkUpdatePerson(stuid);
+
         Date date = new Date();
         SimpleDateFormat datetype = new SimpleDateFormat("yyyy-MM-dd");
         String datestring = datetype.format(date);
@@ -1034,6 +1003,10 @@ public class AdminController {
     public String addMajor(Integer stuid, Integer lessonid, String dutydate) throws Exception {
         dutydate = dutydate + "  ";
         lessonService.updateDutyDateByLessonID(dutydate, lessonid);
+        //更新录入老师
+        Subject subject = SecurityUtils.getSubject();
+        String username = (String) subject.getPrincipal();
+        lessonService.updateRecordTeacher(username,lessonid);
         signService.SetChangeSign(stuid);
         String encodeID = Base64.getEncoder().encodeToString(stuid.toString().getBytes(StandardCharsets.UTF_8));
         //重定向

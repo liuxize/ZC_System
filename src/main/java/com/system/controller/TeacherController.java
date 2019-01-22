@@ -222,6 +222,15 @@ public class TeacherController {
     }
 
     /*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<表一添加部分操作开始>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
+    public void checkUpdatePerson(Integer stuid) throws Exception {
+        //若录入人为空，更新录入人
+        if (stuService.findRecordPerson(stuid).equals("")) {
+            Subject subject = SecurityUtils.getSubject();
+            String username = (String) subject.getPrincipal();
+            stuService.updateRecordPerson(stuid, username);
+        }
+    }
+
     // 添加用户信息表一（POST）
     @RequestMapping(value = "/addName", method = {RequestMethod.POST})
     public String addName(Integer stuid, String stuName) throws Exception {
@@ -795,6 +804,10 @@ public class TeacherController {
     public String addMajor(Integer stuid, Integer lessonid, String dutydate) throws Exception {
         dutydate = dutydate + "  ";
         lessonService.updateDutyDateByLessonID(dutydate, lessonid);
+        //更新录入老师
+        Subject subject = SecurityUtils.getSubject();
+        String username = (String) subject.getPrincipal();
+        lessonService.updateRecordTeacher(username,lessonid);
         signService.SetChangeSign(stuid);
         String encodeID = Base64.getEncoder().encodeToString(stuid.toString().getBytes(StandardCharsets.UTF_8));
         //重定向

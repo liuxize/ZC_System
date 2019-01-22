@@ -178,9 +178,9 @@
                                     <li><a href="/admin/paidStudent?page=${pagingVO.nextPageNo}&gradeid=${gradeIndex}&subjectid=${subjectIndex}&typeid=${typeIndex}">下一页&raquo;</a></li>
                                 </c:if>
                                 <c:if test="${pagingVO.curentPageNo >=pagingVO.totalCount}">
-                                    <li><a href="/admin/paidStudent?page=${pagingVO.totalCount}&gradeid=${gradeIndex}&subjectid=${subjectIndex}&typeid=${typeIndex}">尾页&raquo;</a></li>
+                                    <li><a href="/admin/paidStudent?page=${pagingVO.totalCount}&gradeid=${gradeIndex}&subjectid=${subjectIndex}&typeid=${typeIndex}">下一页&raquo;</a></li>
                                 </c:if>
-                                <li><a href="/admin/paidStudent?page=${pagingVO.totalCount}&gradeid=${gradeIndex}&subjectid=${subjectIndex}&typeid=${typeIndex}">最后一页&raquo;</a></li>
+                                <li><a href="/admin/paidStudent?page=${pagingVO.totalCount}&gradeid=${gradeIndex}&subjectid=${subjectIndex}&typeid=${typeIndex}">尾页&raquo;</a></li>
                                 <li><a><input id="toPage" style="height: 18px; width: 50px;border: 0px;outline:none;" type="text" placeholder="共${pagingVO.totalCount}页"/></a></li>
                                 <li><a href="javascript:void(0);" onclick="jumpPage()">跳转</a></li>
 

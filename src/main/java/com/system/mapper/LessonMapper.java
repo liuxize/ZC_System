@@ -17,6 +17,8 @@ public interface LessonMapper {
 
     void updateDutyDate(String dutydate, Integer lessonid); //修改签到日期
 
+    void updateLessonOperator(String operator, int lessonid);
+
     List<LessonCustom> selectByStuID(Integer stuid);
 
     LessonCustom selectByLessonID(Integer lessonID);

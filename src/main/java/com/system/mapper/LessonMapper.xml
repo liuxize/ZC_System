@@ -33,7 +33,7 @@
         dutyDateHis = concat(dutyDateHis,dutyDate),
         dutyDate = ''
         where stuID = #{stuid,jdbcType=INTEGER}
-        AND LessonSign = 0
+        AND dutyDate !=''
     </update>
 
     <update id="updateDutyDate">
@@ -92,4 +92,11 @@
         WHERE
         DATEDIFF(CAST(DATE_FORMAT(lesson.lessonEnd,'%y-%m-%d')AS DATE),CAST(DATE_FORMAT(NOW(),'%y-%m-%d') AS DATE)) = 7
     </select>
+
+    <update id="updateLessonOperator">
+        UPDATE lesson
+        SET
+        operator = #{0}
+        where lessonID = #{1}
+    </update>
 </mapper>

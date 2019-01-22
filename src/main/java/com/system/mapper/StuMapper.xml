@@ -577,7 +577,7 @@
 
     <!--已缴费学生的数量  （全部年级 全部学科 全部类型）-->
     <select id="countStuByPayStu" resultType="java.lang.Integer" >
-        select count(distinct stuID) from lesson
+        select count(*) from lesson
         WHERE
         DATEDIFF(CAST(DATE_FORMAT(lesson.lessonEnd,'%y-%m-%d')AS DATE),CAST(DATE_FORMAT(NOW(),'%y-%m-%d') AS DATE)) >= 0
         AND
@@ -586,7 +586,7 @@
 
     <!--已缴费学生的数量  （学科 类型）-->
     <select id="countPayBySubAndType" resultType="java.lang.Integer" >
-        select count(distinct stu.stuID) from lesson,stu
+        select count(*) from lesson,stu
         WHERE
         stu.stuID = lesson.stuID
         AND
@@ -602,7 +602,7 @@
 
     <!--已缴费学生的数量 （年级 类型）-->
     <select id="countPayByGradeAndType" resultType="java.lang.Integer" >
-        select count(distinct stu.stuID) from lesson,stu
+        select count(*) from lesson,stu
         WHERE
         stu.stuID = lesson.stuID
         AND
@@ -617,7 +617,7 @@
 
     <!--//已缴费学生的数量（年级 学科）-->
     <select id="countPayByGradeAndSub" resultType="java.lang.Integer" >
-        select count(distinct stu.stuID) from lesson,stu
+        select count(*) from lesson,stu
         WHERE
         stu.stuID = lesson.stuID
         AND
@@ -632,7 +632,7 @@
 
     <!--已缴费学生的数量（年级）-->
     <select id="countPayByGrade" resultType="java.lang.Integer" >
-        select count(distinct stu.stuID) from lesson,stu
+        select count(*) from lesson,stu
         WHERE
         stu.stuID = lesson.stuID
         AND
@@ -645,7 +645,7 @@
 
     <!--已缴费学生的数量（学科）-->
     <select id="countPayBySub" resultType="java.lang.Integer" >
-        select count(distinct stu.stuID) from lesson,stu
+        select count(*) from lesson,stu
         WHERE
         stu.stuID = lesson.stuID
         AND
@@ -658,7 +658,7 @@
 
     <!--已缴费学生的数量（类型）-->
     <select id="countPayByType" resultType="java.lang.Integer" >
-        select count(distinct stu.stuID) from lesson,stu
+        select count(*) from lesson,stu
         WHERE
         stu.stuID = lesson.stuID
         AND
@@ -671,7 +671,7 @@
 
     <!--已缴费学生的数量（年级 学科 类型）-->
     <select id="countPayByGradeSubType" resultType="java.lang.Integer" >
-        select count(distinct stu.stuID) from lesson,stu
+        select count(*) from lesson,stu
         WHERE
         stu.stuID = lesson.stuID
         AND
@@ -1052,14 +1052,14 @@
 
     <!--预缴费学生的数量  （全部年级 全部学科 全部类型）-->
     <select id="countPreStuByPayStu" resultType="java.lang.Integer" >
-        select count(distinct stuID) from lesson
+        select count(*) from lesson
         WHERE
         DATEDIFF(CAST(DATE_FORMAT(lesson.lessonStart,'%y-%m-%d')AS DATE),CAST(DATE_FORMAT(NOW(),'%y-%m-%d') AS DATE)) > 0
     </select>
 
     <!--预缴费学生的数量  （学科 类型）-->
     <select id="countPrePayBySubAndType" resultType="java.lang.Integer" >
-        select count(distinct stu.stuID) from lesson,stu
+        select count(*) from lesson,stu
         WHERE
         stu.stuID = lesson.stuID
         AND
@@ -1073,7 +1073,7 @@
 
     <!--预缴费学生的数量 （年级 类型）-->
     <select id="countPrePayByGradeAndType" resultType="java.lang.Integer" >
-        select count(distinct stu.stuID) from lesson,stu
+        select count(*) from lesson,stu
         WHERE
         stu.stuID = lesson.stuID
         AND
@@ -1086,7 +1086,7 @@
 
     <!--//预缴费学生的数量（年级 学科）-->
     <select id="countPrePayByGradeAndSub" resultType="java.lang.Integer" >
-        select count(distinct stu.stuID) from lesson,stu
+        select count(*) from lesson,stu
         WHERE
         stu.stuID = lesson.stuID
         AND
@@ -1099,7 +1099,7 @@
 
     <!--预缴费学生的数量（年级）-->
     <select id="countPrePayByGrade" resultType="java.lang.Integer" >
-        select count(distinct stu.stuID) from lesson,stu
+        select count(*) from lesson,stu
         WHERE
         stu.stuID = lesson.stuID
         AND
@@ -1110,7 +1110,7 @@
 
     <!--预缴费学生的数量（学科）-->
     <select id="countPrePayBySub" resultType="java.lang.Integer" >
-        select count(distinct stu.stuID) from lesson,stu
+        select count(*) from lesson,stu
         WHERE
         stu.stuID = lesson.stuID
         AND
@@ -1121,7 +1121,7 @@
 
     <!--预缴费学生的数量（类型）-->
     <select id="countPrePayByType" resultType="java.lang.Integer" >
-        select count(distinct stu.stuID) from lesson,stu
+        select count(*) from lesson,stu
         WHERE
         stu.stuID = lesson.stuID
         AND
@@ -1132,7 +1132,7 @@
 
     <!--预缴费学生的数量（年级 学科 类型）-->
     <select id="countPrePayByGradeSubType" resultType="java.lang.Integer" >
-        select count(distinct stu.stuID) from lesson,stu
+        select count(*) from lesson,stu
         WHERE
         stu.stuID = lesson.stuID
         AND

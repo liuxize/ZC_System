@@ -27,4 +27,6 @@ public interface LessonService {
 
     void updateDutyDateByLessonID(String dutydate, Integer lessonid) throws Exception;
 
+    void updateRecordTeacher(String operator, int lessonid) throws Exception;
+
 }

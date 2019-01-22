@@ -62,4 +62,8 @@ public class LessonServiceImpl implements LessonService {
    public void updateDutyDateByLessonID(String dutydate, Integer lessonid) throws Exception{
         lessonMapper.updateDutyDate(dutydate, lessonid);
    }
+
+   public void updateRecordTeacher(String operator, int lessonid) throws Exception{
+        lessonMapper.updateLessonOperator(operator,lessonid);
+   }
 }

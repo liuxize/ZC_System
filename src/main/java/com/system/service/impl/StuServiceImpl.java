@@ -4,6 +4,8 @@ import com.system.mapper.StuMapper;
 import com.system.mapper.StuMapperCustom;
 import com.system.po.*;
 import com.system.service.StuService;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,6 +23,16 @@ public class StuServiceImpl implements StuService {
 
     @Autowired
     private StuMapperCustom stuMapperCustom;
+
+    public void checkUpdatePerson(Integer stuid) throws Exception {
+        //若录入人为空，更新录入人
+
+        if (stuMapper.selectRecordPersonByIndex(stuid).equals("")) {
+            Subject subject = SecurityUtils.getSubject();
+            String username = (String) subject.getPrincipal();
+            stuMapper.updateRecordPersonByIndex(stuid,username);
+        }
+    }
 
     public void save(Stu stu) throws Exception {
 
@@ -67,95 +79,117 @@ public class StuServiceImpl implements StuService {
 
     //添加姓名
     public void addStuNameByID (Integer id, String str) throws Exception{
+        checkUpdatePerson(id);
         stuMapper.addStuNameByPrimaryKey(id, str);
     }
     //添加生日
     public void addStuBirthByID(Integer id, Date date, String str) throws Exception{
+        checkUpdatePerson(id);
         stuMapper.addStuBirthByPrimaryKey(id, date, str);
     }
 
     public void addFatherBirthByID(Integer id, Date date, String str) throws Exception{
+        checkUpdatePerson(id);
         stuMapper.addFatherBirthByPrimaryKey(id, date, str);
     }
 
     public void addMotherBirthByID(Integer id, Date date, String str) throws Exception{
+        checkUpdatePerson(id);
         stuMapper.addMotherBirthByPrimaryKey(id, date, str);
     }
     //添加专业
     public void addMajorByID(Integer id, String str) throws Exception{
+        checkUpdatePerson(id);
         stuMapper.addMajorByPrimaryKey(id, str);
     }
     //添加学校
     public void addSchoolByID(Integer id, String school) throws Exception {
-
+        checkUpdatePerson(id);
         stuMapper.addSchoolByPrimaryKey(id, school);
     }
     //学生电话
     public void addStuTelByID(Integer id, String str) throws Exception{
+        checkUpdatePerson(id);
         stuMapper.addStuTelByPrimaryKey(id, str);
     }
     //母亲姓名
     public void addMotherNameByID(Integer id, String str) throws Exception{
+        checkUpdatePerson(id);
         stuMapper.addMotherNameByPrimaryKey(id, str);
     }
     //母亲公司
     public void addMoCompanyByID(Integer id, String str) throws Exception {
+        checkUpdatePerson(id);
         stuMapper.addMoCompanyByPrimaryKey(id, str);
     }
     //母亲职位
     public void addMoJobByID(Integer id, String str) throws Exception {
+        checkUpdatePerson(id);
         stuMapper.addMoJobByPrimaryKey(id, str);
     }
     //母亲电话
     public void addMoTelByID(Integer id, String str) throws Exception{
+        checkUpdatePerson(id);
         stuMapper.addMoTelByPrimaryKey(id, str);
     }
     //父亲姓名
     public void addFaNameByID(Integer id, String str) throws Exception{
+        checkUpdatePerson(id);
         stuMapper.addFaNameByPrimaryKey(id, str);
     }
     //父亲公司
     public void addFaCompanyByID(Integer id, String str) throws Exception {
+        checkUpdatePerson(id);
         stuMapper.addFaCompanyByPrimaryKey(id, str);
     }
     //父亲职位
     public void addFaJobByID(Integer id, String str) throws Exception {
+        checkUpdatePerson(id);
         stuMapper.addFaJobByPrimaryKey(id, str);
     }
     //父亲电话
     public void addFaTelByID(Integer id, String str) throws Exception{
+        checkUpdatePerson(id);
         stuMapper.addFaTelByPrimaryKey(id, str);
     }
     //家庭地址
     public void addAddressByID(Integer id, String str) throws Exception {
+        checkUpdatePerson(id);
         stuMapper.addAddressByPrimaryKey(id, str);
     }
     //教师
     public void addMasterByID(Integer id, String str) throws Exception {
+        checkUpdatePerson(id);
         stuMapper.addMasterByPrimaryKey(id, str);
     }
     //教师电话
     public void addMasterTelByID(Integer id, String str) throws Exception {
+        checkUpdatePerson(id);
         stuMapper.addMasterTelByPrimaryKey(id, str);
     }
 
     public void addSchoolTextByID(Integer id, String str) throws Exception {
+        checkUpdatePerson(id);
         stuMapper.addSchoolTextByPrimaryKey(id, str);
     }
 
     public void addFamilyTextByID(Integer id, String str) throws Exception {
+        checkUpdatePerson(id);
         stuMapper.addFamilyTextByPrimaryKey(id, str);
     }
 
     public void addStudyTextByID(Integer id, String str) throws Exception {
+        checkUpdatePerson(id);
         stuMapper.addStudyTextByPrimaryKey(id, str);
     }
 
     public void addEducationTextByID(Integer id, String str) throws Exception {
+        checkUpdatePerson(id);
         stuMapper.addEducationTextByPrimaryKey(id, str);
     }
 
     public void addSupportTextByID(Integer id, String str) throws Exception {
+        checkUpdatePerson(id);
         stuMapper.addSupportTextByPrimaryKey(id, str);
 
     }
@@ -182,38 +216,47 @@ public class StuServiceImpl implements StuService {
     }
 
     public void addImproveTextByID(Integer id, String str) throws Exception {
+        checkUpdatePerson(id);
         stuMapper.addImproveTextByPrimaryKey(id, str);
     }
 
     public void addMotherDegreeByID (Integer id, String str) throws Exception{
+        checkUpdatePerson(id);
         stuMapper.addMoDegreeByPrimaryKey(id,str);
     }
 
     public void addFatherDegreeByID (Integer id, String str) throws Exception{
+        checkUpdatePerson(id);
         stuMapper.addFaDegreeByPrimaryKey(id,str);
     }
 
     public void addStuSexByID(Integer id, String str) throws Exception{
+        checkUpdatePerson(id);
         stuMapper.addStuSexByPrimaryKey(id, str);
     }
 
     public void addMasterAddressByID(Integer id, String str) throws Exception{
+        checkUpdatePerson(id);
         stuMapper.addMasterAddressByPrimaryKey(id, str);
     }
 
     public void addMasterDegreeByID(Integer id, String str) throws Exception{
+        checkUpdatePerson(id);
         stuMapper.addMasterDegreeByPrimaryKey(id, str);
     }
 
     public void addMasterSexByID(Integer id, String str) throws Exception{
+        checkUpdatePerson(id);
         stuMapper.addMasterSexByPrimaryKey(id, str);
     }
 
     public void addMasterBirthByID(Integer stuid, Date date, String str) throws Exception{
+        checkUpdatePerson(stuid);
         stuMapper.addMasterBirthByPrimaryKey(stuid,date,str);
     }
 
     public void addCheckDateByID(Integer stuid, Date date, String str) throws Exception{
+        checkUpdatePerson(stuid);
         stuMapper.addCheckDateByPrimaryKey(stuid,date,str);
     }
 

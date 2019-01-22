@@ -224,6 +224,7 @@ public class LeaderController {
     }
 
     /*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<表一添加部分操作开始>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
+
     // 添加用户信息表一（POST）
     @RequestMapping(value = "/addName", method = {RequestMethod.POST})
     public String addName(Integer stuid, String stuName) throws Exception {
@@ -239,7 +240,6 @@ public class LeaderController {
     @RequestMapping(value = "/addSchool", method = {RequestMethod.POST})
     public String addSchool(Integer stuid, String school) throws Exception {
 
-
         stuService.addSchoolByID(stuid, school);
         signService.changeSchoolSign(stuid);
         String encodeID = Base64.getEncoder(). encodeToString(stuid.toString().getBytes(StandardCharsets.UTF_8));
@@ -251,7 +251,6 @@ public class LeaderController {
     @RequestMapping(value = "/addMajor", method = {RequestMethod.POST})
     public String addMajor(Integer stuid, String major) throws Exception {
 
-
         stuService.addMajorByID(stuid, major);
         signService.changeMajorSign(stuid);
         String encodeID = Base64.getEncoder(). encodeToString(stuid.toString().getBytes(StandardCharsets.UTF_8));
@@ -261,7 +260,6 @@ public class LeaderController {
 
     @RequestMapping(value = "/addMother", method = {RequestMethod.POST})
     public String addMother(Integer stuid, String motherName) throws Exception {
-
 
         stuService.addMotherNameByID(stuid, motherName);
         signService.changeMoNameSign(stuid);
@@ -274,7 +272,6 @@ public class LeaderController {
     @RequestMapping(value = "/addMoCompany", method = {RequestMethod.POST})
     public String addMoCompany(Integer stuid, String motherCompany) throws Exception {
 
-
         stuService.addMoCompanyByID(stuid, motherCompany);
         signService.changeMoCompanySign(stuid);
         String encodeID = Base64.getEncoder(). encodeToString(stuid.toString().getBytes(StandardCharsets.UTF_8));
@@ -285,7 +282,6 @@ public class LeaderController {
 
     @RequestMapping(value = "/addMoJob", method = {RequestMethod.POST})
     public String addMoJob(Integer stuid, String motherJob) throws Exception {
-
 
         stuService.addMoJobByID(stuid, motherJob);
         signService.changeMoJobSign(stuid);
@@ -298,7 +294,6 @@ public class LeaderController {
     @RequestMapping(value = "/addFather", method = {RequestMethod.POST})
     public String addFather(Integer stuid, String fatherName) throws Exception {
 
-
         stuService.addFaNameByID(stuid, fatherName);
         signService.changeFaNameSign(stuid);
         String encodeID = Base64.getEncoder(). encodeToString(stuid.toString().getBytes(StandardCharsets.UTF_8));
@@ -309,7 +304,6 @@ public class LeaderController {
 
     @RequestMapping(value = "/addFaCompany", method = {RequestMethod.POST})
     public String addFaCompany(Integer stuid, String fathercompany) throws Exception {
-
 
         stuService.addFaCompanyByID(stuid, fathercompany);
         signService.changeFaCompanySign(stuid);
@@ -322,7 +316,6 @@ public class LeaderController {
     @RequestMapping(value = "/addFaJob", method = {RequestMethod.POST})
     public String addFaJob(Integer stuid, String fatherJob) throws Exception {
 
-
         stuService.addFaJobByID(stuid, fatherJob);
         signService.changeFaJobSign(stuid);
         String encodeID = Base64.getEncoder(). encodeToString(stuid.toString().getBytes(StandardCharsets.UTF_8));
@@ -333,11 +326,6 @@ public class LeaderController {
 
     @RequestMapping(value = "/addBirth", method = {RequestMethod.POST})
     public String addBirth(Integer stuid, Date birth,Model model ) throws Exception {
-
-        if (birth == null) {
-            model.addAttribute("message", "请输入完整日期");
-            return "error";
-        }
 
         SimpleDateFormat datetype = new SimpleDateFormat("yyyy-MM-dd");
         Date birthday = stuService.getBirthByID(stuid);
@@ -357,11 +345,6 @@ public class LeaderController {
     @RequestMapping(value = "/addMoBirth", method = {RequestMethod.POST})
     public String addMoBirth(Integer stuid, Date motherbirth,Model model ) throws Exception {
 
-        if (motherbirth == null) {
-            model.addAttribute("message", "请输入完整日期");
-            return "error";
-        }
-
         SimpleDateFormat datetype = new SimpleDateFormat("yyyy-MM-dd");
         Date birthday = stuService.getMoBirthByID(stuid);
         String birthstring="";
@@ -380,11 +363,6 @@ public class LeaderController {
     @RequestMapping(value = "/addFaBirth", method = {RequestMethod.POST})
     public String addFaBirth(Integer stuid, Date fatherbirth,Model model ) throws Exception {
 
-        if (fatherbirth == null) {
-            model.addAttribute("message", "请输入完整日期");
-            return "error";
-        }
-
         SimpleDateFormat datetype = new SimpleDateFormat("yyyy-MM-dd");
         Date birthday = stuService.getFaBirthByID(stuid);
         String birthstring="";
@@ -402,7 +380,6 @@ public class LeaderController {
     @RequestMapping(value = "/addStuTel", method = {RequestMethod.POST})
     public String addStuTel(Integer stuid, String stuTel) throws Exception {
 
-
         stuService.addStuTelByID(stuid, stuTel);
         signService.changeStuTelSign(stuid);
         String encodeID = Base64.getEncoder(). encodeToString(stuid.toString().getBytes(StandardCharsets.UTF_8));
@@ -412,7 +389,6 @@ public class LeaderController {
 
     @RequestMapping(value = "/addMotherTel", method = {RequestMethod.POST})
     public String addMotherTel(Integer stuid, String motherTel) throws Exception {
-
 
         stuService.addMoTelByID(stuid, motherTel);
         signService.changeMotherTelSign(stuid);
@@ -424,7 +400,6 @@ public class LeaderController {
     @RequestMapping(value = "/addFatherTel", method = {RequestMethod.POST})
     public String addFatherTel(Integer stuid, String fatherTel) throws Exception {
 
-
         stuService.addFaTelByID(stuid, fatherTel);
         signService.changeFatherTelSign(stuid);
         String encodeID = Base64.getEncoder(). encodeToString(stuid.toString().getBytes(StandardCharsets.UTF_8));
@@ -434,7 +409,6 @@ public class LeaderController {
 
     @RequestMapping(value = "/addFatherGegree", method = {RequestMethod.POST})
     public String addFatherGegree(Integer stuid, String fatherDegree) throws Exception {
-
 
         stuService.addFatherDegreeByID(stuid,fatherDegree);
         signService.changeFaDegreeSign(stuid);
@@ -446,7 +420,6 @@ public class LeaderController {
     @RequestMapping(value = "/addMotherGegree", method = {RequestMethod.POST})
     public String addMotherGegree(Integer stuid, String motherDegree) throws Exception {
 
-
         stuService.addMotherDegreeByID(stuid,motherDegree);
         signService.changeMoDegreeSign(stuid);
         String encodeID = Base64.getEncoder(). encodeToString(stuid.toString().getBytes(StandardCharsets.UTF_8));
@@ -456,7 +429,6 @@ public class LeaderController {
 
     @RequestMapping(value = "/addAddress", method = {RequestMethod.POST})
     public String addAddress(Integer stuid, String addAddress) throws Exception {
-
 
         stuService.addAddressByID(stuid, addAddress);
         signService.changeAddressSign(stuid);
@@ -469,7 +441,6 @@ public class LeaderController {
     @RequestMapping(value = "/addMaster", method = {RequestMethod.POST})
     public String addMaster(Integer stuid, String addMaster) throws Exception {
 
-
         stuService.addMasterByID(stuid, addMaster);
         signService.changeMasterSign(stuid);
         String encodeID = Base64.getEncoder(). encodeToString(stuid.toString().getBytes(StandardCharsets.UTF_8));
@@ -480,7 +451,6 @@ public class LeaderController {
 
     @RequestMapping(value = "/addMasterTel", method = {RequestMethod.POST})
     public String addMasterTel(Integer stuid, String addmastertel) throws Exception {
-
 
         stuService.addMasterTelByID(stuid, addmastertel);
         signService.changeMasterTelSign(stuid);
@@ -779,6 +749,10 @@ public class LeaderController {
     public String addMajor(Integer stuid, Integer lessonid, String dutydate) throws Exception {
         dutydate = dutydate + "  ";
         lessonService.updateDutyDateByLessonID(dutydate, lessonid);
+        //更新录入老师
+        Subject subject = SecurityUtils.getSubject();
+        String username = (String) subject.getPrincipal();
+        lessonService.updateRecordTeacher(username,lessonid);
         signService.SetChangeSign(stuid);
         String encodeID = Base64.getEncoder().encodeToString(stuid.toString().getBytes(StandardCharsets.UTF_8));
         //重定向

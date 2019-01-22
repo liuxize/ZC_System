@@ -782,6 +782,9 @@ public class MasterController {
     public String addMajor(Integer stuid, Integer lessonid, String dutydate) throws Exception {
         dutydate = dutydate + "  ";
         lessonService.updateDutyDateByLessonID(dutydate, lessonid);
+        //更新录入老师
+        Subject subject = SecurityUtils.getSubject();
+        String username = (String) subject.getPrincipal();
         signService.SetChangeSign(stuid);
         String encodeID = Base64.getEncoder().encodeToString(stuid.toString().getBytes(StandardCharsets.UTF_8));
         //重定向
