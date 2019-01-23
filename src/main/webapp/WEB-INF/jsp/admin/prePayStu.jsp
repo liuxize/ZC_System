@@ -112,7 +112,7 @@
                         <th style="width: 8%">类型</th>
                         <th style="width: 10%">时间</th>
                         <th>内容</th>
-                        <th style="width: 12%">操作</th>
+                        <th style="width: 8%">操作</th>
 
                     </tr>
                     </thead>
