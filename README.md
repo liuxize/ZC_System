@@ -3,9 +3,7 @@
 ## 1. 运行环境搭建
 
 1. 开发环境：idea；  Java版本：jdk8； 服务器：tomcat 8； 数据库：mysql
-
 2. 数据库在sql文件夹，数据库配置在 \ZC_System\src\main\resources\mysql.properties
-
 3. tomcat部署方法：将编译好的war文件放到webapps文件夹，修改conf文件夹的server.xml
 ```xml
 <Host name="localhost"  appBase="webapps"
@@ -13,6 +11,8 @@
 			 <!--加入路径信息-->
 		    <Context path="" docBase="ZC_System" debug="0" privileged="true"/>
 ```
+​       更新：删除webapps 里面的ZC_System两个文件夹，并将新的war文件复制过来，运行**两次**bin文件夹中的startup
+
 ## 2. 功能介绍
 
 1. 用户登录：使用shiro框架登录，限制同一用户在线只能是一个；用户角色：管理员，校长，教师，负责人；

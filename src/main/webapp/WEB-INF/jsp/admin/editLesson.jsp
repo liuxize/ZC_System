@@ -128,7 +128,7 @@
                         <div class="form-group">
                             <label for="inputDutyDate" class="col-sm-2 control-label">出勤日期</label>
                             <div class="col-sm-10">
-                                <input type="text" class="form-control" id="inputDutyDate" name="dutydate" value="${lessonCustom.dutydate}">
+                                <input type="text" class="form-control" id="inputDutyDate" name="dutydatehis" value="${lessonCustom.dutydatehis}">
                             </div>
                         </div>
 

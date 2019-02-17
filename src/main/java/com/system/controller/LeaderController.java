@@ -1411,5 +1411,111 @@ public class LeaderController {
         return "redirect:/leader/editTableOne?encodeID=" + encodeID;
     }
 
+    //查看缴费的学生 表三的上课开始时间<=查询当天日期<=表三上课结束时间
+    @RequestMapping(value = "/paidStudent", method = {RequestMethod.GET})
+    public String paidStudentUI(Model model, Integer page, Integer gradeid, Integer subjectid, Integer typeid) throws Exception {
+
+        List<Grade> gradelist = gradeService.findAllGrade();
+        List<com.system.po.Subject> subjectList = subjectService.findAllSubject();
+        List<ClassType> classTypeList = classTypeService.findAllClassType();
+        Grade grade = new Grade();
+        grade.setGradeid(-1);
+        grade.setGradename("全部");
+        gradelist.add(0, grade);
+        com.system.po.Subject subject = new com.system.po.Subject();
+        subject.setSubjectid(-1);
+        subject.setSubjectname("全部");
+        subjectList.add(0, subject);
+        ClassType classType = new ClassType();
+        classType.setTypeid(-1);
+        classType.setTypename("全部");
+        classTypeList.add(0, classType);
+        model.addAttribute("gradeList", gradelist);
+        model.addAttribute("subjectList", subjectList);
+        model.addAttribute("classTypeList", classTypeList);
+        List<LessonCustom> list = null;
+        //页码对象
+        PagingVO pagingVO = new PagingVO();
+
+        pagingVO.setTotalCount(stuService.countPayStuBySelect(gradeid, subjectid, typeid));
+        if (page == null || page == 0) {
+            pagingVO.setCurentPageNo(1);
+            pagingVO.setToPageNo(1);
+            list = stuService.findStuByPayStuAndSelect(1, gradeid, subjectid, typeid);
+        } else {
+            pagingVO.setToPageNo(page);
+            list = stuService.findStuByPayStuAndSelect(page, gradeid, subjectid, typeid);
+        }
+        List<LessonCustom> allStuList = stuService.findAllStuByPayStuAndSelect(gradeid, subjectid, typeid);  //用于保存为excle 表格
+        model.addAttribute("allStuList", allStuList);
+        model.addAttribute("stuList", list);
+        model.addAttribute("pagingVO", pagingVO);
+        model.addAttribute("gradeIndex", gradeid);
+        model.addAttribute("subjectIndex", subjectid);
+        model.addAttribute("typeIndex", typeid);
+
+        return "leader/paidStudent";
+    }
+
+    @RequestMapping(value = "/paidStudent", method = {RequestMethod.POST})
+    public String paidStudent(Integer gradeid, Integer subjectid, Integer typeid) throws Exception {
+
+        return "redirect:/leader/paidStudent?gradeid=" + gradeid + "&subjectid=" + subjectid + "&typeid=" + typeid;
+    }
+
+    //查看预缴费学员 查询当天日期<表三的上课时间且小于表三的上课结束时间
+    @RequestMapping(value = "/prePayStu", method = {RequestMethod.GET})
+    public String prePayStuUI(Model model, Integer page, Integer gradeid, Integer subjectid, Integer typeid) throws Exception {
+
+        List<Grade> gradelist = gradeService.findAllGrade();
+        List<com.system.po.Subject> subjectList = subjectService.findAllSubject();
+        List<ClassType> classTypeList = classTypeService.findAllClassType();
+        Grade grade = new Grade();
+        grade.setGradeid(-1);
+        grade.setGradename("全部");
+        gradelist.add(0, grade);
+        com.system.po.Subject subject = new com.system.po.Subject();
+        subject.setSubjectid(-1);
+        subject.setSubjectname("全部");
+        subjectList.add(0, subject);
+        ClassType classType = new ClassType();
+        classType.setTypeid(-1);
+        classType.setTypename("全部");
+        classTypeList.add(0, classType);
+        model.addAttribute("gradeList", gradelist);
+        model.addAttribute("subjectList", subjectList);
+        model.addAttribute("classTypeList", classTypeList);
+//        Integer gradeIndex;  //????????
+//        gradeIndex = gradeid;  //????????
+        List<LessonCustom> list = null;
+        //页码对象
+        PagingVO pagingVO = new PagingVO();
+
+        pagingVO.setTotalCount(stuService.countPrePayStuBySelect(gradeid, subjectid, typeid));
+        if (page == null || page == 0) {
+            pagingVO.setCurentPageNo(1);
+            pagingVO.setToPageNo(1);
+            list = stuService.findStuByPrePayStuAndSelect(1, gradeid, subjectid, typeid);
+        } else {
+            pagingVO.setToPageNo(page);
+            list = stuService.findStuByPrePayStuAndSelect(page, gradeid, subjectid, typeid);
+        }
+        List<LessonCustom> allStuList = stuService.findAllStuByPrePayStuAndSelect(gradeid, subjectid, typeid);  //用于保存为excle 表格
+        model.addAttribute("allStuList", allStuList);
+        model.addAttribute("stuList", list);
+        model.addAttribute("pagingVO", pagingVO);
+        model.addAttribute("gradeIndex", gradeid);
+        model.addAttribute("subjectIndex", subjectid);
+        model.addAttribute("typeIndex", typeid);
+
+        return "leader/prePayStu";
+    }
+
+    @RequestMapping(value = "/prePayStu", method = {RequestMethod.POST})
+    public String prePayStu(Integer gradeid, Integer subjectid, Integer typeid) throws Exception {
+
+        return "redirect:/leader/prePayStu?gradeid=" + gradeid + "&subjectid=" + subjectid + "&typeid=" + typeid;
+    }
+
 }
 

@@ -100,7 +100,7 @@
                         <td colspan="6" align="left">上课日期: ${item.schooldate}</td>
                     </tr>
                     <tr>
-                        <td colspan="6" align="left">出勤日期: ${item.dutydate}</td>
+                        <td colspan="6" align="left">出勤日期: ${item.dutydatehis}</td>
                     </tr>
                 </c:forEach>
             </table>

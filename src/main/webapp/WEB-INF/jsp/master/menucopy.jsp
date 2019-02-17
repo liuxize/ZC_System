@@ -27,7 +27,17 @@
                     <li id="nav10"><a href="/master/remindBirth">生日提醒</a></li>
 
                     <li id="nav11"><a href="/master/remindPay">缴费提醒</a></li>
-
+                    <li class="dropdown" id="nav4">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            缴费情况
+                            <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="/master/paidStudent?gradeid=-1&subjectid=-1&typeid=-1">已缴费学员</a></li>
+                            <li class="divider"></li>
+                            <li><a href="/master/prePayStu?gradeid=-1&subjectid=-1&typeid=-1">预缴费学员</a></li>
+                        </ul>
+                    </li>
                     <li class="dropdown" id="nav5">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             班级管理
