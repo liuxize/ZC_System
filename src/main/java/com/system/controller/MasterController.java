@@ -785,6 +785,7 @@ public class MasterController {
         //更新录入老师
         Subject subject = SecurityUtils.getSubject();
         String username = (String) subject.getPrincipal();
+        lessonService.updateRecordTeacher(username,lessonid);
         signService.SetChangeSign(stuid);
         String encodeID = Base64.getEncoder().encodeToString(stuid.toString().getBytes(StandardCharsets.UTF_8));
         //重定向
