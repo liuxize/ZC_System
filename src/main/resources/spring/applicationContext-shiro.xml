@@ -36,7 +36,7 @@
                 # 如果用户没有该角色，然后访问该 路径 会报 401错误
 
                 /admin/** = authc, roles[admin]
-                /techer/** = authc, roles[teacher]
+                /teacher/** = authc, roles[teacher]
                 /master/** = authc, roles[master]
                 /leader/** = authc, roles[leader]
 
