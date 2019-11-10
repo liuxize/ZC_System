@@ -82,11 +82,16 @@ public class AdminController {
     @Resource(name = "schoolServiceImpl")
     private SchoolService schoolService;
 
+    @Resource(name = "campusServiceImpl")
+    private CampusService campusService;
+
     @Resource(name = "excelLogServiceImpl")
     private ExcelLogService excelLogService;
 
     @Resource(name = "imageServiceImpl")
     private ImageService imageService;
+
+
     /*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<登陆账户操作操作>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
 
 
@@ -2594,6 +2599,26 @@ public class AdminController {
     private String removeSchool(Integer schoolid) throws Exception {
         schoolService.deleteSchool(schoolid);
         return "redirect:/admin/manageSchol";
+    }
+
+    //校区管理
+    @RequestMapping(value = "/manageCampus", method = {RequestMethod.GET})
+    public String manageCampusUI(Model model) throws Exception {
+        List<Campus> campusList = campusService.findAllCampus();
+        model.addAttribute("campusList", campusList);
+        return "admin/manageCampus";
+    }
+
+    @RequestMapping(value = "/manageCampus", method = {RequestMethod.POST})
+    public String manageCampus(String campusname) throws Exception {
+        campusService.saveCampus(campusname);
+        return "redirect:/admin/manageCampus";
+    }
+
+    @RequestMapping(value = "/removeCampus", method = {RequestMethod.GET})
+    private String removeCampus(Integer campusid) throws Exception {
+        campusService.deleteCampus(campusid);
+        return "redirect:/admin/manageCampus";
     }
 
 
