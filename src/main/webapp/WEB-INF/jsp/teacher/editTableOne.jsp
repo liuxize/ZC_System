@@ -214,76 +214,76 @@
                     </td>
 
                     <td style="width: 3%;">
-                        <!--按键开始-->
-                        <c:if test="${permission==true}">
-                        <p>
-                            <button type="button" class="btn btn-default btn-xs"
-                                    style="background-color:transparent;border:0" data-toggle="modal"
-                                    data-target="#myModal">
-                                <span class="glyphicon glyphicon-list-alt" style="color: #2e6da4"></span>
-                            </button>
-                        </p>
-                        <button type="button" class="btn btn-default btn-xs"
-                                style="background-color:transparent;border:0" data-toggle="modal"
-                                data-target="#addSchoolModal">
-                            <span class="glyphicon glyphicon-plus" style="color: #2e6da4"></span>
-                        </button>
-                        <!--按键结束-->
-                        </c:if>
+<%--                        <!--按键开始-->--%>
+<%--                        <c:if test="${permission==true}">--%>
+<%--                        <p>--%>
+<%--                            <button type="button" class="btn btn-default btn-xs"--%>
+<%--                                    style="background-color:transparent;border:0" data-toggle="modal"--%>
+<%--                                    data-target="#myModal">--%>
+<%--                                <span class="glyphicon glyphicon-list-alt" style="color: #2e6da4"></span>--%>
+<%--                            </button>--%>
+<%--                        </p>--%>
+<%--                        <button type="button" class="btn btn-default btn-xs"--%>
+<%--                                style="background-color:transparent;border:0" data-toggle="modal"--%>
+<%--                                data-target="#addSchoolModal">--%>
+<%--                            <span class="glyphicon glyphicon-plus" style="color: #2e6da4"></span>--%>
+<%--                        </button>--%>
+<%--                        <!--按键结束-->--%>
+<%--                        </c:if>--%>
 
-                        <!-- 模态框（Modal）显示学校历史 -->
-                        <div class="modal fade" id="myModal" tabindex="-1" role="dialog"
-                             aria-labelledby="myModalLabel" aria-hidden="true" style="z-index:9999">
-                            <div class="modal-dialog modal-dialog-centered" role="document"> <!-- modal-lg 放大版-->
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-                                            &times;
-                                        </button>
-                                        <h4 class="modal-title" id="myModalLabel">所在学校记录</h4>
-                                    </div>
-                                    <div class="modal-body">
-                                            <textarea class="inp5" rows="10" name="improvetext"
-                                                      readonly="readonly">${stumessage.schoolhis}</textarea>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭
-                                        </button>
-                                    </div>
-                                </div><!-- /.modal-content -->
-                            </div><!-- /.modal -->
-                        </div>
+<%--                        <!-- 模态框（Modal）显示学校历史 -->--%>
+<%--                        <div class="modal fade" id="myModal" tabindex="-1" role="dialog"--%>
+<%--                             aria-labelledby="myModalLabel" aria-hidden="true" style="z-index:9999">--%>
+<%--                            <div class="modal-dialog modal-dialog-centered" role="document"> <!-- modal-lg 放大版-->--%>
+<%--                                <div class="modal-content">--%>
+<%--                                    <div class="modal-header">--%>
+<%--                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">--%>
+<%--                                            &times;--%>
+<%--                                        </button>--%>
+<%--                                        <h4 class="modal-title" id="myModalLabel">所在学校记录</h4>--%>
+<%--                                    </div>--%>
+<%--                                    <div class="modal-body">--%>
+<%--                                            <textarea class="inp5" rows="10" name="improvetext"--%>
+<%--                                                      readonly="readonly">${stumessage.schoolhis}</textarea>--%>
+<%--                                    </div>--%>
+<%--                                    <div class="modal-footer">--%>
+<%--                                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭--%>
+<%--                                        </button>--%>
+<%--                                    </div>--%>
+<%--                                </div><!-- /.modal-content -->--%>
+<%--                            </div><!-- /.modal -->--%>
+<%--                        </div>--%>
 
-                        <div class="modal fade" id="addSchoolModal" tabindex="-1" role="dialog"
-                             aria-labelledby="myModalLabel" aria-hidden="true" style="z-index:9999">
-                            <div class="modal-dialog"> <!-- modal-lg 放大版-->
-                                <div class="modal-content">
+<%--                        <div class="modal fade" id="addSchoolModal" tabindex="-1" role="dialog"--%>
+<%--                             aria-labelledby="myModalLabel" aria-hidden="true" style="z-index:9999">--%>
+<%--                            <div class="modal-dialog"> <!-- modal-lg 放大版-->--%>
+<%--                                <div class="modal-content">--%>
 
-                                    <form role="form" action="/teacher/addSchool" id="editstu" method="post">
-                                        <div class="modal-header">
-                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-                                                &times;
-                                            </button>
-                                            <h4 class="modal-title" id="addSchoolModalLabel">添加学校信息</h4>
-                                        </div>
-                                        <div class="modal-body">
-                                            <select class="form-control" name="school">
-                                                <c:forEach items="${schoolList}" var="item">
-                                                    <option value="${item.schoolname}">${item.schoolname}</option>
-                                                </c:forEach>
-                                            </select>
-                                            <input type="hidden" name="stuid" value=${stumessage.stuid}>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-default" data-dismiss="modal">关闭
-                                            </button>
-                                            <button class="btn btn-default" type="submit">提交</button>
-                                        </div>
-                                    </form>
-                                </div><!-- /.modal-content -->
-                            </div><!-- /.modal -->
-                        </div>
-                        <!-- 模态框（Modal）添加学校历史 结束-->
+<%--                                    <form role="form" action="/teacher/addSchool" id="editstu" method="post">--%>
+<%--                                        <div class="modal-header">--%>
+<%--                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">--%>
+<%--                                                &times;--%>
+<%--                                            </button>--%>
+<%--                                            <h4 class="modal-title" id="addSchoolModalLabel">添加学校信息</h4>--%>
+<%--                                        </div>--%>
+<%--                                        <div class="modal-body">--%>
+<%--                                            <select class="form-control" name="school">--%>
+<%--                                                <c:forEach items="${schoolList}" var="item">--%>
+<%--                                                    <option value="${item.schoolname}">${item.schoolname}</option>--%>
+<%--                                                </c:forEach>--%>
+<%--                                            </select>--%>
+<%--                                            <input type="hidden" name="stuid" value=${stumessage.stuid}>--%>
+<%--                                        </div>--%>
+<%--                                        <div class="modal-footer">--%>
+<%--                                            <button type="button" class="btn btn-default" data-dismiss="modal">关闭--%>
+<%--                                            </button>--%>
+<%--                                            <button class="btn btn-default" type="submit">提交</button>--%>
+<%--                                        </div>--%>
+<%--                                    </form>--%>
+<%--                                </div><!-- /.modal-content -->--%>
+<%--                            </div><!-- /.modal -->--%>
+<%--                        </div>--%>
+<%--                        <!-- 模态框（Modal）添加学校历史 结束-->--%>
 
                     </td>
                     <td style="width: 5%;">年级</td>
@@ -2143,10 +2143,10 @@
                             </div><!-- /.modal -->
                         </div>
                     </td>
-                    <td>
-                        照片
+                    <td colspan="2"  style="border-right-color:transparent;">
+                        照片和视频存储等:
                     </td>
-                    <td colspan="3" align="center" style="border-right-color:transparent;">
+                    <td colspan="2" align="center" style="border-right-color:transparent;">
                         <c:if test="${unsignImageNum==0&&permission==true}">
                             <button type="button" class="btn btn-default" data-toggle="modal" data-target="#addFigure"
                                     style="background-color:transparent;border:0">添加</button>

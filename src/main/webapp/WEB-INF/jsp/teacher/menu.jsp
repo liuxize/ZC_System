@@ -26,7 +26,7 @@
 
                     <li id="nav10"><a href="/teacher/remindBirth">生日提醒</a></li>
 
-                    <li id="nav11"><a href="/teacher/remindPay">缴费提醒</a></li>
+                    <li id="nav11"><a href="/teacher/remindPay">周工作提醒</a></li>
                     <li class="dropdown" id="nav4">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             缴费情况

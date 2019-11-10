@@ -11,7 +11,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>缴费提醒</title>
+    <title>周工作提醒</title>
     <link rel="shortcut icon" type="image/x-icon" href="/images/logo-dt.png" media="screen">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- 引入bootstrap -->
@@ -30,7 +30,7 @@
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <div class="row">
-                        <h1 class="col-md-5">缴费提醒</h1>
+                        <h1 class="col-md-5">周工作提醒</h1>
                         <%--<button class="btn btn-warning col-md-2" style="margin-top: 20px; float:right"--%>
                                 <%--onClick="saveAsExcelFile()">--%>
                             <%--打印--%>

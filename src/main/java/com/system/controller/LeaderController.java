@@ -881,7 +881,7 @@ public class LeaderController {
         return "leader/remindBirth";
     }
 
-    //缴费提醒
+    //缴费提醒 （周工作提醒）
     @RequestMapping(value = "/remindPay", method = {RequestMethod.GET})
     public String remindPayUI(Model model,Integer page) throws Exception {
 

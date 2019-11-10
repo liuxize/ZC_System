@@ -148,7 +148,7 @@
         limit #{toPageNo}, #{pageSize}
     </select>
 
-    <!--缴费提醒 提前7天提醒-->
+    <!--缴费提醒（周工作提醒） 提前7天提醒-->
     <select id="selectAllByPay"  resultType="com.system.po.StuCustom">
         select distinct
         stu.*, grade.gradeName

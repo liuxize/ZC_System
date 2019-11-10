@@ -55,7 +55,7 @@
 
                     <li id="nav10"><a href="/admin/remindBirth">生日提醒</a></li>
 
-                    <li id="nav11"><a href="/admin/remindPay">缴费提醒</a></li>
+                    <li id="nav11"><a href="/admin/remindPay">周工作提醒</a></li>
 
 
                     <li class="dropdown" id="nav4">

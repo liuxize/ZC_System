@@ -941,7 +941,7 @@ public class MasterController {
         return "master/remindBirth";
     }
 
-    //缴费提醒
+    //缴费提醒（周工作提醒）
     @RequestMapping(value = "/remindPay", method = {RequestMethod.GET})
     public String remindPayUI(Model model,Integer page) throws Exception {
         List<LessonCustom> allStuList = null;
