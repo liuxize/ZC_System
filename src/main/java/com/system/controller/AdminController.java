@@ -174,7 +174,7 @@ public class AdminController {
     }
 
     @RequestMapping(value = "/setPermission", method = {RequestMethod.POST})
-    public String setPermission(String username, GradeList gradelist, Integer pay, Integer unpay, Model model) throws Exception {
+    public String setPermission(String username, GradeList gradelist, Integer pay, Integer unpay) throws Exception {
 
         if (unpay == null && pay != null) {
             userloginService.updateUserPermission(username, 0);   //缴费

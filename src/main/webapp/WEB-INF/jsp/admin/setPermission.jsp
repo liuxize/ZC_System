@@ -39,6 +39,12 @@
                     <form class="form-horizontal" role="form" action="/admin/setPermission" id="EditPermision" method="post" style="text-align: center;font-size: 25px">
                                     <input type="hidden" name="username" value="${username}">
                                     <div>
+                                        <c:forEach items="${gradeList}" var="item">
+                                            <input type="checkbox" style="zoom:180%;"
+                                            value="${item.gradeid}">${item.gradename}
+                                        </c:forEach>
+                                    </div>
+                                    <div>
                                         <input type="checkbox" style="zoom:180%;"
                                                name="grade0"
                                                value="${gradeList[0].gradeid}">${gradeList[0].gradename}

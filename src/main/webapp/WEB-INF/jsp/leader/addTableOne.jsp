@@ -29,6 +29,9 @@
     <!-- 引入JQuery  bootstrap.js-->
     <script src="/js/jquery-3.2.1.min.js"></script>
     <script src="/js/bootstrap.min.js"></script>
+    <!-- bootstrap-select -->
+    <link rel="stylesheet"  href="/css/bootstrap-select.min.css">
+    <script src="/js/bootstrap-select.min.js"></script>
     <style>
         .btnc {
             float: right;
@@ -136,7 +139,7 @@
                         </td>
                         <td style="width: 50px;">所在学校</td>
                         <td colspan="3" style="width: 200px;">
-                            <select class="form-control" name="school">
+                            <select  class="selectpicker show-tick form-control" data-live-search="true" name="school">
                                 <c:forEach items="${schoolList}" var="item">
                                     <option value="${item.schoolname}">${item.schoolname}</option>
                                 </c:forEach>
@@ -144,7 +147,7 @@
                         </td>
                         <td style="width: 50px">年级</td>
                         <td>
-                            <select class="form-control" name="gradeid">
+                            <select class="selectpicker show-tick form-control" data-live-search="true" name="gradeid">
                                 <c:forEach items="${gradeList}" var="item">
                                     <option value="${item.gradeid}">${item.gradename}</option>
                                 </c:forEach>
@@ -266,7 +269,7 @@
                     <tr>
                         <td>专业</td>
                         <td colspan="6">
-                            <select class="form-control" name="major">
+                            <select class="selectpicker show-tick form-control" data-live-search="true" name="major">
                                 <c:forEach items="${majorList}" var="item">
                                     <option value="${item.majorname}">${item.majorname}</option>
                                 </c:forEach>

@@ -20,6 +20,9 @@
     <!-- 引入JQuery  bootstrap.js-->
     <script src="/js/jquery-3.2.1.min.js"></script>
     <script src="/js/bootstrap.min.js"></script>
+    <!-- bootstrap-select -->
+    <link rel="stylesheet"  href="/css/bootstrap-select.min.css">
+    <script src="/js/bootstrap-select.min.js"></script>
 
     <style>
         .btnc {
@@ -2046,7 +2049,8 @@
                                             <h4 class="modal-title">添加专业信息</h4>
                                         </div>
                                         <div class="modal-body">
-                                            <select class="form-control" name="major">
+                                            <select class="selectpicker show-tick form-control" data-live-search="true"
+                                                    name="major">
                                                 <c:forEach items="${majorList}" var="item">
                                                     <option value="${item.majorname}">${item.majorname}</option>
                                                 </c:forEach>

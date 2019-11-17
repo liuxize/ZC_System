@@ -37,10 +37,10 @@
 			</div>
 			<form action="/login" method="post">
 				<div class="form-group">
-					<input type="text" class="form-control login-input" placeholder="用户名" required name="username" value="管理员">
+					<input type="text" class="form-control login-input" placeholder="用户名" required name="username" >
 				</div>
 				<div class="form-group">
-					<input type="password" class="form-control login-input" placeholder="密码" required name="password" value="123">
+					<input type="password" class="form-control login-input" placeholder="密码" required name="password" >
 				</div>
 				<button id="submit" type="submit" class="btn login-btn">登录</button>
 
@@ -55,6 +55,6 @@
             document.getElementById("submit").click(); //调用登录按钮的登录事件
     }
 
-    document.getElementById("submit").click(); //自动登录
+    // document.getElementById("submit").click(); //自动登录
 </script>
 </html>
