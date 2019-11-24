@@ -108,14 +108,27 @@
             </ul>
             <form role="form" action="/admin/addTableOne" id="editstu" method="post">
 
-                <div class="col-sm-10" style="font-size: 15px; padding: 10pt">
+                <div class="col-md-15" style="font-size: 18px; padding: 10pt">
 
-                    <label class="checkbox-inline">
-                        <input type="radio" name="stutype" value="普通学生" checked>普通学生
-                    </label>
-                    <label class="checkbox-inline">
-                        <input type="radio" name="stutype" value="优质学生">优质学生
-                    </label>
+                    <div style="width: 200px; display: inline-block; font-size: 15px " >
+                        <select class="form-control"  name="campusid" >
+                            <c:forEach items="${campusList}" var="item">
+                                <option value="${item.campusid}">${item.campusname}</option>
+                            </c:forEach>
+                        </select>
+                    </div>
+
+                    <div style="display: inline-block;">
+                        <label class="checkbox-inline">
+                            <input type="radio" name="stutype" value="普通学生" checked>普通学生
+                        </label>
+                        <label class="checkbox-inline">
+                            <input type="radio" name="stutype" value="优质学生">优质学生
+                        </label>
+                    </div>
+
+
+
                 </div>
 
 
@@ -231,6 +244,7 @@
                         <td class="text-left" colspan="9">
                             <input class="inp2" type="text" name="address" placeholder="请输入"/>
                         </td>
+
                     </tr>
                     <tr>
                         <td>生日</td>

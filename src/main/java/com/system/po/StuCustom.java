@@ -2,6 +2,7 @@ package com.system.po;
 
 public class StuCustom extends Stu {
     private String gradename;
+    private String campusname;
 
     private Integer signid;
     private Integer stuid;
@@ -19,6 +20,15 @@ public class StuCustom extends Stu {
     private Integer educationTextSign;
     private Integer supportTextSign;
     private Integer improveTextSign;
+
+    public String getCampusname() {
+        return campusname;
+    }
+
+    public void setCampusname(String campusname) {
+        this.campusname = campusname;
+    }
+
     private String masterConfirmSign;
     private Integer receivesign;
 

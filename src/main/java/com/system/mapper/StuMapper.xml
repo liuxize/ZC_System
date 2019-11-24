@@ -16,7 +16,7 @@
         masterSex, masterSexHis, masterDegree, masterDegreeHis, masterBirth, masterBirthHis,
         schoolText, schoolTextHis, familyText, familyTextHis,
         studyText, studyTextHis,  educationText, educationTextHis, supportText, supportTextHis,
-        improveText, improveTextHis,  gradeID, recordDate, recordPerson, checkDate,checkDateHis
+        improveText, improveTextHis,  gradeID, campusID,recordDate, recordPerson, checkDate,checkDateHis
         )
         values (#{stuname,jdbcType=VARCHAR}, '',
         #{stusex,jdbcType=VARCHAR},'', #{stutype,jdbcType=VARCHAR},
@@ -47,7 +47,9 @@
          #{educationtext,jdbcType=VARCHAR}, '',
          #{supporttext,jdbcType=VARCHAR}, '',
          #{improvetext,jdbcType=VARCHAR}, '',
-         #{gradeid,jdbcType=INTEGER}, #{recorddate,jdbcType=DATE}, #{recordperson,jdbcType=VARCHAR},
+         #{gradeid,jdbcType=INTEGER},
+         #{campusid,jdbcType=INTEGER},
+         #{recorddate,jdbcType=DATE}, #{recordperson,jdbcType=VARCHAR},
          #{checkdate,jdbcType=DATE}, ''
         )
     </insert>

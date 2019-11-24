@@ -74,15 +74,20 @@ public class LeaderController {
     @Resource(name = "imageServiceImpl")
     private ImageService imageService;
 
+    @Resource(name = "campusServiceImpl")
+    private CampusService campusService;
+
     // 添加用户信息表一（Get？？？）
     @RequestMapping(value = "/addTableOne", method = {RequestMethod.GET})
     public String showAddTable(Model model) throws Exception {
         List<Major> majorList = majorService.findAllMajor();
         List<School> schoolList =schoolService.findAllSchool();
         List<Grade> list = gradeService.findAllGrade();
+        List<Campus> campusList = campusService.findAllCampus();
         model.addAttribute("schoolList",schoolList);
         model.addAttribute("gradeList", list);
         model.addAttribute("majorList", majorList);
+        model.addAttribute("campusList", campusList);
         //stuService.save(stu);
         //重定向
         return "leader/addTableOne";

@@ -109,8 +109,11 @@
 
 
 
-            <div class="col-sm-10" style="font-size: 18px; padding: 10pt;">
-                <span style="float:left;">${stumessage.stutype}</span>
+            <div style="font-size: 18px; padding: 10pt;">
+                <span style="float:left;">
+                    ${stumessage.campusname} &nbsp; &nbsp; &nbsp;
+                    ${stumessage.stutype}
+                </span>
                 <span style="float:right;">
                    制表时间：&nbsp;
                     <fmt:formatDate value="${stumessage.recorddate}" dateStyle="medium"/>

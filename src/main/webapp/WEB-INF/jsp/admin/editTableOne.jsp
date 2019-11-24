@@ -104,19 +104,23 @@
                 <li><a href="javascript:void(0);" onclick="ToTableThree(${stumessage.stuid})">表三</a></li>
             </ul>
 
-            <div class="col-sm-10" style="font-size: 18px; padding: 10pt;">
-                <span style="float:left;">${stumessage.stutype}</span>
+            <div style="font-size: 18px; padding: 10pt;">
+                <span style="float:left;">
+                    ${stumessage.campusname} &nbsp; &nbsp; &nbsp;
+                    ${stumessage.stutype}
+                </span>
+
                 <span style="float:right;">
                     制表时间：&nbsp;
                     <fmt:formatDate value="${stumessage.recorddate}" dateStyle="medium"/>
-                    &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                    &nbsp; &nbsp; &nbsp;
                     制表人:&nbsp; ${stumessage.recordperson}
-                     &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                     &nbsp; &nbsp; &nbsp;
                     负责人签字:&nbsp;
                     <C:if test="${signmessage.leadersignid==0}"><font
                             color="red">${signmessage.leadersign}</font></C:if>
                     <C:if test="${signmessage.leadersignid==1}">${signmessage.leadersign}</C:if>
-                     &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                     &nbsp; &nbsp; &nbsp;
                     校长签字:&nbsp;
                     <C:if test="${signmessage.mastersignid==0}"><font
                             color="red">${signmessage.mastersign}</font></C:if>

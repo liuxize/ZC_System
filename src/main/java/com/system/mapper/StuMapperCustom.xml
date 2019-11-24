@@ -25,12 +25,14 @@
 
     <select id="selectByPrimaryKey" resultType="com.system.po.StuCustom" parameterType="java.lang.Integer">
         select
-        stu.*, grade.gradeName
-        from stu, grade
+        stu.*, grade.gradeName, campus.campusName
+        from stu, grade, campus
         where
         stuID = #{stuid,jdbcType=INTEGER}
         AND
         stu.gradeID = grade.gradeID
+        AND
+        stu.campusID = campus.campusID
     </select>
 
     <select id="findByGrade" parameterType="PagingVO" resultType="com.system.po.StuCustom">

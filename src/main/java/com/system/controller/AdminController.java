@@ -248,10 +248,12 @@ public class AdminController {
     public String showAddTable(Model model) throws Exception {
         List<Major> majorList = majorService.findAllMajor();
         List<School> schoolList = schoolService.findAllSchool();
-        List<Grade> list = gradeService.findAllGrade();
+        List<Grade> gradeList = gradeService.findAllGrade();
+        List<Campus> campusList = campusService.findAllCampus();
         model.addAttribute("schoolList", schoolList);
-        model.addAttribute("gradeList", list);
+        model.addAttribute("gradeList", gradeList);
         model.addAttribute("majorList", majorList);
+        model.addAttribute("campusList", campusList);
         //stuService.save(stu);
         //重定向
         return "admin/addTableOne";

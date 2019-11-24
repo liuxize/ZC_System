@@ -141,6 +141,15 @@ public class Stu {
 
     private String checkdatehis;//校验日期历史
 
+    private Integer campusid;
+
+    public Integer getCampusid() {
+        return campusid;
+    }
+
+    public void setCampusid(Integer campusid) {
+        this.campusid = campusid;
+    }
 
     public Date getMotherbirth() {
         return motherbirth;
