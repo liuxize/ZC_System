@@ -3129,6 +3129,23 @@ public class AdminController {
         //重定向
         return "redirect:/admin/editTableOne?encodeID=" + encodeID;
     }
+
+    @RequestMapping(value = "/announcement", method = {RequestMethod.GET})
+    public String announcement(Model model) throws Exception {
+        String[] strArr = {"张三","李四","王二麻"};
+        model.addAttribute("strArr", strArr);
+
+        return "/admin/announcement";
+    }
+
+
+    @ResponseBody
+    @RequestMapping(value = "/findAnnounce", produces={"text/html;charset=UTF-8;","application/json;"}, method = {RequestMethod.POST, RequestMethod.GET})
+    public String findAnnounce(String announceid) throws Exception {
+
+        System.out.println(announceid);
+        return announceid;
+    }
 }
 
 

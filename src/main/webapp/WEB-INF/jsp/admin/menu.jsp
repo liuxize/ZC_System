@@ -20,6 +20,7 @@
             <div>
 
                 <ul class="nav navbar-nav">
+                    <li id="nav0"><a href="/admin/announcement">公告</a></li>
                     <li id="nav1"><a href="/admin/addTableOne">添加档案</a></li>
 
                     <li class="dropdown" id="nav2">
