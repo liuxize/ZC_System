@@ -1,6 +1,6 @@
 package com.system.po;
 
-public class announce {
+public class Announce {
     Integer annid;
     String anntitle;
     String anncon;

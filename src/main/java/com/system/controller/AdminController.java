@@ -3143,7 +3143,7 @@ public class AdminController {
     @RequestMapping(value = "/findAnnounce", produces={"text/html;charset=UTF-8;","application/json;"}, method = {RequestMethod.POST, RequestMethod.GET})
     public String findAnnounce(String announceid) throws Exception {
 
-        System.out.println(announceid);
+        //System.out.println(announceid);
         return announceid;
     }
 }
