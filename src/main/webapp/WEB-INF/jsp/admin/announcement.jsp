@@ -78,14 +78,14 @@
                     <div class="row">
                         <div class="col-xs-3" id="myScrollspy">
                             <ul class="nav nav-tabs nav-stacked" id="myNav">
-                                <c:forEach items="${strArr}" var="item">
-                                    <li p="${item}"><a href="javascript:;">${item}</a></li>
+                                <c:forEach items="${announceList}" var="item">
+                                    <li p="${item.annid}" q="${item.anntitle}"><a href="javascript:;">${item.anntitle}</a></li>
                                 </c:forEach>
                             </ul>
                         </div>
                         <div class="col-xs-9">
-                            <h2 style="text-align: center;">公告栏</h2>
-                            <div id = "context" style="font-size: 18px"></div>
+                            <h2 style="text-align: center;" id = annTitle>${firstTitle}</h2>
+                            <div id = "context" style="font-size: 18px">${firstCon}</div>
                         </div>
                     </div>
 
@@ -116,6 +116,7 @@
         $(this).siblings('li').removeClass('active');
         $(this).addClass('active');
         var announceid = $(this).attr("p");
+        document.getElementById("annTitle").innerHTML = $(this).attr("q");
         $.ajax({
             type: "POST",   //http请求方式
             url: "/admin/findAnnounce",//发送给服务器的url

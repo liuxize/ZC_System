@@ -78,6 +78,9 @@ public class MasterController {
     @Resource(name = "campusServiceImpl")
     private CampusService campusService;
 
+    @Resource(name = "announceServiceImpl")
+    private AnnounceService announceService;
+
     // 添加用户信息表一（Get？？？）
     @RequestMapping(value = "/addTableOne", method = {RequestMethod.GET})
     public String showAddTable(Model model) throws Exception {

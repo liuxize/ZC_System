@@ -91,6 +91,9 @@ public class AdminController {
     @Resource(name = "imageServiceImpl")
     private ImageService imageService;
 
+    @Resource(name = "announceServiceImpl")
+    private AnnounceService announceService;
+
 
     /*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<登陆账户操作操作>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
 
@@ -3130,22 +3133,36 @@ public class AdminController {
         return "redirect:/admin/editTableOne?encodeID=" + encodeID;
     }
 
+    // 公告栏显示
     @RequestMapping(value = "/announcement", method = {RequestMethod.GET})
     public String announcement(Model model) throws Exception {
-        String[] strArr = {"张三","李四","王二麻"};
-        model.addAttribute("strArr", strArr);
 
+        List<Announce>  announceList = announceService.findALlRead();
+        model.addAttribute("announceList", announceList);
+        String firstCon = null;
+        String firstTitle = null;
+
+        if (announceList.size() > 0){
+            Announce firstAnnounce  = announceList.get(0);
+            firstCon = announceService.getConByID(firstAnnounce.getAnnid());
+            firstTitle = firstAnnounce.getAnntitle();
+        }
+        model.addAttribute("firstCon", firstCon);
+        model.addAttribute("firstTitle", firstTitle);
         return "/admin/announcement";
     }
 
-
+    // 公告栏显示
     @ResponseBody
     @RequestMapping(value = "/findAnnounce", produces={"text/html;charset=UTF-8;","application/json;"}, method = {RequestMethod.POST, RequestMethod.GET})
     public String findAnnounce(String announceid) throws Exception {
 
-        //System.out.println(announceid);
-        return announceid;
+        Integer annId = Integer.parseInt(announceid);
+        String annCon = announceService.getConByID(annId);
+        return annCon;
     }
+
+    //公告编辑
 }
 
 

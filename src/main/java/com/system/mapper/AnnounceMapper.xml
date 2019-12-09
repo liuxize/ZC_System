@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.system.mapper.AnnounceMapper" >
+
+    <insert id="insert" parameterType="com.system.po.Announce" keyProperty="annid" useGeneratedKeys="true">
+        insert into announce (anntitle,  anncon, isread
+        )
+        values (#{annTitle,jdbcType=VARCHAR},
+        #{annCon,jdbcType=VARCHAR},
+         #{isRead,jdbcType=INTEGER}
+        )
+    </insert>
+
+    <delete id="deleteByID" parameterType="java.lang.Integer" >
+        delete from announce
+        where annID = #{id,jdbcType=INTEGER}
+    </delete>
+
+
+    <select id="selectAll" resultType="com.system.po.Announce">
+        select
+        *
+        from announce
+    </select>
+
+    <select id="selectAllRead" resultType="com.system.po.Announce">
+        select annID, annTitle
+        from announce
+        where isRead = 1
+        order by annID desc
+    </select>
+
+    <select id="findConByID" parameterType="java.lang.Integer" resultType = "java.lang.String">
+        select annCon
+        from announce
+        where annID = #{id,jdbcType=INTEGER}
+    </select>
+
+    <update id="updateIsread">
+        update announce
+        set
+        isRead = #{1}
+        where annID = #{0}
+    </update>
+
+    <update id="updateAnnounce" parameterType="com.system.po.Announce">
+        update announce
+        set
+        annTitle = #{anntitle,jdbcType=VARCHAR},
+        annCon = #{anncon,jdbcType=VARCHAR}
+        where annID = #{annid,jdbcType=INTEGER}
+    </update>
+</mapper>
