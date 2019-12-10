@@ -17,7 +17,7 @@
     </delete>
 
 
-    <select id="selectAll" resultType="com.system.po.Announce">
+    <select id="selectAll" resultType="com.system.po.AnnounceCustom">
         select
         *
         from announce

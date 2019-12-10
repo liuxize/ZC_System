@@ -126,6 +126,8 @@
                             <li><a href="/admin/manageSchol">学校管理</a></li>
                             <li class="divider"></li>
                             <li><a href="/admin/manageCampus">校区管理</a></li>
+                            <li class="divider"></li>
+                            <li><a href="/admin/manageAnnounce">公告管理</a></li>
                         </ul>
                     </li>
 

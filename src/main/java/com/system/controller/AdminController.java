@@ -3163,6 +3163,20 @@ public class AdminController {
     }
 
     //公告编辑
+    @RequestMapping(value = "/manageAnnounce", method = {RequestMethod.GET})
+    public String manageAnnounceUI(Model model) throws Exception {
+        List<AnnounceCustom>  announceList = announceService.findAll();
+        model.addAttribute("announceList", announceList);
+        return "admin/manageAnnounce";
+    }
+
+
+    @RequestMapping(value = "/manageAnnounce", method = {RequestMethod.POST})
+    public String manageAnnounce(String typename) throws Exception {
+
+        return "redirect:/admin/manageAnnounce";
+    }
+
 }
 
 
