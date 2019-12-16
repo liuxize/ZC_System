@@ -3171,9 +3171,34 @@ public class AdminController {
     }
 
 
-    @RequestMapping(value = "/manageAnnounce", method = {RequestMethod.POST})
-    public String manageAnnounce(String typename) throws Exception {
+    @RequestMapping(value = "/editAnnounce", method = {RequestMethod.POST})
+    public String manageAnnounce(AnnounceCustom announceCustom) throws Exception {
+        announceService.editAnnounce(announceCustom);
+        return "redirect:/admin/manageAnnounce";
+    }
 
+    @RequestMapping(value = "/addAnnounce", method = {RequestMethod.POST})
+    public String addAnnounce(AnnounceCustom announceCustom) throws Exception {
+        announceCustom.setIsread(1);
+        announceService.saveAnnounce(announceCustom);
+        return "redirect:/admin/manageAnnounce";
+    }
+
+    @RequestMapping(value = "/deleteAnnounce", method = {RequestMethod.GET})
+    private String deleteAnnounce(Integer annid) throws Exception {
+        announceService.deleteAnnounce(annid);
+        return "redirect:/admin/manageAnnounce";
+    }
+
+    @RequestMapping(value = "/openAnnounce", method = {RequestMethod.GET})
+    private String openAnnounce(Integer annid) throws Exception {
+        announceService.editIsRead(annid, 1);
+        return "redirect:/admin/manageAnnounce";
+    }
+
+    @RequestMapping(value = "/closeAnnounce", method = {RequestMethod.GET})
+    private String closeAnnounce(Integer annid) throws Exception {
+        announceService.editIsRead(annid, 0);
         return "redirect:/admin/manageAnnounce";
     }
 

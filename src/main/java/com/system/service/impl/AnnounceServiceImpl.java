@@ -20,14 +20,15 @@ public class AnnounceServiceImpl implements AnnounceService {
     public List<Announce> findALlRead() throws Exception{
         return announceMapper.selectAllRead();
     }
-    public void saveAnnounce(Announce announce) throws Exception{
-        announceMapper.insert(announce);
+    public void saveAnnounce(AnnounceCustom announceCustom) throws Exception{
+        System.out.println(announceCustom.getAnncon());
+        announceMapper.insert(announceCustom);
     }
     public void deleteAnnounce(Integer id) throws Exception{
         announceMapper.deleteByID(id);
     }
-    public void editAnnounce(Announce announce) throws Exception{
-        announceMapper.updateAnnounce(announce);
+    public void editAnnounce(AnnounceCustom announceCustom) throws Exception{
+        announceMapper.updateAnnounce(announceCustom);
     }
     public void editIsRead(int id, int isread) throws Exception{
         announceMapper.updateIsread(id, isread);

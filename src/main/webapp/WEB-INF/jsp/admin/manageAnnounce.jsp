@@ -34,7 +34,7 @@
                         <h1 class="col-md-5">公告管理</h1>
 
                         <button type="button" class="btn btn-success col-md-2 " data-toggle="modal"
-                                id="editbutton"  style="margin-top: 20px; float:right"
+                                id="addbutton"  style="margin-top: 20px; float:right"
                                 data-target="#addNoteDic">新建公告
                             <span class="glyphicon glyphicon-plus"></span>
                         </button>
@@ -42,7 +42,7 @@
                         <!-- 修改用户密码-->
                         <div class="modal fade" id="addNoteDic" tabindex="-1" role="dialog"
                              aria-labelledby="myModalLabel" aria-hidden="true" style="z-index:9999">
-                            <div class="modal-dialog"> <!-- modal-lg 放大版-->
+                            <div class="modal-dialog modal-lg"> <!-- modal-lg 放大版-->
                                 <div class="modal-content">
                                     <div class="modal-header">
                                         <button type="button" class="close" data-dismiss="modal"
@@ -51,11 +51,12 @@
                                         </button>
                                         <h4 align="center" class="modal-title">请输入课程类型名称</h4>
                                     </div>
-                                    <form role="form" action="/admin/manageAnnounce" method="post">
+                                    <form role="form" action="/admin/addAnnounce" method="post">
                                         <div class="modal-body">
 
-                                            <input type="text" class="form-control" name="typename"
-                                                   placeholder="请输入" required="required">
+                                            <input type="text" class="form-control" name="anncontitle"
+                                                   placeholder="标题" required="required">
+                                            <textarea style="width: 100%; border: none;" rows="25" name="anncon"  placeholder="内容"></textarea>
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-default" data-dismiss="modal">
@@ -94,23 +95,22 @@
                                 </th>
                                 <th style="width:30%">
 
-                                    <button type="button" class="btn btn-primary  btn-xs"
-                                            onclick="deleteClassType('${item.annid}')">
+                                    <button type="button" class="btn btn-primary  btn-xs" id="editbutton1"
+                                            data-toggle="modal" onclick="editAnnounce('${item.annid}', '${item.anntitle}', '${item.anncon}')" data-target="#EditAnnounce">
                                         编辑内容
                                     </button>
                                     &nbsp;&nbsp;
                                     <button type="button" class="btn btn-danger  btn-xs"
-                                            onclick="deleteClassType('${item.annid}')">
+                                            onclick="deleteAnnounce('${item.annid}')">
                                         删除公告
                                     </button>
                                     &nbsp; &nbsp;
                                     <button type="button" class="btn btn-info  btn-xs"
-                                            onclick="deleteClassType('${item.annid}')">
+                                            onclick="openAnnounce('${item.annid}')">
                                         显示公告
                                     </button>
                                     &nbsp; &nbsp;
-                                    <button type="button" class="btn btn-default  btn-xs disabled"
-                                            onclick="deleteClassType('${item.annid}')">
+                                    <button type="button" class="btn btn-default  btn-xs disabled">
                                         隐藏公告
                                     </button>
 
@@ -127,23 +127,23 @@
                                 </th>
                                 <th style="width:30%">
 
-                                    <button type="button" class="btn btn-primary  btn-xs"
-                                            onclick="deleteClassType('${item.annid}')">
+
+                                    <button type="button" class="btn btn-primary  btn-xs" id="editbutton2"
+                                            data-toggle="modal" onclick="editAnnounce('${item.annid}', '${item.anntitle}', '${item.anncon}')" data-target="#EditAnnounce">
                                         编辑内容
                                     </button>
                                     &nbsp;&nbsp;
                                     <button type="button" class="btn btn-danger  btn-xs"
-                                            onclick="deleteClassType('${item.annid}')">
+                                            onclick="deleteAnnounce('${item.annid}')">
                                         删除公告
                                     </button>
                                     &nbsp; &nbsp;
-                                    <button type="button" class="btn btn-info  btn-xs disabled"
-                                            onclick="deleteClassType('${item.annid}')">
+                                    <button type="button" class="btn btn-info  btn-xs disabled">
                                         显示公告
                                     </button>
                                     &nbsp; &nbsp;
                                     <button type="button" class="btn btn-default  btn-xs"
-                                            onclick="deleteClassType('${item.annid}')">
+                                            onclick="closeAnnounce('${item.annid}')">
                                         隐藏公告
                                     </button>
 
@@ -151,6 +151,30 @@
                             </tr>
                         </C:if>
                     </c:forEach>
+
+                    <div class="modal fade" id="EditAnnounce" tabindex="-1" role="dialog"
+                         aria-labelledby="myModalLabel" aria-hidden="true" style="z-index:9999">
+                        <div class="modal-dialog modal-lg"> <!-- modal-lg 放大版-->
+                            <div class="modal-content">
+                                <form role="form" action="/admin/editAnnounce" method="post">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                        &times;
+                                    </button>
+                                    <input type="text" class="form-control" name="anntitle" id="annTitle" required="required" value=" " >
+                                    <input type="hidden" id="annID" name="annid" value=" ">
+                                </div>
+                                <div class="modal-body">
+                                            <textarea style="width: 100%; border: none;" rows="25" name="anncon" id="annCon" value=" "></textarea>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                                    <button class="btn btn-default" type="submit">保存</button>
+                                </div>
+                                </form>
+                            </div><!-- /.modal-content -->
+                        </div><!-- /.modal -->
+                    </div>
                     </tbody>
                 </table>
 
@@ -171,15 +195,31 @@
 
     $("#nav21").addClass("active");
 
-    function deleteClassType(typeid) {
+    function deleteAnnounce(annid) {
         var msg = "您确定要删除吗";
         if (confirm(msg) == true) {
-            window.location.href="/admin/removeClassType?typeid="+ typeid;
+            window.location.href="/admin/deleteAnnounce?annid="+ annid;
             return true;
         } else {
             return false;
         }
     }
+
+    function openAnnounce(annid) {
+        window.location.href="/admin/openAnnounce?annid="+ annid;
+    }
+
+    function closeAnnounce(annid) {
+        window.location.href="/admin/closeAnnounce?annid="+ annid;
+    }
+
+    $("#EditAnnounce").modal("hide");
+    function editAnnounce(annid, anntitle, anncon) {
+        $("#annID").val(annid);
+        $("#annTitle").val(anntitle.replace(/\r\n/g, '<br/>').replace(/\n/g, '<br/>').replace(/\s/g, ' '));
+        $("#annCon").val(anncon.replace(/\r\n/g, '<br/>').replace(/\n/g, '<br/>').replace(/\s/g, ' '));
+    }
+
 
 </script>
 </html>
