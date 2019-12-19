@@ -1,8 +1,8 @@
 package com.system.po;
 
 public class AnnounceCustom extends Announce{
-    String anncon;
-    Integer isread;
+    private String anncon;
+    private Integer isread;
 
     public String getAnncon() {
         return anncon;

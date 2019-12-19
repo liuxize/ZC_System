@@ -44,18 +44,16 @@
                              aria-labelledby="myModalLabel" aria-hidden="true" style="z-index:9999">
                             <div class="modal-dialog modal-lg"> <!-- modal-lg 放大版-->
                                 <div class="modal-content">
-                                    <div class="modal-header">
-                                        <button type="button" class="close" data-dismiss="modal"
-                                                aria-hidden="true">
-                                            &times;
-                                        </button>
-                                        <h4 align="center" class="modal-title">请输入课程类型名称</h4>
-                                    </div>
                                     <form role="form" action="/admin/addAnnounce" method="post">
-                                        <div class="modal-body">
-
-                                            <input type="text" class="form-control" name="anncontitle"
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal"
+                                                    aria-hidden="true">
+                                                &times;
+                                            </button>
+                                            <input type="text" class="form-control" name="anntitle"
                                                    placeholder="标题" required="required">
+                                        </div>
+                                        <div class="modal-body">
                                             <textarea style="width: 100%; border: none;" rows="25" name="anncon"  placeholder="内容"></textarea>
                                         </div>
                                         <div class="modal-footer">
@@ -96,7 +94,7 @@
                                 <th style="width:30%">
 
                                     <button type="button" class="btn btn-primary  btn-xs" id="editbutton1"
-                                            data-toggle="modal" onclick="editAnnounce('${item.annid}', '${item.anntitle}', '${item.anncon}')" data-target="#EditAnnounce">
+                                            data-toggle="modal" onclick="editAnnounce('${item.annid}', '${item.anntitle}')" data-target="#EditAnnounce">
                                         编辑内容
                                     </button>
                                     &nbsp;&nbsp;
@@ -129,7 +127,7 @@
 
 
                                     <button type="button" class="btn btn-primary  btn-xs" id="editbutton2"
-                                            data-toggle="modal" onclick="editAnnounce('${item.annid}', '${item.anntitle}', '${item.anncon}')" data-target="#EditAnnounce">
+                                            data-toggle="modal" onclick="editAnnounce('${item.annid}', '${item.anntitle}')" data-target="#EditAnnounce">
                                         编辑内容
                                     </button>
                                     &nbsp;&nbsp;
@@ -165,7 +163,7 @@
                                     <input type="hidden" id="annID" name="annid" value=" ">
                                 </div>
                                 <div class="modal-body">
-                                            <textarea style="width: 100%; border: none;" rows="25" name="anncon" id="annCon" value=" "></textarea>
+                                            <textarea style="width: 100%; border: none; white-space:pre-line" rows="25" name="anncon" id="annCon" value=" "></textarea>
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
@@ -214,10 +212,24 @@
     }
 
     $("#EditAnnounce").modal("hide");
-    function editAnnounce(annid, anntitle, anncon) {
+    function editAnnounce(annid, anntitle) {
         $("#annID").val(annid);
-        $("#annTitle").val(anntitle.replace(/\r\n/g, '<br/>').replace(/\n/g, '<br/>').replace(/\s/g, ' '));
-        $("#annCon").val(anncon.replace(/\r\n/g, '<br/>').replace(/\n/g, '<br/>').replace(/\s/g, ' '));
+        $("#annTitle").val(anntitle);
+        $.ajax({
+            type: "POST",   //http请求方式
+            url: "/admin/findAnnounce",//发送给服务器的url
+            data: "announceid="+ annid, //发送给服务器的参数
+            dataType: "text",  //告诉JQUERY返回的数据格式(注意此处数据格式一定要与提交的controller返回的数据格式一致,不然不会调用回调函数complete)
+            //scriptCharset: 'utf-8',
+            complete: function (msg) {
+                var anncon = msg.responseText;
+                // alert( );
+                $("#annCon").val(anncon);
+                //document.getElementById("context").innerHTML = result;
+            }
+        });
+
+
     }
 
 

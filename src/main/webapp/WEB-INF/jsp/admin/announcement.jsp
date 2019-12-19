@@ -85,7 +85,7 @@
                         </div>
                         <div class="col-xs-9">
                             <h2 style="text-align: center;" id = annTitle>${firstTitle}</h2>
-                            <div id = "context" style="font-size: 18px">${firstCon}</div>
+                            <div id = "context" style="font-size: 18px; white-space:pre-line">${firstCon}</div>
                         </div>
                     </div>
 
@@ -127,17 +127,6 @@
                 var result = msg.responseText;
                // alert( );
                 document.getElementById("context").innerHTML = result;
-
-                // var date = "该学生名字已经存在，是否继续添加？";
-                // if (result == "1") {
-                //     if (confirm(date) == true) {
-                //         return true;
-                //     } else {
-                //         document.getElementById("stuname").value=""
-                //         return false;
-                //     }
-                //
-                // }
             }
         });
 

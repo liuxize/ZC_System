@@ -21,7 +21,6 @@ public class AnnounceServiceImpl implements AnnounceService {
         return announceMapper.selectAllRead();
     }
     public void saveAnnounce(AnnounceCustom announceCustom) throws Exception{
-        System.out.println(announceCustom.getAnncon());
         announceMapper.insert(announceCustom);
     }
     public void deleteAnnounce(Integer id) throws Exception{

@@ -3,12 +3,12 @@ package com.system.po;
 import java.util.Date;
 
 public class Birthday {
-    Integer birthid;
-    Integer stuid;
-    String status;
-    Date birthday;
-    String telephone;
-    String birthname;
+    private Integer birthid;
+    private Integer stuid;
+    private String status;
+    private Date birthday;
+    private String telephone;
+    private String birthname;
 
     public Integer getBirthid() {
         return birthid;

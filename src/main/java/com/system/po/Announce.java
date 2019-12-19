@@ -1,8 +1,8 @@
 package com.system.po;
 
 public class Announce {
-    Integer annid;
-    String anntitle;
+    private Integer annid;
+    private String anntitle;
 
 
     public Integer getAnnid() {
