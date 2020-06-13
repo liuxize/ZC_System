@@ -20,6 +20,7 @@
             <div>
 
                 <ul class="nav navbar-nav">
+                    <li id="nav0"><a href="/leader/announcement">公告</a></li>
                     <li id="nav1"><a href="/leader/addTableOne">添加档案</a></li>
                     <li id="nav2"><a href="/leader/searchName">查询信息</a></li>
 

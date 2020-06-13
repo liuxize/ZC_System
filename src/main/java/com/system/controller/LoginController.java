@@ -47,15 +47,15 @@ public class LoginController {
 
         if (subject.hasRole("admin")) {
             putSession(userlogin.getUsername(),nowUseKey);
-            return "redirect:/admin/addTableOne";
+            return "redirect:/admin/announcement";
         } else if (subject.hasRole("master")) {
             putSession(userlogin.getUsername(),nowUseKey);
-            return "redirect:/master/addTableOne";
+            return "redirect:/master/announcement";
         } else if (subject.hasRole("teacher")) {
             putSession(userlogin.getUsername(),nowUseKey);
-            return "redirect:/teacher/addTableOne";
+            return "redirect:/teacher/announcement";
         } else if(subject.hasRole("leader")) {
-            return  "redirect:/leader/addTableOne";
+            return  "redirect:/leader/announcement";
         }
 
         return "/login";

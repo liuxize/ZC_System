@@ -1582,5 +1582,34 @@ public class MasterController {
         return "redirect:/master/prePayStu?gradeid=" + gradeid + "&subjectid=" + subjectid + "&typeid=" + typeid;
     }
 
+    // 公告栏显示
+    @RequestMapping(value = "/announcement", method = {RequestMethod.GET})
+    public String announcement(Model model) throws Exception {
+
+        List<Announce>  announceList = announceService.findALlRead();
+        model.addAttribute("announceList", announceList);
+        String firstCon = null;
+        String firstTitle = null;
+
+        if (announceList.size() > 0){
+            Announce firstAnnounce  = announceList.get(0);
+            firstCon = announceService.getConByID(firstAnnounce.getAnnid());
+            firstTitle = firstAnnounce.getAnntitle();
+        }
+        model.addAttribute("firstCon", firstCon);
+        model.addAttribute("firstTitle", firstTitle);
+        return "/master/announcement";
+    }
+
+    // 公告栏显示
+    @ResponseBody
+    @RequestMapping(value = "/findAnnounce", produces={"text/html;charset=UTF-8;","application/json;"}, method = {RequestMethod.POST, RequestMethod.GET})
+    public String findAnnounce(String announceid) throws Exception {
+
+        Integer annId = Integer.parseInt(announceid);
+        String annCon = announceService.getConByID(annId);
+        return annCon;
+    }
+
 }
 

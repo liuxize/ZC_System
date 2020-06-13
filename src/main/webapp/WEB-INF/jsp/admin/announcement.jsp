@@ -102,6 +102,7 @@
 
 </body>
 <script  type="text/javascript">
+    $("#nav0").addClass("active");
     $(document).ready(function () {
         $("#myNav").affix({
             offset: {

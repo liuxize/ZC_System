@@ -21,6 +21,7 @@
             <div>
 
                 <ul class="nav navbar-nav">
+                    <li id="nav0"><a href="/teacher/announcement">公告</a></li>
                     <li id="nav1"><a href="/teacher/addTableOne">添加档案</a></li>
                     <li id="nav2"><a href="/teacher/searchName">查询信息</a></li>addTableOne.jsp
 
@@ -130,7 +131,7 @@
 <li><a href="#">表格</a></li>
 </ul>
 </li>
-<!--
+
 <li><a href="/admin/showStudent">学生管理<span class="badge pull-right"></span></a></li>
 <li><a href="/admin/showTeacher">教师管理<span class="badge pull-right"></span></a></li>
 <li><a href="/admin/userPasswordRest">账号密码重置<sapn class="glyphicon glyphicon-repeat pull-right" /></a></li>
