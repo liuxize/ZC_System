@@ -30,7 +30,7 @@
                     <li id="nav11"><a href="/teacher/remindPay">周工作提醒</a></li>
                     <li class="dropdown" id="nav4">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            缴费情况
+                            学员信息分类
                             <b class="caret"></b>
                         </a>
                         <ul class="dropdown-menu">
@@ -70,7 +70,7 @@
                 <button class="btn btn-default dropdown-toggle" type="button" style="margin-right: 20px; ">
                     <%--登录用户名--%>
                     <a role="menuitem" tabindex="-1" href="/logout">
-                        <span class="glyphicon glyphicon-off pull-right"></span>
+<%--                        <span class="glyphicon glyphicon-off pull-right"></span>--%>
                         注销
                     </a>
                 </button>

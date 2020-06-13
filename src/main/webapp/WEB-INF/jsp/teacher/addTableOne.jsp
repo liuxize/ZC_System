@@ -109,8 +109,8 @@
             <form role="form" action="/teacher/addTableOne" id="editstu" method="post">
                 <div class="col-md-15" style="font-size: 18px; padding: 10pt">
 
-                    <div style="width: 200px; display: inline-block; font-size: 15px " >
-                        <select class="form-control"  name="campusid" >
+                    <div style="width: 220px; display: inline-block; font-size: 15px " >
+                        <select class="selectpicker show-tick form-control" data-live-search="true"  name="campusid" >
                             <c:forEach items="${campusList}" var="item">
                                 <option value="${item.campusid}">${item.campusname}</option>
                             </c:forEach>
