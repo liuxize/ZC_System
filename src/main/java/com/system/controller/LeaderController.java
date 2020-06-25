@@ -1421,7 +1421,7 @@ public class LeaderController {
 
     //查看缴费的学生 表三的上课开始时间<=查询当天日期<=表三上课结束时间
     @RequestMapping(value = "/paidStudent", method = {RequestMethod.GET})
-    public String paidStudentUI(Model model, Integer page, Integer gradeid, Integer subjectid, Integer typeid) throws Exception {
+    public String paidStudentUI(Model model, Integer page, Integer gradeid, Integer subjectid, Integer typeid, Integer campusid) throws Exception {
 
         List<Grade> gradelist = gradeService.findAllGrade();
         List<com.system.po.Subject> subjectList = subjectService.findAllSubject();
@@ -1445,7 +1445,7 @@ public class LeaderController {
         //页码对象
         PagingVO pagingVO = new PagingVO();
 
-        pagingVO.setTotalCount(stuService.countPayStuBySelect(gradeid, subjectid, typeid));
+        pagingVO.setTotalCount(stuService.countPayStuBySelect(gradeid, subjectid, typeid, campusid));
         if (page == null || page == 0) {
             pagingVO.setCurentPageNo(1);
             pagingVO.setToPageNo(1);

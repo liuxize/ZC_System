@@ -33,6 +33,9 @@ public class UserloginServiceImpl implements UserloginService {
     @Autowired
     private TextMapper textMapper;
 
+    @Autowired
+    private CampusAuthMapper campusAuthMapper;
+
 
 
     public Userlogin findByName(String name) throws Exception {
@@ -143,68 +146,33 @@ public class UserloginServiceImpl implements UserloginService {
         return noteTableMapper.selectAllNoteTableByDicID(dicid);
     }
 
-    public void setTeacherPerssion(String teachername, GradeList gradeList) throws Exception {
-        if (gradeList.getGrade0() != null) {
-            permissionMapper.insert(teachername, gradeList.getGrade0());
-        }
-        if (gradeList.getGrade1() != null) {
-            permissionMapper.insert(teachername, gradeList.getGrade1());
-        }
-        if (gradeList.getGrade2() != null) {
-            permissionMapper.insert(teachername, gradeList.getGrade2());
-        }
-        if (gradeList.getGrade3() != null) {
-            permissionMapper.insert(teachername, gradeList.getGrade3());
-        }
-        if (gradeList.getGrade4() != null) {
-            permissionMapper.insert(teachername, gradeList.getGrade4());
-        }
-        if (gradeList.getGrade5() != null) {
-            permissionMapper.insert(teachername, gradeList.getGrade5());
-        }
-        if (gradeList.getGrade6() != null) {
-            permissionMapper.insert(teachername, gradeList.getGrade6());
-        }
-        if (gradeList.getGrade7() != null) {
-            permissionMapper.insert(teachername, gradeList.getGrade7());
-        }
-        if (gradeList.getGrade8() != null) {
-            permissionMapper.insert(teachername, gradeList.getGrade8());
-        }
-        if (gradeList.getGrade9() != null) {
-            permissionMapper.insert(teachername, gradeList.getGrade9());
-        }
-        if (gradeList.getGrade10() != null) {
-            permissionMapper.insert(teachername, gradeList.getGrade10());
-        }
-        if (gradeList.getGrade11() != null) {
-            permissionMapper.insert(teachername, gradeList.getGrade11());
-        }
-        if (gradeList.getGrade12() != null) {
-            permissionMapper.insert(teachername, gradeList.getGrade12());
-        }
-        if (gradeList.getGrade13() != null) {
-            permissionMapper.insert(teachername, gradeList.getGrade13());
-        }
-        if (gradeList.getGrade14() != null) {
-            permissionMapper.insert(teachername, gradeList.getGrade14());
-        }
-        if (gradeList.getGrade15() != null) {
-            permissionMapper.insert(teachername, gradeList.getGrade15());
-        }
-        if (gradeList.getGrade16() != null) {
-            permissionMapper.insert(teachername, gradeList.getGrade16());
-        }
-        if (gradeList.getGrade17() != null) {
-            permissionMapper.insert(teachername, gradeList.getGrade17());
+    public void setTeacherPerssion(String teachername, List<Integer> gradelist) throws Exception {
+
+        for(int i=0;i< gradelist.size();i++) {
+            permissionMapper.insert(teachername, gradelist.get(i));
         }
     }
+
+    public void setTeacherCampusPerssion(String teachername, List<Integer> campusList) throws Exception {
+
+        for(int i=0;i< campusList.size();i++) {
+            campusAuthMapper.insert(teachername, campusList.get(i));
+        }
+    }
+
+
 
     public void deleteTeacherPerssion(String teachername) throws Exception{
        // System.out.println("count"+permissionMapper.countByName(teachername));
        // if (permissionMapper.countByName(teachername)>0) {
             permissionMapper.deleteByName(teachername);
        // }
+    }
+
+    public void deleteTeacherCampusPerssion(String teachername) throws Exception{
+
+        campusAuthMapper.deleteByName(teachername);
+
     }
 
     public void updataPassword(String username, String password)  throws Exception{
@@ -224,6 +192,14 @@ public class UserloginServiceImpl implements UserloginService {
             return list;
    //     }
 
+    }
+
+    public List<Integer>  findTeacherCampusAuth(String username) throws Exception{
+        List<Integer>list= campusAuthMapper.selectCampusIdByName(username);
+        if (list.size() == 0) {
+            list.add(-1);
+        }
+        return list;
     }
 
     public List<NoteDic>  findNoteDic(Integer toPageNo, String username, Integer dictype) throws Exception {
@@ -260,6 +236,7 @@ public class UserloginServiceImpl implements UserloginService {
         noteTableMapper.clearNoteDicByName(username);
         noteTableMapper.clearNoteTableByName(username);
         textMapper.clearNoteTextByName(username);
+        campusAuthMapper.deleteByName(username);
     }
 
     public void updateDateRecord(Date date) throws Exception{

@@ -36,106 +36,39 @@
                     </div>
                 </div>
                 <div class="panel-body">
-                    <form class="form-horizontal" role="form" action="/admin/setPermission" id="EditPermision" method="post" style="text-align: center;font-size: 25px">
-                                    <input type="hidden" name="username" value="${username}">
-                                    <div>
-                                        <c:forEach items="${gradeList}" var="item">
-                                            <input type="checkbox" style="zoom:180%;"
-                                            value="${item.gradeid}">${item.gradename}
-                                        </c:forEach>
-                                    </div>
-                                    <div>
-                                        <input type="checkbox" style="zoom:180%;"
-                                               name="grade0"
-                                               value="${gradeList[0].gradeid}">${gradeList[0].gradename}
-                                        &nbsp; &nbsp;
-                                        <input type="checkbox" style="zoom:180%;"
-                                               name="grade1"
-                                               value="${gradeList[1].gradeid}">${gradeList[1].gradename}
-                                        &nbsp; &nbsp;
-                                        <input type="checkbox" style="zoom:180%;"
-                                               name="grade2"
-                                               value="${gradeList[2].gradeid}">${gradeList[2].gradename}
-                                    </div>
+<%--                    <form class="form-horizontal" role="form" action="/admin/setPermission" id="EditPermision" method="post" style="text-align: center;font-size: 25px">--%>
+                    <form  role="form" onsubmit="return false" action="#" id="EditPermision"  style="text-align: center;font-size: 25px">
+                        <input type="hidden" id="username" name="username" value="${username}">
+                        <h3 style="text-align: center;"> 校区权限 </h3>
+                        <div>
+                            <c:forEach items="${campusList}" var="item">
+                                <input type="checkbox" style="zoom:180%;" name="campus"
+                                       value="${item.campusid+500}">${item.campusname}
+                                <C:if test="${(item.campusid) % 4 == 0}">
+                                    <br>
+                                </C:if>
+                            </c:forEach>
+                        </div>
 
-                                    <div>
-                                        <input type="checkbox" style="zoom:180%;"
-                                               name="grade3"
-                                               value="${gradeList[3].gradeid}">${gradeList[3].gradename}
-                                        &nbsp; &nbsp;
-                                        <input type="checkbox" style="zoom:180%;"
-                                               name="grade4"
-                                               value="${gradeList[4].gradeid}">${gradeList[4].gradename}
-                                        &nbsp; &nbsp;
-                                        <input type="checkbox" style="zoom:180%;"
-                                               name="grade5"
-                                               value="${gradeList[5].gradeid}">${gradeList[5].gradename}
+                        <h3 style="text-align: center;"> 年级权限 </h3>
 
-                                    </div>
+                        <div>
+                            <c:forEach items="${gradeList}" var="item">
+                                <input type="checkbox" style="zoom:180%;" name="grade"
+                                       value="${item.gradeid}">${item.gradename}
+                                <C:if test="${(item.gradeid+1) % 4 == 0}">
+                                    <br>
+                                </C:if>
+                            </c:forEach>
+                        </div>
 
-                                    <div>
-
-                                        <input type="checkbox" style="zoom:180%;"
-                                               name="grade6"
-                                               value="${gradeList[6].gradeid}">${gradeList[6].gradename}
-                                        &nbsp; &nbsp;
-                                        <input type="checkbox" style="zoom:180%;"
-                                               name="grade7"
-                                               value="${gradeList[7].gradeid}">${gradeList[7].gradename}
-                                        &nbsp; &nbsp;
-                                        <input type="checkbox" style="zoom:180%;"
-                                               name="grade8"
-                                               value="${gradeList[8].gradeid}">${gradeList[8].gradename}
-                                    </div>
-
-                                    <div>
-
-                                        <input type="checkbox" style="zoom:180%;"
-                                               name="grade9"
-                                               value="${gradeList[9].gradeid}">${gradeList[9].gradename}
-                                        &nbsp; &nbsp;
-                                        <input type="checkbox" style="zoom:180%;"
-                                               name="grade10"
-                                               value="${gradeList[10].gradeid}">${gradeList[10].gradename}
-                                        &nbsp; &nbsp;
-                                        <input type="checkbox" style="zoom:180%;"
-                                               name="grade11"
-                                               value="${gradeList[11].gradeid}">${gradeList[11].gradename}
-
-                                    </div>
-                                    <div>
-                                        <input type="checkbox" style="zoom:180%;"
-                                               name="grade12"
-                                               value="${gradeList[12].gradeid}">${gradeList[12].gradename}
-                                        &nbsp; &nbsp;
-                                        <input type="checkbox" style="zoom:180%;"
-                                               name="grade13"
-                                               value="${gradeList[13].gradeid}">${gradeList[13].gradename}
-                                        &nbsp; &nbsp;
-                                        <input type="checkbox" style="zoom:180%;"
-                                               name="grade14"
-                                               value="${gradeList[14].gradeid}">${gradeList[14].gradename}
-
-                                    </div>
-                                    <div>
-                                        <input type="checkbox" style="zoom:180%;"
-                                               name="grade15"
-                                               value="${gradeList[15].gradeid}">${gradeList[15].gradename}
-                                        &nbsp; &nbsp;
-                                        <input type="checkbox" style="zoom:180%;"
-                                               name="grade16"
-                                               value="${gradeList[16].gradeid}">${gradeList[16].gradename}
-                                        &nbsp; &nbsp;
-                                        <input type="checkbox" style="zoom:180%;"
-                                                name="grade17"
-                                                value="${gradeList[17].gradeid}">${gradeList[17].gradename}
-                                    </div>
+                        <h3 style="text-align: center;"> 缴费权限 </h3>
 
                         <div>
                             <C:if test="${num==0}">
                                 <input type="checkbox" style="zoom:180%;" checked="checked"
                                        name="pay"
-                                       value="-1">已缴费
+                                       value="-2">已缴费
                                 &nbsp; &nbsp;
                                 <input type="checkbox" style="zoom:180%;"
                                        name="unpay"
@@ -143,13 +76,13 @@
                             </C:if>
 
                             <C:if test="${num==1}">
-                                <input type="checkbox" style="zoom:180%;" name="pay" value="-1">已缴费
+                                <input type="checkbox" style="zoom:180%;" name="pay" value="-2">已缴费
                                 &nbsp; &nbsp;
                                 <input type="checkbox" style="zoom:180%;"  name="unpay" value="-2" checked="checked">未缴费
                             </C:if>
 
                             <C:if test="${num==2}">
-                                <input type="checkbox" style="zoom:180%;" name="pay" value="-1" checked="checked">已缴费
+                                <input type="checkbox" style="zoom:180%;" name="pay" value="-2" checked="checked">已缴费
                                 &nbsp; &nbsp;
                                 <input type="checkbox" style="zoom:180%;"  name="unpay" value="-2" checked="checked">未缴费
                             </C:if>
@@ -162,7 +95,8 @@
 
                         <div style="height: 20px"></div>
                         <div class="form-group" style="text-align: center">
-                            <button class="btn btn-default" type="submit">提交</button>
+<%--                            <button class="btn btn-default" type="submit">提交</button>--%>
+                            <button class="btn btn-default" onclick="setPermission();">提交</button>
                         </div>
 
                     </form>
@@ -182,11 +116,85 @@
 <script type="text/javascript">
     $("#nav li:nth-child(1)").addClass("active")
 
-    $(document).ready(function () {
-        var r = ${permisionList};
-        for (var i = 0; i < r.length; i++) {
+    function setPermission() {
+        var id = document.getElementsByName('grade');
+        var value = new Array();
+        value.push('100000'); //防止传入空数组
+        for(var i = 0; i < id.length; i++){
+            if(id[i].checked)
+                value.push(id[i].value);
+        }
 
-            $("input[value='" + r[i] + "']").attr("checked", "checked");
+        var campusid = document.getElementsByName('campus');
+        var campuslst = new Array();
+        campuslst.push('100000'); //防止传入空数组
+        for(var j = 0; j < campusid.length; j++){
+            if(campusid[j].checked)
+                campuslst.push(campusid[j].value);
+        }
+        //alert(campuslst)
+
+        var pay_val = '0';
+        var unpay_val = '0';
+        var pays = document.getElementsByName('pay');
+        if(pays[0].checked)
+            pay_val = $("input[name='pay']").val()
+            //alert($("input[name='pay']").val());
+
+        var unpays = document.getElementsByName('unpay');
+        if(unpays[0].checked)
+            unpay_val = $("input[name='unpay']").val()
+            //alert($("input[name='unpay']").val());
+
+        var username = document.getElementById("username").value;
+        var data1 = JSON.stringify({'permission': value.toString(),"pay_val":pay_val,"unpay_val":unpay_val, "username":username, "campuslst": campuslst.toString()});
+
+        //alert(data1)
+
+
+
+        $.ajax({
+            type : "POST",
+            url : "/admin/setPermission1",
+            dataType : 'json',
+                //;charset=UTF-8",
+            //contentType:'application/json; charset=utf-8',
+            data : JSON.stringify(data1),
+            contentType: "application/json;charset=utf-8",
+            success: function(result){
+            }
+
+        })
+
+
+
+        // $.ajax({
+        //     type: "POST",
+        //     url: "/admin/setPermission",
+        //     data: JSON.stringify(data),
+        //     contentType: "application/json",  //发送到后台的数据格式
+        //     data_type: "json",  // 接收后端返回的数据格式
+        //     success: function (data) {
+        //         // if (resp.error == "OK") {
+        //         //     console.log('分享成功')
+        //         // } else {
+        //         //     console.log('分享失败')
+        //         // }
+        //     }
+        // })
+    };
+
+
+    $(document).ready(function () {
+        var gradeAuth = ${permisionList};
+        for (var i = 0; i < gradeAuth.length; i++) {
+            $("input[value='" + gradeAuth[i] + "']").attr("checked", "checked");
+        }
+
+        var campusAuth = ${campusAuthlist};
+        for (var i = 0; i < campusAuth.length; i++) {
+            var campusAuthid = campusAuth[i]+500
+            $("input[value='" + campusAuthid + "']").attr("checked", "checked");
         }
 
 

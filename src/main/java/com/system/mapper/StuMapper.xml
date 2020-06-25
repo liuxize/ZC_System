@@ -578,9 +578,13 @@
     </update>
 
     <!--已缴费学生的数量  （全部年级 全部学科 全部类型）-->
-    <select id="countStuByPayStu" resultType="java.lang.Integer" >
-        select count(*) from lesson
+    <select id="countStuByPayStu" parameterType="java.lang.Integer" resultType="java.lang.Integer" >
+        select count(*) from lesson, stu
         WHERE
+        stu.campusID  = #{campusid,jdbcType=INTEGER}
+        And
+        stu.stuID = lesson.stuID
+        AND
         DATEDIFF(CAST(DATE_FORMAT(lesson.lessonEnd,'%y-%m-%d')AS DATE),CAST(DATE_FORMAT(NOW(),'%y-%m-%d') AS DATE)) >= 0
         AND
         DATEDIFF(CAST(DATE_FORMAT(NOW(),'%y-%m-%d')AS DATE),CAST(DATE_FORMAT(lesson.lessonStart,'%y-%m-%d') AS DATE)) >= 0
@@ -590,6 +594,8 @@
     <select id="countPayBySubAndType" resultType="java.lang.Integer" >
         select count(*) from lesson,stu
         WHERE
+        stu.campusID = #{2}
+        And
         stu.stuID = lesson.stuID
         AND
         lesson.subjectID = #{0}
@@ -606,6 +612,8 @@
     <select id="countPayByGradeAndType" resultType="java.lang.Integer" >
         select count(*) from lesson,stu
         WHERE
+        stu.campusID = #{2}
+        And
         stu.stuID = lesson.stuID
         AND
         stu.gradeID = #{0}
@@ -621,6 +629,8 @@
     <select id="countPayByGradeAndSub" resultType="java.lang.Integer" >
         select count(*) from lesson,stu
         WHERE
+        stu.campusID = #{2}
+        And
         stu.stuID = lesson.stuID
         AND
         stu.gradeID = #{0}
@@ -636,9 +646,11 @@
     <select id="countPayByGrade" resultType="java.lang.Integer" >
         select count(*) from lesson,stu
         WHERE
+        stu.campusID = #{1}
+        And
         stu.stuID = lesson.stuID
         AND
-        stu.gradeID = #{gradeid, jdbcType=INTEGER}
+        stu.gradeID = #{0}
         AND
         DATEDIFF(CAST(DATE_FORMAT(lesson.lessonEnd,'%y-%m-%d')AS DATE),CAST(DATE_FORMAT(NOW(),'%y-%m-%d') AS DATE)) >= 0
         AND
@@ -649,9 +661,11 @@
     <select id="countPayBySub" resultType="java.lang.Integer" >
         select count(*) from lesson,stu
         WHERE
+        stu.campusID = #{1}
+        And
         stu.stuID = lesson.stuID
         AND
-        lesson.subjectID = #{subjectid, jdbcType=INTEGER}
+        lesson.subjectID = #{0}
         AND
         DATEDIFF(CAST(DATE_FORMAT(lesson.lessonEnd,'%y-%m-%d')AS DATE),CAST(DATE_FORMAT(NOW(),'%y-%m-%d') AS DATE)) >= 0
         AND
@@ -662,9 +676,11 @@
     <select id="countPayByType" resultType="java.lang.Integer" >
         select count(*) from lesson,stu
         WHERE
+        stu.campusID = #{1}
+        And
         stu.stuID = lesson.stuID
         AND
-        lesson.typeID = #{typeid, jdbcType=INTEGER}
+        lesson.typeID = #{0}
         AND
         DATEDIFF(CAST(DATE_FORMAT(lesson.lessonEnd,'%y-%m-%d')AS DATE),CAST(DATE_FORMAT(NOW(),'%y-%m-%d') AS DATE)) >= 0
         AND

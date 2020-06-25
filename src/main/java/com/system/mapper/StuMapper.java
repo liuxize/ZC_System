@@ -141,19 +141,19 @@ public interface StuMapper {
     int updataGradeDec();
 
     //已缴费学生的数量  （全部年级，全部学科 全部类型）
-    int countStuByPayStu();
+    int countStuByPayStu(Integer campusid);
     //已缴费学生的数量  （学科 类型）
-    int countPayBySubAndType(Integer subjectid, Integer typeid);
+    int countPayBySubAndType(Integer subjectid, Integer typeid, Integer campusid);
     //已缴费学生的数量 （年级 类型）
-    int countPayByGradeAndType( Integer gradeid, Integer typeid);
+    int countPayByGradeAndType( Integer gradeid, Integer typeid, Integer campusid);
     //已缴费学生的数量（年级 学科）
-    int countPayByGradeAndSub(Integer gradeid,Integer subjectid);
+    int countPayByGradeAndSub(Integer gradeid,Integer subjectid, Integer campusid);
     //已缴费学生的数量（年级）
-    int countPayByGrade(Integer gradeid);
+    int countPayByGrade(Integer gradeid,  Integer campusid);
     //已缴费学生的数量（学科）
-    int countPayBySub(Integer subjectid);
+    int countPayBySub(Integer subjectid,  Integer campusid);
     //已缴费学生的数量（类型）
-    int countPayByType(Integer typeid);
+    int countPayByType(Integer typeid,  Integer campusid);
     //已缴费学生的数量（年级 学科 类型）
     int countPayByGradeSubType(Integer gradeid, Integer subjectid, Integer typeid);
 

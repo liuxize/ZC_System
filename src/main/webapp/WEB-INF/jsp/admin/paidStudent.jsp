@@ -20,7 +20,9 @@
     <!-- 引入JQuery  bootstrap.js-->
     <script src="/js/jquery-3.2.1.min.js"></script>
     <script src="/js/bootstrap.min.js"></script>
-
+    <!-- bootstrap-select -->
+    <link rel="stylesheet"  href="/css/bootstrap-select.min.css">
+    <script src="/js/bootstrap-select.min.js"></script>
     <%--<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">--%>
 
 </head>
@@ -33,71 +35,107 @@
         <div class="col-md-12">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <div class="row">
-                        <h1 class="col-md-5">已缴费学员</h1>
+                    <div class="row ">
+
+                        <h1 class="col-md-3 ">已缴费学员</h1>
                         <p>
-                            <button class="btn btn-warning" style="margin: 30px 0 10px 0; float:right;"
+                            <button class="btn btn-warning" style="margin: 30px 10px 10px 10px; float:right;"
                                     onClick="saveAsExcelFile()">
                                 打印信息
                                 <sapn class="glyphicon glyphicon-align-justify"/>
                             </button>
                         </p>
 
-                        <form class="bs-example bs-example-form col-md-5" role="form"
-                              style="margin: 20px 0 10px 0; float:right;"
+
+
+                        <form class=" bs-example bs-example-form " role="form"
+                              style="margin: 20px 0 10px 10px; float:right;"
                               action="/admin/paidStudent" id="form1" method="post">
 
                             <div class="form-inline" style="float: right">
-                                年级
 
-                                <select class="form-control" name="gradeid" style="width: 90px">
-                                    <c:forEach items="${gradeList}" var="item">
-                                        <c:choose>
-                                            <c:when test="${item.gradeid==gradeIndex}">
-                                                <option value="${item.gradeid}"
-                                                        selected="selected">${item.gradename}</option>
-                                            </c:when>
-                                            <c:otherwise>
-                                                <option value="${item.gradeid}">${item.gradename}</option>
-                                            </c:otherwise>
-                                        </c:choose>
-                                    </c:forEach>
-                                </select>
+                                校区
+                                <div class="form-group" style="width: 220px">
+
+                                    <select class="selectpicker show-tick form-control" data-live-search="true" name="typeid" >
+                                        <c:forEach items="${campusList}" var="item">
+                                            <c:choose>
+                                                <c:when test="${item.campusid==campusIndex}">
+                                                    <option value="${item.campusid}"
+                                                            selected="selected">${item.campusname}</option>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <option value="${item.campusid}">${item.campusname}</option>
+                                                </c:otherwise>
+                                            </c:choose>
+                                        </c:forEach>
+                                    </select>
+                                </div>
+
+                                年级
+                                <div class="form-group">
+
+                                    <select class="selectpicker show-tick form-control" data-live-search="true"
+                                            name="gradeid" >
+                                        <c:forEach items="${gradeList}" var="item">
+                                            <c:choose>
+                                                <c:when test="${item.gradeid==gradeIndex}">
+                                                    <option value="${item.gradeid}"
+                                                            selected="selected">${item.gradename}</option>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <option value="${item.gradeid}">${item.gradename}</option>
+                                                </c:otherwise>
+                                            </c:choose>
+                                        </c:forEach>
+                                    </select>
+                                </div>
 
                                 科目
-                                <select class="form-control" name="subjectid" style="width: 90px">
-                                    <c:forEach items="${subjectList}" var="item">
-                                        <c:choose>
-                                            <c:when test="${item.subjectid==subjectIndex}">
-                                                <option value="${item.subjectid}"
-                                                        selected="selected">${item.subjectname}</option>
-                                            </c:when>
-                                            <c:otherwise>
-                                                <option value="${item.subjectid}">${item.subjectname}</option>
-                                            </c:otherwise>
-                                        </c:choose>
-                                    </c:forEach>
-                                </select>
+                                <div class="form-group" style="width: 100px">
+
+                                    <select class="selectpicker show-tick form-control" data-live-search="true"
+                                            name="subjectid">
+                                        <c:forEach items="${subjectList}" var="item">
+                                            <c:choose>
+                                                <c:when test="${item.subjectid==subjectIndex}">
+                                                    <option value="${item.subjectid}"
+                                                            selected="selected">${item.subjectname}</option>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <option value="${item.subjectid}">${item.subjectname}</option>
+                                                </c:otherwise>
+                                            </c:choose>
+                                        </c:forEach>
+                                    </select>
+                                </div>
 
                                 类型
-                                <select class="form-control" name="typeid" style="width: 90px">
-                                    <c:forEach items="${classTypeList}" var="item">
-                                        <c:choose>
-                                            <c:when test="${item.typeid==typeIndex}">
-                                                <option value="${item.typeid}"
-                                                        selected="selected">${item.typename}</option>
-                                            </c:when>
-                                            <c:otherwise>
-                                                <option value="${item.typeid}">${item.typename}</option>
-                                            </c:otherwise>
-                                        </c:choose>
-                                    </c:forEach>
-                                </select>
+                                <div class="form-group" style="width: 100px">
+
+                                    <select class="selectpicker show-tick form-control" data-live-search="true" name="typeid" >
+                                        <c:forEach items="${classTypeList}" var="item">
+                                            <c:choose>
+                                                <c:when test="${item.typeid==typeIndex}">
+                                                    <option value="${item.typeid}"
+                                                            selected="selected">${item.typename}</option>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <option value="${item.typeid}">${item.typename}</option>
+                                                </c:otherwise>
+                                            </c:choose>
+                                        </c:forEach>
+                                    </select>
+                                </div>
+                                <div class="form-group">
 
                                 <button class="btn btn-default" type="submit">查找</button>
+                                </div>
                             </div>
 
                         </form>
+
+
 
                     </div>
                 </div>

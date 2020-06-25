@@ -56,19 +56,28 @@ public interface UserloginService {
     //全部获取
     List<NoteTable> findAllNoteTableByDicID(Integer dicid) throws Exception;
 
-    //添加教师权限信息
-    void setTeacherPerssion(String teachername, GradeList gradeList)  throws Exception;
+    //添加教师年级权限信息
+    void setTeacherPerssion(String teachername, List<Integer> gradelist)  throws Exception;
 
-    //删除教师权限
+    //添加教师校区权限信息
+    void setTeacherCampusPerssion(String teachername, List<Integer> campusList)  throws Exception;
+
+    //删除教师年级权限
     void deleteTeacherPerssion(String teachername) throws Exception;
+
+    //删除教师学校权限
+    void deleteTeacherCampusPerssion(String teachername) throws Exception;
     //获取全部用户
    // List<UserloginCustom> findAll() throws Exception;
 
     //更新用户密码
     void updataPassword(String username, String password)  throws Exception;
 
-    //查看教师权限
+    //查看教师年级权限
     List<Integer>  findTeacherPerssion(String username) throws Exception;
+
+    //查看教师校区权限
+    List<Integer>  findTeacherCampusAuth(String username) throws Exception;
 
     //获取记事表格目录
     List<NoteDic>  findNoteDic(Integer toPageNo, String username,Integer dictype) throws Exception;

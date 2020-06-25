@@ -3,7 +3,7 @@
 <mapper namespace="com.system.mapper.PermissionMapper" >
 
     <insert id="insert">
-        insert into permission (teachername, gradeID)
+        insert into permission (teacherName, gradeID)
         values (#{0}, #{1})
     </insert>
 

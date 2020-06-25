@@ -68,7 +68,7 @@
                                                 <label for="inputPassword3" class="col-sm-2 control-label">姓名</label>
                                                 <div class="col-sm-9">
                                                     <input type="text" class="form-control" id="inputPassword3"
-                                                           name="username" placeholder="请输入姓名">
+                                                           name="username" required="required" placeholder="请输入姓名">
                                                 </div>
                                             </div>
 
@@ -76,14 +76,14 @@
                                                 <label for="inputPassword3" class="col-sm-2 control-label">密码</label>
                                                 <div class="col-sm-9">
                                                     <input type="text" class="form-control" id="inputPassword4"
-                                                           name="password" placeholder="请输入密码">
+                                                           name="password" required="required" placeholder="请输入密码">
                                                 </div>
                                             </div>
 
                                             <div class="form-group">
                                                 <label for="inputbirth" class="col-sm-2 control-label">生日</label>
                                                 <div class="col-sm-9">
-                                                    <input type="Date" class="form-control"  max="9999-12-31" id="inputbirth"
+                                                    <input type="Date" class="form-control" required="required" max="9999-12-31" id="inputbirth"
                                                            name="userbirth">
                                                 </div>
                                             </div>
@@ -91,8 +91,8 @@
                                             <div class="form-group">
                                                 <label for="inputPassword3" class="col-sm-2 control-label" name="role">职位</label>
                                                 <div class="col-sm-9">
-                                                    <select class="form-control" name="role" id="role"
-                                                            onChange="show()">
+                                                    <select class="form-control" name="role" id="role">
+<%--                                                            onChange="show()">--%>
                                                         <c:forEach items="${roleList}" var="item">
                                                             <option value="${item.roleid}">${item.permissions}</option>
                                                         </c:forEach>
@@ -385,7 +385,7 @@
 <script type="text/javascript">
     $("#nav6").addClass("active");
 
-    function show() {
+    function show() {  //编辑权限
         if ($("#role").val() ==${0}) {
             document.getElementById("div").style.display = "none";
         }

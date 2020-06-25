@@ -303,9 +303,9 @@ public class StuServiceImpl implements StuService {
         return stuMapper.countStuByBirth();
     }
 
-    public int getCountByPayStu() throws Exception {
+    public int getCountByPayStu(Integer campusid) throws Exception {
 
-        return stuMapper.countStuByPayStu();
+        return stuMapper.countStuByPayStu(campusid);
     }
 
     //统计未缴费学生人数
@@ -541,27 +541,27 @@ public class StuServiceImpl implements StuService {
     }
 
 
-    public int countPayStuBySelect(Integer gradeid, Integer subjectid, Integer typeid) throws  Exception{
+    public int countPayStuBySelect(Integer gradeid, Integer subjectid, Integer typeid, Integer campusid) throws  Exception{
         if(gradeid==-1 && subjectid !=-1 && typeid!=-1) {    //学科 类型
-            return stuMapper.countPayBySubAndType(subjectid, typeid);
+            return stuMapper.countPayBySubAndType(subjectid, typeid, campusid);
         }
         else if (gradeid!=-1 && subjectid ==-1 && typeid!=-1){    //年级 类型
-            return stuMapper.countPayByGradeAndType(gradeid,typeid);
+            return stuMapper.countPayByGradeAndType(gradeid,typeid, campusid);
         }
         else if(gradeid!=-1 && subjectid !=-1 && typeid==-1){ //年级 学科
-            return stuMapper.countPayByGradeAndSub(gradeid,subjectid);
+            return stuMapper.countPayByGradeAndSub(gradeid,subjectid, campusid);
         }
         else if(gradeid!=-1 && subjectid ==-1 && typeid==-1){  //年级
-            return stuMapper.countPayByGrade(gradeid);
+            return stuMapper.countPayByGrade(gradeid, campusid);
         }
         else if(gradeid==-1 && subjectid !=-1 && typeid==-1){  //学科
-           return stuMapper.countPayBySub(subjectid);
+           return stuMapper.countPayBySub(subjectid, campusid);
         }
         else if(gradeid==-1 && subjectid ==-1 && typeid!=-1){  //类型
-            return stuMapper.countPayByType(typeid);
+            return stuMapper.countPayByType(typeid, campusid);
         }
         else if(gradeid==-1 && subjectid ==-1 && typeid==-1){  //全部
-           return stuMapper.countStuByPayStu();
+           return stuMapper.countStuByPayStu(campusid);
         }
         else {  //学科 类型 类型
             return stuMapper.countPayByGradeSubType(gradeid,subjectid,typeid);

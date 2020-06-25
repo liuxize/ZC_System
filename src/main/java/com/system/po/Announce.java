@@ -3,6 +3,8 @@ package com.system.po;
 public class Announce {
     private Integer annid;
     private String anntitle;
+    private String anncon;
+    private Integer isread;
 
 
     public Integer getAnnid() {
@@ -19,6 +21,22 @@ public class Announce {
 
     public void setAnntitle(String anntitle) {
         this.anntitle = anntitle;
+    }
+
+    public String getAnncon() {
+        return anncon;
+    }
+
+    public void setAnncon(String anncon) {
+        this.anncon = anncon;
+    }
+
+    public Integer getIsread() {
+        return isread;
+    }
+
+    public void setIsread(Integer isread) {
+        this.isread = isread;
     }
 
 

@@ -86,7 +86,7 @@
 
 
                                 <button type="button" class="btn btn-danger  btn-xs"
-                                        onclick="deleteCampus('${item.campusid}')">删除学校名称
+                                        onclick="deleteCampus('${item.campusid}')">删除校区名称
                                 </button>
 
 

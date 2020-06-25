@@ -31,7 +31,7 @@
 
                     <li class="dropdown" id="nav4">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            缴费情况
+                            学员类别
                             <b class="caret"></b>
                         </a>
                         <ul class="dropdown-menu">

@@ -3,6 +3,8 @@ package com.system.controller;
 import com.system.exception.CustomException;
 import com.system.po.*;
 import com.system.service.*;
+import net.sf.json.JSONObject;
+
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
@@ -15,8 +17,7 @@ import org.apache.shiro.subject.Subject;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
@@ -28,13 +29,8 @@ import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Base64;
+import java.util.*;
 
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
@@ -127,7 +123,7 @@ public class AdminController {
         }
 
         userloginService.save(userloginCustom);
-        userloginService.setTeacherPerssion(userloginCustom.getUsername(), gradelist);
+        //userloginService.setTeacherPerssion(userloginCustom.getUsername(), gradelist);
 
         //重定向
         return "redirect:/admin/showUsers";
@@ -153,46 +149,87 @@ public class AdminController {
         //清空表格记事本的具体表格  根据姓名
         //清空文本记事本  根据姓名
         //清空年纪权限 根据姓名
+        //清空校区权限 根据姓名
 
         return "redirect:/admin/showUsers?page=" + currentPage;
     }
+
 
     //设置教师权限
     @RequestMapping(value = "/setPermission", method = {RequestMethod.GET})
     public String setPermissionUI(Model model, String username) throws Exception {
 
         String name = URLDecoder.decode(username, "utf-8");
-        List<Integer> list = userloginService.findTeacherPerssion(name);
+        List<Integer> list = userloginService.findTeacherPerssion(name); //年级权限
+        List<Integer> campusAuthlist = userloginService.findTeacherCampusAuth(name); // 校区权限
         Userlogin user = userloginService.findUser(name);
+        List<Campus> campusList = campusService.findAllCampus(); // 校区
+        List<Grade> gradelist = gradeService.findAllGrade();
         Integer num = user.getPermission();  //0缴费 1未缴费 2 全部
 
-        model.addAttribute("permisionList", list);
-        List<Grade> gradelist = gradeService.findAllGrade();
+        model.addAttribute("campusAuthlist", campusAuthlist);
+        model.addAttribute("campusList", campusList);  // 校区
+        model.addAttribute("permisionList", list); // 年级权限
         model.addAttribute("gradeList", gradelist);
-
         model.addAttribute("num", num);
         model.addAttribute("username", name);
 
         return "admin/setPermission";
     }
 
-    @RequestMapping(value = "/setPermission", method = {RequestMethod.POST})
-    public String setPermission(String username, GradeList gradelist, Integer pay, Integer unpay) throws Exception {
 
-        if (unpay == null && pay != null) {
+    @RequestMapping(value = "/setPermission1", method = {RequestMethod.POST})
+    @ResponseBody
+    public String setPermission(@RequestBody String data) throws Exception {
+        System.out.println(data);
+        String[] temp = data.split("\\\\\"");
+//        for(String x :  temp) {
+//            System.out.println(x);
+//            System.out.println('\n');
+//        }
+
+        String[] permission_arr = temp[3].split(",");
+        List<Integer> gradelist = new ArrayList<Integer>();
+        for(int i=1;i< permission_arr.length;i++) { //去掉无用的头元素10000
+            gradelist.add(Integer.parseInt(permission_arr[i]));
+        }
+        String pay = temp[7];  //已缴费
+        String unpay  = temp[11];  //未缴费
+        String username  = temp[15];
+        String[] campusAuth_arr = temp[19].split(",");
+
+        List<Integer> campusAuthlist = new ArrayList<Integer>();
+        for(int i=1;i< campusAuth_arr.length;i++) { //去掉无用的头元素10000
+            campusAuthlist.add(Integer.parseInt(campusAuth_arr[i])-500);
+        }
+ //       System.out.println(campusAuthlist);
+//        System.out.println(gradelist);
+//        System.out.println(pay);
+//        System.out.println(unpay);
+//        System.out.println(username);
+
+
+         //unpay  pay '-2' 表示选中， '0'表示没有选
+        if (unpay.equals("0") && pay.equals("-2")) {
+            //System.out.println("sa");
             userloginService.updateUserPermission(username, 0);   //缴费
-        } else if (unpay != null && pay == null) {     //未缴费
+        } else if (unpay.equals("-2") && pay.equals("0")) {     //未缴费
+            //.out.println("bi");
             userloginService.updateUserPermission(username, 1);
         } else {                                 //都可以
             userloginService.updateUserPermission(username, 2);
         }
 
         userloginService.deleteTeacherPerssion(username);
+        userloginService.deleteTeacherCampusPerssion(username);
 
         userloginService.setTeacherPerssion(username, gradelist);
+        userloginService.setTeacherCampusPerssion(username, campusAuthlist);
 
+
+//
         String urlname = URLEncoder.encode(username, "utf-8");
-        //重定向
+//        //重定向
         return "redirect:/admin/setPermission?username=" + urlname;
 
     }
@@ -791,7 +828,7 @@ public class AdminController {
         if (checkdate != null) {
             datestring = datetype.format(checkdate);
         }
-        System.out.println("dateString" + datestring);
+        //System.out.println("dateString" + datestring);
         stuService.addCheckDateByID(stuid, addcheckdate, datestring);
         signService.changeCheckDate(stuid);
         String encodeID = Base64.getEncoder().encodeToString(stuid.toString().getBytes(StandardCharsets.UTF_8));
@@ -1593,7 +1630,7 @@ public class AdminController {
     // 缴费提醒删除
     @RequestMapping(value = "/removeRemindPay", method = {RequestMethod.GET})
     private String removeRemindPay(Integer id, Integer currentPage) throws Exception {
-        System.out.println(id);
+        //System.out.println(id);
         remindService.removeRemindPay(id);
 
         return "redirect:/admin/remindPay?page=" + currentPage;
@@ -1731,11 +1768,15 @@ public class AdminController {
     /*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<缴费情况开始>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
     //查看缴费的学生 表三的上课开始时间<=查询当天日期<=表三上课结束时间
     @RequestMapping(value = "/paidStudent", method = {RequestMethod.GET})
-    public String paidStudentUI(Model model, Integer page, Integer gradeid, Integer subjectid, Integer typeid) throws Exception {
-
+    public String paidStudentUI(Model model, Integer page, Integer gradeid, Integer subjectid, Integer typeid, Integer campusid ) throws Exception {
+        List<Campus> campusList = campusService.findAllCampus();
         List<Grade> gradelist = gradeService.findAllGrade();
         List<com.system.po.Subject> subjectList = subjectService.findAllSubject();
         List<ClassType> classTypeList = classTypeService.findAllClassType();
+//        Campus campus = new Campus();
+//        campus.setCampusid(-1);
+//        campus.setCampusname("全部");
+//        campusList.add(0,campus);
         Grade grade = new Grade();
         grade.setGradeid(-1);
         grade.setGradename("全部");
@@ -1748,6 +1789,7 @@ public class AdminController {
         classType.setTypeid(-1);
         classType.setTypename("全部");
         classTypeList.add(0, classType);
+        model.addAttribute("campusList", campusList);
         model.addAttribute("gradeList", gradelist);
         model.addAttribute("subjectList", subjectList);
         model.addAttribute("classTypeList", classTypeList);
@@ -1755,7 +1797,7 @@ public class AdminController {
         //页码对象
         PagingVO pagingVO = new PagingVO();
 
-        pagingVO.setTotalCount(stuService.countPayStuBySelect(gradeid, subjectid, typeid));
+        pagingVO.setTotalCount(stuService.countPayStuBySelect(gradeid, subjectid, typeid, campusid));
         if (page == null || page == 0) {
             pagingVO.setCurentPageNo(1);
             pagingVO.setToPageNo(1);
@@ -1771,6 +1813,7 @@ public class AdminController {
         model.addAttribute("gradeIndex", gradeid);
         model.addAttribute("subjectIndex", subjectid);
         model.addAttribute("typeIndex", typeid);
+        model.addAttribute("campusIndex", campusid);
 
         return "admin/paidStudent";
     }
