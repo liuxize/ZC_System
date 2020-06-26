@@ -59,7 +59,7 @@
                         <th width="10%">序号</th>
                         <th width="15%">学号</th>
                         <th width="20%">姓名</th>
-                        <th width="10%">年级</th>
+                        <th width="10%">状态</th>
                         <th width="20%">电话</th>
                         <th width="25%">操作</th>
                     </tr>

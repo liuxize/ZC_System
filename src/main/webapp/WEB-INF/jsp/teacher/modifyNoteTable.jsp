@@ -51,7 +51,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="inputPassword3" class="col-sm-2 control-label" name="role">年级</label>
+                            <label for="inputPassword3" class="col-sm-2 control-label" name="role">状态</label>
                             <div class="col-sm-10">
                                 <select class="form-control" name="stugrade" style="width: 150px">
                                     <c:forEach items="${gradeList}" var="item">

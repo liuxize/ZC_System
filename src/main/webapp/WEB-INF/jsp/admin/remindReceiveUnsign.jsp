@@ -46,7 +46,7 @@
                             <th style="width:5%">序号</th>
                             <th style="width: 15%">姓名</th>
                             <th style="width: 27%">学校</th>
-                            <th style="width: 13%">年级</th>
+                            <th style="width: 13%">状态</th>
                             <th style="width: 25%">电话</th>
                             <th>操作</th>
                         </tr>

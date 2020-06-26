@@ -45,7 +45,7 @@
                         <th style="width:5%">序号</th>
                         <th style="width: 7%">姓名</th>
                         <th style="width: 15%">学校</th>
-                        <th style="width: 7%">年级</th>
+                        <th style="width: 7%">状态</th>
                         <th style="width: 8%">科目</th>
                         <th style="width: 8%">类型</th>
                         <th style="width: 10%">时间</th>

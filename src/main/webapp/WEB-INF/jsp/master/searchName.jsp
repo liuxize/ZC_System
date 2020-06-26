@@ -51,7 +51,7 @@
                     <tr>
                         <th width="10%">学号</th>
                         <th>姓名</th>
-                        <th>年级</th>
+                        <th>状态</th>
                         <th>电话</th>
                         <th width="15%">操作</th>
 

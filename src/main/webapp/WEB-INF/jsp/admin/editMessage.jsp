@@ -151,7 +151,7 @@
                             </c:forEach>
                             </select>
                         </td>
-                        <td style="width: 6%;">年级</td>
+                        <td style="width: 6%;">状态</td>
                         <td style="width: 15%;">
                             <select class="form-control" name="gradeid">
                                 <c:forEach items="${gradeList}" var="item">

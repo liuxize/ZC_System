@@ -68,7 +68,7 @@
                         <th width="10%">序号</th>
                         <th width="15%">学号</th>
                         <th width="20%">姓名</th>
-                        <th width="10%">年级</th>
+                        <th width="10%">状态</th>
                         <th width="20%">电话</th>
                         <th width="25%">操作</th>
                     </tr>
@@ -212,7 +212,7 @@
             data[k]=new Array();    //声明二维，每一个一维数组里面的一个元素都是一个数组
 
         }
-        data[0] =  ["序号", "姓名", "学校", "年级", "电话", "备注"];
+        data[0] =  ["序号", "姓名", "学校", "状态", "电话", "备注"];
 
         <c:forEach items="${allStuList}" var="item" varStatus="status" >
         data[${status.index+1}]=[ ${status.index+1},'${item.stuname}','${item.school}','${item.gradename}',

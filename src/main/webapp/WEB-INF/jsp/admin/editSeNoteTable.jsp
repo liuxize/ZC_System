@@ -51,7 +51,7 @@
                         <th style="width:4%">序号</th>
                         <th style="width: 8%">姓名</th>
                         <th style="width: 10%;">学校</th>
-                        <th style="width:5%">年级</th>
+                        <th style="width:5%">状态</th>
                         <th style="width: 10%">课程</th>
 
                         <th>备注</th>
@@ -195,7 +195,7 @@
             data[k]=new Array();    //声明二维，每一个一维数组里面的一个元素都是一个数组
 
         }
-        data[0] =  ["序号", "姓名", "学校", "年级", "课程", "备注"];
+        data[0] =  ["序号", "姓名", "学校", "状态", "课程", "备注"];
 
         <c:forEach items="${allNoteTableList}" var="item" varStatus="status" >
         data[${status.index+1}]=[ ${status.index+1},'${item.stuname}','${item.stuschool}','${item.stugrade}','${item.stucourse}', '${item.remarktext}'];

@@ -255,7 +255,7 @@
 
                                 <c:if test="${item.role==0}">
                                     <button type="button"  class="btn btn-default btn-info btn-xs "
-                                            onclick="confirmd()">更新年级
+                                            onclick="confirmd()">更新状态
                                     </button>
                                     &nbsp; &nbsp;
                                 </c:if>

@@ -40,7 +40,7 @@
                         <th style="width:5%">序号</th>
                         <th style="width:15%">姓名</th>
                         <th style="width:25%">学校</th>
-                        <th style="width: 10%">年级</th>
+                        <th style="width: 10%">状态</th>
                         <th style="width: 10%">电话</th>
                         <th style="width: 15%">操作</th>
                     </tr>

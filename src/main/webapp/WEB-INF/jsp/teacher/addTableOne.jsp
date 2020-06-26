@@ -150,7 +150,7 @@
                                 </c:forEach>
                             </select>
                         </td>
-                        <td style="width: 50px">年级</td>
+                        <td style="width: 50px">状态</td>
                         <td>
                             <select class="selectpicker show-tick form-control" data-live-search="true" name="gradeid">
                                 <c:forEach items="${gradeList}" var="item">

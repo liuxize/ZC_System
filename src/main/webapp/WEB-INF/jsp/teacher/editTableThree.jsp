@@ -59,7 +59,7 @@
                     <td style="width: 14%;">${stumessage.stuname}</td>
                     <td style="width: 8%;">所在学校</td>
                     <td colspan="3">${stumessage.school}</td>
-                    <td>年级</td>
+                    <td>状态</td>
                     <td  colspan="2" >${stumessage.gradename}</td>
                 </tr>
 

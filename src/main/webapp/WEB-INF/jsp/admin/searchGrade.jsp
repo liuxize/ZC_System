@@ -12,7 +12,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>年级查询</title>
+    <title>状态查询</title>
     <link rel="shortcut icon" type="image/x-icon" href="/images/logo-dt.png" media="screen">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- 引入bootstrap -->
@@ -34,7 +34,7 @@
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <div class="row">
-                        <h1 class="col-md-5">年级查询</h1>
+                        <h1 class="col-md-5">状态查询</h1>
                         <button class="btn btn-warning" style="margin: 20px 10px 10px 10px; float:right;"
                                 onClick="saveAsExcelFile1()">
                             打印信息
@@ -70,7 +70,7 @@
                         <th width="10%">序号</th>
                         <th width="15%">学号</th>
                         <th width="20%">姓名</th>
-                        <th width="10%">年级</th>
+                        <th width="10%">状态</th>
                         <th width="20%">电话</th>
                         <th width="25%">操作</th>
                     </tr>
@@ -213,7 +213,7 @@
             data[k]=new Array();    //声明二维，每一个一维数组里面的一个元素都是一个数组
 
         }
-        data[0] =  ["序号", "姓名", "学校", "年级", "电话", "备注"];
+        data[0] =  ["序号", "姓名", "学校", "状态", "电话", "备注"];
 
         <c:forEach items="${allStuList}" var="item" varStatus="status" >
         data[${status.index+1}]=[ ${status.index+1},'${item.stuname}','${item.school}','${item.gradename}',

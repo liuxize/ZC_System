@@ -48,7 +48,7 @@
                               action="/admin/prePayStu" id="form1" method="post">
 
                             <div class="form-inline" style="float: right">
-                                年级
+                                状态
 
                                 <select class="form-control" name="gradeid" style="width: 90px">
                                     <c:forEach items="${gradeList}" var="item">
@@ -107,7 +107,7 @@
                         <th style="width:5%">序号</th>
                         <th style="width: 7%">姓名</th>
                         <th style="width: 15%">学校</th>
-                        <th style="width: 7%">年级</th>
+                        <th style="width: 7%">状态</th>
                         <th style="width: 8%">科目</th>
                         <th style="width: 8%">类型</th>
                         <th style="width: 10%">时间</th>
@@ -253,7 +253,7 @@
             data[k]=new Array();    //声明二维，每一个一维数组里面的一个元素都是一个数组
 
         }
-        data[0] =  ["序号", "姓名", "学校", "年级", "科目", "类型", "时间", "内容"];
+        data[0] =  ["序号", "姓名", "学校", "状态", "科目", "类型", "时间", "内容"];
 
         <c:forEach items="${allStuList}" var="item" varStatus="status" >
         data[${status.index+1}]=[ ${status.index+1},'${item.stuname}','${item.school}','${item.gradename}',

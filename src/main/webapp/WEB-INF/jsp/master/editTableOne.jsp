@@ -297,7 +297,7 @@
                         <!-- 模态框（Modal）添加学校历史 结束-->
 
                     </td>
-                    <td style="width: 5%;">年级</td>
+                    <td style="width: 5%;">状态</td>
                     <td colspan="2">
                         ${stumessage.gradename}
                     </td>
