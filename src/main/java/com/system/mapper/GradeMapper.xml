@@ -16,5 +16,24 @@
         from grade
     </select>
 
+    <select id="findAllByDesc"  resultType="com.system.po.Grade">
+        select
+        *
+        from grade
+        order by gradeID desc
+    </select>
+
+    <insert id="insert" parameterType="com.system.po.Grade" keyProperty="gradeid" useGeneratedKeys="true">
+        insert into grade (gradeName
+        )
+        values ( #{name,jdbcType=VARCHAR}
+        )
+    </insert>
+
+    <delete id="deleteByID" parameterType="java.lang.Integer" >
+        delete from grade
+        where gradeID = #{id,jdbcType=INTEGER}
+    </delete>
+
 
 </mapper>

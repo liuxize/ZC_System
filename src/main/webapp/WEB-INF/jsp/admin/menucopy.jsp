@@ -123,6 +123,8 @@
                             <li class="divider"></li>
                             <li><a href="/admin/manageMajor">专业管理</a></li>
                             <li class="divider"></li>
+                            <li><a href="/admin/manageGrade">年级管理</a></li>
+                            <li class="divider"></li>
                             <li><a href="/admin/manageSchol">学校管理</a></li>
                             <li class="divider"></li>
                             <li><a href="/admin/manageCampus">校区管理</a></li>

@@ -101,96 +101,96 @@
                                             </div>
 
 
-                                            <div class="form-group" id="div" style="display: none"
-                                                 onMouseout="hidden();">
-                                                <label for="inputPassword3" class="col-sm-2 control-label">权限</label>
-                                                <div class="col-sm-9">
-                                                    <fieldset>
-                                                        <div>
-                                                            <input type="checkbox" style="font-size: 26px" name="grade0"
-                                                                   value="${gradeList[0].gradeid}">${gradeList[0].gradename}
-                                                        </div>
+<%--                                            <div class="form-group" id="div" style="display: none"--%>
+<%--                                                 onMouseout="hidden();">--%>
+<%--                                                <label for="inputPassword3" class="col-sm-2 control-label">权限</label>--%>
+<%--                                                <div class="col-sm-9">--%>
+<%--                                                    <fieldset>--%>
+<%--                                                        <div>--%>
+<%--                                                            <input type="checkbox" style="font-size: 26px" name="grade0"--%>
+<%--                                                                   value="${gradeList[0].gradeid}">${gradeList[0].gradename}--%>
+<%--                                                        </div>--%>
 
-                                                        <div>
-                                                            <input type="checkbox" style="font-size: 26px" name="grade1"
-                                                                   value="${gradeList[1].gradeid}">${gradeList[1].gradename}
-                                                            &nbsp; &nbsp;
-                                                            <input type="checkbox" style="font-size: 26px" name="grade2"
-                                                                   value="${gradeList[2].gradeid}">${gradeList[2].gradename}
-                                                            &nbsp; &nbsp;
-                                                            <input type="checkbox" style="font-size: 26px" name="grade3"
-                                                                   value="${gradeList[3].gradeid}">${gradeList[3].gradename}
-                                                            &nbsp; &nbsp;
-                                                            <input type="checkbox" style="font-size: 26px" name="grade4"
-                                                                   value="${gradeList[4].gradeid}">${gradeList[4].gradename}
-                                                            &nbsp; &nbsp;
-                                                            <input type="checkbox" style="font-size: 26px" name="grade5"
-                                                                   value="${gradeList[5].gradeid}">${gradeList[5].gradename}
-                                                            &nbsp; &nbsp;
-                                                            <input type="checkbox" style="font-size: 26px" name="grade6"
-                                                                   value="${gradeList[6].gradeid}">${gradeList[6].gradename}
-                                                        </div>
+<%--                                                        <div>--%>
+<%--                                                            <input type="checkbox" style="font-size: 26px" name="grade1"--%>
+<%--                                                                   value="${gradeList[1].gradeid}">${gradeList[1].gradename}--%>
+<%--                                                            &nbsp; &nbsp;--%>
+<%--                                                            <input type="checkbox" style="font-size: 26px" name="grade2"--%>
+<%--                                                                   value="${gradeList[2].gradeid}">${gradeList[2].gradename}--%>
+<%--                                                            &nbsp; &nbsp;--%>
+<%--                                                            <input type="checkbox" style="font-size: 26px" name="grade3"--%>
+<%--                                                                   value="${gradeList[3].gradeid}">${gradeList[3].gradename}--%>
+<%--                                                            &nbsp; &nbsp;--%>
+<%--                                                            <input type="checkbox" style="font-size: 26px" name="grade4"--%>
+<%--                                                                   value="${gradeList[4].gradeid}">${gradeList[4].gradename}--%>
+<%--                                                            &nbsp; &nbsp;--%>
+<%--                                                            <input type="checkbox" style="font-size: 26px" name="grade5"--%>
+<%--                                                                   value="${gradeList[5].gradeid}">${gradeList[5].gradename}--%>
+<%--                                                            &nbsp; &nbsp;--%>
+<%--                                                            <input type="checkbox" style="font-size: 26px" name="grade6"--%>
+<%--                                                                   value="${gradeList[6].gradeid}">${gradeList[6].gradename}--%>
+<%--                                                        </div>--%>
 
-                                                        <div>
-                                                            <input type="checkbox" style="font-size: 26px" name="grade7"
-                                                                   value="${gradeList[7].gradeid}">${gradeList[7].gradename}
-                                                            &nbsp; &nbsp;
-                                                            <input type="checkbox" style="font-size: 26px" name="grade8"
-                                                                   value="${gradeList[8].gradeid}">${gradeList[8].gradename}
-                                                            &nbsp; &nbsp;
-                                                            <input type="checkbox" style="font-size: 26px" name="grade9"
-                                                                   value="${gradeList[9].gradeid}">${gradeList[9].gradename}
-                                                        </div>
+<%--                                                        <div>--%>
+<%--                                                            <input type="checkbox" style="font-size: 26px" name="grade7"--%>
+<%--                                                                   value="${gradeList[7].gradeid}">${gradeList[7].gradename}--%>
+<%--                                                            &nbsp; &nbsp;--%>
+<%--                                                            <input type="checkbox" style="font-size: 26px" name="grade8"--%>
+<%--                                                                   value="${gradeList[8].gradeid}">${gradeList[8].gradename}--%>
+<%--                                                            &nbsp; &nbsp;--%>
+<%--                                                            <input type="checkbox" style="font-size: 26px" name="grade9"--%>
+<%--                                                                   value="${gradeList[9].gradeid}">${gradeList[9].gradename}--%>
+<%--                                                        </div>--%>
 
-                                                        <div>
-                                                            <input type="checkbox" style="font-size: 26px"
-                                                                   name="grade10"
-                                                                   value="${gradeList[10].gradeid}">${gradeList[10].gradename}
-                                                            &nbsp; &nbsp;
-                                                            <input type="checkbox" style="font-size: 26px"
-                                                                   name="grade11"
-                                                                   value="${gradeList[11].gradeid}">${gradeList[11].gradename}
-                                                            &nbsp; &nbsp;
-                                                            <input type="checkbox" style="font-size: 26px"
-                                                                   name="grade12"
-                                                                   value="${gradeList[12].gradeid}">${gradeList[12].gradename}
-                                                            &nbsp; &nbsp;
-                                                        </div>
-                                                        <div>
-                                                            <input type="checkbox" style="font-size: 26px"
-                                                                   name="grade13"
-                                                                   value="${gradeList[13].gradeid}">${gradeList[13].gradename}
-                                                            &nbsp; &nbsp;
-                                                            <input type="checkbox" style="font-size: 26px"
-                                                                   name="grade14"
-                                                                   value="${gradeList[14].gradeid}">${gradeList[14].gradename}
-                                                            &nbsp; &nbsp;
-                                                            <input type="checkbox" style="font-size: 26px"
-                                                                   name="grade15"
-                                                                   value="${gradeList[15].gradeid}">${gradeList[15].gradename}
-                                                            &nbsp; &nbsp;
-                                                            <input type="checkbox" style="font-size: 26px"
-                                                                   name="grade16"
-                                                                   value="${gradeList[16].gradeid}">${gradeList[16].gradename}
-                                                        </div>
-                                                        <div><input type="checkbox" style="font-size: 26px"
-                                                                    name="grade17"
-                                                                    value="${gradeList[17].gradeid}">${gradeList[17].gradename}
-                                                        </div>
+<%--                                                        <div>--%>
+<%--                                                            <input type="checkbox" style="font-size: 26px"--%>
+<%--                                                                   name="grade10"--%>
+<%--                                                                   value="${gradeList[10].gradeid}">${gradeList[10].gradename}--%>
+<%--                                                            &nbsp; &nbsp;--%>
+<%--                                                            <input type="checkbox" style="font-size: 26px"--%>
+<%--                                                                   name="grade11"--%>
+<%--                                                                   value="${gradeList[11].gradeid}">${gradeList[11].gradename}--%>
+<%--                                                            &nbsp; &nbsp;--%>
+<%--                                                            <input type="checkbox" style="font-size: 26px"--%>
+<%--                                                                   name="grade12"--%>
+<%--                                                                   value="${gradeList[12].gradeid}">${gradeList[12].gradename}--%>
+<%--                                                            &nbsp; &nbsp;--%>
+<%--                                                        </div>--%>
+<%--                                                        <div>--%>
+<%--                                                            <input type="checkbox" style="font-size: 26px"--%>
+<%--                                                                   name="grade13"--%>
+<%--                                                                   value="${gradeList[13].gradeid}">${gradeList[13].gradename}--%>
+<%--                                                            &nbsp; &nbsp;--%>
+<%--                                                            <input type="checkbox" style="font-size: 26px"--%>
+<%--                                                                   name="grade14"--%>
+<%--                                                                   value="${gradeList[14].gradeid}">${gradeList[14].gradename}--%>
+<%--                                                            &nbsp; &nbsp;--%>
+<%--                                                            <input type="checkbox" style="font-size: 26px"--%>
+<%--                                                                   name="grade15"--%>
+<%--                                                                   value="${gradeList[15].gradeid}">${gradeList[15].gradename}--%>
+<%--                                                            &nbsp; &nbsp;--%>
+<%--                                                            <input type="checkbox" style="font-size: 26px"--%>
+<%--                                                                   name="grade16"--%>
+<%--                                                                   value="${gradeList[16].gradeid}">${gradeList[16].gradename}--%>
+<%--                                                        </div>--%>
+<%--                                                        <div><input type="checkbox" style="font-size: 26px"--%>
+<%--                                                                    name="grade17"--%>
+<%--                                                                    value="${gradeList[17].gradeid}">${gradeList[17].gradename}--%>
+<%--                                                        </div>--%>
 
-                                                        <div>
-                                                            <input type="checkbox" style="font-size: 26px"
-                                                                   name="pay"
-                                                                   value="-2">已缴费
-                                                            <input type="checkbox" style="font-size: 26px"
-                                                                    name="unpay"
-                                                                    value="-1">未缴费
+<%--                                                        <div>--%>
+<%--                                                            <input type="checkbox" style="font-size: 26px"--%>
+<%--                                                                   name="pay"--%>
+<%--                                                                   value="-2">已缴费--%>
+<%--                                                            <input type="checkbox" style="font-size: 26px"--%>
+<%--                                                                    name="unpay"--%>
+<%--                                                                    value="-1">未缴费--%>
 
-                                                        </div>
+<%--                                                        </div>--%>
 
-                                                    </fieldset>
-                                                </div>
-                                            </div>
+<%--                                                    </fieldset>--%>
+<%--                                                </div>--%>
+<%--                                            </div>--%>
 
 
                                             <div class="form-group" style="text-align: center">
@@ -246,7 +246,7 @@
                                 <input type="hidden" id="page" name="page"
                                        value="${pagingVO.curentPageNo}">
 
-                                <button type="button" class="btn btn-default btn-xs btn-info" data-toggle="modal"
+                                <button type="button" class="btn btn-default btn-xs btn-warning" data-toggle="modal"
                                         id="editbutton"
                                         onclick="Values('${item.username}')"
                                         data-target="#EditPassword">修改密码
@@ -254,18 +254,18 @@
                                 &nbsp; &nbsp;
 
                                 <c:if test="${item.role==0}">
-                                    <button type="button"  class="btn-warning btn-xs "
+                                    <button type="button"  class="btn btn-default btn-info btn-xs "
                                             onclick="confirmd()">更新年级
                                     </button>
                                     &nbsp; &nbsp;
                                 </c:if>
 
                                 <c:if test="${item.role!=0}">
-                                    <button type="button"  class="btn-warning btn-xs "
+                                    <button type="button"  class="btn btn-default btn-info btn-xs "
                                             onClick="  window.open('/admin/showUserNoteDic?username=${item.username}')">班级管理
                                     </button>
                                     &nbsp; &nbsp;
-                                    <button type="button"  class="btn-warning btn-xs "
+                                    <button type="button"  class="btn btn-default btn-warning btn-xs "
                                             onClick="  window.open('/admin/showUserSeNoteDic?username=${item.username}')">招生管理
                                     </button>
                                     &nbsp; &nbsp;

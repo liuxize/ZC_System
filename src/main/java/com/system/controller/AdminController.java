@@ -181,7 +181,7 @@ public class AdminController {
     @RequestMapping(value = "/setPermission1", method = {RequestMethod.POST})
     @ResponseBody
     public String setPermission(@RequestBody String data) throws Exception {
-        System.out.println(data);
+        //System.out.println(data);
         String[] temp = data.split("\\\\\"");
 //        for(String x :  temp) {
 //            System.out.println(x);
@@ -2649,11 +2649,33 @@ public class AdminController {
         return "redirect:/admin/manageSchol";
     }
 
+    //年级管理
+    @RequestMapping(value = "/manageGrade", method = {RequestMethod.GET})
+    public String manageGradeUI(Model model) throws Exception {
+        List<Grade> gradeList = gradeService.findAllGradeByDesc();
+        model.addAttribute("gradeList", gradeList);
+        return "admin/manageGrade";
+    }
+
+    @RequestMapping(value = "/manageGrade", method = {RequestMethod.POST})
+    public String manageGrade(String gradename) throws Exception {
+        gradeService.saveGrade(gradename);
+        return "redirect:/admin/manageGrade";
+    }
+
+    @RequestMapping(value = "/removeGrade", method = {RequestMethod.GET})
+    private String removeGrade(Integer gradeid) throws Exception {
+        gradeService.deleteGrade(gradeid);
+        return "redirect:/admin/manageGrade";
+    }
+
+
     //校区管理
     @RequestMapping(value = "/manageCampus", method = {RequestMethod.GET})
     public String manageCampusUI(Model model) throws Exception {
         List<Campus> campusList = campusService.findAllCampus();
         model.addAttribute("campusList", campusList);
+
         return "admin/manageCampus";
     }
 
@@ -3210,20 +3232,24 @@ public class AdminController {
     public String manageAnnounceUI(Model model) throws Exception {
         List<AnnounceCustom>  announceList = announceService.findAll();
         model.addAttribute("announceList", announceList);
+
+        List<Campus> campusList = campusService.findAllCampus(); // 校区
+        model.addAttribute("campusList", campusList);
+
         return "admin/manageAnnounce";
     }
 
 
     @RequestMapping(value = "/editAnnounce", method = {RequestMethod.POST})
-    public String manageAnnounce(AnnounceCustom announceCustom) throws Exception {
-        announceService.editAnnounce(announceCustom);
+    public String manageAnnounce(Announce announce) throws Exception {
+        announceService.editAnnounce(announce);
         return "redirect:/admin/manageAnnounce";
     }
 
     @RequestMapping(value = "/addAnnounce", method = {RequestMethod.POST})
-    public String addAnnounce(AnnounceCustom announceCustom) throws Exception {
-        announceCustom.setIsread(1);
-        announceService.saveAnnounce(announceCustom);
+    public String addAnnounce(Announce announce) throws Exception {
+        announce.setIsread(1);
+        announceService.saveAnnounce(announce);
         return "redirect:/admin/manageAnnounce";
     }
 

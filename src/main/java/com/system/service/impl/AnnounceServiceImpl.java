@@ -17,17 +17,23 @@ public class AnnounceServiceImpl implements AnnounceService {
     public List<AnnounceCustom> findAll() throws Exception{
         return announceMapper.selectAll();
     }
+
+    public List<Announce> findAllReadByAuth(String teacherName) throws Exception{
+        return announceMapper.selectByAuth(teacherName);
+    }
+
     public List<Announce> findALlRead() throws Exception{
         return announceMapper.selectAllRead();
     }
-    public void saveAnnounce(AnnounceCustom announceCustom) throws Exception{
-        announceMapper.insert(announceCustom);
+
+    public void saveAnnounce(Announce announce) throws Exception{
+        announceMapper.insert(announce);
     }
     public void deleteAnnounce(Integer id) throws Exception{
         announceMapper.deleteByID(id);
     }
-    public void editAnnounce(AnnounceCustom announceCustom) throws Exception{
-        announceMapper.updateAnnounce(announceCustom);
+    public void editAnnounce(Announce announce) throws Exception{
+        announceMapper.updateAnnounce(announce);
     }
     public void editIsRead(int id, int isread) throws Exception{
         announceMapper.updateIsread(id, isread);

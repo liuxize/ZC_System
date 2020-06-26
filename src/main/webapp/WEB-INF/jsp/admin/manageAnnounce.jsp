@@ -20,6 +20,9 @@
     <!-- 引入JQuery  bootstrap.js-->
     <script src="/js/jquery-3.2.1.min.js"></script>
     <script src="/js/bootstrap.min.js"></script>
+    <!-- bootstrap-select -->
+    <link rel="stylesheet"  href="/css/bootstrap-select.min.css">
+    <script src="/js/bootstrap-select.min.js"></script>
 </head>
 <body>
 
@@ -39,22 +42,36 @@
                             <span class="glyphicon glyphicon-plus"></span>
                         </button>
 
-                        <!-- 修改用户密码-->
+
                         <div class="modal fade" id="addNoteDic" tabindex="-1" role="dialog"
                              aria-labelledby="myModalLabel" aria-hidden="true" style="z-index:9999">
                             <div class="modal-dialog modal-lg"> <!-- modal-lg 放大版-->
                                 <div class="modal-content">
-                                    <form role="form" action="/admin/addAnnounce" method="post">
+                                    <form class="form-horizontal" role="form" action="/admin/addAnnounce" method="post">
                                         <div class="modal-header">
-                                            <button type="button" class="close" data-dismiss="modal"
-                                                    aria-hidden="true">
-                                                &times;
-                                            </button>
-                                            <input type="text" class="form-control" name="anntitle"
-                                                   placeholder="标题" required="required">
+
+                                            <div class="form-group">
+                                                <label class="col-sm-1 control-label">标题</label>
+                                                <div class="col-sm-10">
+                                                    <input type="text" class="form-control" name="anntitle"
+                                                            required="required">
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="col-sm-1 control-label">校区</label>
+                                                <div class="col-sm-10">
+                                                    <select class="selectpicker show-tick form-control" data-live-search="true" name="campusid">
+                                                        <c:forEach items="${campusList}" var="item">
+                                                            <option value="${item.campusid}">${item.campusname}</option>
+                                                        </c:forEach>
+                                                    </select>
+                                                </div>
+                                            </div>
+
                                         </div>
                                         <div class="modal-body">
-                                            <textarea style="width: 100%; border: none;" rows="25" name="anncon"  placeholder="内容"></textarea>
+                                            <textarea style="width: 100%; border: none; font-size: 20px" rows="25" name="anncon"  placeholder="内容"></textarea>
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-default" data-dismiss="modal">
@@ -76,6 +93,7 @@
                         <th >序号</th>
                         <th >名称</th>
                         <th>内容摘要</th>
+                        <th >校区</th>
                         <th >操作</th>
 
                     </tr>
@@ -88,13 +106,14 @@
                                 <th style="width:5%">${status.index + 1}</th>
                                 <th style="width:20%">${item.anntitle}</th>
 
-                                <th style="width:45%">
-                                    <div style="width:450px; white-space:nowrap;text-overflow:ellipsis;overflow:hidden;"> ${item.anncon}</div>
+                                <th style="width:35%">
+                                    <div style="width: 400px; white-space:nowrap;text-overflow:ellipsis;overflow:hidden;"> ${item.anncon}</div>
                                 </th>
+                                <th style="width:10%">${item.campusname}</th>
                                 <th style="width:30%">
 
                                     <button type="button" class="btn btn-primary  btn-xs" id="editbutton1"
-                                            data-toggle="modal" onclick="editAnnounce('${item.annid}', '${item.anntitle}')" data-target="#EditAnnounce">
+                                            data-toggle="modal" onclick="editAnnounce('${item.annid}', '${item.anntitle}', '${item.campusid}')" data-target="#EditAnnounce">
                                         编辑内容
                                     </button>
                                     &nbsp;&nbsp;
@@ -120,14 +139,15 @@
                                 <th style="width:5%">${status.index + 1}</th>
                                 <th style="width:20%">${item.anntitle}</th>
 
-                                <th style="width:45%">
-                                    <div style="width:450px; white-space:nowrap;text-overflow:ellipsis;overflow:hidden;"> ${item.anncon}</div>
+                                <th style="width:35%">
+                                    <div style="width: 400px; white-space:nowrap;text-overflow:ellipsis;overflow:hidden;"> ${item.anncon}</div>
                                 </th>
+                                <th style="width:10%">${item.campusname}</th>
                                 <th style="width:30%">
 
 
                                     <button type="button" class="btn btn-primary  btn-xs" id="editbutton2"
-                                            data-toggle="modal" onclick="editAnnounce('${item.annid}', '${item.anntitle}')" data-target="#EditAnnounce">
+                                            data-toggle="modal" onclick="editAnnounce('${item.annid}', '${item.anntitle}', '${item.campusid}')" data-target="#EditAnnounce">
                                         编辑内容
                                     </button>
                                     &nbsp;&nbsp;
@@ -150,32 +170,50 @@
                         </C:if>
                     </c:forEach>
 
-                    <div class="modal fade" id="EditAnnounce" tabindex="-1" role="dialog"
-                         aria-labelledby="myModalLabel" aria-hidden="true" style="z-index:9999">
-                        <div class="modal-dialog modal-lg"> <!-- modal-lg 放大版-->
-                            <div class="modal-content">
-                                <form role="form" action="/admin/editAnnounce" method="post">
-                                <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-                                        &times;
-                                    </button>
-                                    <input type="text" class="form-control" name="anntitle" id="annTitle" required="required" value=" " >
-                                    <input type="hidden" id="annID" name="annid" value=" ">
-                                </div>
-                                <div class="modal-body">
-                                            <textarea style="width: 100%; border: none; white-space:pre-line" rows="25" name="anncon" id="annCon" value=" "></textarea>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                                    <button class="btn btn-default" type="submit">保存</button>
-                                </div>
-                                </form>
-                            </div><!-- /.modal-content -->
-                        </div><!-- /.modal -->
-                    </div>
+
                     </tbody>
                 </table>
 
+            </div>
+            <div class="modal fade" id="EditAnnounce" tabindex="-1" role="dialog"
+                 aria-labelledby="myModalLabel11" aria-hidden="true" style="z-index:9999">
+                <div class="modal-dialog modal-lg"> <!-- modal-lg 放大版-->
+                    <div class="modal-content">
+                        <form class="form-horizontal" role="form" action="/admin/editAnnounce" method="post">
+                            <div class="modal-header">
+                                <div class="form-group">
+                                    <label class="col-sm-1 control-label">标题</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" name="anntitle" id="annTitle" required="required" value=" " >
+                                        <input type="hidden" id="annID"  style="height: 5px"; name="annid" value=" ">
+                                    </div>
+                                </div>
+
+
+
+                                <div class="form-group">
+                                    <label class="col-sm-1 control-label">校区</label>
+                                    <div class="col-sm-10">
+                                        <select class="selectpicker show-tick form-control" data-live-search="true" name="campusid" id="campusID" value=" ">
+                                            <c:forEach items="${campusList}" var="item">
+                                                <option value="${item.campusid}">${item.campusname}</option>
+                                            </c:forEach>
+                                        </select>
+                                    </div>
+                                </div>
+
+
+                            </div>
+                            <div class="modal-body">
+                                <textarea style="width: 100%; font-size: 18px; border: none; white-space:pre-line" rows="25" name="anncon" id="annCon" value=" "></textarea>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                                <button class="btn btn-default" type="submit">保存</button>
+                            </div>
+                        </form>
+                    </div><!-- /.modal-content -->
+                </div><!-- /.modal -->
             </div>
 
         </div>
@@ -212,9 +250,12 @@
     }
 
     $("#EditAnnounce").modal("hide");
-    function editAnnounce(annid, anntitle) {
+    function editAnnounce(annid, anntitle, campusid) {
         $("#annID").val(annid);
         $("#annTitle").val(anntitle);
+        $('#campusID').selectpicker('val',campusid);
+
+
         $.ajax({
             type: "POST",   //http请求方式
             url: "/admin/findAnnounce",//发送给服务器的url

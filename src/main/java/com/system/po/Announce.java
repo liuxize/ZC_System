@@ -5,6 +5,7 @@ public class Announce {
     private String anntitle;
     private String anncon;
     private Integer isread;
+    private Integer campusid;
 
 
     public Integer getAnnid() {
@@ -39,5 +40,11 @@ public class Announce {
         this.isread = isread;
     }
 
+    public Integer getCampusid() {
+        return campusid;
+    }
 
+    public void setCampusid(Integer campusid) {
+        this.campusid = campusid;
+    }
 }

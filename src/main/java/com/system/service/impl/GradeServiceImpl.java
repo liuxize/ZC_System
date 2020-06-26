@@ -19,4 +19,16 @@ public class GradeServiceImpl implements GradeService {
     public List<Grade> findAllGrade() throws Exception {
         return gradeMapper.findAll();
     }
+
+    public List<Grade> findAllGradeByDesc() throws Exception {
+        return gradeMapper.findAllByDesc();
+    }
+
+    public void saveGrade (String gradeName) throws Exception{
+        gradeMapper.insert(gradeName);
+    }
+
+    public void deleteGrade (Integer gradeID) throws Exception{
+        gradeMapper.deleteByID(gradeID);
+    }
 }

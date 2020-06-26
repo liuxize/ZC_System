@@ -567,14 +567,14 @@
         update stu
         set
         gradeID = gradeID + 1
-        where gradeID &lt; 17
+        where gradeID &lt; 18
     </update>
 
     <update id="updataGradeDec">
         update stu
         set
         gradeID = gradeID - 1
-        where gradeID &lt; 17
+        where gradeID &lt; 18
     </update>
 
     <!--已缴费学生的数量  （全部年级 全部学科 全部类型）-->

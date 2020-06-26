@@ -2,12 +2,13 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.system.mapper.AnnounceMapper" >
 
-    <insert id="insert" parameterType="com.system.po.AnnounceCustom" keyProperty="annid" useGeneratedKeys="true">
-        insert into announce (annTitle, annCon, isRead
+    <insert id="insert" parameterType="com.system.po.Announce" keyProperty="annid" useGeneratedKeys="true">
+        insert into announce (annTitle, annCon, isRead, campusID
         )
         values (#{anntitle, jdbcType=VARCHAR},
                 #{anncon, jdbcType=VARCHAR},
-                #{isread, jdbcType=INTEGER}
+                #{isread, jdbcType=INTEGER},
+                #{campusid, jdbcType=INTEGER}
         )
     </insert>
 
@@ -19,14 +20,17 @@
 
     <select id="selectAll" resultType="com.system.po.AnnounceCustom">
         select
-        *
-        from announce
+        announce.*, campus.campusName
+        from announce, campus
+        WHERE
+        announce.campusID = campus.campusID
     </select>
 
     <select id="selectAllRead" resultType="com.system.po.Announce">
-        select annID, annTitle
+        select *
         from announce
-        where isRead = 1
+        WHERE
+        isRead = 1
         order by annID desc
     </select>
 
@@ -47,7 +51,25 @@
         update announce
         set
         annTitle = #{anntitle,jdbcType=VARCHAR},
-        annCon = #{anncon,jdbcType=VARCHAR}
+        annCon = #{anncon,jdbcType=VARCHAR},
+        campusID = #{campusid,jdbcType=INTEGER}
         where annID = #{annid,jdbcType=INTEGER}
     </update>
+
+    <select id="selectByAuth" parameterType="java.lang.String" resultType="com.system.po.Announce">
+        select
+        announce.*
+        from announce
+        WHERE
+        announce.isRead = 1
+        AND
+        announce.campusID IN
+        (
+        select campusauth.campusID
+        from campusauth
+        where campusauth.teacherName =  #{teachername,jdbcType=VARCHAR}
+        )
+        order by announce.annID desc
+
+    </select>
 </mapper>

@@ -7,10 +7,11 @@ import java.util.List;
 
 public interface AnnounceService {
     List<AnnounceCustom> findAll() throws Exception;
-    List<Announce> findALlRead() throws Exception;
-    void saveAnnounce(AnnounceCustom announceCustom) throws Exception;
+    List<Announce> findALlRead() throws Exception;  // 管理员显示
+    List<Announce> findAllReadByAuth(String teacherName) throws Exception;
+    void saveAnnounce(Announce announce) throws Exception;
     void deleteAnnounce(Integer id) throws Exception;
-    void editAnnounce(AnnounceCustom announceCustom) throws Exception;
+    void editAnnounce(Announce announce) throws Exception;
     void editIsRead(int id, int isread) throws Exception;
     String getConByID(Integer id) throws Exception;
 }

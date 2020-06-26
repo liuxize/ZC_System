@@ -1586,7 +1586,9 @@ public class MasterController {
     @RequestMapping(value = "/announcement", method = {RequestMethod.GET})
     public String announcement(Model model) throws Exception {
 
-        List<Announce>  announceList = announceService.findALlRead();
+        Subject subject = SecurityUtils.getSubject();
+        String username = (String) subject.getPrincipal();
+        List<Announce>  announceList = announceService.findAllReadByAuth(username);
         model.addAttribute("announceList", announceList);
         String firstCon = null;
         String firstTitle = null;
