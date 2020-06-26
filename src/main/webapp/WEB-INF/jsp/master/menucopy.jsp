@@ -30,13 +30,13 @@
                     <li id="nav11"><a href="/master/remindPay">周工作提醒</a></li>
                     <li class="dropdown" id="nav4">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            学员信息分类
+                            学员类别
                             <b class="caret"></b>
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a href="/master/paidStudent?gradeid=-1&subjectid=-1&typeid=-1">已缴费学员</a></li>
+                            <li><a href="/master/paidStudent?gradeid=-1&subjectid=-1&typeid=-1&campusid=1">已缴费学员</a></li>
                             <li class="divider"></li>
-                            <li><a href="/master/prePayStu?gradeid=-1&subjectid=-1&typeid=-1">预缴费学员</a></li>
+                            <li><a href="/master/prePayStu?gradeid=-1&subjectid=-1&typeid=-1&campusid=1">预缴费学员</a></li>
                         </ul>
                     </li>
                     <li class="dropdown" id="nav5">

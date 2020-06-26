@@ -1773,22 +1773,22 @@ public class AdminController {
         List<Grade> gradelist = gradeService.findAllGrade();
         List<com.system.po.Subject> subjectList = subjectService.findAllSubject();
         List<ClassType> classTypeList = classTypeService.findAllClassType();
-//        Campus campus = new Campus();
-//        campus.setCampusid(-1);
-//        campus.setCampusname("全部");
-//        campusList.add(0,campus);
+
         Grade grade = new Grade();
         grade.setGradeid(-1);
         grade.setGradename("全部");
         gradelist.add(0, grade);
+
         com.system.po.Subject subject = new com.system.po.Subject();
         subject.setSubjectid(-1);
         subject.setSubjectname("全部");
         subjectList.add(0, subject);
+
         ClassType classType = new ClassType();
         classType.setTypeid(-1);
         classType.setTypename("全部");
         classTypeList.add(0, classType);
+
         model.addAttribute("campusList", campusList);
         model.addAttribute("gradeList", gradelist);
         model.addAttribute("subjectList", subjectList);
@@ -1801,12 +1801,12 @@ public class AdminController {
         if (page == null || page == 0) {
             pagingVO.setCurentPageNo(1);
             pagingVO.setToPageNo(1);
-            list = stuService.findStuByPayStuAndSelect(1, gradeid, subjectid, typeid);
+            list = stuService.findStuByPayStuAndSelect(1, gradeid, subjectid, typeid, campusid);
         } else {
             pagingVO.setToPageNo(page);
-            list = stuService.findStuByPayStuAndSelect(page, gradeid, subjectid, typeid);
+            list = stuService.findStuByPayStuAndSelect(page, gradeid, subjectid, typeid, campusid);
         }
-        List<LessonCustom> allStuList = stuService.findAllStuByPayStuAndSelect(gradeid, subjectid, typeid);  //用于保存为excle 表格
+        List<LessonCustom> allStuList = stuService.findAllStuByPayStuAndSelect(gradeid, subjectid, typeid, campusid);  //用于保存为excle 表格
         model.addAttribute("allStuList", allStuList);
         model.addAttribute("stuList", list);
         model.addAttribute("pagingVO", pagingVO);
@@ -1819,15 +1819,15 @@ public class AdminController {
     }
 
     @RequestMapping(value = "/paidStudent", method = {RequestMethod.POST})
-    public String paidStudent(Integer gradeid, Integer subjectid, Integer typeid) throws Exception {
+    public String paidStudent(Integer gradeid, Integer subjectid, Integer typeid, Integer campusid) throws Exception {
 
-        return "redirect:/admin/paidStudent?gradeid=" + gradeid + "&subjectid=" + subjectid + "&typeid=" + typeid;
+        return "redirect:/admin/paidStudent?gradeid=" + gradeid + "&subjectid=" + subjectid + "&typeid=" + typeid +"&campusid=" + campusid;
     }
 
     //查看预缴费学员 查询当天日期<表三的上课时间且小于表三的上课结束时间
     @RequestMapping(value = "/prePayStu", method = {RequestMethod.GET})
-    public String prePayStuUI(Model model, Integer page, Integer gradeid, Integer subjectid, Integer typeid) throws Exception {
-
+    public String prePayStuUI(Model model, Integer page, Integer gradeid, Integer subjectid, Integer typeid, Integer campusid) throws Exception {
+        List<Campus> campusList = campusService.findAllCampus();
         List<Grade> gradelist = gradeService.findAllGrade();
         List<com.system.po.Subject> subjectList = subjectService.findAllSubject();
         List<ClassType> classTypeList = classTypeService.findAllClassType();
@@ -1846,6 +1846,7 @@ public class AdminController {
         model.addAttribute("gradeList", gradelist);
         model.addAttribute("subjectList", subjectList);
         model.addAttribute("classTypeList", classTypeList);
+        model.addAttribute("campusList", campusList);
 //        Integer gradeIndex;  //????????
 //        gradeIndex = gradeid;  //????????
         List<LessonCustom> list = null;
@@ -1868,6 +1869,7 @@ public class AdminController {
         model.addAttribute("gradeIndex", gradeid);
         model.addAttribute("subjectIndex", subjectid);
         model.addAttribute("typeIndex", typeid);
+        model.addAttribute("campusIndex", campusid);
 
         return "admin/prePayStu";
     }
@@ -1880,8 +1882,9 @@ public class AdminController {
 
     //查看未交费的学生
     @RequestMapping(value = "/paidNotStudent", method = {RequestMethod.GET})
-    public String paidNotStudentUI(Model model, Integer gradeid, Integer teleType, Integer page) throws Exception {
+    public String paidNotStudentUI(Model model, Integer gradeid, Integer teleType, Integer page, Integer campusid) throws Exception {
 
+        List<Campus> campusList = campusService.findAllCampus();
         if (teleType == null) teleType = 0;
         List<Grade> gradelist = gradeService.findAllGrade();
         Grade grade = new Grade();
@@ -1903,6 +1906,7 @@ public class AdminController {
         }
         List<StuCustom> allStuList = stuService.findAllStuByUnPayStu(gradeid, teleType);
         model.addAttribute("gradelist", gradelist);
+        model.addAttribute("campusList", campusList);
         model.addAttribute("gradeIndex", gradeid);
         model.addAttribute("teleType", teleType);
         model.addAttribute("allStuList", allStuList);

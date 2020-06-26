@@ -155,7 +155,7 @@ public interface StuMapper {
     //已缴费学生的数量（类型）
     int countPayByType(Integer typeid,  Integer campusid);
     //已缴费学生的数量（年级 学科 类型）
-    int countPayByGradeSubType(Integer gradeid, Integer subjectid, Integer typeid);
+    int countPayByGradeSubType(Integer gradeid, Integer subjectid, Integer typeid, Integer campusid);
 
 
     //已缴费学生的数量  （全部年级，全部学科 全部类型）

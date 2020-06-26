@@ -36,7 +36,6 @@
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <div class="row ">
-
                         <h1 class="col-md-3 ">已缴费学员</h1>
                         <p>
                             <button class="btn btn-warning" style="margin: 30px 10px 10px 10px; float:right;"
@@ -57,7 +56,7 @@
                                 校区
                                 <div class="form-group" style="width: 220px">
 
-                                    <select class="selectpicker show-tick form-control" data-live-search="true" name="typeid" >
+                                    <select class="selectpicker show-tick form-control" data-live-search="true" name="campusid" >
                                         <c:forEach items="${campusList}" var="item">
                                             <c:choose>
                                                 <c:when test="${item.campusid==campusIndex}">
@@ -181,44 +180,44 @@
                     <c:if test="${pagingVO != null}">
                         <nav style="text-align: center">
                             <ul class="pagination">
-                                <li><a href="/admin/paidStudent?page=1&gradeid=${gradeIndex}&subjectid=${subjectIndex}&typeid=${typeIndex}">首页</a>
+                                <li><a href="/admin/paidStudent?page=1&gradeid=${gradeIndex}&subjectid=${subjectIndex}&typeid=${typeIndex}&campusid=${campusIndex}">首页</a>
                                 <c:if test="${pagingVO.curentPageNo <= 1}">
-                                    <li><a href="/admin/paidStudent?page=1&gradeid=${gradeIndex}&subjectid=${subjectIndex}&typeid=${typeIndex}">&laquo;上一页</a>
+                                    <li><a href="/admin/paidStudent?page=1&gradeid=${gradeIndex}&subjectid=${subjectIndex}&typeid=${typeIndex}&campusid=${campusIndex}">&laquo;上一页</a>
                                 </c:if>
                                 <c:if test="${pagingVO.curentPageNo > 1}">
-                                    <li><a href="/admin/paidStudent?page=${pagingVO.upPageNo}&gradeid=${gradeIndex}&subjectid=${subjectIndex}&typeid=${typeIndex}">&laquo;上一页</a>
+                                    <li><a href="/admin/paidStudent?page=${pagingVO.upPageNo}&gradeid=${gradeIndex}&subjectid=${subjectIndex}&typeid=${typeIndex}&campusid=${campusIndex}">&laquo;上一页</a>
                                 </c:if>
 
                                 </li>
                                 <li class="active"><a href="">${pagingVO.curentPageNo}</a></li>
                                 <c:if test="${pagingVO.curentPageNo+1 <= pagingVO.totalCount}">
                                     <li>
-                                        <a href="/admin/paidStudent?page=${pagingVO.curentPageNo+1}&gradeid=${gradeIndex}&subjectid=${subjectIndex}&typeid=${typeIndex}">${pagingVO.curentPageNo+1}</a>
+                                        <a href="/admin/paidStudent?page=${pagingVO.curentPageNo+1}&gradeid=${gradeIndex}&subjectid=${subjectIndex}&typeid=${typeIndex}&campusid=${campusIndex}">${pagingVO.curentPageNo+1}</a>
                                     </li>
                                 </c:if>
                                 <c:if test="${pagingVO.curentPageNo+2 <= pagingVO.totalCount}">
                                     <li>
-                                        <a href="/admin/paidStudent?page=${pagingVO.curentPageNo+2}&gradeid=${gradeIndex}&subjectid=${subjectIndex}&typeid=${typeIndex}">${pagingVO.curentPageNo+2}</a>
+                                        <a href="/admin/paidStudent?page=${pagingVO.curentPageNo+2}&gradeid=${gradeIndex}&subjectid=${subjectIndex}&typeid=${typeIndex}&campusid=${campusIndex}">${pagingVO.curentPageNo+2}</a>
                                     </li>
                                 </c:if>
                                 <c:if test="${pagingVO.curentPageNo+3 <= pagingVO.totalCount}">
                                     <li>
-                                        <a href="/admin/paidStudent?page=${pagingVO.curentPageNo+3}&gradeid=${gradeIndex}&subjectid=${subjectIndex}&typeid=${typeIndex}">${pagingVO.curentPageNo+3}</a>
+                                        <a href="/admin/paidStudent?page=${pagingVO.curentPageNo+3}&gradeid=${gradeIndex}&subjectid=${subjectIndex}&typeid=${typeIndex}&campusid=${campusIndex}">${pagingVO.curentPageNo+3}</a>
                                     </li>
                                 </c:if>
                                 <c:if test="${pagingVO.curentPageNo+4 <= pagingVO.totalCount}">
                                     <li>
-                                        <a href="/admin/paidStudent?page=${pagingVO.curentPageNo+4}&gradeid=${gradeIndex}&subjectid=${subjectIndex}&typeid=${typeIndex}">${pagingVO.curentPageNo+4}</a>
+                                        <a href="/admin/paidStudent?page=${pagingVO.curentPageNo+4}&gradeid=${gradeIndex}&subjectid=${subjectIndex}&typeid=${typeIndex}&campusid=${campusIndex}">${pagingVO.curentPageNo+4}</a>
                                     </li>
                                 </c:if>
 
                                 <c:if test="${pagingVO.curentPageNo <pagingVO.totalCount}">
-                                    <li><a href="/admin/paidStudent?page=${pagingVO.nextPageNo}&gradeid=${gradeIndex}&subjectid=${subjectIndex}&typeid=${typeIndex}">下一页&raquo;</a></li>
+                                    <li><a href="/admin/paidStudent?page=${pagingVO.nextPageNo}&gradeid=${gradeIndex}&subjectid=${subjectIndex}&typeid=${typeIndex}&campusid=${campusIndex}">下一页&raquo;</a></li>
                                 </c:if>
                                 <c:if test="${pagingVO.curentPageNo >=pagingVO.totalCount}">
-                                    <li><a href="/admin/paidStudent?page=${pagingVO.totalCount}&gradeid=${gradeIndex}&subjectid=${subjectIndex}&typeid=${typeIndex}">下一页&raquo;</a></li>
+                                    <li><a href="/admin/paidStudent?page=${pagingVO.totalCount}&gradeid=${gradeIndex}&subjectid=${subjectIndex}&typeid=${typeIndex}&campusid=${campusIndex}">下一页&raquo;</a></li>
                                 </c:if>
-                                <li><a href="/admin/paidStudent?page=${pagingVO.totalCount}&gradeid=${gradeIndex}&subjectid=${subjectIndex}&typeid=${typeIndex}">尾页&raquo;</a></li>
+                                <li><a href="/admin/paidStudent?page=${pagingVO.totalCount}&gradeid=${gradeIndex}&subjectid=${subjectIndex}&typeid=${typeIndex}&campusid=${campusIndex}">尾页&raquo;</a></li>
                                 <li><a><input id="toPage" style="height: 18px; width: 50px;border: 0px;outline:none;" type="text" placeholder="共${pagingVO.totalCount}页"/></a></li>
                                 <li><a href="javascript:void(0);" onclick="jumpPage()">跳转</a></li>
 
@@ -272,7 +271,7 @@
         var page = $("#toPage").val();
         if (page==''){return;}
         if(page<=${pagingVO.totalCount}){
-            window.location.href="/admin/paidStudent?page="+ page+ "&gradeid=" + ${gradeIndex} + "&subjectid=" + ${subjectIndex} + "&typeid=" + ${typeIndex};
+            window.location.href="/admin/paidStudent?page="+ page+ "&gradeid=" + ${gradeIndex} + "&subjectid=" + ${subjectIndex} + "&typeid=" + ${typeIndex} +"&campusid="+ ${campusIndex};
         }
     }
 

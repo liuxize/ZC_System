@@ -35,9 +35,9 @@
                             <b class="caret"></b>
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a href="/leader/paidStudent?gradeid=-1&subjectid=-1&typeid=-1">已缴费学员</a></li>
+                            <li><a href="/leader/paidStudent?gradeid=-1&subjectid=-1&typeid=-1&campusid=1">已缴费学员</a></li>
                             <li class="divider"></li>
-                            <li><a href="/leader/prePayStu?gradeid=-1&subjectid=-1&typeid=-1">预缴费学员</a></li>
+                            <li><a href="/leader/prePayStu?gradeid=-1&subjectid=-1&typeid=-1&campusid=1">预缴费学员</a></li>
                         </ul>
                     </li>
 

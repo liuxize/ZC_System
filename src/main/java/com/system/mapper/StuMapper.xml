@@ -693,6 +693,8 @@
         WHERE
         stu.stuID = lesson.stuID
         AND
+        stu.campusID = #{3}
+        AND
         stu.gradeID = #{0}
         AND
         lesson.subjectID = #{1}

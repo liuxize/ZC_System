@@ -73,7 +73,7 @@ public interface StuMapperCustom {
     List<LessonCustom> selectByPayStu(PagingVO pagingVO);
 
     //缴费学员(全部学科 全部类型 全部年级) 全部显示
-    List<LessonCustom> selectAllByPayStu();
+    List<LessonCustom> selectAllByPayStu( Integer campusid);
 
     // 缴费学员1 （学科 类型）分页显示
     List<LessonCustom> selectPayStuBySubAndType(PagingVO pagingVO);

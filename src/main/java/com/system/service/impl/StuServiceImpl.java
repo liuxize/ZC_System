@@ -452,90 +452,105 @@ public class StuServiceImpl implements StuService {
 
 
     //根据选项分页查找已经缴费的学生
-    public List<LessonCustom> findStuByPayStuAndSelect(Integer toPageNo, Integer gradeid, Integer subjectid, Integer typeid) throws Exception{
+    public List<LessonCustom> findStuByPayStuAndSelect(Integer toPageNo, Integer gradeid, Integer subjectid, Integer typeid, Integer campusid) throws Exception{
         PagingVO pagingVO = new PagingVO();
         pagingVO.setToPageNo(toPageNo);
         //pagingVO.setIntergertemp(gradeid);
-        if(gradeid==-1 && subjectid !=-1 && typeid!=-1) {    //学科 类型
+        if(gradeid==-1 && subjectid !=-1 && typeid!=-1) {    //学科 类型 完成
             pagingVO.setIntergertwo(subjectid);
             pagingVO.setIntergerthree(typeid);
+            pagingVO.setIntergerfour(campusid);
             return stuMapperCustom.selectPayStuBySubAndType(pagingVO);
 
         }
-        else if (gradeid!=-1 && subjectid ==-1 && typeid!=-1){    //年级 类型
+        else if (gradeid!=-1 && subjectid ==-1 && typeid!=-1){    //年级 类型 完成
             pagingVO.setIntergertemp(gradeid);
             pagingVO.setIntergerthree(typeid);
+            pagingVO.setIntergerfour(campusid);
             return stuMapperCustom.selectPayStuByGradeAndType(pagingVO);
         }
-        else if(gradeid!=-1 && subjectid !=-1 && typeid==-1){ //年级 学科
+        else if(gradeid!=-1 && subjectid !=-1 && typeid==-1){ //年级 学科 完成
             pagingVO.setIntergertemp(gradeid);
             pagingVO.setIntergertwo(subjectid);
+            pagingVO.setIntergerfour(campusid);
             return stuMapperCustom.selectPayStuByGradeAndSub(pagingVO);
         }
-        else if(gradeid!=-1 && subjectid ==-1 && typeid==-1){  //年级
+        else if(gradeid!=-1 && subjectid ==-1 && typeid==-1){  //年级 完成
             pagingVO.setIntergertemp(gradeid);
+            pagingVO.setIntergerfour(campusid);
             return stuMapperCustom.selectPayStuByGrade(pagingVO);
 
         }
-        else if(gradeid==-1 && subjectid !=-1 && typeid==-1){  //学科
+        else if(gradeid==-1 && subjectid !=-1 && typeid==-1){  //学科 完成
             pagingVO.setIntergertwo(subjectid);
+            pagingVO.setIntergerfour(campusid);
             return stuMapperCustom.selectPayStuBySub(pagingVO);
         }
-        else if(gradeid==-1 && subjectid ==-1 && typeid!=-1){  //类型
+        else if(gradeid==-1 && subjectid ==-1 && typeid!=-1){  //类型 完成
             pagingVO.setIntergerthree(typeid);
+            pagingVO.setIntergerfour(campusid);
             return stuMapperCustom.selectPayStuByType(pagingVO);
         }
-        else if(gradeid==-1 && subjectid ==-1 && typeid==-1){  //全部
+        else if(gradeid==-1 && subjectid ==-1 && typeid==-1){  //全部 完成
+            pagingVO.setIntergerfour(campusid);
             return stuMapperCustom.selectByPayStu(pagingVO);
         }
-        else {  //学科 类型 类型
+        else {  //学科 类型 类型 完成
             pagingVO.setIntergertemp(gradeid);
             pagingVO.setIntergertwo(subjectid);
             pagingVO.setIntergerthree(typeid);
+            pagingVO.setIntergerfour(campusid);
             return stuMapperCustom.selectPayStuByGradeSubType(pagingVO);
         }
     }
 
 
     //根据选项全部查找已经缴费的学生
-    public List<LessonCustom> findAllStuByPayStuAndSelect(Integer gradeid, Integer subjectid, Integer typeid) throws Exception{
+    public List<LessonCustom> findAllStuByPayStuAndSelect(Integer gradeid, Integer subjectid, Integer typeid, Integer campusid) throws Exception{
         PagingVO pagingVO = new PagingVO();
-        if(gradeid==-1 && subjectid !=-1 && typeid!=-1) {    //学科 类型
+        if(gradeid==-1 && subjectid !=-1 && typeid!=-1) {    //学科 类型 完成
             pagingVO.setIntergertwo(subjectid);
             pagingVO.setIntergerthree(typeid);
+            pagingVO.setIntergerfour(campusid);
             return stuMapperCustom.selectAllPayStuBySubAndType(pagingVO);
 
         }
-        else if (gradeid!=-1 && subjectid ==-1 && typeid!=-1){    //年级 类型
+        else if (gradeid!=-1 && subjectid ==-1 && typeid!=-1){    //年级 类型 完成
             pagingVO.setIntergertemp(gradeid);
             pagingVO.setIntergerthree(typeid);
+            pagingVO.setIntergerfour(campusid);
             return stuMapperCustom.selectAllPayStuByGradeAndType(pagingVO);
         }
-        else if(gradeid!=-1 && subjectid !=-1 && typeid==-1){ //年级 学科
+        else if(gradeid!=-1 && subjectid !=-1 && typeid==-1){ //年级 学科 完成
             pagingVO.setIntergertemp(gradeid);
             pagingVO.setIntergertwo(subjectid);
+            pagingVO.setIntergerfour(campusid);
             return stuMapperCustom.selectAllPayStuByGradeAndSub(pagingVO);
         }
-        else if(gradeid!=-1 && subjectid ==-1 && typeid==-1){  //年级
+        else if(gradeid!=-1 && subjectid ==-1 && typeid==-1){  //年级 完成
             pagingVO.setIntergertemp(gradeid);
+            pagingVO.setIntergerfour(campusid);
             return stuMapperCustom.selectAllPayStuByGrade(pagingVO);
 
         }
-        else if(gradeid==-1 && subjectid !=-1 && typeid==-1){  //学科
+        else if(gradeid==-1 && subjectid !=-1 && typeid==-1){  //学科 完成
             pagingVO.setIntergertwo(subjectid);
+            pagingVO.setIntergerfour(campusid);
             return stuMapperCustom.selectAllPayStuBySub(pagingVO);
         }
-        else if(gradeid==-1 && subjectid ==-1 && typeid!=-1){  //类型
+        else if(gradeid==-1 && subjectid ==-1 && typeid!=-1){  //类型 完成
             pagingVO.setIntergerthree(typeid);
+            pagingVO.setIntergerfour(campusid);
             return stuMapperCustom.selectAllPayStuByType(pagingVO);
         }
-        else if(gradeid==-1 && subjectid ==-1 && typeid==-1){  //全部
-            return stuMapperCustom.selectAllByPayStu();
+        else if(gradeid==-1 && subjectid ==-1 && typeid==-1){  //全部 和其他的不一样 完成
+            return stuMapperCustom.selectAllByPayStu(campusid);
         }
         else {  //学科 类型 类型
             pagingVO.setIntergertemp(gradeid);
             pagingVO.setIntergertwo(subjectid);
             pagingVO.setIntergerthree(typeid);
+            pagingVO.setIntergerfour(campusid);
             return stuMapperCustom.selectAllPayStuByGradeSubType(pagingVO);
         }
     }
@@ -564,7 +579,7 @@ public class StuServiceImpl implements StuService {
            return stuMapper.countStuByPayStu(campusid);
         }
         else {  //学科 类型 类型
-            return stuMapper.countPayByGradeSubType(gradeid,subjectid,typeid);
+            return stuMapper.countPayByGradeSubType(gradeid,subjectid,typeid, campusid);
         }
     }
 

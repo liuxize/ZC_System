@@ -157,10 +157,11 @@ public interface StuService {
     List<StuCustom> findAllStuByPay() throws Exception;
 
     //根据选项查找已经缴费的学生
-    List<LessonCustom> findStuByPayStuAndSelect(Integer toPageNo, Integer gradeid, Integer subjectid, Integer typeid) throws Exception;
-
-    List<LessonCustom> findAllStuByPayStuAndSelect(Integer gradeid, Integer subjectid, Integer typeid) throws Exception;
-
+    //完成
+    List<LessonCustom> findStuByPayStuAndSelect(Integer toPageNo, Integer gradeid, Integer subjectid, Integer typeid, Integer campusid) throws Exception;
+    //完成
+    List<LessonCustom> findAllStuByPayStuAndSelect(Integer gradeid, Integer subjectid, Integer typeid, Integer campusid) throws Exception;
+    //完成
     int countPayStuBySelect(Integer gradeid, Integer subjectid, Integer typeid, Integer campusid) throws  Exception;
 
     //根据选项查找预缴费学生

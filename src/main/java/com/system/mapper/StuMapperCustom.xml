@@ -168,8 +168,8 @@
         select
         lesson.*, classtype.typeName, subject.subjectName, stu.stuName, stu.school, grade.gradeName
         from stu, grade, lesson, classtype, subject
-        WHERE
-        stu.gradeID = grade.gradeID
+        WHERE stu.campusID = #{intergerfour,jdbcType=INTEGER}
+        AND stu.gradeID = grade.gradeID
         AND lesson.typeID = classtype.typeID
         AND lesson.subjectID = subject.subjectID
         AND stu.stuID = lesson.stuID
@@ -186,8 +186,8 @@
         select
         lesson.*, classtype.typeName, subject.subjectName, stu.stuName, stu.school, grade.gradeName
         from stu, grade, lesson, classtype, subject
-        WHERE
-        stu.gradeID = grade.gradeID
+        WHERE stu.campusID = #{campusid,jdbcType=INTEGER}
+        AND stu.gradeID = grade.gradeID
         AND lesson.typeID = classtype.typeID
         AND lesson.subjectID = subject.subjectID
         AND stu.stuID = lesson.stuID
@@ -204,7 +204,8 @@
         lesson.*, classtype.typeName, subject.subjectName, stu.stuName, stu.school, grade.gradeName
         from stu, grade, lesson, classtype, subject
         WHERE
-        stu.gradeID = grade.gradeID
+        stu.campusID = #{intergerfour,jdbcType=INTEGER}
+        AND stu.gradeID = grade.gradeID
         AND lesson.typeID = classtype.typeID
         AND lesson.subjectID = subject.subjectID
         AND
@@ -226,7 +227,8 @@
         select
         lesson.*, classtype.typeName, subject.subjectName, stu.stuName, stu.school, grade.gradeName
         from stu, grade, lesson, classtype, subject
-        WHERE stu.gradeID = grade.gradeID
+        WHERE stu.campusID = #{intergerfour,jdbcType=INTEGER}
+        AND stu.gradeID = grade.gradeID
         AND lesson.typeID = classtype.typeID
         AND lesson.subjectID = subject.subjectID
         AND
@@ -247,7 +249,8 @@
         select
         lesson.*, classtype.typeName, subject.subjectName, stu.stuName, stu.school, grade.gradeName
         from stu, grade, lesson, classtype, subject
-        WHERE stu.gradeID = grade.gradeID
+        WHERE stu.campusID = #{intergerfour,jdbcType=INTEGER}
+        AND stu.gradeID = grade.gradeID
         AND lesson.typeID = classtype.typeID
         AND lesson.subjectID = subject.subjectID
         AND
@@ -269,7 +272,8 @@
         select
         lesson.*, classtype.typeName, subject.subjectName, stu.stuName, stu.school, grade.gradeName
         from stu, grade, lesson, classtype, subject
-        WHERE stu.gradeID = grade.gradeID
+        WHERE stu.campusID = #{intergerfour,jdbcType=INTEGER}
+        AND stu.gradeID = grade.gradeID
         AND lesson.typeID = classtype.typeID
         AND lesson.subjectID = subject.subjectID
         AND
@@ -290,7 +294,8 @@
         select
         lesson.*, classtype.typeName, subject.subjectName, stu.stuName, stu.school, grade.gradeName
         from stu, grade, lesson, classtype, subject
-        WHERE stu.gradeID = grade.gradeID
+        WHERE stu.campusID = #{intergerfour,jdbcType=INTEGER}
+        AND stu.gradeID = grade.gradeID
         AND lesson.typeID = classtype.typeID
         AND lesson.subjectID = subject.subjectID
         AND
@@ -312,7 +317,8 @@
         select
         lesson.*, classtype.typeName, subject.subjectName, stu.stuName, stu.school, grade.gradeName
         from stu, grade, lesson, classtype, subject
-        WHERE stu.gradeID = grade.gradeID
+        WHERE stu.campusID = #{intergerfour,jdbcType=INTEGER}
+        AND stu.gradeID = grade.gradeID
         AND lesson.typeID = classtype.typeID
         AND lesson.subjectID = subject.subjectID
         AND
@@ -333,7 +339,8 @@
         select
         lesson.*, classtype.typeName, subject.subjectName, stu.stuName, stu.school, grade.gradeName
         from stu, grade, lesson, classtype, subject
-        WHERE stu.gradeID = grade.gradeID
+        WHERE stu.campusID = #{intergerfour,jdbcType=INTEGER}
+        AND stu.gradeID = grade.gradeID
         AND lesson.typeID = classtype.typeID
         AND lesson.subjectID = subject.subjectID
         AND
@@ -353,7 +360,8 @@
         select
         lesson.*, classtype.typeName, subject.subjectName, stu.stuName, stu.school, grade.gradeName
         from stu, grade, lesson, classtype, subject
-        WHERE stu.gradeID = grade.gradeID
+        WHERE stu.campusID = #{intergerfour,jdbcType=INTEGER}
+        AND stu.gradeID = grade.gradeID
         AND lesson.typeID = classtype.typeID
         AND lesson.subjectID = subject.subjectID
         AND
@@ -372,7 +380,8 @@
         select
         lesson.*, classtype.typeName, subject.subjectName, stu.stuName, stu.school, grade.gradeName
         from stu, grade, lesson, classtype, subject
-        WHERE stu.gradeID = grade.gradeID
+        WHERE stu.campusID = #{intergerfour,jdbcType=INTEGER}
+        AND stu.gradeID = grade.gradeID
         AND lesson.typeID = classtype.typeID
         AND lesson.subjectID = subject.subjectID
         AND
@@ -392,7 +401,8 @@
         select
         lesson.*, classtype.typeName, subject.subjectName, stu.stuName, stu.school, grade.gradeName
         from stu, grade, lesson, classtype, subject
-        WHERE stu.gradeID = grade.gradeID
+        WHERE stu.campusID = #{intergerfour,jdbcType=INTEGER}
+        AND stu.gradeID = grade.gradeID
         AND lesson.typeID = classtype.typeID
         AND lesson.subjectID = subject.subjectID
         AND
@@ -411,7 +421,8 @@
         select
         lesson.*, classtype.typeName, subject.subjectName, stu.stuName, stu.school, grade.gradeName
         from stu, grade, lesson, classtype, subject
-        WHERE stu.gradeID = grade.gradeID
+        WHERE stu.campusID = #{intergerfour,jdbcType=INTEGER}
+        AND stu.gradeID = grade.gradeID
         AND lesson.typeID = classtype.typeID
         AND lesson.subjectID = subject.subjectID
         AND
@@ -431,7 +442,8 @@
         select
         lesson.*, classtype.typeName, subject.subjectName, stu.stuName, stu.school, grade.gradeName
         from stu, grade, lesson, classtype, subject
-        WHERE stu.gradeID = grade.gradeID
+        WHERE stu.campusID = #{intergerfour,jdbcType=INTEGER}
+        AND stu.gradeID = grade.gradeID
         AND lesson.typeID = classtype.typeID
         AND lesson.subjectID = subject.subjectID
         AND
@@ -450,7 +462,8 @@
         select
        lesson.*, classtype.typeName, subject.subjectName, stu.stuName, stu.school, grade.gradeName
         from stu, grade, lesson, classtype, subject
-        WHERE stu.gradeID = grade.gradeID
+        WHERE stu.campusID = #{intergerfour,jdbcType=INTEGER}
+        AND stu.gradeID = grade.gradeID
         AND lesson.typeID = classtype.typeID
         AND lesson.subjectID = subject.subjectID
         AND
@@ -474,7 +487,8 @@
         select
         lesson.*, classtype.typeName, subject.subjectName, stu.stuName, stu.school, grade.gradeName
         from stu, grade, lesson, classtype, subject
-        WHERE stu.gradeID = grade.gradeID
+        WHERE stu.campusID = #{intergerfour,jdbcType=INTEGER}
+        AND stu.gradeID = grade.gradeID
         AND lesson.typeID = classtype.typeID
         AND lesson.subjectID = subject.subjectID
         AND

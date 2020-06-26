@@ -20,11 +20,21 @@ public class PagingVO {
     //要前往的页码,默认0
     private int toPageNo = 0;
     //用于存储整形变量
-    private Integer intergertemp;
-    private Integer intergertwo;
-    private Integer intergerthree;
+    private Integer intergertemp;  //grade
+    private Integer intergertwo;   //subject
+    private Integer intergerthree;  // type
+    private Integer intergerfour;  //campus
     //用于存储查询的开始日期；
     private Date startdate;
+
+    public Integer getIntergerfour() {
+        return intergerfour;
+    }
+
+    public void setIntergerfour(Integer intergerfour) {
+        this.intergerfour = intergerfour;
+    }
+
     //用于存储查询的结束日期
     private Date enddate;
 

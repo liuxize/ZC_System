@@ -21,6 +21,9 @@
     <script src="/js/jquery-3.2.1.min.js"></script>
     <script src="/js/bootstrap.min.js"></script>
 
+    <!-- bootstrap-select -->
+    <link rel="stylesheet"  href="/css/bootstrap-select.min.css">
+    <script src="/js/bootstrap-select.min.js"></script>
     <%--<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">--%>
 
 </head>
@@ -34,20 +37,38 @@
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <div class="row">
-                        <h1 class="col-md-5">预缴费学员</h1>
+                        <h1 class="col-md-3">预缴费学员</h1>
                         <p>
-                            <button class="btn btn-warning" style="margin: 30px 0 10px 0; float:right;"
+                            <button class="btn btn-warning" style="margin: 30px 10px 10px 10px; float:right;"
                                     onClick="saveAsExcelFile()">
                                 打印信息
                                 <sapn class="glyphicon glyphicon-align-justify"/>
                             </button>
                         </p>
 
-                        <form class="bs-example bs-example-form col-md-5" role="form"
-                              style="margin: 20px 0 10px 0; float:right;"
+                        <form class="bs-example bs-example-form " role="form"
+                              style="margin: 20px 0 10px 10px; float:right;"
                               action="/admin/prePayStu" id="form1" method="post">
 
                             <div class="form-inline" style="float: right">
+                                校区
+                                <div class="form-group" style="width: 220px">
+
+                                    <select class="selectpicker show-tick form-control" data-live-search="true" name="typeid" >
+                                        <c:forEach items="${campusList}" var="item">
+                                            <c:choose>
+                                                <c:when test="${item.campusid==campusIndex}">
+                                                    <option value="${item.campusid}"
+                                                            selected="selected">${item.campusname}</option>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <option value="${item.campusid}">${item.campusname}</option>
+                                                </c:otherwise>
+                                            </c:choose>
+                                        </c:forEach>
+                                    </select>
+                                </div>
+
                                 状态
 
                                 <select class="form-control" name="gradeid" style="width: 90px">
