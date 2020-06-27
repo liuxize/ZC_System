@@ -309,30 +309,29 @@ public class StuServiceImpl implements StuService {
     }
 
     //统计未缴费学生人数
-    public int getCountByUnPayStu(Integer gradeid, Integer teleType) throws Exception {
+    public int getCountByUnPayStu(Integer gradeid, Integer teleType, Integer campusid) throws Exception {
 
         if(gradeid==-1 && teleType==0){  //全部 全部
-
-            return stuMapper.countStuByUnPayStu();
+            return stuMapper.countStuByUnPayStu(campusid);
         }
         else if(gradeid==-1 && teleType==1) { //全部 有电话
-           return stuMapper.countStuByUnPayStuTel();
+           return stuMapper.countStuByUnPayStuTel(campusid);
         }
         else if(gradeid==-1 && teleType==2){  //全部 没有电弧
-            return stuMapper.countStuByUnPayStuNoTel();
+            return stuMapper.countStuByUnPayStuNoTel(campusid);
         }
         else if (gradeid!=-1 && teleType==0){ //分年级 全部
 
-            return stuMapper.countUnPayStuByGrade(gradeid);
+            return stuMapper.countUnPayStuByGrade(gradeid, campusid);
 
         }
         else if(gradeid!=-1 && teleType==1){ //分年级 有电话
-            return stuMapper.countUnPayStuByGradeTel(gradeid);
+            return stuMapper.countUnPayStuByGradeTel(gradeid, campusid);
         }
         else if (gradeid!=-1 && teleType==2) //分年级 没有电话
 
         {
-            return stuMapper.countUnPayStuByGradeNoTel(gradeid);
+            return stuMapper.countUnPayStuByGradeNoTel(gradeid, campusid);
         }
         else {
             return 0;
@@ -720,60 +719,66 @@ public class StuServiceImpl implements StuService {
 
 
 
-    public List<StuCustom> findAllStuByUnPayStu(Integer gradeid , Integer teleType) throws Exception{
+    public List<StuCustom> findAllStuByUnPayStu(Integer gradeid , Integer teleType, Integer campusid) throws Exception{
 
         if(gradeid==-1 && teleType==0){  //全部 全部
-            return stuMapperCustom.selectAllByUnPayStu();
+            return stuMapperCustom.selectAllByUnPayStu(campusid);
         }
         else if(gradeid==-1 && teleType==1) { //全部 有电话
-            return stuMapperCustom.selectAllByUnPayStuTel();
+            return stuMapperCustom.selectAllByUnPayStuTel(campusid);
         }
         else if(gradeid==-1 && teleType==2){  //全部 没有电弧
-            return stuMapperCustom.selectAllByUnPayStuNoTel();
+            return stuMapperCustom.selectAllByUnPayStuNoTel(campusid);
         }
         else if (gradeid!=-1 && teleType==0){ //分年级 全部
-            return stuMapperCustom.selectAllUnPayStuByGrade(gradeid);
+            return stuMapperCustom.selectAllUnPayStuByGrade(gradeid, campusid);
 
         }
         else if(gradeid!=-1 && teleType==1){ //分年级 有电话
-            return stuMapperCustom.selectAllUnPayStuByGradeTel(gradeid);
+            return stuMapperCustom.selectAllUnPayStuByGradeTel(gradeid, campusid);
         }
         else if (gradeid!=-1 && teleType==2) //分年级 没有电话
 
         {
-            return stuMapperCustom.selectAllUnPayStuByGradeNoTel(gradeid);
+            return stuMapperCustom.selectAllUnPayStuByGradeNoTel(gradeid, campusid);
         }
         else {
             return null;
         }
     }
 
-    public List<StuCustom> findStuByUnPayStu(Integer toPageNo, Integer gradeid, Integer teleType) throws Exception{
+    public List<StuCustom> findStuByUnPayStu(Integer toPageNo, Integer gradeid, Integer teleType, Integer campusid) throws Exception{
         PagingVO pagingVO = new PagingVO();
         pagingVO.setToPageNo(toPageNo);
 
         if(gradeid==-1 && teleType==0){  //全部 全部
+            pagingVO.setIntergerfour(campusid);
             return stuMapperCustom.selectByUnPayStu(pagingVO);
         }
         else if(gradeid==-1 && teleType==1) { //全部 有电话
+            pagingVO.setIntergerfour(campusid);
             return stuMapperCustom.selectByUnPayStuTel(pagingVO);
         }
         else if(gradeid==-1 && teleType==2){  //全部 没有电弧
+            pagingVO.setIntergerfour(campusid);
             return stuMapperCustom.selectByUnPayStuNoTel(pagingVO);
         }
         else if (gradeid!=-1 && teleType==0){ //分年级 全部
             pagingVO.setIntergertemp(gradeid);
+            pagingVO.setIntergerfour(campusid);
             return stuMapperCustom.selectUnPayStuByGrade(pagingVO);
 
         }
         else if(gradeid!=-1 && teleType==1){ //分年级 有电话
-          pagingVO.setIntergertemp(gradeid);
+            pagingVO.setIntergertemp(gradeid);
+            pagingVO.setIntergerfour(campusid);
             return stuMapperCustom.selectUnPayStuByGradeTel(pagingVO);
         }
         else if (gradeid!=-1 && teleType==2) //分年级 没有电话
 
         {
             pagingVO.setIntergertemp(gradeid);
+            pagingVO.setIntergerfour(campusid);
            return stuMapperCustom.selectUnPayStuByGradeNoTel(pagingVO);
         }
         else {

@@ -7,6 +7,7 @@ import java.util.List;
 public interface GradeService {
     List<Grade> findAllGrade() throws Exception;
     List<Grade> findAllGradeByDesc() throws Exception;
+    List<Grade> findAllGradeByAuth(String teachername) throws Exception;
 
     void saveGrade (String gradeName) throws Exception;
 

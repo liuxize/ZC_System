@@ -1479,8 +1479,11 @@ public class MasterController {
     //查看缴费的学生 表三的上课开始时间<=查询当天日期<=表三上课结束时间
     @RequestMapping(value = "/paidStudent", method = {RequestMethod.GET})
     public String paidStudentUI(Model model, Integer page, Integer gradeid, Integer subjectid, Integer typeid, Integer campusid) throws Exception {
-        List<Campus> campusList = campusService.findAllCampus();
-        List<Grade> gradelist = gradeService.findAllGrade();
+        Subject subjectuse = SecurityUtils.getSubject();
+        String username = (String) subjectuse.getPrincipal();
+        List<Campus> campusList = campusService.findAllCampusByAuth(username);
+        List<Grade> gradelist = gradeService.findAllGradeByAuth(username);
+
         List<com.system.po.Subject> subjectList = subjectService.findAllSubject();
         List<ClassType> classTypeList = classTypeService.findAllClassType();
 
@@ -1537,8 +1540,11 @@ public class MasterController {
     //查看预缴费学员 查询当天日期<表三的上课时间且小于表三的上课结束时间
     @RequestMapping(value = "/prePayStu", method = {RequestMethod.GET})
     public String prePayStuUI(Model model, Integer page, Integer gradeid, Integer subjectid, Integer typeid, Integer campusid) throws Exception {
-        List<Campus> campusList = campusService.findAllCampus();
-        List<Grade> gradelist = gradeService.findAllGrade();
+        Subject subjectuse = SecurityUtils.getSubject();
+        String username = (String) subjectuse.getPrincipal();
+        List<Campus> campusList = campusService.findAllCampusByAuth(username);
+        List<Grade> gradelist = gradeService.findAllGradeByAuth(username);
+
         List<com.system.po.Subject> subjectList = subjectService.findAllSubject();
         List<ClassType> classTypeList = classTypeService.findAllClassType();
 
@@ -1584,7 +1590,7 @@ public class MasterController {
         model.addAttribute("gradeIndex", gradeid);
         model.addAttribute("subjectIndex", subjectid);
         model.addAttribute("typeIndex", typeid);
-        model.addAttribute("campusList", campusList);
+        model.addAttribute("campusIndex", campusid);
 
         return "master/prePayStu";
     }

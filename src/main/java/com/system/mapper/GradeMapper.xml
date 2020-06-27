@@ -35,5 +35,14 @@
         where gradeID = #{id,jdbcType=INTEGER}
     </delete>
 
+    <select id="findAllByAuth"  parameterType="java.lang.String" resultType="com.system.po.Grade">
+        select
+        grade.gradeID, grade.gradeName
+        from grade, permission
+        where grade.gradeID = permission.gradeID
+        AND
+        permission.teacherName = #{name,jdbcType=VARCHAR}
+    </select>
+
 
 </mapper>

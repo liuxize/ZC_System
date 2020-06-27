@@ -111,7 +111,7 @@ public interface StuService {
 
     int getCountByPayStu(Integer campusid) throws Exception;
 
-    int getCountByUnPayStu(Integer gradeid,Integer teleType) throws Exception;
+
 
     int getCountBySchool(String schoolName) throws Exception;
 
@@ -167,17 +167,19 @@ public interface StuService {
     //根据选项查找预缴费学生
     //完成
     List<LessonCustom> findStuByPrePayStuAndSelect(Integer toPageNo, Integer gradeid, Integer subjectid, Integer typeid, Integer campusid) throws Exception;
-    //待修改
+    //完成
     List<LessonCustom> findAllStuByPrePayStuAndSelect(Integer gradeid, Integer subjectid, Integer typeid, Integer campusid) throws Exception;
 
     //完成
     int countPrePayStuBySelect(Integer gradeid, Integer subjectid, Integer typeid, Integer campusid) throws Exception;
 
-    //未交费学员（未分页）
-    List<StuCustom> findAllStuByUnPayStu(Integer gradeid, Integer teleType) throws Exception;
+    //未交费学员（未分页）待修改
+    List<StuCustom> findAllStuByUnPayStu(Integer gradeid, Integer teleType, Integer campusid) throws Exception;
 
-    //未交费学员（分页）
-    List<StuCustom> findStuByUnPayStu(Integer toPageNo, Integer gradeid, Integer teleType) throws Exception;
+    //未交费学员（分页） 完成
+    List<StuCustom> findStuByUnPayStu(Integer toPageNo, Integer gradeid, Integer teleType, Integer campusid) throws Exception;
+    // 完成
+    int getCountByUnPayStu(Integer gradeid, Integer teleType, Integer campusid) throws Exception;
 
     void removeStuByID(Integer stuID) throws Exception;
 

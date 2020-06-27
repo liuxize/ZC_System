@@ -173,36 +173,36 @@ public interface StuMapperCustom {
     List<StuCustom> selectByUnPayStu(PagingVO pagingVO);
 
     //全部未缴费学员  （不分页 //全部 全部）
-    List<StuCustom> selectAllByUnPayStu();
+    List<StuCustom> selectAllByUnPayStu(Integer campusid);
 
     //分页 全部 有电话
     List<StuCustom> selectByUnPayStuTel(PagingVO pagingVO);
 
     //不分页 全部 有电话
-    List<StuCustom> selectAllByUnPayStuTel();
+    List<StuCustom> selectAllByUnPayStuTel(Integer campusid);
 
     //分页 全部 无电话
     List<StuCustom> selectByUnPayStuNoTel(PagingVO pagingVO);
     //不分页 全部 无有电话
-    List<StuCustom> selectAllByUnPayStuNoTel();
+    List<StuCustom> selectAllByUnPayStuNoTel(Integer campusid);
 
     //未缴费学生（分页，分年级  全部）
     List<StuCustom> selectUnPayStuByGrade(PagingVO pagingVO);
 
     //未缴费学生（全部，分年级  全部）
-    List<StuCustom> selectAllUnPayStuByGrade(Integer gradeid);
+    List<StuCustom> selectAllUnPayStuByGrade(Integer gradeid, Integer campusid);
 
     //分页 分年级 有电话
     List<StuCustom> selectUnPayStuByGradeTel(PagingVO pagingVO);
 
     //不分页 分年级 有电话
-    List<StuCustom> selectAllUnPayStuByGradeTel(Integer gradeid);
+    List<StuCustom> selectAllUnPayStuByGradeTel(Integer gradeid, Integer campusid);
 
     //分页 分年级 没有电话
     List<StuCustom> selectUnPayStuByGradeNoTel(PagingVO pagingVO);
 
     //不分页 分年级 没有电话
-    List<StuCustom> selectAllUnPayStuByGradeNoTel(Integer gradeid);
+    List<StuCustom> selectAllUnPayStuByGradeNoTel(Integer gradeid, Integer campusid);
 
 
 //////////////////////////////////////////////////////

@@ -511,7 +511,8 @@
         select distinct
         stu.*, grade.gradeName
         from stu, grade
-        WHERE
+        WHERE stu.campusID = #{intergerfour,jdbcType=INTEGER}
+        AND
         stu.gradeID = grade.gradeID
         AND
         stu.stuID NOT IN
@@ -528,7 +529,8 @@
         select distinct
         stu.*, grade.gradeName
         from stu, grade
-        WHERE
+        WHERE stu.campusID = #{campusid,jdbcType=INTEGER}
+        AND
         stu.gradeID = grade.gradeID
         AND
         stu.stuID NOT IN
@@ -566,7 +568,8 @@
         select distinct
         stu.*, grade.gradeName
         from stu, grade
-        WHERE
+        WHERE stu.campusID = #{intergerfour,jdbcType=INTEGER}
+        AND
         stu.gradeID = grade.gradeID
         AND
         stu.gradeID = #{intergertemp, jdbcType=INTEGER}
@@ -587,8 +590,10 @@
         stu.*, grade.gradeName
         from stu, grade
         WHERE
+        stu.campusID = #{1}
+        AND
         stu.gradeID = grade.gradeID
-        AND stu.gradeID = #{gradeid, jdbcType=INTEGER}
+        AND stu.gradeID = #{0}
         AND
         stu.stuID NOT IN
         (
@@ -643,7 +648,8 @@
         select distinct
         stu.*, grade.gradeName
         from stu, grade
-        WHERE
+        WHERE stu.campusID = #{intergerfour,jdbcType=INTEGER}
+        AND
         stu.gradeID = grade.gradeID
         AND
        ( stu.stuTel !=''
@@ -667,7 +673,8 @@
         select distinct
         stu.*, grade.gradeName
         from stu, grade
-        WHERE
+        WHERE stu.campusID = #{campusid,jdbcType=INTEGER}
+        AND
         stu.gradeID = grade.gradeID
         AND
         (stu.stuTel !=''
@@ -691,7 +698,8 @@
         select distinct
         stu.*, grade.gradeName
         from stu, grade
-        WHERE
+        WHERE stu.campusID = #{intergerfour,jdbcType=INTEGER}
+        AND
         stu.gradeID = grade.gradeID
         AND
         stu.stuTel =''
@@ -715,7 +723,8 @@
         select distinct
         stu.*, grade.gradeName
         from stu, grade
-        WHERE
+        WHERE stu.campusID = #{campusid,jdbcType=INTEGER}
+        AND
         stu.gradeID = grade.gradeID
         AND
         stu.stuTel =''
@@ -738,7 +747,8 @@
         select distinct
         stu.*, grade.gradeName
         from stu, grade
-        WHERE
+        WHERE stu.campusID = #{intergerfour,jdbcType=INTEGER}
+        AND
        (stu.stuTel !=''
         OR
         stu.motherTel !=''
@@ -764,7 +774,8 @@
         select distinct
         stu.*, grade.gradeName
         from stu, grade
-        WHERE
+        WHERE stu.campusID = #{1}
+        AND
         (stu.stuTel !=''
         OR
         stu.motherTel !=''
@@ -772,7 +783,7 @@
         stu.fatherTel !='')
         AND
         stu.gradeID = grade.gradeID
-        AND stu.gradeID = #{gradeid, jdbcType=INTEGER}
+        AND stu.gradeID = #{0}
         AND
         stu.stuID NOT IN
         (
@@ -788,7 +799,8 @@
         select distinct
         stu.*, grade.gradeName
         from stu, grade
-        WHERE
+        WHERE stu.campusID = #{intergerfour,jdbcType=INTEGER}
+        AND
         stu.gradeID = grade.gradeID
         AND
         stu.gradeID = #{intergertemp, jdbcType=INTEGER}
@@ -815,8 +827,10 @@
         stu.*, grade.gradeName
         from stu, grade
         WHERE
+        stu.campusID = #{1}
+        AND
         stu.gradeID = grade.gradeID
-        AND stu.gradeID = #{gradeid, jdbcType=INTEGER}
+        AND stu.gradeID = #{0}
         AND
         stu.stuTel =''
         AND

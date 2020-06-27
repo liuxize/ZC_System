@@ -399,6 +399,8 @@
     <select id="countStuByUnPayStu" resultType="java.lang.Integer" >
         select count(*) from stu
         WHERE
+        stu.campusID = #{campusid,jdbcType=INTEGER}
+        AND
         stu.stuID NOT IN
         (
         SELECT distinct lesson.stuID
@@ -411,7 +413,8 @@
     <!--//分页 全部 有电话-->
     <select id="countStuByUnPayStuTel" resultType="java.lang.Integer" >
         select count(*) from stu
-        WHERE
+        WHERE stu.campusID = #{campusid,jdbcType=INTEGER}
+        AND
         (stu.stuTel !=''
         OR
         stu.motherTel !=''
@@ -430,7 +433,8 @@
     <!--//分页 全部 无电话-->
     <select id="countStuByUnPayStuNoTel" resultType="java.lang.Integer" >
         select count(*) from stu
-        WHERE
+        WHERE stu.campusID = #{campusid,jdbcType=INTEGER}
+        AND
         stu.stuTel =''
         AND
         stu.motherTel=''
@@ -448,8 +452,9 @@
     <!--//未缴费学生（分年级  全部）-->
     <select id="countUnPayStuByGrade" parameterType="java.lang.Integer" resultType="java.lang.Integer" >
         select count(*) from stu
-        WHERE
-        stu.gradeID = #{gradeid,jdbcType=INTEGER}
+        WHERE stu.campusID = #{1}
+        AND
+        stu.gradeID = #{0}
         AND
         stu.stuID NOT IN
         (
@@ -462,14 +467,15 @@
     <!--//分页 分年级 有电话-->
     <select id="countUnPayStuByGradeTel" parameterType="java.lang.Integer" resultType="java.lang.Integer" >
         select count(*) from stu
-        WHERE
+        WHERE stu.campusID = #{1}
+        AND
         (stu.stuTel !=''
         OR
         stu.motherTel !=''
         OR
         stu.fatherTel !='')
         AND
-        stu.gradeID = #{gradeid,jdbcType=INTEGER}
+        stu.gradeID = #{0}
         AND
         stu.stuID NOT IN
         (
@@ -482,14 +488,15 @@
     <!--// 分年级 没有电话-->
     <select id="countUnPayStuByGradeNoTel" parameterType="java.lang.Integer" resultType="java.lang.Integer" >
         select count(*) from stu
-        WHERE
+        WHERE stu.campusID = #{1}
+        AND
         stu.stuTel =''
         AND
         stu.motherTel=''
         AND
         stu.fatherTel=''
         AND
-        stu.gradeID = #{gradeid,jdbcType=INTEGER}
+        stu.gradeID = #{0}
         AND
         stu.stuID NOT IN
         (

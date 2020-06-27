@@ -20,4 +20,13 @@
         where campusID = #{id,jdbcType=INTEGER}
     </delete>
 
+    <select id="findAllByAuth"  parameterType="java.lang.String" resultType="com.system.po.Campus">
+        select
+        campus.campusID, campus.campusName
+        from campus, campusauth
+        where campus.campusID = campusauth.campusID
+        AND
+        campusauth.teacherName = #{name,jdbcType=VARCHAR}
+    </select>
+
 </mapper>

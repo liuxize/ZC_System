@@ -1873,7 +1873,7 @@ public class AdminController {
         model.addAttribute("gradeIndex", gradeid);
         model.addAttribute("subjectIndex", subjectid);
         model.addAttribute("typeIndex", typeid);
-        model.addAttribute("campusList", campusList);
+        model.addAttribute("campusIndex", campusid);
 
         return "admin/prePayStu";
     }
@@ -1899,16 +1899,16 @@ public class AdminController {
         //页码对象
         PagingVO pagingVO = new PagingVO();
         //设置总页数
-        pagingVO.setTotalCount(stuService.getCountByUnPayStu(gradeid, teleType));
+        pagingVO.setTotalCount(stuService.getCountByUnPayStu(gradeid, teleType,campusid));
         if (page == null || page == 0) {
             pagingVO.setCurentPageNo(1);
             pagingVO.setToPageNo(1);
-            list = stuService.findStuByUnPayStu(1, gradeid, teleType);
+            list = stuService.findStuByUnPayStu(1, gradeid, teleType, campusid);
         } else {
             pagingVO.setToPageNo(page);
-            list = stuService.findStuByUnPayStu(page, gradeid, teleType);
+            list = stuService.findStuByUnPayStu(page, gradeid, teleType, campusid);
         }
-        List<StuCustom> allStuList = stuService.findAllStuByUnPayStu(gradeid, teleType);
+        List<StuCustom> allStuList = stuService.findAllStuByUnPayStu(gradeid, teleType, campusid);
         model.addAttribute("gradelist", gradelist);
         model.addAttribute("campusList", campusList);
         model.addAttribute("gradeIndex", gradeid);
@@ -1916,14 +1916,16 @@ public class AdminController {
         model.addAttribute("allStuList", allStuList);
         model.addAttribute("stuList", list);
         model.addAttribute("pagingVO", pagingVO);
+        model.addAttribute("campusIndex", campusid);
+
         return "admin/paidNotStudent";
     }
 
     // 添加记事本目录（表格）
     @RequestMapping(value = "/paidNotStudent", method = {RequestMethod.POST})
-    public String paidNotStudent(Integer gradeid, Integer teleType) throws Exception {
+    public String paidNotStudent(Integer gradeid, Integer teleType, Integer campusid) throws Exception {
 
-        return "redirect:/admin/paidNotStudent?gradeid=" + gradeid + "&teleType=" + teleType;
+        return "redirect:/admin/paidNotStudent?gradeid=" + gradeid + "&teleType=" + teleType +"&campusid=" + campusid;
     }
 
 

@@ -19,6 +19,10 @@ public class CampusServiceImpl implements CampusService {
         return campusMapper.findAll();
     }
 
+    public List<Campus> findAllCampusByAuth(String teachername) throws Exception{
+        return campusMapper.findAllByAuth(teachername);
+    }
+
     public void saveCampus (String campusname) throws Exception{
         campusMapper.insert(campusname);
     }

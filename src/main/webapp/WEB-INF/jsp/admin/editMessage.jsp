@@ -22,6 +22,9 @@
     <script src="/js/jquery-3.2.1.min.js"></script>
     <script src="/js/bootstrap.min.js"></script>
 
+    <link rel="stylesheet"  href="/css/bootstrap-select.min.css">
+    <script src="/js/bootstrap-select.min.js"></script>
+
     <style>
         .btnc {
             float: right;
@@ -137,7 +140,7 @@
                         </td>
                         <td style="width: 8%">所在学校</td>
                         <td style="width: 22%">
-                            <select class="form-control" name="school">
+                            <select class="selectpicker show-tick form-control" data-live-search="true" name="school">
                             <c:forEach items="${schoolList}" var="item">
                                 <c:choose>
                                     <c:when test="${item.schoolname == stumessage.school}">
@@ -153,7 +156,7 @@
                         </td>
                         <td style="width: 6%;">状态</td>
                         <td style="width: 15%;">
-                            <select class="form-control" name="gradeid">
+                            <select class="selectpicker show-tick form-control" data-live-search="true" name="gradeid">
                                 <c:forEach items="${gradeList}" var="item">
                                     <c:choose>
                                         <c:when test="${item.gradeid==stumessage.gradeid}">

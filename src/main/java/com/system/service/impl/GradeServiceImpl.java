@@ -24,6 +24,11 @@ public class GradeServiceImpl implements GradeService {
         return gradeMapper.findAllByDesc();
     }
 
+    public List<Grade> findAllGradeByAuth(String teachername) throws Exception {
+        return gradeMapper.findAllByAuth(teachername);
+    }
+
+
     public void saveGrade (String gradeName) throws Exception{
         gradeMapper.insert(gradeName);
     }

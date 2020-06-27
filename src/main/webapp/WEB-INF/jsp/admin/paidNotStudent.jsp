@@ -50,7 +50,7 @@
                                 校区
                                 <div class="form-group" style="width: 220px">
 
-                                    <select class="selectpicker show-tick form-control" data-live-search="true" name="typeid" >
+                                    <select class="selectpicker show-tick form-control" data-live-search="true" name="campusid" >
                                         <c:forEach items="${campusList}" var="item">
                                             <c:choose>
                                                 <c:when test="${item.campusid==campusIndex}">
@@ -66,38 +66,45 @@
                                 </div>
 
                                 状态
-                                <select class="form-control" name="gradeid" style="width: 150px">
-                                    <c:forEach items="${gradelist}" var="item">
-                                        <c:choose>
-                                            <c:when test="${item.gradeid==gradeIndex}">
-                                                <option value="${item.gradeid}"
-                                                        selected="selected">${item.gradename}</option>
-                                            </c:when>
-                                            <c:otherwise>
-                                                <option value="${item.gradeid}">${item.gradename}</option>
-                                            </c:otherwise>
-                                        </c:choose>
-                                    </c:forEach>
-                                </select>
+                                <div class="form-group" style="width: 150px">
+                                    <select class="selectpicker show-tick form-control" data-live-search="true" name="gradeid" >
+                                        <c:forEach items="${gradelist}" var="item">
+                                            <c:choose>
+                                                <c:when test="${item.gradeid==gradeIndex}">
+                                                    <option value="${item.gradeid}"
+                                                            selected="selected">${item.gradename}</option>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <option value="${item.gradeid}">${item.gradename}</option>
+                                                </c:otherwise>
+                                            </c:choose>
+                                        </c:forEach>
+                                    </select>
+                                </div>
+
                                 电话
-                                <select class="form-control" name="teleType" style="width: 150px" id="teletype">
-                                    <C:if test="${teleType==0}">
-                                        <option id="allTel"  value="0" selected="selected">全部</option>
-                                        <option id="Tel" value ="1">有电话</option>
-                                        <option id="noTel" value="2">无电话</option>
-                                    </C:if>
-                                    <C:if test="${teleType==1}">
-                                        <option id="allTel"  value="0" >全部</option>
-                                        <option id="Tel" value ="1" selected="selected">有电话</option>
-                                        <option id="noTel" value="2">无电话</option>
-                                    </C:if>
-                                    <C:if test="${teleType==2}">
-                                        <option id="allTel"  value="0" >全部</option>
-                                        <option id="Tel" value ="1" >有电话</option>
-                                        <option id="noTel" value="2" selected="selected">无电话</option>
-                                    </C:if>
-                                </select>
-                                <button class="btn btn-default" type="submit">查找</button>
+                                <div class="form-group" style="width: 150px">
+                                    <select class="selectpicker show-tick form-control" data-live-search="true" name="teleType"  id="teletype">
+                                        <C:if test="${teleType==0}">
+                                            <option id="allTel"  value="0" selected="selected">全部</option>
+                                            <option id="Tel" value ="1">有电话</option>
+                                            <option id="noTel" value="2">无电话</option>
+                                        </C:if>
+                                        <C:if test="${teleType==1}">
+                                            <option id="allTel"  value="0" >全部</option>
+                                            <option id="Tel" value ="1" selected="selected">有电话</option>
+                                            <option id="noTel" value="2">无电话</option>
+                                        </C:if>
+                                        <C:if test="${teleType==2}">
+                                            <option id="allTel"  value="0" >全部</option>
+                                            <option id="Tel" value ="1" >有电话</option>
+                                            <option id="noTel" value="2" selected="selected">无电话</option>
+                                        </C:if>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <button class="btn btn-default" type="submit">查找</button>
+                                </div>
                             </div>
                         </form>
                     </div>
@@ -137,43 +144,43 @@
                     <c:if test="${pagingVO != null}">
                         <nav style="text-align: center">
                             <ul class="pagination">
-                                <li><a href="/admin/paidNotStudent?page=1&gradeid=${gradeIndex}&teleType=${teleType}">首页</a></li>
+                                <li><a href="/admin/paidNotStudent?page=1&gradeid=${gradeIndex}&teleType=${teleType}&campusid=${campusIndex}">首页</a></li>
                                 <c:if test="${pagingVO.curentPageNo <= 1}">
-                                    <li><a href="/admin/paidNotStudent?page=1&gradeid=${gradeIndex}&teleType=${teleType}">&laquo;上一页</a></li>
+                                    <li><a href="/admin/paidNotStudent?page=1&gradeid=${gradeIndex}&teleType=${teleType}&campusid=${campusIndex}">&laquo;上一页</a></li>
                                 </c:if>
                                 <c:if test="${pagingVO.curentPageNo > 1}">
-                                    <li><a href="/admin/paidNotStudent?page=${pagingVO.upPageNo}&gradeid=${gradeIndex}&teleType=${teleType}">&laquo;上一页</a></li>
+                                    <li><a href="/admin/paidNotStudent?page=${pagingVO.upPageNo}&gradeid=${gradeIndex}&teleType=${teleType}&campusid=${campusIndex}">&laquo;上一页</a></li>
                                 </c:if>
 
                                 <li class="active"><a href="">${pagingVO.curentPageNo}</a></li>
                                 <c:if test="${pagingVO.curentPageNo+1 <= pagingVO.totalCount}">
                                     <li>
-                                        <a href="/admin/paidNotStudent?page=${pagingVO.curentPageNo+1}&gradeid=${gradeIndex}&teleType=${teleType}">${pagingVO.curentPageNo+1}</a>
+                                        <a href="/admin/paidNotStudent?page=${pagingVO.curentPageNo+1}&gradeid=${gradeIndex}&teleType=${teleType}&campusid=${campusIndex}">${pagingVO.curentPageNo+1}</a>
                                     </li>
                                 </c:if>
                                 <c:if test="${pagingVO.curentPageNo+2 <= pagingVO.totalCount}">
                                     <li>
-                                        <a href="/admin/paidNotStudent?page=${pagingVO.curentPageNo+2}&gradeid=${gradeIndex}&teleType=${teleType}">${pagingVO.curentPageNo+2}</a>
+                                        <a href="/admin/paidNotStudent?page=${pagingVO.curentPageNo+2}&gradeid=${gradeIndex}&teleType=${teleType}&campusid=${campusIndex}">${pagingVO.curentPageNo+2}</a>
                                     </li>
                                 </c:if>
                                 <c:if test="${pagingVO.curentPageNo+3 <= pagingVO.totalCount}">
                                     <li>
-                                        <a href="/admin/paidNotStudent?page=${pagingVO.curentPageNo+3}&gradeid=${gradeIndex}&teleType=${teleType}">${pagingVO.curentPageNo+3}</a>
+                                        <a href="/admin/paidNotStudent?page=${pagingVO.curentPageNo+3}&gradeid=${gradeIndex}&teleType=${teleType}&campusid=${campusIndex}">${pagingVO.curentPageNo+3}</a>
                                     </li>
                                 </c:if>
                                 <c:if test="${pagingVO.curentPageNo+4 <= pagingVO.totalCount}">
                                     <li>
-                                        <a href="/admin/paidNotStudent?page=${pagingVO.curentPageNo+4}&gradeid=${gradeIndex}&teleType=${teleType}">${pagingVO.curentPageNo+4}</a>
+                                        <a href="/admin/paidNotStudent?page=${pagingVO.curentPageNo+4}&gradeid=${gradeIndex}&teleType=${teleType}&campusid=${campusIndex}">${pagingVO.curentPageNo+4}</a>
                                     </li>
                                 </c:if>
 
                                 <c:if test="${pagingVO.curentPageNo <pagingVO.totalCount}">
-                                    <li><a href="/admin/paidNotStudent?page=${pagingVO.nextPageNo}&gradeid=${gradeIndex}&teleType=${teleType}">下一页&raquo;</a></li>
+                                    <li><a href="/admin/paidNotStudent?page=${pagingVO.nextPageNo}&gradeid=${gradeIndex}&teleType=${teleType}&campusid=${campusIndex}">下一页&raquo;</a></li>
                                 </c:if>
                                 <c:if test="${pagingVO.curentPageNo >=pagingVO.totalCount}">
-                                    <li><a href="/admin/paidNotStudent?page=${pagingVO.totalCount}&gradeid=${gradeIndex}&teleType=${teleType}">下一页&raquo;</a></li>
+                                    <li><a href="/admin/paidNotStudent?page=${pagingVO.totalCount}&gradeid=${gradeIndex}&teleType=${teleType}&campusid=${campusIndex}">下一页&raquo;</a></li>
                                 </c:if>
-                                <li><a href="/admin/paidNotStudent?page=${pagingVO.totalCount}&gradeid=${gradeIndex}&teleType=${teleType}">尾页</a></li>
+                                <li><a href="/admin/paidNotStudent?page=${pagingVO.totalCount}&gradeid=${gradeIndex}&teleType=${teleType}&campusid=${campusIndex}">尾页</a></li>
 
                                 <li><a><input id="toPage" style="height: 18px; width: 50px;border: 0px;outline:none;" type="text" placeholder="共${pagingVO.totalCount}页"/></a></li>
                                 <li><a href="javascript:void(0);" onclick="jumpPage()">跳转</a></li>
@@ -230,7 +237,7 @@
         var page = $("#toPage").val();
         if (page==''){return;}
         if(page<=${pagingVO.totalCount}){
-            window.location.href= "/admin/paidNotStudent?page=" + page+ "&gradeid=" + ${gradeIndex}+ "&teleType=" + ${teleType};
+            window.location.href= "/admin/paidNotStudent?page=" + page+ "&gradeid=" + ${gradeIndex}+ "&teleType=" + ${teleType} + "&campusid=" + ${campusIndex};
         }
     }
 

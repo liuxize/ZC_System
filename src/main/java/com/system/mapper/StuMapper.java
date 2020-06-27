@@ -106,22 +106,22 @@ public interface StuMapper {
 
 
     //未缴费学员 （分页 //全部 全部）
-    int countStuByUnPayStu() throws Exception;
+    int countStuByUnPayStu(Integer campusid) throws Exception;
 
     //分页 全部 有电话
-    int countStuByUnPayStuTel() throws Exception;
+    int countStuByUnPayStuTel(Integer campusid) throws Exception;
 
     //分页 全部 无电话
-    int countStuByUnPayStuNoTel() throws Exception;
+    int countStuByUnPayStuNoTel(Integer campusid) throws Exception;
 
     //未缴费学生（分年级  全部）
-    int countUnPayStuByGrade(Integer gradeid) throws Exception;
+    int countUnPayStuByGrade(Integer gradeid, Integer campusid) throws Exception;
 
     //分页 分年级 有电话
-    int countUnPayStuByGradeTel(Integer gradeid) throws Exception;
+    int countUnPayStuByGradeTel(Integer gradeid, Integer campusid) throws Exception;
 
     //分页 分年级 没有电话
-    int countUnPayStuByGradeNoTel(Integer gradeid);
+    int countUnPayStuByGradeNoTel(Integer gradeid, Integer campusid);
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
 
