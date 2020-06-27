@@ -123,7 +123,7 @@ public interface StuMapperCustom {
     //预缴费学员(全部学科 全部类型 全部年级) 分页显示 //
     List<LessonCustom> selectByPrePayStu(PagingVO pagingVO);
 
-    List<LessonCustom> selectAllByPrePayStu();
+    List<LessonCustom> selectAllByPrePayStu(Integer campusid);
 
     // 预缴费学员1 （学科 类型）分页显示
     List<LessonCustom> selectPrePayStuBySubAndType(PagingVO pagingVO);

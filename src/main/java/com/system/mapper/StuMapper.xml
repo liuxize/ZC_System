@@ -1072,8 +1072,11 @@
 
     <!--预缴费学生的数量  （全部年级 全部学科 全部类型）-->
     <select id="countPreStuByPayStu" resultType="java.lang.Integer" >
-        select count(*) from lesson
+        select count(*) from lesson,stu
         WHERE
+        stu.campusID = #{campusid, jdbcType=INTEGER}
+        AND stu.stuID = lesson.stuID
+        AND
         DATEDIFF(CAST(DATE_FORMAT(lesson.lessonStart,'%y-%m-%d')AS DATE),CAST(DATE_FORMAT(NOW(),'%y-%m-%d') AS DATE)) > 0
     </select>
 
@@ -1081,7 +1084,8 @@
     <select id="countPrePayBySubAndType" resultType="java.lang.Integer" >
         select count(*) from lesson,stu
         WHERE
-        stu.stuID = lesson.stuID
+        stu.campusID = #{2}
+        AND stu.stuID = lesson.stuID
         AND
         lesson.subjectID = #{0}
         AND
@@ -1094,7 +1098,8 @@
     <!--预缴费学生的数量 （年级 类型）-->
     <select id="countPrePayByGradeAndType" resultType="java.lang.Integer" >
         select count(*) from lesson,stu
-        WHERE
+        WHERE stu.campusID = #{2}
+        AND
         stu.stuID = lesson.stuID
         AND
         stu.gradeID = #{0}
@@ -1107,7 +1112,8 @@
     <!--//预缴费学生的数量（年级 学科）-->
     <select id="countPrePayByGradeAndSub" resultType="java.lang.Integer" >
         select count(*) from lesson,stu
-        WHERE
+        WHERE stu.campusID = #{2}
+        AND
         stu.stuID = lesson.stuID
         AND
         stu.gradeID = #{0}
@@ -1121,9 +1127,11 @@
     <select id="countPrePayByGrade" resultType="java.lang.Integer" >
         select count(*) from lesson,stu
         WHERE
+        stu.campusID = #{1}
+        AND
         stu.stuID = lesson.stuID
         AND
-        stu.gradeID = #{gradeid, jdbcType=INTEGER}
+        stu.gradeID = #{0}
         AND
         DATEDIFF(CAST(DATE_FORMAT(lesson.lessonStart,'%y-%m-%d')AS DATE),CAST(DATE_FORMAT(NOW(),'%y-%m-%d') AS DATE)) > 0
     </select>
@@ -1131,10 +1139,11 @@
     <!--预缴费学生的数量（学科）-->
     <select id="countPrePayBySub" resultType="java.lang.Integer" >
         select count(*) from lesson,stu
-        WHERE
+        WHERE stu.campusID = #{1}
+        AND
         stu.stuID = lesson.stuID
         AND
-        lesson.subjectID = #{subjectid, jdbcType=INTEGER}
+        lesson.subjectID = #{0}
         AND
         DATEDIFF(CAST(DATE_FORMAT(lesson.lessonStart,'%y-%m-%d')AS DATE),CAST(DATE_FORMAT(NOW(),'%y-%m-%d') AS DATE)) > 0
     </select>
@@ -1142,10 +1151,11 @@
     <!--预缴费学生的数量（类型）-->
     <select id="countPrePayByType" resultType="java.lang.Integer" >
         select count(*) from lesson,stu
-        WHERE
+        WHERE stu.campusID = #{1}
+        AND
         stu.stuID = lesson.stuID
         AND
-        lesson.typeID = #{typeid, jdbcType=INTEGER}
+        lesson.typeID = #{0}
         AND
         DATEDIFF(CAST(DATE_FORMAT(lesson.lessonStart,'%y-%m-%d')AS DATE),CAST(DATE_FORMAT(NOW(),'%y-%m-%d') AS DATE)) > 0
     </select>
@@ -1153,7 +1163,8 @@
     <!--预缴费学生的数量（年级 学科 类型）-->
     <select id="countPrePayByGradeSubType" resultType="java.lang.Integer" >
         select count(*) from lesson,stu
-        WHERE
+        WHERE stu.campusID = #{3}
+        AND
         stu.stuID = lesson.stuID
         AND
         stu.gradeID = #{0}

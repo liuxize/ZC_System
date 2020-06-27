@@ -159,21 +159,21 @@ public interface StuMapper {
 
 
     //已缴费学生的数量  （全部年级，全部学科 全部类型）
-    int countPreStuByPayStu();
+    int countPreStuByPayStu(Integer campusid);
     //预缴费学生的数量  （学科 类型）
-    int countPrePayBySubAndType(Integer subjectid, Integer typeid);
+    int countPrePayBySubAndType(Integer subjectid, Integer typeid, Integer campusid);
     //预缴费学生的数量 （年级 类型）
-    int countPrePayByGradeAndType( Integer gradeid, Integer typeid);
+    int countPrePayByGradeAndType( Integer gradeid, Integer typeid, Integer campusid);
     //预缴费学生的数量（年级 学科）
-    int countPrePayByGradeAndSub(Integer gradeid,Integer subjectid);
+    int countPrePayByGradeAndSub(Integer gradeid,Integer subjectid, Integer campusid);
     //预缴费学生的数量（年级）
-    int countPrePayByGrade(Integer gradeid);
+    int countPrePayByGrade(Integer gradeid, Integer campusid);
     //预缴费学生的数量（学科）
-    int countPrePayBySub(Integer subjectid);
+    int countPrePayBySub(Integer subjectid, Integer campusid);
     //预缴费学生的数量（类型）
-    int countPrePayByType(Integer typeid);
+    int countPrePayByType(Integer typeid, Integer campusid);
     //预缴费学生的数量（年级 学科 类型）
-    int countPrePayByGradeSubType(Integer gradeid, Integer subjectid, Integer typeid);
+    int countPrePayByGradeSubType(Integer gradeid, Integer subjectid, Integer typeid, Integer campusid);
 
 
     //统计优质学员的数量
