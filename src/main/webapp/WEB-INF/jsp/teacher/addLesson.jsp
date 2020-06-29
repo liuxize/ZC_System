@@ -19,6 +19,9 @@
     <!-- 引入JQuery  bootstrap.js-->
     <script src="/js/jquery-3.2.1.min.js"></script>
     <script src="/js/bootstrap.min.js"></script>
+
+    <link rel="stylesheet"  href="/css/bootstrap-select.min.css">
+    <script src="/js/bootstrap-select.min.js"></script>
 </head>
 <body>
 <!-- 顶栏 -->
@@ -39,7 +42,7 @@
                         <div class="form-group">
                             <label for="inputlessname" class="col-sm-2 control-label">科目</label>
                             <div class="col-sm-2">
-                                <select class="form-control" name="subjectid" id="inputlessname">
+                                <select class="selectpicker show-tick form-control" data-live-search="true" name="subjectid" id="inputlessname">
                                     <c:forEach items="${subjectlist}" var="item">
                                         <option value="${item.subjectid}">${item.subjectname}</option>
                                     </c:forEach>
@@ -50,7 +53,7 @@
                         <div class="form-group">
                             <label for="inputLessonType" class="col-sm-2 control-label">课程类型</label>
                             <div class="col-sm-2">
-                                <select class="form-control" name="typeid" id="inputLessonType">
+                                <select class="selectpicker show-tick form-control" data-live-search="true" name="typeid" id="inputLessonType">
                                     <c:forEach items="${typelist}" var="item">
                                         <option value="${item.typeid}">${item.typename}</option>
                                     </c:forEach>

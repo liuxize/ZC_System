@@ -16,6 +16,8 @@ public interface StuMapperCustom {
     //根据姓名查找信息
     List<StuCustom> selectByName(String name) throws Exception;
 
+    List<StuCustom> selectByNameAuth(String stuName, String teacherName) throws Exception;
+
     List<StuCustom> selectByLister(PagingVO pagingVO) throws Exception;
 
     List<StuCustom> selectByUpdater(PagingVO pagingVO) throws Exception;

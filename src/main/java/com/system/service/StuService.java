@@ -120,6 +120,8 @@ public interface StuService {
     int getCountBySameStu() throws Exception;
     //根据姓名查找用户
     List<StuCustom> findByName(String name) throws Exception;
+    //根据姓名查找用户 学校，年级权限
+    List<StuCustom> findByNameAuth(String stuName, String teacherName) throws Exception;
 
 
     //查询某个年级的所有学生

@@ -14,6 +14,28 @@
         stu.gradeID = grade.gradeID
     </select>
 
+    <select id="selectByNameAuth" parameterType="String" resultType="com.system.po.StuCustom">
+        select
+        stu.*, grade.gradeName
+        from stu, grade
+        WHERE
+        stuName = #{0}
+        AND stu.gradeID IN
+        (
+        SELECT permission.gradeID
+        FROM permission
+        WHERE permission.teacherName = #{1}
+        )
+        AND stu.campusID IN
+        (
+        SELECT campusauth.campusID
+        FROM campusauth
+        WHERE campusauth.teacherName = #{1}
+        )
+        AND
+        stu.gradeID = grade.gradeID
+    </select>
+
 
     <select id="findByPaging" parameterType="PagingVO" resultType="com.system.po.StuCustom">
         select

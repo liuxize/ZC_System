@@ -84,12 +84,17 @@ public class TeacherController {
     // 添加用户信息表一（Get？？？）
     @RequestMapping(value = "/addTableOne", method = {RequestMethod.GET})
     public String showAddTable(Model model) throws Exception {
+
+        Subject subjectuse = SecurityUtils.getSubject();
+        String username = (String) subjectuse.getPrincipal();
+        List<Campus> campusList = campusService.findAllCampusByAuth(username);
+        List<Grade> gradelist = gradeService.findAllGradeByAuth(username);
+
         List<Major> majorList = majorService.findAllMajor();
         List<School> schoolList =schoolService.findAllSchool();
-        List<Grade> list = gradeService.findAllGrade();
-        List<Campus> campusList = campusService.findAllCampus();
+
         model.addAttribute("schoolList",schoolList);
-        model.addAttribute("gradeList", list);
+        model.addAttribute("gradeList", gradelist);
         model.addAttribute("majorList", majorList);
         model.addAttribute("campusList", campusList);
         model.addAttribute("power", 1);
@@ -832,7 +837,9 @@ public class TeacherController {
     // 搜索姓名操作
     @RequestMapping(value = "/selectName", method = {RequestMethod.POST})
     public String searchName(String StudentName, Model model) throws Exception {
-        List<StuCustom> list = stuService.findByName(StudentName);
+        Subject subjectuse = SecurityUtils.getSubject();
+        String username = (String) subjectuse.getPrincipal();
+        List<StuCustom> list = stuService.findByNameAuth(StudentName, username);
         model.addAttribute("stuList", list);
         return "teacher/searchName";
     }

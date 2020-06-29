@@ -287,6 +287,13 @@ public class StuServiceImpl implements StuService {
         return list;
     }
 
+    public List<StuCustom> findByNameAuth(String stuName, String teacherName) throws Exception {
+
+        List<StuCustom> list = stuMapperCustom.selectByNameAuth(stuName, teacherName);
+
+        return list;
+    }
+
 
     public int getCountStudent() throws Exception {
 
