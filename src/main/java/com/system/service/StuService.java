@@ -157,23 +157,27 @@ public interface StuService {
     List<StuCustom> findAllStuByPay() throws Exception;
 
     //根据选项查找已经缴费的学生
-    //完成
     List<LessonCustom> findStuByPayStuAndSelect(Integer toPageNo, Integer gradeid, Integer subjectid, Integer typeid, Integer campusid) throws Exception;
-    //完成
     List<LessonCustom> findAllStuByPayStuAndSelect(Integer gradeid, Integer subjectid, Integer typeid, Integer campusid) throws Exception;
-    //完成
     int countPayStuBySelect(Integer gradeid, Integer subjectid, Integer typeid, Integer campusid) throws  Exception;
+    //根据老师的权限,选项查找已经缴费的学生
+    List<LessonCustom> findStuByPayStuAndSelectAuth(Integer toPageNo, Integer gradeid, Integer subjectid, Integer typeid, Integer campusid, String name) throws Exception;
+    int countPayStuBySelectAuth(Integer gradeid, Integer subjectid, Integer typeid, Integer campusid, String name) throws  Exception;
+
+
+
 
     //根据选项查找预缴费学生
-    //完成
     List<LessonCustom> findStuByPrePayStuAndSelect(Integer toPageNo, Integer gradeid, Integer subjectid, Integer typeid, Integer campusid) throws Exception;
-    //完成
     List<LessonCustom> findAllStuByPrePayStuAndSelect(Integer gradeid, Integer subjectid, Integer typeid, Integer campusid) throws Exception;
-
-    //完成
     int countPrePayStuBySelect(Integer gradeid, Integer subjectid, Integer typeid, Integer campusid) throws Exception;
 
-    //未交费学员（未分页）待修改
+    //根据老师的权限,选项查找预缴费学生
+    List<LessonCustom> findStuByPrePayStuAndSelectAuth(Integer toPageNo, Integer gradeid, Integer subjectid, Integer typeid, Integer campusid, String name) throws Exception;
+    int countPrePayStuBySelectAuth(Integer gradeid, Integer subjectid, Integer typeid, Integer campusid,  String name) throws Exception;
+
+
+    //未交费学员（未分页）完成
     List<StuCustom> findAllStuByUnPayStu(Integer gradeid, Integer teleType, Integer campusid) throws Exception;
 
     //未交费学员（分页） 完成

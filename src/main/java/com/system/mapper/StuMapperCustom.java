@@ -71,12 +71,14 @@ public interface StuMapperCustom {
 
     //缴费学员(全部学科 全部类型 全部年级) 分页显示
     List<LessonCustom> selectByPayStu(PagingVO pagingVO);
+    List<LessonCustom> selectByPayStuAuth(PagingVO pagingVO);
 
     //缴费学员(全部学科 全部类型 全部年级) 全部显示
     List<LessonCustom> selectAllByPayStu( Integer campusid);
 
     // 缴费学员1 （学科 类型）分页显示
     List<LessonCustom> selectPayStuBySubAndType(PagingVO pagingVO);
+    List<LessonCustom> selectPayStuBySubAndTypeAuth(PagingVO pagingVO);
 
     // 缴费学员1 （学科 类型）全部显示
     List<LessonCustom> selectAllPayStuBySubAndType(PagingVO pagingVO);
@@ -101,12 +103,14 @@ public interface StuMapperCustom {
 
     //缴费学员5 （学科）分页显示
     List<LessonCustom> selectPayStuBySub(PagingVO pagingVO);
+    List<LessonCustom> selectPayStuBySubAuth(PagingVO pagingVO);
 
     //缴费学员5 （学科）全部显示
     List<LessonCustom> selectAllPayStuBySub(PagingVO pagingVO);
 
     //缴费学员6 （类型）分页显示
     List<LessonCustom> selectPayStuByType(PagingVO pagingVO);
+    List<LessonCustom> selectPayStuByTypeAuth(PagingVO pagingVO);
 
     //缴费学员6 （类型）全部显示
     List<LessonCustom> selectAllPayStuByType(PagingVO pagingVO);
@@ -122,11 +126,13 @@ public interface StuMapperCustom {
 
     //预缴费学员(全部学科 全部类型 全部年级) 分页显示 //
     List<LessonCustom> selectByPrePayStu(PagingVO pagingVO);
+    List<LessonCustom> selectByPrePayStuAuth(PagingVO pagingVO);
 
     List<LessonCustom> selectAllByPrePayStu(Integer campusid);
 
     // 预缴费学员1 （学科 类型）分页显示
     List<LessonCustom> selectPrePayStuBySubAndType(PagingVO pagingVO);
+    List<LessonCustom> selectPrePayStuBySubAndTypeAuth(PagingVO pagingVO);
 
     // 预缴费学员1 （学科 类型）全部显示
     List<LessonCustom> selectAllPrePayStuBySubAndType(PagingVO pagingVO);
@@ -151,12 +157,14 @@ public interface StuMapperCustom {
 
     //预缴费学员5 （学科）分页显示
     List<LessonCustom> selectPrePayStuBySub(PagingVO pagingVO);
+    List<LessonCustom> selectPrePayStuBySubAuth(PagingVO pagingVO);
 
     //预缴费学员5 （学科）全部显示
     List<LessonCustom> selectAllPrePayStuBySub(PagingVO pagingVO);
 
     //缴费学员6 （类型）分页显示
     List<LessonCustom> selectPrePayStuByType(PagingVO pagingVO);
+    List<LessonCustom> selectPrePayStuByTypeAuth(PagingVO pagingVO);
 
     //预缴费学员6 （类型）全部显示
     List<LessonCustom> selectAllPrePayStuByType(PagingVO pagingVO);

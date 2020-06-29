@@ -142,8 +142,10 @@ public interface StuMapper {
 
     //已缴费学生的数量  （全部年级，全部学科 全部类型）
     int countStuByPayStu(Integer campusid);
+    int countStuByPayStuAuth(Integer campusid, String name);
     //已缴费学生的数量  （学科 类型）
     int countPayBySubAndType(Integer subjectid, Integer typeid, Integer campusid);
+    int countPayBySubAndTypeAuth(Integer subjectid, Integer typeid, Integer campusid, String name);
     //已缴费学生的数量 （年级 类型）
     int countPayByGradeAndType( Integer gradeid, Integer typeid, Integer campusid);
     //已缴费学生的数量（年级 学科）
@@ -152,16 +154,20 @@ public interface StuMapper {
     int countPayByGrade(Integer gradeid,  Integer campusid);
     //已缴费学生的数量（学科）
     int countPayBySub(Integer subjectid,  Integer campusid);
+    int countPayBySubAuth(Integer subjectid,  Integer campusid, String name);
     //已缴费学生的数量（类型）
     int countPayByType(Integer typeid,  Integer campusid);
+    int countPayByTypeAuth(Integer typeid,  Integer campusid, String name);
     //已缴费学生的数量（年级 学科 类型）
     int countPayByGradeSubType(Integer gradeid, Integer subjectid, Integer typeid, Integer campusid);
 
 
     //已缴费学生的数量  （全部年级，全部学科 全部类型）
     int countPreStuByPayStu(Integer campusid);
+    int countPreStuByPayStuAuth(Integer campusid, String name);
     //预缴费学生的数量  （学科 类型）
     int countPrePayBySubAndType(Integer subjectid, Integer typeid, Integer campusid);
+    int countPrePayBySubAndTypeAuth(Integer subjectid, Integer typeid, Integer campusid, String name);
     //预缴费学生的数量 （年级 类型）
     int countPrePayByGradeAndType( Integer gradeid, Integer typeid, Integer campusid);
     //预缴费学生的数量（年级 学科）
@@ -170,8 +176,10 @@ public interface StuMapper {
     int countPrePayByGrade(Integer gradeid, Integer campusid);
     //预缴费学生的数量（学科）
     int countPrePayBySub(Integer subjectid, Integer campusid);
+    int countPrePayBySubAuth(Integer subjectid, Integer campusid, String name);
     //预缴费学生的数量（类型）
     int countPrePayByType(Integer typeid, Integer campusid);
+    int countPrePayByTypeAuth(Integer typeid, Integer campusid, String name);
     //预缴费学生的数量（年级 学科 类型）
     int countPrePayByGradeSubType(Integer gradeid, Integer subjectid, Integer typeid, Integer campusid);
 

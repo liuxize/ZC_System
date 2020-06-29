@@ -1510,14 +1510,14 @@ public class MasterController {
         //页码对象
         PagingVO pagingVO = new PagingVO();
 
-        pagingVO.setTotalCount(stuService.countPayStuBySelect(gradeid, subjectid, typeid, campusid));
+        pagingVO.setTotalCount(stuService.countPayStuBySelectAuth(gradeid, subjectid, typeid, campusid, username));
         if (page == null || page == 0) {
             pagingVO.setCurentPageNo(1);
             pagingVO.setToPageNo(1);
-            list = stuService.findStuByPayStuAndSelect(1, gradeid, subjectid, typeid, campusid);
+            list = stuService.findStuByPayStuAndSelectAuth(1, gradeid, subjectid, typeid, campusid, username);
         } else {
             pagingVO.setToPageNo(page);
-            list = stuService.findStuByPayStuAndSelect(page, gradeid, subjectid, typeid, campusid);
+            list = stuService.findStuByPayStuAndSelectAuth(page, gradeid, subjectid, typeid, campusid,username);
         }
         //List<LessonCustom> allStuList = stuService.findAllStuByPayStuAndSelect(gradeid, subjectid, typeid, campusid);  //用于保存为excle 表格
         //model.addAttribute("allStuList", allStuList);
@@ -1574,14 +1574,14 @@ public class MasterController {
         //页码对象
         PagingVO pagingVO = new PagingVO();
 
-        pagingVO.setTotalCount(stuService.countPrePayStuBySelect(gradeid, subjectid, typeid, campusid));
+        pagingVO.setTotalCount(stuService.countPrePayStuBySelectAuth(gradeid, subjectid, typeid, campusid, username));
         if (page == null || page == 0) {
             pagingVO.setCurentPageNo(1);
             pagingVO.setToPageNo(1);
-            list = stuService.findStuByPrePayStuAndSelect(1, gradeid, subjectid, typeid, campusid);
+            list = stuService.findStuByPrePayStuAndSelectAuth(1, gradeid, subjectid, typeid, campusid, username);
         } else {
             pagingVO.setToPageNo(page);
-            list = stuService.findStuByPrePayStuAndSelect(page, gradeid, subjectid, typeid, campusid);
+            list = stuService.findStuByPrePayStuAndSelectAuth(page, gradeid, subjectid, typeid, campusid, username);
         }
         //List<LessonCustom> allStuList = stuService.findAllStuByPrePayStuAndSelect(gradeid, subjectid, typeid, campusid);  //用于保存为excle 表格
         //model.addAttribute("allStuList", allStuList);

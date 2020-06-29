@@ -597,6 +597,24 @@
         DATEDIFF(CAST(DATE_FORMAT(NOW(),'%y-%m-%d')AS DATE),CAST(DATE_FORMAT(lesson.lessonStart,'%y-%m-%d') AS DATE)) >= 0
     </select>
 
+    <select id="countStuByPayStuAuth"  resultType="java.lang.Integer" >
+        select count(*) from lesson, stu
+        WHERE
+        stu.campusID  = #{0}
+        AND stu.gradeID IN
+        (
+        SELECT permission.gradeID
+        FROM permission
+        WHERE permission.teacherName = #{1}
+        )
+        AND
+        stu.stuID = lesson.stuID
+        AND
+        DATEDIFF(CAST(DATE_FORMAT(lesson.lessonEnd,'%y-%m-%d')AS DATE),CAST(DATE_FORMAT(NOW(),'%y-%m-%d') AS DATE)) >= 0
+        AND
+        DATEDIFF(CAST(DATE_FORMAT(NOW(),'%y-%m-%d')AS DATE),CAST(DATE_FORMAT(lesson.lessonStart,'%y-%m-%d') AS DATE)) >= 0
+    </select>
+
     <!--已缴费学生的数量  （学科 类型）-->
     <select id="countPayBySubAndType" resultType="java.lang.Integer" >
         select count(*) from lesson,stu
@@ -612,7 +630,28 @@
         DATEDIFF(CAST(DATE_FORMAT(lesson.lessonEnd,'%y-%m-%d')AS DATE),CAST(DATE_FORMAT(NOW(),'%y-%m-%d') AS DATE)) >= 0
         AND
         DATEDIFF(CAST(DATE_FORMAT(NOW(),'%y-%m-%d')AS DATE),CAST(DATE_FORMAT(lesson.lessonStart,'%y-%m-%d') AS DATE)) >= 0
+    </select>
 
+    <select id="countPayBySubAndTypeAuth" resultType="java.lang.Integer" >
+        select count(*) from lesson,stu
+        WHERE
+        stu.campusID = #{2}
+        AND stu.gradeID IN
+        (
+        SELECT permission.gradeID
+        FROM permission
+        WHERE permission.teacherName = #{3}
+        )
+        AND
+        stu.stuID = lesson.stuID
+        AND
+        lesson.subjectID = #{0}
+        AND
+        lesson.typeID = #{1}
+        AND
+        DATEDIFF(CAST(DATE_FORMAT(lesson.lessonEnd,'%y-%m-%d')AS DATE),CAST(DATE_FORMAT(NOW(),'%y-%m-%d') AS DATE)) >= 0
+        AND
+        DATEDIFF(CAST(DATE_FORMAT(NOW(),'%y-%m-%d')AS DATE),CAST(DATE_FORMAT(lesson.lessonStart,'%y-%m-%d') AS DATE)) >= 0
     </select>
 
     <!--已缴费学生的数量 （年级 类型）-->
@@ -679,11 +718,52 @@
         DATEDIFF(CAST(DATE_FORMAT(NOW(),'%y-%m-%d')AS DATE),CAST(DATE_FORMAT(lesson.lessonStart,'%y-%m-%d') AS DATE)) >= 0
     </select>
 
+    <select id="countPayBySubAuth" resultType="java.lang.Integer" >
+        select count(*) from lesson,stu
+        WHERE
+        stu.campusID = #{1}
+        AND stu.gradeID IN
+        (
+        SELECT permission.gradeID
+        FROM permission
+        WHERE permission.teacherName = #{2}
+        )
+        AND
+        stu.stuID = lesson.stuID
+        AND
+        lesson.subjectID = #{0}
+        AND
+        DATEDIFF(CAST(DATE_FORMAT(lesson.lessonEnd,'%y-%m-%d')AS DATE),CAST(DATE_FORMAT(NOW(),'%y-%m-%d') AS DATE)) >= 0
+        AND
+        DATEDIFF(CAST(DATE_FORMAT(NOW(),'%y-%m-%d')AS DATE),CAST(DATE_FORMAT(lesson.lessonStart,'%y-%m-%d') AS DATE)) >= 0
+    </select>
+
+
     <!--已缴费学生的数量（类型）-->
     <select id="countPayByType" resultType="java.lang.Integer" >
         select count(*) from lesson,stu
         WHERE
         stu.campusID = #{1}
+        And
+        stu.stuID = lesson.stuID
+        AND
+        lesson.typeID = #{0}
+        AND
+        DATEDIFF(CAST(DATE_FORMAT(lesson.lessonEnd,'%y-%m-%d')AS DATE),CAST(DATE_FORMAT(NOW(),'%y-%m-%d') AS DATE)) >= 0
+        AND
+        DATEDIFF(CAST(DATE_FORMAT(NOW(),'%y-%m-%d')AS DATE),CAST(DATE_FORMAT(lesson.lessonStart,'%y-%m-%d') AS DATE)) >= 0
+    </select>
+
+    <select id="countPayByTypeAuth" resultType="java.lang.Integer" >
+        select count(*) from lesson,stu
+        WHERE
+        stu.campusID = #{1}
+        AND stu.gradeID IN
+        (
+        SELECT permission.gradeID
+        FROM permission
+        WHERE permission.teacherName = #{2}
+        )
         And
         stu.stuID = lesson.stuID
         AND
@@ -1087,6 +1167,22 @@
         DATEDIFF(CAST(DATE_FORMAT(lesson.lessonStart,'%y-%m-%d')AS DATE),CAST(DATE_FORMAT(NOW(),'%y-%m-%d') AS DATE)) > 0
     </select>
 
+    <!--预缴费学生的数量  （全部年级 全部学科 全部类型）-->
+    <select id="countPreStuByPayStuAuth" resultType="java.lang.Integer" >
+        select count(*) from lesson,stu
+        WHERE
+        stu.campusID = #{0}
+        AND stu.gradeID IN
+        (
+        SELECT permission.gradeID
+        FROM permission
+        WHERE permission.teacherName = #{1}
+        )
+        AND stu.stuID = lesson.stuID
+        AND
+        DATEDIFF(CAST(DATE_FORMAT(lesson.lessonStart,'%y-%m-%d')AS DATE),CAST(DATE_FORMAT(NOW(),'%y-%m-%d') AS DATE)) > 0
+    </select>
+
     <!--预缴费学生的数量  （学科 类型）-->
     <select id="countPrePayBySubAndType" resultType="java.lang.Integer" >
         select count(*) from lesson,stu
@@ -1101,6 +1197,28 @@
         DATEDIFF(CAST(DATE_FORMAT(lesson.lessonStart,'%y-%m-%d')AS DATE),CAST(DATE_FORMAT(NOW(),'%y-%m-%d') AS DATE)) > 0
 
     </select>
+
+    <!--预缴费学生的数量 根据年级权限  （学科 类型）-->
+    <select id="countPrePayBySubAndTypeAuth" resultType="java.lang.Integer" >
+        select count(*) from lesson,stu
+        WHERE
+        stu.campusID = #{2}
+        AND stu.gradeID IN
+        (
+        SELECT permission.gradeID
+        FROM permission
+        WHERE permission.teacherName = #{3}
+        )
+        AND stu.stuID = lesson.stuID
+        AND
+        lesson.subjectID = #{0}
+        AND
+        lesson.typeID = #{1}
+        AND
+        DATEDIFF(CAST(DATE_FORMAT(lesson.lessonStart,'%y-%m-%d')AS DATE),CAST(DATE_FORMAT(NOW(),'%y-%m-%d') AS DATE)) > 0
+
+    </select>
+
 
     <!--预缴费学生的数量 （年级 类型）-->
     <select id="countPrePayByGradeAndType" resultType="java.lang.Integer" >
@@ -1155,10 +1273,46 @@
         DATEDIFF(CAST(DATE_FORMAT(lesson.lessonStart,'%y-%m-%d')AS DATE),CAST(DATE_FORMAT(NOW(),'%y-%m-%d') AS DATE)) > 0
     </select>
 
+    <!--预缴费学生的数量（学科）根据年级权限-->
+    <select id="countPrePayBySubAuth" resultType="java.lang.Integer" >
+        select count(*) from lesson,stu
+        WHERE stu.campusID = #{1}
+        AND stu.gradeID IN
+        (
+        SELECT permission.gradeID
+        FROM permission
+        WHERE permission.teacherName = #{2}
+        )
+        AND
+        stu.stuID = lesson.stuID
+        AND
+        lesson.subjectID = #{0}
+        AND
+        DATEDIFF(CAST(DATE_FORMAT(lesson.lessonStart,'%y-%m-%d')AS DATE),CAST(DATE_FORMAT(NOW(),'%y-%m-%d') AS DATE)) > 0
+    </select>
+
     <!--预缴费学生的数量（类型）-->
     <select id="countPrePayByType" resultType="java.lang.Integer" >
         select count(*) from lesson,stu
         WHERE stu.campusID = #{1}
+        AND
+        stu.stuID = lesson.stuID
+        AND
+        lesson.typeID = #{0}
+        AND
+        DATEDIFF(CAST(DATE_FORMAT(lesson.lessonStart,'%y-%m-%d')AS DATE),CAST(DATE_FORMAT(NOW(),'%y-%m-%d') AS DATE)) > 0
+    </select>
+
+    <!--预缴费学生的数量（类型）-->
+    <select id="countPrePayByTypeAuth" resultType="java.lang.Integer" >
+        select count(*) from lesson,stu
+        WHERE stu.campusID = #{1}
+        AND stu.gradeID IN
+        (
+        SELECT permission.gradeID
+        FROM permission
+        WHERE permission.teacherName = #{2}
+        )
         AND
         stu.stuID = lesson.stuID
         AND
