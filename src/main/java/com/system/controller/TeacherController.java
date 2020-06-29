@@ -850,20 +850,22 @@ public class TeacherController {
     /*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<提醒功能开始>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
     @RequestMapping(value = "/remindBirth", method = {RequestMethod.GET})
     public String remindBirthUI(Model model, Integer page) throws Exception {
+        Subject subjectuse = SecurityUtils.getSubject();
+        String username = (String) subjectuse.getPrincipal();
 
         List<Birthday> birthdayList = null;
         //页码对象
         PagingVO pagingVO = new PagingVO();
         //设置总页数
-        pagingVO.setTotalCount(remindService.getCountBirth());
+        pagingVO.setTotalCount(remindService.getCountBirthAuth(username));
         // System.out.println("remind"+stuService.getCountByPay());
         if (page == null || page == 0) {
             pagingVO.setCurentPageNo(1);
             pagingVO.setToPageNo(1);
-            birthdayList = remindService.findAllBirthday(1);
+            birthdayList = remindService.findAllBirthdayAuth(1,username);
         } else {
             pagingVO.setToPageNo(page);
-            birthdayList = remindService.findAllBirthday(page);
+            birthdayList = remindService.findAllBirthdayAuth(page,username);
         }
         model.addAttribute("pagingVO", pagingVO);
         model.addAttribute("birthdayList", birthdayList);

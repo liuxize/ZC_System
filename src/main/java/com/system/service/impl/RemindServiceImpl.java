@@ -42,9 +42,21 @@ public class RemindServiceImpl implements RemindService {
         return birthdayMapper.selectAll(pagingVO);
     }
 
+    public List<Birthday> findAllBirthdayAuth(Integer toPageNo, String teacherName) throws Exception{
+        PagingVO pagingVO = new PagingVO();
+        pagingVO.setToPageNo(toPageNo);
+        pagingVO.setStringtemp(teacherName);
+        return birthdayMapper.selectAllAuth(pagingVO);
+    }
+
     public  int getCountBirth() throws Exception{
         return birthdayMapper.countBirth();
     }
+
+    public  int getCountBirthAuth(String teacherName) throws Exception{
+        return birthdayMapper.countBirthAuth(teacherName);
+    }
+
     public List<LessonCustom> findAllRemindPay(Integer toPageNo) throws  Exception{
         PagingVO pagingVO = new PagingVO();
         pagingVO.setToPageNo(toPageNo);

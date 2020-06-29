@@ -10,8 +10,11 @@ public interface BirthdayMapper {
     int deleteByID(Integer id);
 
     List<Birthday> selectAll (PagingVO pagingVO);
+    List<Birthday> selectAllAuth (PagingVO pagingVO);
 
     int countBirth();
+
+    int countBirthAuth(String teacherName);
 }
 
 

@@ -17,8 +17,10 @@ public interface RemindService {   //生日提醒和缴费提醒
     void removeRemindPay(Integer id) throws  Exception;
 
     List<Birthday> findAllBirthday( Integer toPageNo) throws Exception;
+    List<Birthday> findAllBirthdayAuth( Integer toPageNo, String teacherName) throws Exception;
 
     int getCountBirth() throws Exception;
+    int getCountBirthAuth(String teacherName) throws Exception;
 
     List<LessonCustom> findAllRemindPay(Integer toPageNo) throws  Exception;//分页
 

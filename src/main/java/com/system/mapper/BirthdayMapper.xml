@@ -25,7 +25,48 @@
         limit #{toPageNo}, #{pageSize}
     </select>
 
+    <select id="selectAllAuth" parameterType="com.system.po.PagingVO" resultType="com.system.po.Birthday">
+        select
+        birth.*
+        from birth, stu
+        where birth.stuID = stu.stuID
+        AND stu.gradeID IN
+        (
+        SELECT permission.gradeID
+        FROM permission
+        WHERE permission.teacherName = #{stringtemp, jdbcType=VARCHAR}
+        )
+        AND stu.campusID IN
+        (
+        SELECT campusauth.campusID
+        FROM campusauth
+        WHERE campusauth.teacherName = #{stringtemp, jdbcType=VARCHAR}
+        )
+        order by birth.birthID desc
+        limit #{toPageNo}, #{pageSize}
+    </select>
+
+
     <select id="countBirth" resultType="java.lang.Integer" >
         select count(*) from birth
+    </select>
+
+
+    <select id="countBirthAuth" parameterType="java.lang.String" resultType="java.lang.Integer" >
+        select count(*)
+        from birth, stu
+        where birth.stuID = stu.stuID
+        AND stu.gradeID IN
+        (
+        SELECT permission.gradeID
+        FROM permission
+        WHERE permission.teacherName = #{teacherName, jdbcType=VARCHAR}
+        )
+        AND stu.campusID IN
+        (
+        SELECT campusauth.campusID
+        FROM campusauth
+        WHERE campusauth.teacherName = #{teacherName, jdbcType=VARCHAR}
+        )
     </select>
 </mapper>
