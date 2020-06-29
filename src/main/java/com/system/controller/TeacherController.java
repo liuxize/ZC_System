@@ -1402,6 +1402,32 @@ public class TeacherController {
         List<Campus> campusList = campusService.findAllCampusByAuth(username);
         List<Grade> gradelist = gradeService.findAllGradeByAuth(username);
 
+        int campusAuthorize = 0;
+        for(int i=0; i<campusList.size(); i++)    {
+            Integer campusAuthorizeID =  campusList.get(i).getCampusid();
+            if(campusAuthorizeID.equals(campusid)){
+                campusAuthorize = 1;
+                break;
+            }
+        }
+        if (campusAuthorize == 0){
+            model.addAttribute("message", "您没有权限查看, 请返回");
+            return "error";
+        }
+
+        int gradeAuthorize =  0;
+        for(int i=0; i<gradelist.size(); i++)    {
+            Integer gradeAuthorizeID =  gradelist.get(i).getGradeid();
+            if(gradeAuthorizeID.equals(gradeid) || gradeid.equals(-1)){
+                gradeAuthorize = 1;
+                break;
+            }
+        }
+        if (gradeAuthorize == 0 ){
+            model.addAttribute("message", "您没有权限查看, 请返回");
+            return "error";
+        }
+
         List<com.system.po.Subject> subjectList = subjectService.findAllSubject();
         List<ClassType> classTypeList = classTypeService.findAllClassType();
 
@@ -1462,6 +1488,32 @@ public class TeacherController {
         String username = (String) subjectuse.getPrincipal();
         List<Campus> campusList = campusService.findAllCampusByAuth(username);
         List<Grade> gradelist = gradeService.findAllGradeByAuth(username);
+
+        int campusAuthorize = 0;
+        for(int i=0; i<campusList.size(); i++)    {
+            Integer campusAuthorizeID =  campusList.get(i).getCampusid();
+            if(campusAuthorizeID.equals(campusid)){
+                campusAuthorize = 1;
+                break;
+            }
+        }
+        if (campusAuthorize == 0){
+            model.addAttribute("message", "您没有权限查看, 请返回");
+            return "error";
+        }
+
+        int gradeAuthorize =  0;
+        for(int i=0; i<gradelist.size(); i++)    {
+            Integer gradeAuthorizeID =  gradelist.get(i).getGradeid();
+            if(gradeAuthorizeID.equals(gradeid) || gradeid.equals(-1)){
+                gradeAuthorize = 1;
+                break;
+            }
+        }
+        if (gradeAuthorize == 0 ){
+            model.addAttribute("message", "您没有权限查看, 请返回");
+            return "error";
+        }
 
         List<com.system.po.Subject> subjectList = subjectService.findAllSubject();
         List<ClassType> classTypeList = classTypeService.findAllClassType();
@@ -1546,6 +1598,80 @@ public class TeacherController {
         Integer annId = Integer.parseInt(announceid);
         String annCon = announceService.getConByID(annId);
         return annCon;
+    }
+
+    //查看未交费的学生
+    @RequestMapping(value = "/paidNotStudent", method = {RequestMethod.GET})
+    public String paidNotStudentUI(Model model, Integer gradeid, Integer teleType, Integer page, Integer campusid) throws Exception {
+
+        Subject subjectuse = SecurityUtils.getSubject();
+        String username = (String) subjectuse.getPrincipal();
+        List<Campus> campusList = campusService.findAllCampusByAuth(username);
+        List<Grade> gradelist = gradeService.findAllGradeByAuth(username);
+
+
+        int campusAuthorize = 0;
+        for(int i=0; i<campusList.size(); i++)    {
+            Integer campusAuthorizeID =  campusList.get(i).getCampusid();
+            if(campusAuthorizeID.equals(campusid)){
+                campusAuthorize = 1;
+                break;
+            }
+        }
+        if (campusAuthorize == 0){
+            model.addAttribute("message", "您没有权限查看, 请返回");
+            return "error";
+        }
+
+        int gradeAuthorize =  0;
+        for(int i=0; i<gradelist.size(); i++)    {
+            Integer gradeAuthorizeID =  gradelist.get(i).getGradeid();
+            if(gradeAuthorizeID.equals(gradeid) || gradeid.equals(-1)){
+                gradeAuthorize = 1;
+                break;
+            }
+        }
+        if (gradeAuthorize == 0 ){
+            model.addAttribute("message", "您没有权限查看, 请返回");
+            return "error";
+        }
+
+
+        if (teleType == null) teleType = 0;
+        Grade grade = new Grade();
+        grade.setGradeid(-1);
+        grade.setGradename("全部");
+        gradelist.add(0, grade);
+        List<StuCustom> list = null;
+        //页码对象
+        PagingVO pagingVO = new PagingVO();
+        //设置总页数
+        pagingVO.setTotalCount(stuService.getCountByUnPayStuAuth(gradeid, teleType,campusid,username));
+        if (page == null || page == 0) {
+            pagingVO.setCurentPageNo(1);
+            pagingVO.setToPageNo(1);
+            list = stuService.findStuByUnPayStuAuth(1, gradeid, teleType, campusid, username);
+        } else {
+            pagingVO.setToPageNo(page);
+            list = stuService.findStuByUnPayStuAuth(page, gradeid, teleType, campusid,username);
+        }
+        //List<StuCustom> allStuList = stuService.findAllStuByUnPayStu(gradeid, teleType, campusid);
+        model.addAttribute("gradelist", gradelist);
+        model.addAttribute("campusList", campusList);
+        model.addAttribute("gradeIndex", gradeid);
+        model.addAttribute("teleType", teleType);
+        //model.addAttribute("allStuList", allStuList);
+        model.addAttribute("stuList", list);
+        model.addAttribute("pagingVO", pagingVO);
+        model.addAttribute("campusIndex", campusid);
+
+        return "teacher/paidNotStudent";
+    }
+
+    @RequestMapping(value = "/paidNotStudent", method = {RequestMethod.POST})
+    public String paidNotStudent(Integer gradeid, Integer teleType, Integer campusid) throws Exception {
+
+        return "redirect:/teacher/paidNotStudent?gradeid=" + gradeid + "&teleType=" + teleType +"&campusid=" + campusid;
     }
 
 

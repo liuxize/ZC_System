@@ -629,6 +629,30 @@
         limit #{toPageNo}, #{pageSize}
     </select>
 
+    <select id="selectByUnPayStuAuth"  parameterType="PagingVO" resultType="com.system.po.StuCustom">
+        select distinct
+        stu.*, grade.gradeName
+        from stu, grade
+        WHERE stu.campusID = #{intergerfour,jdbcType=INTEGER}
+        AND stu.gradeID IN
+        (
+        SELECT permission.gradeID
+        FROM permission
+        WHERE permission.teacherName = #{stringtemp, jdbcType=VARCHAR}
+        )
+        AND
+        stu.gradeID = grade.gradeID
+        AND
+        stu.stuID NOT IN
+        (
+        SELECT DISTINCT lesson.stuID
+        FROM lesson
+        WHERE
+        DATEDIFF(CAST(DATE_FORMAT(lesson.lessonEnd,'%y-%m-%d')AS DATE),CAST(DATE_FORMAT(NOW(),'%y-%m-%d') AS DATE)) > 0
+        )
+        limit #{toPageNo}, #{pageSize}
+    </select>
+
     <select id="selectAllByUnPayStu"  resultType="com.system.po.StuCustom">
         select distinct
         stu.*, grade.gradeName
@@ -772,6 +796,37 @@
         limit #{toPageNo}, #{pageSize}
     </select>
 
+    <select id="selectByUnPayStuTelAuth"  parameterType="PagingVO" resultType="com.system.po.StuCustom">
+        select distinct
+        stu.*, grade.gradeName
+        from stu, grade
+        WHERE stu.campusID = #{intergerfour,jdbcType=INTEGER}
+        AND stu.gradeID IN
+        (
+        SELECT permission.gradeID
+        FROM permission
+        WHERE permission.teacherName = #{stringtemp, jdbcType=VARCHAR}
+        )
+        AND
+        stu.gradeID = grade.gradeID
+        AND
+       ( stu.stuTel !=''
+        OR
+        stu.motherTel !=''
+        OR
+        stu.fatherTel !='')
+        AND
+        stu.stuID NOT IN
+        (
+        SELECT DISTINCT lesson.stuID
+        FROM lesson
+        WHERE
+        DATEDIFF(CAST(DATE_FORMAT(lesson.lessonEnd,'%y-%m-%d')AS DATE),CAST(DATE_FORMAT(NOW(),'%y-%m-%d') AS DATE)) > 0
+        )
+        limit #{toPageNo}, #{pageSize}
+    </select>
+
+
     <!--不分页 全部 有电话-->
     <select id="selectAllByUnPayStuTel"  resultType="com.system.po.StuCustom">
         select distinct
@@ -798,6 +853,36 @@
 
 
     <!--分页 全部 无电话-->
+    <select id="selectByUnPayStuNoTelAuth"  parameterType="PagingVO" resultType="com.system.po.StuCustom">
+        select distinct
+        stu.*, grade.gradeName
+        from stu, grade
+        WHERE stu.campusID = #{intergerfour,jdbcType=INTEGER}
+        AND stu.gradeID IN
+        (
+        SELECT permission.gradeID
+        FROM permission
+        WHERE permission.teacherName = #{stringtemp, jdbcType=VARCHAR}
+        )
+        AND
+        stu.gradeID = grade.gradeID
+        AND
+        stu.stuTel =''
+        AND
+        stu.motherTel=''
+        AND
+        stu.fatherTel=''
+        AND
+        stu.stuID NOT IN
+        (
+        SELECT DISTINCT lesson.stuID
+        FROM lesson
+        WHERE
+        DATEDIFF(CAST(DATE_FORMAT(lesson.lessonEnd,'%y-%m-%d')AS DATE),CAST(DATE_FORMAT(NOW(),'%y-%m-%d') AS DATE)) > 0
+        )
+        limit #{toPageNo}, #{pageSize}
+    </select>
+
     <select id="selectByUnPayStuNoTel"  parameterType="PagingVO" resultType="com.system.po.StuCustom">
         select distinct
         stu.*, grade.gradeName

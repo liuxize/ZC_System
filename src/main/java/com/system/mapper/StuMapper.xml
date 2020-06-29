@@ -410,6 +410,26 @@
         )
     </select>
 
+    <select id="countStuByUnPayStuAuth" resultType="java.lang.Integer" >
+        select count(*) from stu
+        WHERE
+        stu.campusID = #{0}
+        AND
+        stu.stuID NOT IN
+        (
+        SELECT distinct lesson.stuID
+        FROM lesson
+        WHERE
+         DATEDIFF(CAST(DATE_FORMAT(lesson.lessonEnd,'%y-%m-%d')AS DATE),CAST(DATE_FORMAT(NOW(),'%y-%m-%d') AS DATE)) > 0
+        )
+        AND stu.gradeID IN
+        (
+        SELECT permission.gradeID
+        FROM permission
+        WHERE permission.teacherName = #{1}
+        )
+    </select>
+
     <!--//分页 全部 有电话-->
     <select id="countStuByUnPayStuTel" resultType="java.lang.Integer" >
         select count(*) from stu
@@ -427,6 +447,31 @@
         FROM lesson
         WHERE
          DATEDIFF(CAST(DATE_FORMAT(lesson.lessonEnd,'%y-%m-%d')AS DATE),CAST(DATE_FORMAT(NOW(),'%y-%m-%d') AS DATE)) > 0
+        )
+    </select>
+
+    <select id="countStuByUnPayStuTelAuth" resultType="java.lang.Integer" >
+        select count(*) from stu
+        WHERE stu.campusID = #{0}
+        AND
+        (stu.stuTel !=''
+        OR
+        stu.motherTel !=''
+        OR
+        stu.fatherTel !='')
+        AND
+        stu.stuID NOT IN
+        (
+        SELECT distinct lesson.stuID
+        FROM lesson
+        WHERE
+         DATEDIFF(CAST(DATE_FORMAT(lesson.lessonEnd,'%y-%m-%d')AS DATE),CAST(DATE_FORMAT(NOW(),'%y-%m-%d') AS DATE)) > 0
+        )
+        AND stu.gradeID IN
+        (
+        SELECT permission.gradeID
+        FROM permission
+        WHERE permission.teacherName = #{1}
         )
     </select>
 
@@ -449,6 +494,32 @@
          DATEDIFF(CAST(DATE_FORMAT(lesson.lessonEnd,'%y-%m-%d')AS DATE),CAST(DATE_FORMAT(NOW(),'%y-%m-%d') AS DATE)) > 0
         )
     </select>
+
+    <select id="countStuByUnPayStuNoTelAuth" resultType="java.lang.Integer" >
+        select count(*) from stu
+        WHERE stu.campusID = #{0}
+        AND
+        stu.stuTel =''
+        AND
+        stu.motherTel=''
+        AND
+        stu.fatherTel=''
+        AND
+        stu.stuID NOT IN
+        (
+        SELECT distinct lesson.stuID
+        FROM lesson
+        WHERE
+         DATEDIFF(CAST(DATE_FORMAT(lesson.lessonEnd,'%y-%m-%d')AS DATE),CAST(DATE_FORMAT(NOW(),'%y-%m-%d') AS DATE)) > 0
+        )
+        AND stu.gradeID IN
+        (
+        SELECT permission.gradeID
+        FROM permission
+        WHERE permission.teacherName = #{1}
+        )
+    </select>
+
     <!--//未缴费学生（分年级  全部）-->
     <select id="countUnPayStuByGrade" parameterType="java.lang.Integer" resultType="java.lang.Integer" >
         select count(*) from stu

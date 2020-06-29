@@ -185,6 +185,11 @@ public interface StuService {
     // 完成
     int getCountByUnPayStu(Integer gradeid, Integer teleType, Integer campusid) throws Exception;
 
+    //根据年级权限查看未缴费
+    int getCountByUnPayStuAuth(Integer gradeid, Integer teleType, Integer campusid, String name) throws Exception;
+    List<StuCustom> findStuByUnPayStuAuth(Integer toPageNo, Integer gradeid, Integer teleType, Integer campusid, String name) throws Exception;
+
+
     void removeStuByID(Integer stuID) throws Exception;
 
     void updataStuHisByID(Integer stuid) throws Exception;

@@ -179,18 +179,21 @@ public interface StuMapperCustom {
 
     //未缴费学员 （分页 //全部 全部）
     List<StuCustom> selectByUnPayStu(PagingVO pagingVO);
+    List<StuCustom> selectByUnPayStuAuth(PagingVO pagingVO);
 
     //全部未缴费学员  （不分页 //全部 全部）
     List<StuCustom> selectAllByUnPayStu(Integer campusid);
 
     //分页 全部 有电话
     List<StuCustom> selectByUnPayStuTel(PagingVO pagingVO);
+    List<StuCustom> selectByUnPayStuTelAuth(PagingVO pagingVO);
 
     //不分页 全部 有电话
     List<StuCustom> selectAllByUnPayStuTel(Integer campusid);
 
     //分页 全部 无电话
     List<StuCustom> selectByUnPayStuNoTel(PagingVO pagingVO);
+    List<StuCustom> selectByUnPayStuNoTelAuth(PagingVO pagingVO);
     //不分页 全部 无有电话
     List<StuCustom> selectAllByUnPayStuNoTel(Integer campusid);
 

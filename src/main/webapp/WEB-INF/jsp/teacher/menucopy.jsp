@@ -35,6 +35,8 @@
                             <li><a href="/teacher/paidStudent?gradeid=-1&subjectid=-1&typeid=-1&campusid=1">已缴费学员</a></li>
                             <li class="divider"></li>
                             <li><a href="/teacher/prePayStu?gradeid=-1&subjectid=-1&typeid=-1&campusid=1">预缴费学员</a></li>
+                            <li class="divider"></li>
+                            <li><a href="/teacher/paidNotStudent?gradeid=-1&campusid=1">未缴费学员</a></li>
                         </ul>
                     </li>
                     <li class="dropdown" id="nav5">
