@@ -23,9 +23,11 @@ public interface RemindService {   //生日提醒和缴费提醒
     int getCountBirthAuth(String teacherName) throws Exception;
 
     List<LessonCustom> findAllRemindPay(Integer toPageNo) throws  Exception;//分页
+    List<LessonCustom> findAllRemindPayAuth(Integer toPageNo, String teacherName) throws  Exception;//分页
 
     List<StuCustom> findAllRemindList() throws  Exception; //全部
 
     int getCountRemindPay() throws Exception;
+    int getCountRemindPayAuth(String teacherName) throws Exception;
 
 }

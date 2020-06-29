@@ -44,4 +44,49 @@
         stu.gradeID = grade.gradeID
     </select>
 
+    <select id="countRemindPayAuth" parameterType="java.lang.String" resultType="java.lang.Integer">
+        select
+        count(*)
+        from remindpay, lesson, stu
+        where remindpay.lessonID = lesson.lessonID
+        AND lesson.stuID = stu.stuID
+        AND stu.gradeID IN
+        (
+        SELECT permission.gradeID
+        FROM permission
+        WHERE permission.teacherName = #{teacherName, jdbcType=VARCHAR}
+        )
+        AND stu.campusID IN
+        (
+        SELECT campusauth.campusID
+        FROM campusauth
+        WHERE campusauth.teacherName = #{teacherName, jdbcType=VARCHAR}
+        )
+    </select>
+
+    <select id="selectAllByPayAuth" parameterType="com.system.po.PagingVO" resultType="com.system.po.LessonCustom">
+          select
+          lesson.*, classtype.typeName, subject.subjectName, stu.stuName, stu.school, grade.gradeName
+          from remindpay, lesson, classtype, subject, grade, stu
+          where remindpay.lessonID = lesson.lessonID
+          AND lesson.stuID = stu.stuID
+          AND lesson.typeID = classtype.typeID
+          AND lesson.subjectID = subject.subjectID
+          AND stu.gradeID = grade.gradeID
+          AND stu.gradeID IN
+          (
+          SELECT permission.gradeID
+          FROM permission
+          WHERE permission.teacherName = #{stringtemp, jdbcType=VARCHAR}
+          )
+          AND stu.campusID IN
+          (
+          SELECT campusauth.campusID
+          FROM campusauth
+          WHERE campusauth.teacherName = #{stringtemp, jdbcType=VARCHAR}
+          )
+          limit #{toPageNo}, #{pageSize}
+    </select>
+
+
 </mapper>

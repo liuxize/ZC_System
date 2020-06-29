@@ -63,12 +63,23 @@ public class RemindServiceImpl implements RemindService {
         return remindPayMapper.selectAllByPay(pagingVO);
     }
 
+    public List<LessonCustom> findAllRemindPayAuth(Integer toPageNo, String teacherName) throws  Exception{
+        PagingVO pagingVO = new PagingVO();
+        pagingVO.setToPageNo(toPageNo);
+        pagingVO.setStringtemp(teacherName);
+        return remindPayMapper.selectAllByPayAuth(pagingVO);
+    }
+
     public List<StuCustom> findAllRemindList() throws  Exception{
         return remindPayMapper.selectAllRemindPay();
     }
 
 
     public  int getCountRemindPay() throws Exception{
+        return remindPayMapper.countRemindPay();
+    }
+
+    public  int getCountRemindPayAuth(String teacherName) throws Exception{
         return remindPayMapper.countRemindPay();
     }
 }

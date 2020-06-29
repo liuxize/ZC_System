@@ -902,18 +902,21 @@ public class LeaderController {
     @RequestMapping(value = "/remindPay", method = {RequestMethod.GET})
     public String remindPayUI(Model model,Integer page) throws Exception {
 
+        Subject subjectuse = SecurityUtils.getSubject();
+        String username = (String) subjectuse.getPrincipal();
+
         List<LessonCustom> allStuList = null;
         //页码对象
         PagingVO pagingVO = new PagingVO();
         //设置总页数
-        pagingVO.setTotalCount(remindService.getCountRemindPay());
+        pagingVO.setTotalCount(remindService.getCountRemindPayAuth(username));
         if (page == null || page == 0) {
             pagingVO.setCurentPageNo(1);
             pagingVO.setToPageNo(1);
-            allStuList = remindService.findAllRemindPay(1);
+            allStuList = remindService.findAllRemindPayAuth(1,username);
         } else {
             pagingVO.setToPageNo(page);
-            allStuList = remindService.findAllRemindPay(page);
+            allStuList = remindService.findAllRemindPayAuth(page,username);
         }
         model.addAttribute("allStuList", allStuList);
         model.addAttribute("pagingVO", pagingVO);

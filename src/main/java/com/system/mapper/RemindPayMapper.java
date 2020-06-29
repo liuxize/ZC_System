@@ -12,7 +12,9 @@ public interface RemindPayMapper {
     int deleteByID(Integer id);
 
     List<LessonCustom> selectAllByPay(PagingVO pagingVO);  //分页
+    List<LessonCustom> selectAllByPayAuth(PagingVO pagingVO);  //分页
 
     List<StuCustom> selectAllRemindPay();  //全部
     int countRemindPay();
+    int countRemindPayAuth(String teacherName);
 }
