@@ -233,24 +233,24 @@ public interface StuService {
     int getCountCheck(String majorName, Date startdate, Date enddate) throws Exception;
 
     //负责人新录入信息提醒
-    List<StuCustom> leaderReceiveRemind(Integer toPageNo, Integer permission, List<Integer> gradeList) throws Exception;
+    List<StuCustom> leaderReceiveRemind(Integer toPageNo, Integer permission, String username) throws Exception;
 
-    int countLeaderReceiveRemind(Integer permission, List<Integer> gradeList) throws Exception;
+    int countLeaderReceiveRemind(Integer permission, String username) throws Exception;
 
     //校长新录入信息提醒
-    List<StuCustom> masterReceiveRemind(Integer toPageNo, Integer permission, List<Integer> gradeList) throws Exception;
+    List<StuCustom> masterReceiveRemind(Integer toPageNo, Integer permission, String name) throws Exception;
 
-    int countMasterReceiveRemind(Integer permission, List<Integer> gradeList) throws Exception;
+    int countMasterReceiveRemind(Integer permission, String name) throws Exception;
 
     //负责人更新信息提醒
-    List<StuCustom> leaderUpdateRemind(Integer toPageNo, Integer permission, List<Integer> gradeList) throws Exception;
+    List<StuCustom> leaderUpdateRemind(Integer toPageNo, Integer permission, String username) throws Exception;
 
-    int countLeaderUpdateRemind(Integer permission, List<Integer> gradeList) throws Exception;
+    int countLeaderUpdateRemind(Integer permission, String username) throws Exception;
 
     //校长更新信息提醒
-    List<StuCustom> masterUpdateRemind(Integer toPageNo, Integer permission, List<Integer> gradeList) throws Exception;
+    List<StuCustom> masterUpdateRemind(Integer toPageNo, Integer permission, String name) throws Exception;
 
-    int countMasterUpdateRemind(Integer permission, List<Integer> gradeList) throws Exception;
+    int countMasterUpdateRemind(Integer permission, String name) throws Exception;
     /////////////////////////////////////////////////////管理员新录入信息提醒//////////////////////////////////////////
     List<StuCustom> adminReceiveRemind(Integer toPageNo) throws Exception;
     List<StuCustom> adminReceiveRemindUnsign(Integer toPageNo) throws Exception;

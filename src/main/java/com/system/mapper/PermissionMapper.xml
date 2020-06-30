@@ -32,11 +32,29 @@
         WHERE
         gradeID = #{gradeid,jdbcType=INTEGER}
         AND
-        teachername IN
+        teacherName IN
         (
         SELECT userName
         FROM userlogin
         WHERE role = 3
          )
-  </select>
+    </select>
+
+    <select id="countLeaderByGradeIDAndCampusid" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+        select count(*)
+        from permission, campusauth
+        WHERE
+        permission.teacherName = campusauth.teacherName
+        AND
+        permission.gradeID = #{0}
+        AND
+        campusauth.campusID = #{1}
+        AND
+        permission.teacherName IN
+        (
+        SELECT userName
+        FROM userlogin
+        WHERE role = 3
+         )
+    </select>
 </mapper>

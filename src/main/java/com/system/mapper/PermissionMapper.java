@@ -8,4 +8,5 @@ public interface PermissionMapper {
     int countByName(String username);
     List<Integer> selectGradeIdByName(String username);
     int countLeaderByGradeID(Integer gradeid);
+    int countLeaderByGradeIDAndCampusid(Integer gradeid, Integer campusid);
 }

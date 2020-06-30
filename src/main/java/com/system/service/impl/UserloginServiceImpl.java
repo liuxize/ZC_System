@@ -293,6 +293,10 @@ public class UserloginServiceImpl implements UserloginService {
        return permissionMapper.countLeaderByGradeID(gradeid);
     }
 
+    public  int getCountLeaderByGradeIDAndCampusid(Integer gradeid, Integer campusid) throws Exception{
+        return permissionMapper.countLeaderByGradeIDAndCampusid(gradeid, campusid);
+    }
+
 
 
 

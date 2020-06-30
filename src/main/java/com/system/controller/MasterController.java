@@ -828,7 +828,7 @@ public class MasterController {
 
         Subject subject = SecurityUtils.getSubject();
         String username = (String) subject.getPrincipal();
-        List<Integer> permissionList = userloginService.findTeacherPerssion(username);  //获取该用户的年纪权限
+        //List<Integer> permissionList = userloginService.findTeacherPerssion(username);  //获取该用户的年纪权限
         Userlogin userlogin = userloginService.findUser(username);//获取用户的缴费权限 0缴费 1未交费 2 全部
         Integer permission = userlogin.getPermission(); //获取该用户的查看缴费情况权限
 
@@ -837,15 +837,15 @@ public class MasterController {
         PagingVO pagingVO = new PagingVO();
 
         //设置总页数
-        pagingVO.setTotalCount(stuService.countMasterUpdateRemind(permission,permissionList));
+        pagingVO.setTotalCount(stuService.countMasterUpdateRemind(permission,username));
 
         if (page == null || page == 0) {
             pagingVO.setCurentPageNo(1);
             pagingVO.setToPageNo(1);
-            list=stuService.masterUpdateRemind(1,permission,permissionList);
+            list=stuService.masterUpdateRemind(1,permission,username);
         } else {
             pagingVO.setToPageNo(page);
-            list=stuService.masterUpdateRemind(page,permission,permissionList);
+            list=stuService.masterUpdateRemind(page,permission,username);
         }
 
 
@@ -860,7 +860,7 @@ public class MasterController {
 
         Subject subject = SecurityUtils.getSubject();
         String username = (String) subject.getPrincipal();
-        List<Integer> permissionList = userloginService.findTeacherPerssion(username);  //获取该用户的年纪权限
+        //List<Integer> permissionList = userloginService.findTeacherPerssion(username);  //获取该用户的年纪权限
         Userlogin userlogin = userloginService.findUser(username);//获取用户的缴费权限 0缴费 1未交费 2 全部
         Integer permission = userlogin.getPermission(); //获取该用户的查看缴费情况权限
 
@@ -869,15 +869,15 @@ public class MasterController {
         //页码对象
         PagingVO pagingVO = new PagingVO();
         //设置总页数
-        pagingVO.setTotalCount(stuService.countMasterReceiveRemind(permission,permissionList));
+        pagingVO.setTotalCount(stuService.countMasterReceiveRemind(permission,username));
 
         if (page == null || page == 0) {
             pagingVO.setCurentPageNo(1);
             pagingVO.setToPageNo(1);
-            list=stuService.masterReceiveRemind(1,permission,permissionList);
+            list=stuService.masterReceiveRemind(1,permission,username);
         } else {
             pagingVO.setToPageNo(page);
-            list=stuService.masterReceiveRemind(page,permission,permissionList);
+            list=stuService.masterReceiveRemind(page,permission,username);
         }
 
         model.addAttribute("stuList", list);
@@ -892,7 +892,7 @@ public class MasterController {
 
         Sign sign = signService.findSignByStuID(stuid);
         Stu stu = stuService.findById(stuid);
-        Integer leadernum = userloginService.getCountLeaderByGradeID(stu.getGradeid());
+        Integer leadernum = userloginService.getCountLeaderByGradeIDAndCampusid(stu.getGradeid(), stu.getCampusid());
         if ((sign.getLeadersignid().equals(0) && (leadernum != 0))) {     //如果负责人未签字, 且当前有对应年级的负责人
              //   (sign.getLeadersignid().equals(1) && (leadernum == 0))) {  //负责人被删除, 负责人标志是1
             model.addAttribute("message", "负责人未签字");
@@ -915,7 +915,7 @@ public class MasterController {
         Sign sign = signService.findSignByStuID(stuid);
         if(sign.getLeadersignid().equals(0)){
             Stu stu = stuService.findById(stuid);
-            Integer leadernum = userloginService.getCountLeaderByGradeID(stu.getGradeid());
+            Integer leadernum = userloginService.getCountLeaderByGradeIDAndCampusid(stu.getGradeid(), stu.getCampusid());
             if(leadernum!=0){
                 model.addAttribute("message", "负责人未签字");
                 return "error";

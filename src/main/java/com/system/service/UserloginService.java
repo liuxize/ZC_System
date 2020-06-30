@@ -123,5 +123,7 @@ public interface UserloginService {
 
     //根据年纪判断是否有负责人
     int getCountLeaderByGradeID(Integer gradeid) throws Exception;
+    //根据年纪,校区 判断是否有负责人
+    int getCountLeaderByGradeIDAndCampusid(Integer gradeid, Integer campusid) throws Exception;
 
 }

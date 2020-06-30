@@ -1116,122 +1116,115 @@ public class StuServiceImpl implements StuService {
     }
 
     //负责人新录入信息提醒
-    public List<StuCustom> leaderReceiveRemind(Integer toPageNo,Integer permission, List<Integer> gradeList) throws Exception{
+    public List<StuCustom> leaderReceiveRemind(Integer toPageNo,Integer permission, String username) throws Exception{
         PagingVO pagingVO = new PagingVO();
         pagingVO.setToPageNo(toPageNo);
-        Map<String, Object> map = new HashMap<String, Object>();
-        map.put("list", gradeList);
-        map.put("pagingVO",pagingVO);
+        pagingVO.setStringtemp(username);
 
         if(permission==0){  //pay
-            return stuMapperCustom.selectLeaderReceiveByGradePay(map);
+            return stuMapperCustom.selectLeaderReceiveByGradePay(pagingVO);
         }
         else if(permission ==1){  //unpay
-            return stuMapperCustom.selectLeaderReceiveByGradeUnPay(map);
+            return stuMapperCustom.selectLeaderReceiveByGradeUnPay(pagingVO);
         }else {     //pay and unpay
-            return stuMapperCustom.selectLeaderReceiveByGrade(map);
+            return stuMapperCustom.selectLeaderReceiveByGrade(pagingVO);
         }
     }
 
     // 计数 负责人新录入信息提醒
-    public int countLeaderReceiveRemind(Integer permission, List<Integer> gradeList) throws Exception{
+    public int countLeaderReceiveRemind(Integer permission, String username) throws Exception{
         if(permission==0){  //pay
-            return stuMapper.countLeaderReceiveByGradePay(gradeList);
+            return stuMapper.countLeaderReceiveByGradePay(username);
         }
         else if(permission ==1){  //unpay
-            return stuMapper.countLeaderReceiveByGradeUnPay(gradeList);
+            return stuMapper.countLeaderReceiveByGradeUnPay(username);
         }else {     //pay and unpay
-            return stuMapper.countLeaderReceiveByGrade(gradeList);
+            return stuMapper.countLeaderReceiveByGrade(username);
         }
     }
 
     //校长新录入信息提醒
-    public List<StuCustom> masterReceiveRemind(Integer toPageNo,Integer permission, List<Integer> gradeList) throws Exception{
+    public List<StuCustom> masterReceiveRemind(Integer toPageNo, Integer permission, String name) throws Exception{
         PagingVO pagingVO = new PagingVO();
         pagingVO.setToPageNo(toPageNo);
-        Map<String, Object> map = new HashMap<String, Object>();
-        map.put("list", gradeList);
-        map.put("pagingVO",pagingVO);
+        pagingVO.setStringtemp(name);
 
         if(permission==0){  //pay
-            return stuMapperCustom.selectMasterReceiveByGradePay(map);
+            return stuMapperCustom.selectMasterReceiveByGradePay(pagingVO);
         }
         else if(permission ==1){  //unpay
-            return stuMapperCustom.selectMasterReceiveByGradeUnPay(map);
+            return stuMapperCustom.selectMasterReceiveByGradeUnPay(pagingVO);
         }else {     //pay and unpay
-            return stuMapperCustom.selectMasterReceiveByGrade(map);
+            return stuMapperCustom.selectMasterReceiveByGrade(pagingVO);
         }
     }
 
     // 计数
-    public int countMasterReceiveRemind(Integer permission, List<Integer> gradeList) throws Exception{
+    public int countMasterReceiveRemind(Integer permission, String name) throws Exception{
         if(permission==0){  //pay
-            return stuMapper.countMasterReceiveByGradePay(gradeList);
+            return stuMapper.countMasterReceiveByGradePay(name);
         }
         else if(permission ==1){  //unpay
-            return stuMapper.countMasterReceiveByGradeUnPay(gradeList);
+            return stuMapper.countMasterReceiveByGradeUnPay(name);
         }else {     //pay and unpay
-            return stuMapper.countMasterReceiveByGrade(gradeList);
+            return stuMapper.countMasterReceiveByGrade(name);
         }
     }
 
     //负责人更新提醒
-    public List<StuCustom> leaderUpdateRemind(Integer toPageNo,Integer permission, List<Integer> gradeList) throws Exception{
+    public List<StuCustom> leaderUpdateRemind(Integer toPageNo,Integer permission, String username) throws Exception{
         PagingVO pagingVO = new PagingVO();
         pagingVO.setToPageNo(toPageNo);
-        Map<String, Object> map = new HashMap<String, Object>();
-        map.put("list", gradeList);
-        map.put("pagingVO",pagingVO);
+        pagingVO.setStringtemp(username);
+
 
         if(permission==0){  //pay
-            return stuMapperCustom.selectLeaderUpdateByGradePay(map);
+            return stuMapperCustom.selectLeaderUpdateByGradePay(pagingVO);
         }
         else if(permission ==1){  //unpay
-            return stuMapperCustom.selectLeaderUpdateByGradeUnPay(map);
+            return stuMapperCustom.selectLeaderUpdateByGradeUnPay(pagingVO);
         }else {     //pay and unpay
-            return stuMapperCustom.selectLeaderUpdateByGrade(map);
+            return stuMapperCustom.selectLeaderUpdateByGrade(pagingVO);
         }
     }
 
     // 计数
-    public int countLeaderUpdateRemind(Integer permission, List<Integer> gradeList) throws Exception{
+    public int countLeaderUpdateRemind(Integer permission, String name) throws Exception{
         if(permission==0){  //pay
-            return stuMapper.countLeaderUpdateByGradePay(gradeList);
+            return stuMapper.countLeaderUpdateByGradePay(name);
         }
         else if(permission ==1){  //unpay
-            return stuMapper.countLeaderUpdateByGradeUnPay(gradeList);
+            return stuMapper.countLeaderUpdateByGradeUnPay(name);
         }else {     //pay and unpay
-            return stuMapper.countLeaderUpdateByGrade(gradeList);
+            return stuMapper.countLeaderUpdateByGrade(name);
         }
     }
 
     //校长更新提醒
-    public List<StuCustom> masterUpdateRemind(Integer toPageNo,Integer permission, List<Integer> gradeList) throws Exception{
+    public List<StuCustom> masterUpdateRemind(Integer toPageNo,Integer permission, String name) throws Exception{
         PagingVO pagingVO = new PagingVO();
         pagingVO.setToPageNo(toPageNo);
-        Map<String, Object> map = new HashMap<String, Object>();
-        map.put("list", gradeList);
-        map.put("pagingVO",pagingVO);
+        pagingVO.setStringtemp(name);
 
         if(permission==0){  //pay
-            return stuMapperCustom.selectMasterUpdateByGradePay(map);
+            return stuMapperCustom.selectMasterUpdateByGradePay(pagingVO);
         }
         else if(permission ==1){  //unpay
-            return stuMapperCustom.selectMasterUpdateByGradeUnPay(map);
+            return stuMapperCustom.selectMasterUpdateByGradeUnPay(pagingVO);
         }else {     //pay and unpay
-            return stuMapperCustom.selectMasterUpdateByGrade(map);
+            return stuMapperCustom.selectMasterUpdateByGrade(pagingVO);
         }
     }
 
     // 计数
-    public int countMasterUpdateRemind(Integer permission, List<Integer> gradeList) throws Exception{
+    public int countMasterUpdateRemind(Integer permission, String name) throws Exception{
         if(permission==0){  //pay
-            return stuMapper.countMasterUpdateByGradePay(gradeList);
+            return stuMapper.countMasterUpdateByGradePay(name);
         }
         else if(permission ==1){  //unpay
-            return stuMapper.countMasterUpdateByGradeUnPay(gradeList);
+            return stuMapper.countMasterUpdateByGradeUnPay(name);
         }else {     //pay and unpay
-            return stuMapper.countMasterUpdateByGrade(gradeList);
+            return stuMapper.countMasterUpdateByGrade(name);
         }
     }
 

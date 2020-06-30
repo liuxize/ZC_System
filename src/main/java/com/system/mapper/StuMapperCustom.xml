@@ -4,7 +4,7 @@
 
 <mapper namespace="com.system.mapper.StuMapperCustom">
 
-    <select id="selectByName" parameterType="String" resultType="com.system.po.StuCustom">
+    <select id="selectByName" parameterType="java.lang.String" resultType="com.system.po.StuCustom">
         select
         stu.*, grade.gradeName
         from stu, grade
@@ -14,7 +14,7 @@
         stu.gradeID = grade.gradeID
     </select>
 
-    <select id="selectByNameAuth" parameterType="String" resultType="com.system.po.StuCustom">
+    <select id="selectByNameAuth" parameterType="java.lang.String" resultType="com.system.po.StuCustom">
         select
         stu.*, grade.gradeName
         from stu, grade
@@ -37,7 +37,7 @@
     </select>
 
 
-    <select id="findByPaging" parameterType="PagingVO" resultType="com.system.po.StuCustom">
+    <select id="findByPaging" parameterType="com.system.po.PagingVO" resultType="com.system.po.StuCustom">
         select
         stu.*, grade.gradeName
         from stu, grade
@@ -57,7 +57,7 @@
         stu.campusID = campus.campusID
     </select>
 
-    <select id="findByGrade" parameterType="PagingVO" resultType="com.system.po.StuCustom">
+    <select id="findByGrade" parameterType="com.system.po.PagingVO" resultType="com.system.po.StuCustom">
         select
         stu.*, grade.gradeName
         from stu, grade
@@ -66,7 +66,7 @@
         limit #{toPageNo}, #{pageSize}
     </select>
 
-    <select id="selectByGrade" parameterType="PagingVO" resultType="com.system.po.StuCustom">
+    <select id="selectByGrade" parameterType="com.system.po.PagingVO" resultType="com.system.po.StuCustom">
         select
         stu.*, grade.gradeName
         from stu, grade
@@ -87,7 +87,7 @@
         stu.gradeID = grade.gradeID
     </select>
 
-    <select id="selectByDate" parameterType="PagingVO" resultType="com.system.po.StuCustom">
+    <select id="selectByDate" parameterType="com.system.po.PagingVO" resultType="com.system.po.StuCustom">
         select
         stu.*, grade.gradeName
         from stu, grade
@@ -159,7 +159,7 @@
         AND DATEDIFF(CAST(CONCAT('2000',DATE_FORMAT(stu.motherBirth,'-%m-%d'))AS DATE),CAST(CONCAT('2000',DATE_FORMAT(NOW(),'-%m-%d')) AS DATE)) = 7)
     </select>
 
-    <select id="selectByPay"  parameterType="PagingVO" resultType="com.system.po.StuCustom">
+    <select id="selectByPay"  parameterType="com.system.po.PagingVO" resultType="com.system.po.StuCustom">
         select distinct
         stu.*, grade.gradeName
         from stu, grade, lesson
@@ -186,7 +186,7 @@
     </select>
 
     <!--缴费学员 分页显示（全部年级 全部学科 全部类型）-->
-    <select id="selectByPayStu"  parameterType="PagingVO" resultType="com.system.po.LessonCustom">
+    <select id="selectByPayStu"  parameterType="com.system.po.PagingVO" resultType="com.system.po.LessonCustom">
         select
         lesson.*, classtype.typeName, subject.subjectName, stu.stuName, stu.school, grade.gradeName
         from stu, grade, lesson, classtype, subject
@@ -203,7 +203,7 @@
         limit #{toPageNo}, #{pageSize}
     </select>
 
-    <select id="selectByPayStuAuth"  parameterType="PagingVO" resultType="com.system.po.LessonCustom">
+    <select id="selectByPayStuAuth"  parameterType="com.system.po.PagingVO" resultType="com.system.po.LessonCustom">
         select
         lesson.*, classtype.typeName, subject.subjectName, stu.stuName, stu.school, grade.gradeName
         from stu, grade, lesson, classtype, subject
@@ -244,7 +244,7 @@
     </select>
 
     <!--缴费学员1 分页显示（学科 类型）-->
-    <select id="selectPayStuBySubAndType" parameterType="PagingVO" resultType="com.system.po.LessonCustom">
+    <select id="selectPayStuBySubAndType" parameterType="com.system.po.PagingVO" resultType="com.system.po.LessonCustom">
         select
         lesson.*, classtype.typeName, subject.subjectName, stu.stuName, stu.school, grade.gradeName
         from stu, grade, lesson, classtype, subject
@@ -267,7 +267,7 @@
         limit #{toPageNo}, #{pageSize}
     </select>
 
-    <select id="selectPayStuBySubAndTypeAuth" parameterType="PagingVO" resultType="com.system.po.LessonCustom">
+    <select id="selectPayStuBySubAndTypeAuth" parameterType="com.system.po.PagingVO" resultType="com.system.po.LessonCustom">
         select
         lesson.*, classtype.typeName, subject.subjectName, stu.stuName, stu.school, grade.gradeName
         from stu, grade, lesson, classtype, subject
@@ -297,7 +297,7 @@
     </select>
 
     <!--缴费学员1   全部显示（学科 类型）-->
-    <select id="selectAllPayStuBySubAndType" parameterType="PagingVO" resultType="com.system.po.LessonCustom">
+    <select id="selectAllPayStuBySubAndType" parameterType="com.system.po.PagingVO" resultType="com.system.po.LessonCustom">
         select
         lesson.*, classtype.typeName, subject.subjectName, stu.stuName, stu.school, grade.gradeName
         from stu, grade, lesson, classtype, subject
@@ -319,7 +319,7 @@
     </select>
 
     <!--缴费学员2 分页显示（年级 类型）-->
-    <select id="selectPayStuByGradeAndType" parameterType="PagingVO" resultType="com.system.po.LessonCustom">
+    <select id="selectPayStuByGradeAndType" parameterType="com.system.po.PagingVO" resultType="com.system.po.LessonCustom">
         select
         lesson.*, classtype.typeName, subject.subjectName, stu.stuName, stu.school, grade.gradeName
         from stu, grade, lesson, classtype, subject
@@ -342,7 +342,7 @@
     </select>
 
     <!--缴费学员2 全部显示（年级 类型）-->
-    <select id="selectAllPayStuByGradeAndType" parameterType="PagingVO" resultType="com.system.po.LessonCustom">
+    <select id="selectAllPayStuByGradeAndType" parameterType="com.system.po.PagingVO" resultType="com.system.po.LessonCustom">
         select
         lesson.*, classtype.typeName, subject.subjectName, stu.stuName, stu.school, grade.gradeName
         from stu, grade, lesson, classtype, subject
@@ -364,7 +364,7 @@
     </select>
 
     <!--缴费学员3 分页显示（年级 学科）-->
-    <select id="selectPayStuByGradeAndSub" parameterType="PagingVO" resultType="com.system.po.LessonCustom">
+    <select id="selectPayStuByGradeAndSub" parameterType="com.system.po.PagingVO" resultType="com.system.po.LessonCustom">
         select
         lesson.*, classtype.typeName, subject.subjectName, stu.stuName, stu.school, grade.gradeName
         from stu, grade, lesson, classtype, subject
@@ -387,7 +387,7 @@
     </select>
 
     <!--缴费学员3 全部显示（年级 学科）-->
-    <select id="selectAllPayStuByGradeAndSub" parameterType="PagingVO" resultType="com.system.po.LessonCustom">
+    <select id="selectAllPayStuByGradeAndSub" parameterType="com.system.po.PagingVO" resultType="com.system.po.LessonCustom">
         select
         lesson.*, classtype.typeName, subject.subjectName, stu.stuName, stu.school, grade.gradeName
         from stu, grade, lesson, classtype, subject
@@ -409,7 +409,7 @@
     </select>
 
     <!--缴费学员4 分页显示（年级 ）-->
-    <select id="selectPayStuByGrade" parameterType="PagingVO" resultType="com.system.po.LessonCustom">
+    <select id="selectPayStuByGrade" parameterType="com.system.po.PagingVO" resultType="com.system.po.LessonCustom">
         select
         lesson.*, classtype.typeName, subject.subjectName, stu.stuName, stu.school, grade.gradeName
         from stu, grade, lesson, classtype, subject
@@ -430,7 +430,7 @@
     </select>
 
     <!--缴费学员4 全部显示（年级 ）-->
-    <select id="selectAllPayStuByGrade" parameterType="PagingVO" resultType="com.system.po.LessonCustom">
+    <select id="selectAllPayStuByGrade" parameterType="com.system.po.PagingVO" resultType="com.system.po.LessonCustom">
         select
         lesson.*, classtype.typeName, subject.subjectName, stu.stuName, stu.school, grade.gradeName
         from stu, grade, lesson, classtype, subject
@@ -450,7 +450,7 @@
     </select>
 
     <!--缴费学员5 分页显示（学科 ）-->
-    <select id="selectPayStuBySub" parameterType="PagingVO" resultType="com.system.po.LessonCustom">
+    <select id="selectPayStuBySub" parameterType="com.system.po.PagingVO" resultType="com.system.po.LessonCustom">
         select
         lesson.*, classtype.typeName, subject.subjectName, stu.stuName, stu.school, grade.gradeName
         from stu, grade, lesson, classtype, subject
@@ -470,7 +470,7 @@
         limit #{toPageNo}, #{pageSize}
     </select>
 
-    <select id="selectPayStuBySubAuth" parameterType="PagingVO" resultType="com.system.po.LessonCustom">
+    <select id="selectPayStuBySubAuth" parameterType="com.system.po.PagingVO" resultType="com.system.po.LessonCustom">
         select
         lesson.*, classtype.typeName, subject.subjectName, stu.stuName, stu.school, grade.gradeName
         from stu, grade, lesson, classtype, subject
@@ -497,7 +497,7 @@
     </select>
 
     <!--缴费学员5 全部显示（学科 ）-->
-    <select id="selectAllPayStuBySub" parameterType="PagingVO" resultType="com.system.po.LessonCustom">
+    <select id="selectAllPayStuBySub" parameterType="com.system.po.PagingVO" resultType="com.system.po.LessonCustom">
         select
         lesson.*, classtype.typeName, subject.subjectName, stu.stuName, stu.school, grade.gradeName
         from stu, grade, lesson, classtype, subject
@@ -517,7 +517,7 @@
     </select>
 
     <!--缴费学员6 分页显示（类型 ）-->
-    <select id="selectPayStuByType" parameterType="PagingVO" resultType="com.system.po.LessonCustom">
+    <select id="selectPayStuByType" parameterType="com.system.po.PagingVO" resultType="com.system.po.LessonCustom">
         select
         lesson.*, classtype.typeName, subject.subjectName, stu.stuName, stu.school, grade.gradeName
         from stu, grade, lesson, classtype, subject
@@ -537,7 +537,7 @@
         limit #{toPageNo}, #{pageSize}
     </select>
 
-    <select id="selectPayStuByTypeAuth" parameterType="PagingVO" resultType="com.system.po.LessonCustom">
+    <select id="selectPayStuByTypeAuth" parameterType="com.system.po.PagingVO" resultType="com.system.po.LessonCustom">
         select
         lesson.*, classtype.typeName, subject.subjectName, stu.stuName, stu.school, grade.gradeName
         from stu, grade, lesson, classtype, subject
@@ -564,7 +564,7 @@
     </select>
 
     <!--缴费学员6 全部显示（类型 ）-->
-    <select id="selectAllPayStuByType" parameterType="PagingVO" resultType="com.system.po.LessonCustom">
+    <select id="selectAllPayStuByType" parameterType="com.system.po.PagingVO" resultType="com.system.po.LessonCustom">
         select
         lesson.*, classtype.typeName, subject.subjectName, stu.stuName, stu.school, grade.gradeName
         from stu, grade, lesson, classtype, subject
@@ -584,7 +584,7 @@
     </select>
 
     <!--缴费学员7 分页显示（类型 ）-->
-    <select id="selectPayStuByGradeSubType" parameterType="PagingVO" resultType="com.system.po.LessonCustom">
+    <select id="selectPayStuByGradeSubType" parameterType="com.system.po.PagingVO" resultType="com.system.po.LessonCustom">
         select
        lesson.*, classtype.typeName, subject.subjectName, stu.stuName, stu.school, grade.gradeName
         from stu, grade, lesson, classtype, subject
@@ -609,7 +609,7 @@
     </select>
 
     <!--缴费学员7 全部显示（类型 ）-->
-    <select id="selectAllPayStuByGradeSubType" parameterType="PagingVO" resultType="com.system.po.LessonCustom" >
+    <select id="selectAllPayStuByGradeSubType" parameterType="com.system.po.PagingVO" resultType="com.system.po.LessonCustom" >
         select
         lesson.*, classtype.typeName, subject.subjectName, stu.stuName, stu.school, grade.gradeName
         from stu, grade, lesson, classtype, subject
@@ -633,7 +633,7 @@
     </select>
 
 
-    <select id="selectByUnPayStu"  parameterType="PagingVO" resultType="com.system.po.StuCustom">
+    <select id="selectByUnPayStu"  parameterType="com.system.po.PagingVO" resultType="com.system.po.StuCustom">
         select distinct
         stu.*, grade.gradeName
         from stu, grade
@@ -651,7 +651,7 @@
         limit #{toPageNo}, #{pageSize}
     </select>
 
-    <select id="selectByUnPayStuAuth"  parameterType="PagingVO" resultType="com.system.po.StuCustom">
+    <select id="selectByUnPayStuAuth"  parameterType="com.system.po.PagingVO" resultType="com.system.po.StuCustom">
         select distinct
         stu.*, grade.gradeName
         from stu, grade
@@ -692,7 +692,7 @@
         )
     </select>
 
-    <select id="selectOutstandStu"  parameterType="PagingVO" resultType="com.system.po.StuCustom">
+    <select id="selectOutstandStu"  parameterType="com.system.po.PagingVO" resultType="com.system.po.StuCustom">
         select
         stu.*, grade.gradeName
         from stu, grade
@@ -714,7 +714,7 @@
     </select>
 
     <!--根据年级查看未缴费学员-->
-    <select id="selectUnPayStuByGrade"  parameterType="PagingVO" resultType="com.system.po.StuCustom">
+    <select id="selectUnPayStuByGrade"  parameterType="com.system.po.PagingVO" resultType="com.system.po.StuCustom">
         select distinct
         stu.*, grade.gradeName
         from stu, grade
@@ -756,7 +756,7 @@
 
 
 
-    <select id="selectByLister" parameterType="PagingVO" resultType="com.system.po.StuCustom">
+    <select id="selectByLister" parameterType="com.system.po.PagingVO" resultType="com.system.po.StuCustom">
         select
         stu.*, grade.gradeName
         from stu, grade
@@ -769,7 +769,7 @@
         limit #{toPageNo}, #{pageSize}
     </select>
 
-    <select id="selectByUpdater" parameterType="PagingVO" resultType="com.system.po.StuCustom">
+    <select id="selectByUpdater" parameterType="com.system.po.PagingVO" resultType="com.system.po.StuCustom">
         select distinct
         stu.*, grade.gradeName
         from stu, grade
@@ -794,7 +794,7 @@
     </select>
 
     <!--分页 全部 有电话-->
-    <select id="selectByUnPayStuTel"  parameterType="PagingVO" resultType="com.system.po.StuCustom">
+    <select id="selectByUnPayStuTel"  parameterType="com.system.po.PagingVO" resultType="com.system.po.StuCustom">
         select distinct
         stu.*, grade.gradeName
         from stu, grade
@@ -818,7 +818,7 @@
         limit #{toPageNo}, #{pageSize}
     </select>
 
-    <select id="selectByUnPayStuTelAuth"  parameterType="PagingVO" resultType="com.system.po.StuCustom">
+    <select id="selectByUnPayStuTelAuth"  parameterType="com.system.po.PagingVO" resultType="com.system.po.StuCustom">
         select distinct
         stu.*, grade.gradeName
         from stu, grade
@@ -875,7 +875,7 @@
 
 
     <!--分页 全部 无电话-->
-    <select id="selectByUnPayStuNoTelAuth"  parameterType="PagingVO" resultType="com.system.po.StuCustom">
+    <select id="selectByUnPayStuNoTelAuth"  parameterType="com.system.po.PagingVO" resultType="com.system.po.StuCustom">
         select distinct
         stu.*, grade.gradeName
         from stu, grade
@@ -905,7 +905,7 @@
         limit #{toPageNo}, #{pageSize}
     </select>
 
-    <select id="selectByUnPayStuNoTel"  parameterType="PagingVO" resultType="com.system.po.StuCustom">
+    <select id="selectByUnPayStuNoTel"  parameterType="com.system.po.PagingVO" resultType="com.system.po.StuCustom">
         select distinct
         stu.*, grade.gradeName
         from stu, grade
@@ -954,7 +954,7 @@
     </select>
 
     <!--//分页 分年级 有电话-->
-    <select id="selectUnPayStuByGradeTel"  parameterType="PagingVO" resultType="com.system.po.StuCustom">
+    <select id="selectUnPayStuByGradeTel"  parameterType="com.system.po.PagingVO" resultType="com.system.po.StuCustom">
         select distinct
         stu.*, grade.gradeName
         from stu, grade
@@ -1006,7 +1006,7 @@
     </select>
 
     <!-- 分页 分年级 没电话-->
-    <select id="selectUnPayStuByGradeNoTel"  parameterType="PagingVO" resultType="com.system.po.StuCustom">
+    <select id="selectUnPayStuByGradeNoTel"  parameterType="com.system.po.PagingVO" resultType="com.system.po.StuCustom">
         select distinct
         stu.*, grade.gradeName
         from stu, grade
@@ -1059,7 +1059,7 @@
     </select>
 
     <!--1 新录入信息，根据年纪，已经缴费  负责人查看-->
-    <select id="selectLeaderReceiveByGradePay" parameterType="java.util.Map" resultType="com.system.po.StuCustom">
+    <select id="selectLeaderReceiveByGradePay" parameterType="com.system.po.PagingVO" resultType="com.system.po.StuCustom">
         select stu.* , grade.gradeName
         from stu,sign, grade
         WHERE
@@ -1070,9 +1070,17 @@
         sign.leaderSign = ''
         AND
         stu.gradeID IN
-        <foreach collection="list" index="index" item="item" open="(" separator="," close=")">
-            #{item,jdbcType=INTEGER}
-        </foreach>
+        (
+        SELECT permission.gradeID
+        FROM permission
+        WHERE permission.teacherName =  #{stringtemp, jdbcType=VARCHAR}
+        )
+        AND stu.campusID IN
+        (
+        SELECT campusauth.campusID
+        FROM campusauth
+        WHERE campusauth.teacherName = #{stringtemp, jdbcType=VARCHAR}
+        )
         AND
         stu.stuID IN
         (
@@ -1081,11 +1089,11 @@
         WHERE
         DATEDIFF(CAST(DATE_FORMAT(lesson.lessonEnd,'%y-%m-%d')AS DATE),CAST(DATE_FORMAT(NOW(),'%y-%m-%d') AS DATE)) > 0
         )
-        limit #{pagingVO.toPageNo}, #{pagingVO.pageSize}
+        limit #{toPageNo}, #{pageSize}
     </select>
 
     <!--1 新录入信息，根据年纪，已经缴费  校长查看-->
-    <select id="selectMasterReceiveByGradePay" parameterType="java.util.Map" resultType="com.system.po.StuCustom">
+    <select id="selectMasterReceiveByGradePay" parameterType="com.system.po.PagingVO" resultType="com.system.po.StuCustom">
         select stu.* , grade.gradeName
         from stu,sign, grade
         WHERE
@@ -1096,9 +1104,17 @@
         sign.masterSign = ''
         AND
         stu.gradeID IN
-        <foreach collection="list" index="index" item="item" open="(" separator="," close=")">
-            #{item,jdbcType=INTEGER}
-        </foreach>
+        (
+        SELECT permission.gradeID
+        FROM permission
+        WHERE permission.teacherName =  #{stringtemp, jdbcType=VARCHAR}
+        )
+        AND stu.campusID IN
+        (
+        SELECT campusauth.campusID
+        FROM campusauth
+        WHERE campusauth.teacherName = #{stringtemp, jdbcType=VARCHAR}
+        )
         AND
         stu.stuID IN
         (
@@ -1107,11 +1123,11 @@
         WHERE
         DATEDIFF(CAST(DATE_FORMAT(lesson.lessonEnd,'%y-%m-%d')AS DATE),CAST(DATE_FORMAT(NOW(),'%y-%m-%d') AS DATE)) > 0
         )
-        limit #{pagingVO.toPageNo}, #{pagingVO.pageSize}
+        limit #{toPageNo}, #{pageSize}
     </select>
 
     <!--2 新录入信息，根据年纪，没有缴费 负责人查看-->
-    <select id="selectLeaderReceiveByGradeUnPay" parameterType="java.util.Map" resultType="com.system.po.StuCustom">
+    <select id="selectLeaderReceiveByGradeUnPay" parameterType="com.system.po.PagingVO" resultType="com.system.po.StuCustom">
         select stu.* , grade.gradeName
         from stu,sign, grade
         WHERE
@@ -1122,9 +1138,17 @@
         sign.leaderSign = ''
         AND
         stu.gradeID IN
-        <foreach collection="list" index="index" item="item" open="(" separator="," close=")">
-            #{item,jdbcType=INTEGER}
-        </foreach>
+        (
+        SELECT permission.gradeID
+        FROM permission
+        WHERE permission.teacherName =  #{stringtemp, jdbcType=VARCHAR}
+        )
+        AND stu.campusID IN
+        (
+        SELECT campusauth.campusID
+        FROM campusauth
+        WHERE campusauth.teacherName = #{stringtemp, jdbcType=VARCHAR}
+        )
         AND
         stu.stuID NOT IN
         (
@@ -1133,11 +1157,11 @@
         WHERE
         DATEDIFF(CAST(DATE_FORMAT(lesson.lessonEnd,'%y-%m-%d')AS DATE),CAST(DATE_FORMAT(NOW(),'%y-%m-%d') AS DATE)) > 0
         )
-        limit #{pagingVO.toPageNo}, #{pagingVO.pageSize}
+        limit #{toPageNo}, #{pageSize}
     </select>
 
     <!--2 新录入信息，根据年纪，没有缴费 校长查看-->
-    <select id="selectMasterReceiveByGradeUnPay" parameterType="java.util.Map" resultType="com.system.po.StuCustom">
+    <select id="selectMasterReceiveByGradeUnPay" parameterType="com.system.po.PagingVO" resultType="com.system.po.StuCustom">
         select stu.* , grade.gradeName
         from stu,sign, grade
         WHERE
@@ -1148,9 +1172,17 @@
         sign.masterSign = ''
         AND
         stu.gradeID IN
-        <foreach collection="list" index="index" item="item" open="(" separator="," close=")">
-            #{item,jdbcType=INTEGER}
-        </foreach>
+        (
+        SELECT permission.gradeID
+        FROM permission
+        WHERE permission.teacherName =  #{stringtemp, jdbcType=VARCHAR}
+        )
+        AND stu.campusID IN
+        (
+        SELECT campusauth.campusID
+        FROM campusauth
+        WHERE campusauth.teacherName = #{stringtemp, jdbcType=VARCHAR}
+        )
         AND
         stu.stuID NOT IN
         (
@@ -1159,11 +1191,11 @@
         WHERE
         DATEDIFF(CAST(DATE_FORMAT(lesson.lessonEnd,'%y-%m-%d')AS DATE),CAST(DATE_FORMAT(NOW(),'%y-%m-%d') AS DATE)) > 0
         )
-        limit #{pagingVO.toPageNo}, #{pagingVO.pageSize}
+        limit #{toPageNo}, #{pageSize}
     </select>
 
     <!--3 新录入信息，根据年纪，缴费和未缴费 负责人查看-->
-    <select id="selectLeaderReceiveByGrade" parameterType="java.util.Map" resultType="com.system.po.StuCustom">
+    <select id="selectLeaderReceiveByGrade" parameterType="com.system.po.PagingVO" resultType="com.system.po.StuCustom">
         select stu.* , grade.gradeName
         from stu,sign, grade
         WHERE
@@ -1174,14 +1206,22 @@
         sign.leaderSign = ''
         AND
         stu.gradeID IN
-        <foreach collection="list" index="index" item="item" open="(" separator="," close=")">
-            #{item,jdbcType=INTEGER}
-        </foreach>
-        limit #{pagingVO.toPageNo}, #{pagingVO.pageSize}
+        (
+        SELECT permission.gradeID
+        FROM permission
+        WHERE permission.teacherName =  #{stringtemp, jdbcType=VARCHAR}
+        )
+        AND stu.campusID IN
+        (
+        SELECT campusauth.campusID
+        FROM campusauth
+        WHERE campusauth.teacherName = #{stringtemp, jdbcType=VARCHAR}
+        )
+        limit #{toPageNo}, #{pageSize}
     </select>
 
     <!--3 新录入信息，根据年纪，缴费和未缴费 校长查看-->
-    <select id="selectMasterReceiveByGrade" parameterType="java.util.Map" resultType="com.system.po.StuCustom">
+    <select id="selectMasterReceiveByGrade" parameterType="com.system.po.PagingVO" resultType="com.system.po.StuCustom">
         select stu.* , grade.gradeName
         from stu,sign, grade
         WHERE
@@ -1192,14 +1232,22 @@
         sign.masterSign = ''
         AND
         stu.gradeID IN
-        <foreach collection="list" index="index" item="item" open="(" separator="," close=")">
-            #{item,jdbcType=INTEGER}
-        </foreach>
-        limit #{pagingVO.toPageNo}, #{pagingVO.pageSize}
+        (
+        SELECT permission.gradeID
+        FROM permission
+        WHERE permission.teacherName =  #{stringtemp, jdbcType=VARCHAR}
+        )
+        AND stu.campusID IN
+        (
+        SELECT campusauth.campusID
+        FROM campusauth
+        WHERE campusauth.teacherName = #{stringtemp, jdbcType=VARCHAR}
+        )
+        limit #{toPageNo}, #{pageSize}
     </select>
 
     <!--1 更新信息，根据年纪，已经缴费 负责人查看-->
-    <select id="selectLeaderUpdateByGradePay" parameterType="java.util.Map" resultType="com.system.po.StuCustom">
+    <select id="selectLeaderUpdateByGradePay" parameterType="com.system.po.PagingVO" resultType="com.system.po.StuCustom">
         select stu.* , grade.gradeName
         from stu,sign, grade
         WHERE
@@ -1212,9 +1260,17 @@
         sign.leaderSignID =0
         AND
         stu.gradeID IN
-        <foreach collection="list" index="index" item="item" open="(" separator="," close=")">
-            #{item,jdbcType=INTEGER}
-        </foreach>
+        (
+        SELECT permission.gradeID
+        FROM permission
+        WHERE permission.teacherName =  #{stringtemp, jdbcType=VARCHAR}
+        )
+        AND stu.campusID IN
+        (
+        SELECT campusauth.campusID
+        FROM campusauth
+        WHERE campusauth.teacherName = #{stringtemp, jdbcType=VARCHAR}
+        )
         AND
         stu.stuID IN
         (
@@ -1223,11 +1279,11 @@
         WHERE
         DATEDIFF(CAST(DATE_FORMAT(lesson.lessonEnd,'%y-%m-%d')AS DATE),CAST(DATE_FORMAT(NOW(),'%y-%m-%d') AS DATE)) > 0
         )
-        limit #{pagingVO.toPageNo}, #{pagingVO.pageSize}
+        limit #{toPageNo}, #{pageSize}
     </select>
 
     <!--1 更新信息，根据年纪，已经缴费 校长查看-->
-    <select id="selectMasterUpdateByGradePay" parameterType="java.util.Map" resultType="com.system.po.StuCustom">
+    <select id="selectMasterUpdateByGradePay" parameterType="com.system.po.PagingVO" resultType="com.system.po.StuCustom">
         select stu.* , grade.gradeName
         from stu,sign, grade
         WHERE
@@ -1240,9 +1296,17 @@
         sign.masterSignID = 0
         AND
         stu.gradeID IN
-        <foreach collection="list" index="index" item="item" open="(" separator="," close=")">
-            #{item,jdbcType=INTEGER}
-        </foreach>
+        (
+        SELECT permission.gradeID
+        FROM permission
+        WHERE permission.teacherName =  #{stringtemp, jdbcType=VARCHAR}
+        )
+        AND stu.campusID IN
+        (
+        SELECT campusauth.campusID
+        FROM campusauth
+        WHERE campusauth.teacherName = #{stringtemp, jdbcType=VARCHAR}
+        )
         AND
         stu.stuID IN
         (
@@ -1251,11 +1315,11 @@
         WHERE
         DATEDIFF(CAST(DATE_FORMAT(lesson.lessonEnd,'%y-%m-%d')AS DATE),CAST(DATE_FORMAT(NOW(),'%y-%m-%d') AS DATE)) > 0
         )
-        limit #{pagingVO.toPageNo}, #{pagingVO.pageSize}
+        limit #{toPageNo}, #{pageSize}
     </select>
 
     <!--2 更新信息，根据年纪，没有缴费  负责人查看-->
-    <select id="selectLeaderUpdateByGradeUnPay" parameterType="java.util.Map" resultType="com.system.po.StuCustom">
+    <select id="selectLeaderUpdateByGradeUnPay" parameterType="com.system.po.PagingVO" resultType="com.system.po.StuCustom">
         select stu.* , grade.gradeName
         from stu,sign, grade
         WHERE
@@ -1268,9 +1332,17 @@
         sign.leaderSignID =0
         AND
         stu.gradeID IN
-        <foreach collection="list" index="index" item="item" open="(" separator="," close=")">
-            #{item,jdbcType=INTEGER}
-        </foreach>
+        (
+        SELECT permission.gradeID
+        FROM permission
+        WHERE permission.teacherName =  #{stringtemp, jdbcType=VARCHAR}
+        )
+        AND stu.campusID IN
+        (
+        SELECT campusauth.campusID
+        FROM campusauth
+        WHERE campusauth.teacherName = #{stringtemp, jdbcType=VARCHAR}
+        )
         AND
         stu.stuID NOT IN
         (
@@ -1279,11 +1351,11 @@
         WHERE
         DATEDIFF(CAST(DATE_FORMAT(lesson.lessonEnd,'%y-%m-%d')AS DATE),CAST(DATE_FORMAT(NOW(),'%y-%m-%d') AS DATE)) > 0
         )
-        limit #{pagingVO.toPageNo}, #{pagingVO.pageSize}
+        limit #{toPageNo}, #{pageSize}
     </select>
 
     <!--2 更新信息，根据年纪，没有缴费  校长查看-->
-    <select id="selectMasterUpdateByGradeUnPay" parameterType="java.util.Map" resultType="com.system.po.StuCustom">
+    <select id="selectMasterUpdateByGradeUnPay" parameterType="com.system.po.PagingVO" resultType="com.system.po.StuCustom">
         select stu.* , grade.gradeName
         from stu,sign, grade
         WHERE
@@ -1296,9 +1368,17 @@
         sign.masterSignID =0
         AND
         stu.gradeID IN
-        <foreach collection="list" index="index" item="item" open="(" separator="," close=")">
-            #{item,jdbcType=INTEGER}
-        </foreach>
+        (
+        SELECT permission.gradeID
+        FROM permission
+        WHERE permission.teacherName =  #{stringtemp, jdbcType=VARCHAR}
+        )
+        AND stu.campusID IN
+        (
+        SELECT campusauth.campusID
+        FROM campusauth
+        WHERE campusauth.teacherName = #{stringtemp, jdbcType=VARCHAR}
+        )
         AND
         stu.stuID NOT IN
         (
@@ -1307,11 +1387,11 @@
         WHERE
         DATEDIFF(CAST(DATE_FORMAT(lesson.lessonEnd,'%y-%m-%d')AS DATE),CAST(DATE_FORMAT(NOW(),'%y-%m-%d') AS DATE)) > 0
         )
-        limit #{pagingVO.toPageNo}, #{pagingVO.pageSize}
+        limit #{toPageNo}, #{pageSize}
     </select>
 
     <!--3 更新信息，根据年纪，缴费和未缴费 负责人查看-->
-    <select id="selectLeaderUpdateByGrade" parameterType="java.util.Map" resultType="com.system.po.StuCustom">
+    <select id="selectLeaderUpdateByGrade" parameterType="com.system.po.PagingVO" resultType="com.system.po.StuCustom">
         select stu.* , grade.gradeName
         from stu,sign, grade
         WHERE
@@ -1324,14 +1404,22 @@
         sign.leaderSignID =0
         AND
         stu.gradeID IN
-        <foreach collection="list" index="index" item="item" open="(" separator="," close=")">
-            #{item,jdbcType=INTEGER}
-        </foreach>
-        limit #{pagingVO.toPageNo}, #{pagingVO.pageSize}
+        (
+        SELECT permission.gradeID
+        FROM permission
+        WHERE permission.teacherName =  #{stringtemp, jdbcType=VARCHAR}
+        )
+        AND stu.campusID IN
+        (
+        SELECT campusauth.campusID
+        FROM campusauth
+        WHERE campusauth.teacherName = #{stringtemp, jdbcType=VARCHAR}
+        )
+        limit #{toPageNo}, #{pageSize}
     </select>
 
     <!--3 更新信息，根据年纪，缴费和未缴费 校长查看-->
-    <select id="selectMasterUpdateByGrade" parameterType="java.util.Map" resultType="com.system.po.StuCustom">
+    <select id="selectMasterUpdateByGrade" parameterType="com.system.po.PagingVO" resultType="com.system.po.StuCustom">
         select stu.* , grade.gradeName
         from stu,sign, grade
         WHERE
@@ -1344,10 +1432,18 @@
         sign.masterSignID =0
         AND
         stu.gradeID IN
-        <foreach collection="list" index="index" item="item" open="(" separator="," close=")">
-            #{item,jdbcType=INTEGER}
-        </foreach>
-        limit #{pagingVO.toPageNo}, #{pagingVO.pageSize}
+        (
+        SELECT permission.gradeID
+        FROM permission
+        WHERE permission.teacherName =  #{stringtemp, jdbcType=VARCHAR}
+        )
+        AND stu.campusID IN
+        (
+        SELECT campusauth.campusID
+        FROM campusauth
+        WHERE campusauth.teacherName = #{stringtemp, jdbcType=VARCHAR}
+        )
+        limit #{toPageNo}, #{pageSize}
     </select>
 
     <!--管理员新录入信息提醒-校长已经签字-->
@@ -1412,7 +1508,7 @@
 
 
     <!--搜索学校-->
-    <select id="selectAllBySchool" parameterType="String" resultType="com.system.po.StuCustom">
+    <select id="selectAllBySchool" parameterType="java.lang.String" resultType="com.system.po.StuCustom">
         select
         stu.*, grade.gradeName
         from stu, grade
@@ -1435,7 +1531,7 @@
     </select>
 
     <!--搜索专业-->
-    <select id="selectAllByMajor" parameterType="String" resultType="com.system.po.StuCustom">
+    <select id="selectAllByMajor" parameterType="java.lang.String" resultType="com.system.po.StuCustom">
         select
         stu.*, grade.gradeName
         from stu, grade
@@ -1476,7 +1572,7 @@
         limit #{toPageNo}, #{pageSize}
     </select>
 
-    <select id="selectByCheck" parameterType="PagingVO" resultType="com.system.po.StuCustom">
+    <select id="selectByCheck" parameterType="com.system.po.PagingVO" resultType="com.system.po.StuCustom">
         select
         stu.*, grade.gradeName
         from stu, grade
@@ -1490,7 +1586,7 @@
     </select>
 
     <!--预缴费学员 分页显示（全部年级 全部学科 全部类型）-->
-    <select id="selectByPrePayStu"  parameterType="PagingVO" resultType="com.system.po.LessonCustom">
+    <select id="selectByPrePayStu"  parameterType="com.system.po.PagingVO" resultType="com.system.po.LessonCustom">
         select
         lesson.*, classtype.typeName, subject.subjectName, stu.stuName, stu.school, grade.gradeName
         from stu, grade, lesson, classtype, subject
@@ -1506,7 +1602,7 @@
         limit #{toPageNo}, #{pageSize}
     </select>
 
-    <select id="selectByPrePayStuAuth"  parameterType="PagingVO" resultType="com.system.po.LessonCustom">
+    <select id="selectByPrePayStuAuth"  parameterType="com.system.po.PagingVO" resultType="com.system.po.LessonCustom">
         select
         lesson.*, classtype.typeName, subject.subjectName, stu.stuName, stu.school, grade.gradeName
         from stu, grade, lesson, classtype, subject
@@ -1547,7 +1643,7 @@
     </select>
 
     <!--预缴费学员1 分页显示（学科 类型）-->
-    <select id="selectPrePayStuBySubAndType" parameterType="PagingVO" resultType="com.system.po.LessonCustom">
+    <select id="selectPrePayStuBySubAndType" parameterType="com.system.po.PagingVO" resultType="com.system.po.LessonCustom">
         select
         lesson.*, classtype.typeName, subject.subjectName, stu.stuName, stu.school, grade.gradeName
         from stu, grade, lesson, classtype, subject
@@ -1568,7 +1664,7 @@
     </select>
 
     <!--预缴费学员1 分页显示（学科 类型）-->
-    <select id="selectPrePayStuBySubAndTypeAuth" parameterType="PagingVO" resultType="com.system.po.LessonCustom">
+    <select id="selectPrePayStuBySubAndTypeAuth" parameterType="com.system.po.PagingVO" resultType="com.system.po.LessonCustom">
         select
         lesson.*, classtype.typeName, subject.subjectName, stu.stuName, stu.school, grade.gradeName
         from stu, grade, lesson, classtype, subject
@@ -1595,7 +1691,7 @@
     </select>
 
     <!--预缴费学员1   全部显示（学科 类型）-->
-    <select id="selectAllPrePayStuBySubAndType" parameterType="PagingVO" resultType="com.system.po.LessonCustom">
+    <select id="selectAllPrePayStuBySubAndType" parameterType="com.system.po.PagingVO" resultType="com.system.po.LessonCustom">
         select
         lesson.*, classtype.typeName, subject.subjectName, stu.stuName, stu.school, grade.gradeName
         from stu, grade, lesson, classtype, subject
@@ -1615,7 +1711,7 @@
     </select>
 
     <!--预缴费学员2 分页显示（年级 类型）-->
-    <select id="selectPrePayStuByGradeAndType" parameterType="PagingVO" resultType="com.system.po.LessonCustom">
+    <select id="selectPrePayStuByGradeAndType" parameterType="com.system.po.PagingVO" resultType="com.system.po.LessonCustom">
        select
         lesson.*, classtype.typeName, subject.subjectName, stu.stuName, stu.school, grade.gradeName
         from stu, grade, lesson, classtype, subject
@@ -1636,7 +1732,7 @@
     </select>
 
     <!--预缴费学员2 全部显示（年级 类型）-->
-    <select id="selectAllPrePayStuByGradeAndType" parameterType="PagingVO" resultType="com.system.po.LessonCustom">
+    <select id="selectAllPrePayStuByGradeAndType" parameterType="com.system.po.PagingVO" resultType="com.system.po.LessonCustom">
         select
         lesson.*, classtype.typeName, subject.subjectName, stu.stuName, stu.school, grade.gradeName
         from stu, grade, lesson, classtype, subject
@@ -1656,7 +1752,7 @@
     </select>
 
     <!--预缴费学员3 分页显示（年级 学科）-->
-    <select id="selectPrePayStuByGradeAndSub" parameterType="PagingVO" resultType="com.system.po.LessonCustom">
+    <select id="selectPrePayStuByGradeAndSub" parameterType="com.system.po.PagingVO" resultType="com.system.po.LessonCustom">
         select
         lesson.*, classtype.typeName, subject.subjectName, stu.stuName, stu.school, grade.gradeName
         from stu, grade, lesson, classtype, subject
@@ -1677,7 +1773,7 @@
     </select>
 
     <!--预缴费学员3 全部显示（年级 学科）-->
-    <select id="selectAllPrePayStuByGradeAndSub" parameterType="PagingVO" resultType="com.system.po.LessonCustom">
+    <select id="selectAllPrePayStuByGradeAndSub" parameterType="com.system.po.PagingVO" resultType="com.system.po.LessonCustom">
         select
         lesson.*, classtype.typeName, subject.subjectName, stu.stuName, stu.school, grade.gradeName
         from stu, grade, lesson, classtype, subject
@@ -1697,7 +1793,7 @@
     </select>
 
     <!--预缴费学员4 分页显示（年级 ）-->
-    <select id="selectPrePayStuByGrade" parameterType="PagingVO" resultType="com.system.po.LessonCustom">
+    <select id="selectPrePayStuByGrade" parameterType="com.system.po.PagingVO" resultType="com.system.po.LessonCustom">
         select
         lesson.*, classtype.typeName, subject.subjectName, stu.stuName, stu.school, grade.gradeName
         from stu, grade, lesson, classtype, subject
@@ -1716,7 +1812,7 @@
     </select>
 
     <!--预缴费学员4 全部显示（年级 ）-->
-    <select id="selectAllPrePayStuByGrade" parameterType="PagingVO" resultType="com.system.po.LessonCustom">
+    <select id="selectAllPrePayStuByGrade" parameterType="com.system.po.PagingVO" resultType="com.system.po.LessonCustom">
         select
         lesson.*, classtype.typeName, subject.subjectName, stu.stuName, stu.school, grade.gradeName
         from stu, grade, lesson, classtype, subject
@@ -1734,7 +1830,7 @@
     </select>
 
     <!--预缴费学员5 分页显示（学科 ）-->
-    <select id="selectPrePayStuBySub" parameterType="PagingVO" resultType="com.system.po.LessonCustom">
+    <select id="selectPrePayStuBySub" parameterType="com.system.po.PagingVO" resultType="com.system.po.LessonCustom">
         select
         lesson.*, classtype.typeName, subject.subjectName, stu.stuName, stu.school, grade.gradeName
         from stu, grade, lesson, classtype, subject
@@ -1752,7 +1848,7 @@
         limit #{toPageNo}, #{pageSize}
     </select>
 
-    <select id="selectPrePayStuBySubAuth" parameterType="PagingVO" resultType="com.system.po.LessonCustom">
+    <select id="selectPrePayStuBySubAuth" parameterType="com.system.po.PagingVO" resultType="com.system.po.LessonCustom">
         select
         lesson.*, classtype.typeName, subject.subjectName, stu.stuName, stu.school, grade.gradeName
         from stu, grade, lesson, classtype, subject
@@ -1777,7 +1873,7 @@
     </select>
 
     <!--预缴费学员5 全部显示（学科 ）-->
-    <select id="selectAllPrePayStuBySub" parameterType="PagingVO" resultType="com.system.po.LessonCustom">
+    <select id="selectAllPrePayStuBySub" parameterType="com.system.po.PagingVO" resultType="com.system.po.LessonCustom">
         select
         lesson.*, classtype.typeName, subject.subjectName, stu.stuName, stu.school, grade.gradeName
         from stu, grade, lesson, classtype, subject
@@ -1795,7 +1891,7 @@
     </select>
 
     <!--预缴费学员6 分页显示（类型 ）-->
-    <select id="selectPrePayStuByType" parameterType="PagingVO" resultType="com.system.po.LessonCustom">
+    <select id="selectPrePayStuByType" parameterType="com.system.po.PagingVO" resultType="com.system.po.LessonCustom">
         select
         lesson.*, classtype.typeName, subject.subjectName, stu.stuName, stu.school, grade.gradeName
         from stu, grade, lesson, classtype, subject
@@ -1813,7 +1909,7 @@
         limit #{toPageNo}, #{pageSize}
     </select>
 
-    <select id="selectPrePayStuByTypeAuth" parameterType="PagingVO" resultType="com.system.po.LessonCustom">
+    <select id="selectPrePayStuByTypeAuth" parameterType="com.system.po.PagingVO" resultType="com.system.po.LessonCustom">
         select
         lesson.*, classtype.typeName, subject.subjectName, stu.stuName, stu.school, grade.gradeName
         from stu, grade, lesson, classtype, subject
@@ -1838,7 +1934,7 @@
     </select>
 
     <!--预缴费学员6 全部显示（类型 ）-->
-    <select id="selectAllPrePayStuByType" parameterType="PagingVO" resultType="com.system.po.LessonCustom">
+    <select id="selectAllPrePayStuByType" parameterType="com.system.po.PagingVO" resultType="com.system.po.LessonCustom">
         select
         lesson.*, classtype.typeName, subject.subjectName, stu.stuName, stu.school, grade.gradeName
         from stu, grade, lesson, classtype, subject
@@ -1857,7 +1953,7 @@
 
 
     <!--预缴费学员7 分页显示（类型 ）-->
-    <select id="selectPrePayStuByGradeSubType" parameterType="PagingVO" resultType="com.system.po.LessonCustom">
+    <select id="selectPrePayStuByGradeSubType" parameterType="com.system.po.PagingVO" resultType="com.system.po.LessonCustom">
         select
         lesson.*, classtype.typeName, subject.subjectName, stu.stuName, stu.school, grade.gradeName
         from stu, grade, lesson, classtype, subject
@@ -1880,7 +1976,7 @@
     </select>
 
     <!--预缴费学员7 全部显示（类型 ）-->
-    <select id="selectAllPrePayStuByGradeSubType" parameterType="PagingVO" resultType="com.system.po.LessonCustom">
+    <select id="selectAllPrePayStuByGradeSubType" parameterType="com.system.po.PagingVO" resultType="com.system.po.LessonCustom">
         select
         lesson.*, classtype.typeName, subject.subjectName, stu.stuName, stu.school, grade.gradeName
         from stu, grade, lesson, classtype, subject

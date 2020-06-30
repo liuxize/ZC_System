@@ -921,7 +921,7 @@
     </select>
 
     <!--1  新录入  负责人-->
-    <select id="countLeaderReceiveByGradePay" parameterType="java.util.List" resultType="java.lang.Integer">
+    <select id="countLeaderReceiveByGradePay" parameterType="java.lang.String" resultType="java.lang.Integer">
         select
         count(distinct stu.stuID)
         from stu,sign
@@ -931,9 +931,17 @@
         sign.leaderSign = ''
         AND
         stu.gradeID IN
-        <foreach collection="list" index="index" item="item" open="(" separator="," close=")">
-            #{item,jdbcType=INTEGER}
-        </foreach>
+        (
+        SELECT permission.gradeID
+        FROM permission
+        WHERE permission.teacherName =  #{name, jdbcType=VARCHAR}
+        )
+        AND stu.campusID IN
+        (
+        SELECT campusauth.campusID
+        FROM campusauth
+        WHERE campusauth.teacherName = #{name, jdbcType=VARCHAR}
+        )
         AND
         stu.stuID IN
         (
@@ -945,7 +953,7 @@
     </select>
 
     <!--1  新录入  校长-->
-    <select id="countMasterReceiveByGradePay" parameterType="java.util.List" resultType="java.lang.Integer">
+    <select id="countMasterReceiveByGradePay" parameterType="java.lang.String" resultType="java.lang.Integer">
         select
         count(distinct stu.stuID)
         from stu,sign
@@ -955,9 +963,17 @@
         sign.masterSign = ''
         AND
         stu.gradeID IN
-        <foreach collection="list" index="index" item="item" open="(" separator="," close=")">
-            #{item,jdbcType=INTEGER}
-        </foreach>
+        (
+        SELECT permission.gradeID
+        FROM permission
+        WHERE permission.teacherName =  #{name, jdbcType=VARCHAR}
+        )
+        AND stu.campusID IN
+        (
+        SELECT campusauth.campusID
+        FROM campusauth
+        WHERE campusauth.teacherName = #{name, jdbcType=VARCHAR}
+        )
         AND
         stu.stuID IN
         (
@@ -969,7 +985,7 @@
     </select>
 
     <!--2  新录入 负责人-->
-    <select id="countLeaderReceiveByGradeUnPay" parameterType="java.util.List" resultType="java.lang.Integer">
+    <select id="countLeaderReceiveByGradeUnPay" parameterType="java.lang.String" resultType="java.lang.Integer">
         select
         count(distinct stu.stuID)
         from stu,sign
@@ -979,9 +995,17 @@
         sign.leaderSign = ''
         AND
         stu.gradeID IN
-        <foreach collection="list" index="index" item="item" open="(" separator="," close=")">
-            #{item,jdbcType=INTEGER}
-        </foreach>
+        (
+        SELECT permission.gradeID
+        FROM permission
+        WHERE permission.teacherName =  #{name, jdbcType=VARCHAR}
+        )
+        AND stu.campusID IN
+        (
+        SELECT campusauth.campusID
+        FROM campusauth
+        WHERE campusauth.teacherName = #{name, jdbcType=VARCHAR}
+        )
         AND
         stu.stuID NOT IN
         (
@@ -993,7 +1017,7 @@
     </select>
 
     <!--2  新录入 校长-->
-    <select id="countMasterReceiveByGradeUnPay" parameterType="java.util.List" resultType="java.lang.Integer">
+    <select id="countMasterReceiveByGradeUnPay" parameterType="java.lang.String" resultType="java.lang.Integer">
         select
         count(distinct stu.stuID)
         from stu,sign
@@ -1003,9 +1027,17 @@
         sign.masterSign = ''
         AND
         stu.gradeID IN
-        <foreach collection="list" index="index" item="item" open="(" separator="," close=")">
-            #{item,jdbcType=INTEGER}
-        </foreach>
+        (
+        SELECT permission.gradeID
+        FROM permission
+        WHERE permission.teacherName =  #{name, jdbcType=VARCHAR}
+        )
+        AND stu.campusID IN
+        (
+        SELECT campusauth.campusID
+        FROM campusauth
+        WHERE campusauth.teacherName = #{name, jdbcType=VARCHAR}
+        )
         AND
         stu.stuID NOT IN
         (
@@ -1018,7 +1050,7 @@
 
 
     <!--3  新录入 负责人-->
-    <select id="countLeaderReceiveByGrade" parameterType="java.util.List" resultType="java.lang.Integer">
+    <select id="countLeaderReceiveByGrade" parameterType="java.lang.String" resultType="java.lang.Integer">
         select
         count(distinct stu.stuID)
         from stu,sign
@@ -1028,13 +1060,21 @@
         sign.leaderSign = ''
         AND
         stu.gradeID IN
-        <foreach collection="list" index="index" item="item" open="(" separator="," close=")">
-            #{item,jdbcType=INTEGER}
-        </foreach>
+        (
+        SELECT permission.gradeID
+        FROM permission
+        WHERE permission.teacherName =  #{name, jdbcType=VARCHAR}
+        )
+        AND stu.campusID IN
+        (
+        SELECT campusauth.campusID
+        FROM campusauth
+        WHERE campusauth.teacherName = #{name, jdbcType=VARCHAR}
+        )
     </select>
 
     <!--3  新录入 校长-->
-    <select id="countMasterReceiveByGrade" parameterType="java.util.List" resultType="java.lang.Integer">
+    <select id="countMasterReceiveByGrade" parameterType="java.lang.String" resultType="java.lang.Integer">
         select
         count(distinct stu.stuID)
         from stu,sign
@@ -1044,13 +1084,21 @@
         sign.masterSign = ''
         AND
         stu.gradeID IN
-        <foreach collection="list" index="index" item="item" open="(" separator="," close=")">
-            #{item,jdbcType=INTEGER}
-        </foreach>
+        (
+        SELECT permission.gradeID
+        FROM permission
+        WHERE permission.teacherName =  #{name, jdbcType=VARCHAR}
+        )
+        AND stu.campusID IN
+        (
+        SELECT campusauth.campusID
+        FROM campusauth
+        WHERE campusauth.teacherName = #{name, jdbcType=VARCHAR}
+        )
     </select>
 
     <!--1 更新信息，根据年纪，已经缴费 负责人-->
-    <select id="countLeaderUpdateByGradePay" parameterType="java.util.List" resultType="java.lang.Integer">
+    <select id="countLeaderUpdateByGradePay" parameterType="java.lang.String" resultType="java.lang.Integer">
         select
         count(distinct stu.stuID)
         from stu,sign
@@ -1062,9 +1110,17 @@
         sign.leaderSignID =0
         AND
         stu.gradeID IN
-        <foreach collection="list" index="index" item="item" open="(" separator="," close=")">
-            #{item,jdbcType=INTEGER}
-        </foreach>
+        (
+        SELECT permission.gradeID
+        FROM permission
+        WHERE permission.teacherName =  #{name, jdbcType=VARCHAR}
+        )
+        AND stu.campusID IN
+        (
+        SELECT campusauth.campusID
+        FROM campusauth
+        WHERE campusauth.teacherName = #{name, jdbcType=VARCHAR}
+        )
         AND
         stu.stuID IN
         (
@@ -1077,7 +1133,7 @@
 
 
     <!--1 更新信息，根据年纪，已经缴费 校长-->
-    <select id="countMasterUpdateByGradePay" parameterType="java.util.List" resultType="java.lang.Integer">
+    <select id="countMasterUpdateByGradePay" parameterType="java.lang.String" resultType="java.lang.Integer">
         select
         count(distinct stu.stuID)
         from stu,sign
@@ -1089,9 +1145,17 @@
         sign.masterSignID =0
         AND
         stu.gradeID IN
-        <foreach collection="list" index="index" item="item" open="(" separator="," close=")">
-            #{item,jdbcType=INTEGER}
-        </foreach>
+        (
+        SELECT permission.gradeID
+        FROM permission
+        WHERE permission.teacherName =  #{name, jdbcType=VARCHAR}
+        )
+        AND stu.campusID IN
+        (
+        SELECT campusauth.campusID
+        FROM campusauth
+        WHERE campusauth.teacherName = #{name, jdbcType=VARCHAR}
+        )
         AND
         stu.stuID IN
         (
@@ -1103,7 +1167,7 @@
     </select>
 
     <!--2 更新信息，根据年纪，未缴费 负责人-->
-    <select id="countLeaderUpdateByGradeUnPay" parameterType="java.util.List" resultType="java.lang.Integer">
+    <select id="countLeaderUpdateByGradeUnPay" parameterType="java.lang.String" resultType="java.lang.Integer">
         select
         count(distinct stu.stuID)
         from stu,sign
@@ -1115,9 +1179,17 @@
         sign.leaderSignID =0
         AND
         stu.gradeID IN
-        <foreach collection="list" index="index" item="item" open="(" separator="," close=")">
-            #{item,jdbcType=INTEGER}
-        </foreach>
+        (
+        SELECT permission.gradeID
+        FROM permission
+        WHERE permission.teacherName =  #{name, jdbcType=VARCHAR}
+        )
+        AND stu.campusID IN
+        (
+        SELECT campusauth.campusID
+        FROM campusauth
+        WHERE campusauth.teacherName = #{name, jdbcType=VARCHAR}
+        )
         AND
         stu.stuID NOT IN
         (
@@ -1129,7 +1201,7 @@
     </select>
 
     <!--2 更新信息，根据年纪，未缴费 校长-->
-    <select id="countMasterUpdateByGradeUnPay" parameterType="java.util.List" resultType="java.lang.Integer">
+    <select id="countMasterUpdateByGradeUnPay" parameterType="java.lang.String" resultType="java.lang.Integer">
         select
         count(distinct stu.stuID)
         from stu,sign
@@ -1141,9 +1213,17 @@
         sign.masterSignID =0
         AND
         stu.gradeID IN
-        <foreach collection="list" index="index" item="item" open="(" separator="," close=")">
-            #{item,jdbcType=INTEGER}
-        </foreach>
+        (
+        SELECT permission.gradeID
+        FROM permission
+        WHERE permission.teacherName =  #{name, jdbcType=VARCHAR}
+        )
+        AND stu.campusID IN
+        (
+        SELECT campusauth.campusID
+        FROM campusauth
+        WHERE campusauth.teacherName = #{name, jdbcType=VARCHAR}
+        )
         AND
         stu.stuID NOT IN
         (
@@ -1156,7 +1236,7 @@
 
 
     <!--3 更新信息，根据年纪，缴费和未缴费 负责人-->
-    <select id="countLeaderUpdateByGrade" parameterType="java.util.List" resultType="java.lang.Integer">
+    <select id="countLeaderUpdateByGrade" parameterType="java.lang.String" resultType="java.lang.Integer">
         select
         count(distinct stu.stuID)
         from stu,sign
@@ -1168,13 +1248,21 @@
         sign.leaderSignID =0
         AND
         stu.gradeID IN
-        <foreach collection="list" index="index" item="item" open="(" separator="," close=")">
-            #{item,jdbcType=INTEGER}
-        </foreach>
+        (
+        SELECT permission.gradeID
+        FROM permission
+        WHERE permission.teacherName =  #{name, jdbcType=VARCHAR}
+        )
+        AND stu.campusID IN
+        (
+        SELECT campusauth.campusID
+        FROM campusauth
+        WHERE campusauth.teacherName = #{name, jdbcType=VARCHAR}
+        )
     </select>
 
     <!--3 更新信息，根据年纪，缴费和未缴费 校长-->
-    <select id="countMasterUpdateByGrade" parameterType="java.util.List" resultType="java.lang.Integer">
+    <select id="countMasterUpdateByGrade" parameterType="java.lang.String" resultType="java.lang.Integer">
         select
         count(distinct stu.stuID)
         from stu,sign
@@ -1186,9 +1274,17 @@
         sign.masterSignID = 0
         AND
         stu.gradeID IN
-        <foreach collection="list" index="index" item="item" open="(" separator="," close=")">
-            #{item,jdbcType=INTEGER}
-        </foreach>
+        (
+        SELECT permission.gradeID
+        FROM permission
+        WHERE permission.teacherName =  #{name, jdbcType=VARCHAR}
+        )
+        AND stu.campusID IN
+        (
+        SELECT campusauth.campusID
+        FROM campusauth
+        WHERE campusauth.teacherName = #{name, jdbcType=VARCHAR}
+        )
     </select>
 
 

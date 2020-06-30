@@ -227,43 +227,43 @@ public interface StuMapperCustom {
 
     /////////////////////////////////////////////////////负责人新录入信息提醒//////////////////////////////////////////
     //负责人新录入信息提醒  <!--新录入信息，根据年纪，已经缴费-->
-    List<StuCustom> selectLeaderReceiveByGradePay(Map<String, Object> map);
+    List<StuCustom> selectLeaderReceiveByGradePay(PagingVO pagingVO);
 
     //负责人新录入信息提醒  <!--新录入信息，根据年纪，没有缴费-->
-    List<StuCustom> selectLeaderReceiveByGradeUnPay(Map<String, Object> map);
+    List<StuCustom> selectLeaderReceiveByGradeUnPay(PagingVO pagingVO);
 
     //负责人新录入信息提醒  <!--新录入信息，根据年纪，缴费和未交费-->
-    List<StuCustom> selectLeaderReceiveByGrade(Map<String, Object> map);
+    List<StuCustom> selectLeaderReceiveByGrade(PagingVO pagingVO);
 
     /////////////////////////////////////////////////////校长新录入信息提醒//////////////////////////////////////////
     //校长新录入信息提醒  <!--新录入信息，根据年纪，已经缴费-->
-    List<StuCustom> selectMasterReceiveByGradePay(Map<String, Object> map);
+    List<StuCustom> selectMasterReceiveByGradePay(PagingVO pagingVO);
 
     //校长新录入信息提醒  <!--新录入信息，根据年纪，没有缴费-->
-    List<StuCustom> selectMasterReceiveByGradeUnPay(Map<String, Object> map);
+    List<StuCustom> selectMasterReceiveByGradeUnPay(PagingVO pagingVO);
 
     //校长新录入信息提醒  <!--新录入信息，根据年纪，缴费和未交费-->
-    List<StuCustom> selectMasterReceiveByGrade(Map<String, Object> map);
+    List<StuCustom> selectMasterReceiveByGrade(PagingVO pagingVO);
 
     /////////////////////////////////////////////////////负责人更新信息提醒//////////////////////////////////////////
     //负责人更新信息提醒  <!--更新信息，根据年纪，已经缴费-->
-    List<StuCustom> selectLeaderUpdateByGradePay(Map<String, Object> map);
+    List<StuCustom> selectLeaderUpdateByGradePay(PagingVO pagingVO);
 
     //负责人更新信息提醒  <!--更新信息，根据年纪，没有缴费-->
-    List<StuCustom> selectLeaderUpdateByGradeUnPay(Map<String, Object> map);
+    List<StuCustom> selectLeaderUpdateByGradeUnPay(PagingVO pagingVO);
 
     //负责人更新信息提醒  <!--更新信息，根据年纪，缴费和未交费-->
-    List<StuCustom> selectLeaderUpdateByGrade(Map<String, Object> map);
+    List<StuCustom> selectLeaderUpdateByGrade(PagingVO pagingVO);
 
     /////////////////////////////////////////////////////校长更新信息提醒//////////////////////////////////////////
     //校长更新信息提醒  <!--更新信息，根据年纪，已经缴费-->
-    List<StuCustom> selectMasterUpdateByGradePay(Map<String, Object> map);
+    List<StuCustom> selectMasterUpdateByGradePay(PagingVO pagingVO);
 
     //校长更新信息提醒  <!--更新信息，根据年纪，没有缴费-->
-    List<StuCustom> selectMasterUpdateByGradeUnPay(Map<String, Object> map);
+    List<StuCustom> selectMasterUpdateByGradeUnPay(PagingVO pagingVO);
 
     //校长更新信息提醒  <!--更新信息，根据年纪，缴费和未交费-->
-    List<StuCustom> selectMasterUpdateByGrade(Map<String, Object> map);
+    List<StuCustom> selectMasterUpdateByGrade(PagingVO pagingVO);
 
 
     /////////////////////////////////////////////////////管理员录入信息提醒//////////////////////////////////////////

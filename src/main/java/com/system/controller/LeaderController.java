@@ -795,7 +795,7 @@ public class LeaderController {
 
         Subject subject = SecurityUtils.getSubject();
         String username = (String) subject.getPrincipal();
-        List<Integer> permissionList = userloginService.findTeacherPerssion(username);  //获取该用户的年纪权限
+        //List<Integer> permissionList = userloginService.findTeacherPerssion(username);  //获取该用户的年纪权限
         Userlogin userlogin = userloginService.findUser(username);//获取用户的缴费权限 0缴费 1未交费 2 全部
         Integer permission = userlogin.getPermission(); //获取该用户的查看缴费情况权限
 
@@ -803,15 +803,15 @@ public class LeaderController {
         //页码对象
         PagingVO pagingVO = new PagingVO();
         //设置总页数
-         pagingVO.setTotalCount(stuService.countLeaderUpdateRemind(permission,permissionList));
+         pagingVO.setTotalCount(stuService.countLeaderUpdateRemind(permission,username));
 
         if (page == null || page == 0) {
             pagingVO.setCurentPageNo(1);
             pagingVO.setToPageNo(1);
-            list=stuService.leaderUpdateRemind(1,permission,permissionList);
+            list=stuService.leaderUpdateRemind(1,permission,username);
         } else {
             pagingVO.setToPageNo(page);
-            list=stuService.leaderUpdateRemind(page,permission,permissionList);
+            list=stuService.leaderUpdateRemind(page,permission,username);
         }
 
         model.addAttribute("stuList", list);
@@ -825,7 +825,7 @@ public class LeaderController {
 
         Subject subject = SecurityUtils.getSubject();
         String username = (String) subject.getPrincipal();
-        List<Integer> permissionList = userloginService.findTeacherPerssion(username);  //获取该用户的年纪权限
+        //List<Integer> permissionList = userloginService.findTeacherPerssion(username);  //获取该用户的年纪权限
         Userlogin userlogin = userloginService.findUser(username);//获取用户的缴费权限 0缴费 1未交费 2 全部
         Integer permission = userlogin.getPermission(); //获取该用户的查看缴费情况权限
 
@@ -833,15 +833,15 @@ public class LeaderController {
         //页码对象
         PagingVO pagingVO = new PagingVO();
         //设置总页数
-        pagingVO.setTotalCount(stuService.countLeaderReceiveRemind(permission,permissionList));
+        pagingVO.setTotalCount(stuService.countLeaderReceiveRemind(permission,username));
 
         if (page == null || page == 0) {
             pagingVO.setCurentPageNo(1);
             pagingVO.setToPageNo(1);
-            list=stuService.leaderReceiveRemind(1,permission,permissionList);
+            list=stuService.leaderReceiveRemind(1,permission,username);
         } else {
             pagingVO.setToPageNo(page);
-            list=stuService.leaderReceiveRemind(page,permission,permissionList);
+            list=stuService.leaderReceiveRemind(page,permission,username);
         }
 
         model.addAttribute("stuList", list);

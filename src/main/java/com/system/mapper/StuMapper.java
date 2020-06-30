@@ -203,40 +203,40 @@ public interface StuMapper {
     int countCheck(String majorName, Date startdate, Date enddate);
 
     //负责人新录入信息提醒  <!--新录入信息，根据年纪，已经缴费-->
-    int countLeaderReceiveByGradePay ( List<Integer> gradeList);
+    int countLeaderReceiveByGradePay (String name);
 
     //负责人新录入信息提醒  <!--新录入信息，根据年纪，没有缴费-->
-    int countLeaderReceiveByGradeUnPay( List<Integer> gradeList);
+    int countLeaderReceiveByGradeUnPay( String name);
 
     //负责人新录入信息提醒  <!--新录入信息，根据年纪，缴费和未交费-->
-    int countLeaderReceiveByGrade( List<Integer> gradeList);
+    int countLeaderReceiveByGrade( String name);
 
     //校长新录入信息提醒  <!--新录入信息，根据年纪，已经缴费-->
-    int countMasterReceiveByGradePay ( List<Integer> gradeList);
+    int countMasterReceiveByGradePay (String name);
 
     //校长新录入信息提醒  <!--新录入信息，根据年纪，没有缴费-->
-    int countMasterReceiveByGradeUnPay( List<Integer> gradeList);
+    int countMasterReceiveByGradeUnPay(String name);
 
     //校长新录入信息提醒  <!--新录入信息，根据年纪，缴费和未交费-->
-    int countMasterReceiveByGrade( List<Integer> gradeList);
+    int countMasterReceiveByGrade(String name);
 
     //负责人更新信息提醒  <!--更新信息，根据年纪，已经缴费-->
-    int countLeaderUpdateByGradePay( List<Integer> gradeList);
+    int countLeaderUpdateByGradePay( String name);
 
     //负责人更新信息提醒  <!--更新信息，根据年纪，没有缴费-->
-    int countLeaderUpdateByGradeUnPay( List<Integer> gradeList);
+    int countLeaderUpdateByGradeUnPay( String name);
 
     //负责人更新信息提醒  <!--更新信息，根据年纪，缴费和未交费-->
-    int countLeaderUpdateByGrade( List<Integer> gradeList);
+    int countLeaderUpdateByGrade(String name);
 
     //校长更新信息提醒  <!--更新信息，根据年纪，已经缴费-->
-    int countMasterUpdateByGradePay( List<Integer> gradeList);
+    int countMasterUpdateByGradePay(String name);
 
     //校长更新信息提醒  <!--更新信息，根据年纪，没有缴费-->
-    int countMasterUpdateByGradeUnPay( List<Integer> gradeList);
+    int countMasterUpdateByGradeUnPay(String name);
 
     //校长更新信息提醒  <!--更新信息，根据年纪，缴费和未交费-->
-    int countMasterUpdateByGrade( List<Integer> gradeList);
+    int countMasterUpdateByGrade(String name);
 
     //统计姓名相同学生的人数
     int countStuBySameName();
