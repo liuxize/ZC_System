@@ -11,7 +11,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>年级管理</title>
+    <title>状态管理</title>
     <link rel="shortcut icon" type="image/x-icon" href="/images/logo-dt.png" media="screen">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- 引入bootstrap -->
@@ -30,7 +30,7 @@
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <div class="row">
-                        <h1 class="col-md-5">年级管理</h1>
+                        <h1 class="col-md-5">状态管理</h1>
 
                         <button type="button" class="btn btn-success col-md-2 " data-toggle="modal"
                                 id="editbutton"  style="margin-top: 20px; float:right"

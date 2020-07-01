@@ -1,7 +1,17 @@
 package com.system.controller;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Scanner;
 
+import java.net.URL;
+
+import com.system.po.Loginlog;
 import com.system.po.Userlogin;
 import com.system.realm.LoginRealm;
+
+
+import com.system.service.UserloginService;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.session.Session;
@@ -13,6 +23,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Collection;
 import java.util.StringTokenizer;
@@ -22,6 +33,8 @@ import java.util.StringTokenizer;
  */
 @Controller
 public class LoginController {
+    @Resource(name = "userloginServiceImpl")
+    private UserloginService userloginService;
 
     @Autowired
     DefaultWebSessionManager sessionManager;
@@ -44,21 +57,52 @@ public class LoginController {
         //如果获取不到用户名就是登录失败，但登录失败的话，会直接抛出异常
         subject.login(token);
 
-        String ip = request.getHeader("x-forwarded-for");
-        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
-            ip = request.getHeader("Proxy-Client-IP");
-        }
-        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
-            ip = request.getHeader("WL-Proxy-Client-IP");
-        }
-        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
-            ip = request.getRemoteAddr();
-        }
-        if (ip.equals("0:0:0:0:0:0:0:1")) {
-            ip = "本地";
-        }
+//        String ip = request.getHeader("x-forwarded-for");
+//        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+//            ip = request.getHeader("Proxy-Client-IP");
+//        }
+//        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+//            ip = request.getHeader("WL-Proxy-Client-IP");
+//        }
+//        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+//            ip = request.getRemoteAddr();
+//        }
+//        if (ip.equals("0:0:0:0:0:0:0:1")) {
+//            ip = "本地";
+//        }
+        Loginlog loginlog = new Loginlog();
+        loginlog.setUsername((String) subject.getPrincipal());
+        Date day=new Date();
+        Timestamp timeStamp = new Timestamp(day.getTime());
+        //System.out.println(timeStamp);
 
-        //System.out.println(ip);
+        try {
+            // 获取ip归属地的json信息
+            StringBuilder ipJson = new StringBuilder("");
+            String  url = "http://pv.sohu.com/cityjson?ie=utf-8";
+
+            Scanner scanner = new Scanner(new URL(url).openConnection().getInputStream(),
+                    "utf-8");
+            while (scanner.hasNext()) {
+                ipJson.append(scanner.next());
+            }
+            ipJson.delete(0,16).deleteCharAt(ipJson.length()-1);
+            String[] temp = ipJson.toString().split(",");
+            String cip = temp[0].split(":")[1].replace("\"","");
+            String cname = temp[2].split(":")[1].replace("}","").replace("\"","");;
+
+            loginlog.setCip(cip);
+            loginlog.setCname(cname);
+        } catch (Exception e) {
+            loginlog.setCip("IP查询接口错误");
+            loginlog.setCname("区域查询接口错误");
+            e.printStackTrace();
+        }
+        //System.out.println(loginlog.getCip());
+        //System.out.println(loginlog.getCname());
+        userloginService.saveLoginLog(loginlog);
+
+
 
 
         if (subject.hasRole("admin")) {

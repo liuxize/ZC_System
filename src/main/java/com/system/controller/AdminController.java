@@ -3,7 +3,7 @@ package com.system.controller;
 import com.system.exception.CustomException;
 import com.system.po.*;
 import com.system.service.*;
-import net.sf.json.JSONObject;
+
 
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUploadException;
@@ -3280,6 +3280,34 @@ public class AdminController {
         announceService.editIsRead(annid, 0);
         return "redirect:/admin/manageAnnounce";
     }
+
+    @RequestMapping(value = "/manageLoginLog", method = {RequestMethod.GET})
+    public String manageLoginLogUI(Model model, Integer page) throws Exception {
+        //List<Loginlog> loginlogs = userloginService.findAllLoginLog();
+        PagingVO pagingVO = new PagingVO();
+        List<Loginlog> list = null;
+        pagingVO.setTotalCount(userloginService.getCountLoginLog());
+        if (page == null || page == 0) {
+            pagingVO.setCurentPageNo(1);
+            pagingVO.setToPageNo(1);
+            list = userloginService.findAllLoginLogByPaging(1);
+        } else {
+            pagingVO.setToPageNo(page);
+            list = userloginService.findAllLoginLogByPaging(page);
+        }
+        model.addAttribute("loginlogs", list);
+        model.addAttribute("pagingVO", pagingVO);
+        return "admin/manageLoginLog";
+    }
+
+
+    @RequestMapping(value = "/removeLoginLog", method = {RequestMethod.GET})
+    public String removeLoginLogUI(Model model) throws Exception {
+        userloginService.deleteLoginLog();
+        return "redirect:/admin/manageLoginLog";
+    }
+
+
 
 }
 

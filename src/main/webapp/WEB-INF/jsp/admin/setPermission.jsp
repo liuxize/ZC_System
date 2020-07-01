@@ -50,7 +50,7 @@
                             </c:forEach>
                         </div>
 
-                        <h3 style="text-align: center;"> 年级权限 </h3>
+                        <h3 style="text-align: center;"> 状态权限 </h3>
 
                         <div>
                             <c:forEach items="${gradeList}" var="item">

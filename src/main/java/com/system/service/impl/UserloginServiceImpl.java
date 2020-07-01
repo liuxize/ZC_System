@@ -297,6 +297,33 @@ public class UserloginServiceImpl implements UserloginService {
         return permissionMapper.countLeaderByGradeIDAndCampusid(gradeid, campusid);
     }
 
+    public void saveLoginLog(Loginlog loginlog) throws Exception{
+        userloginMapper.insertLoginLog(loginlog);
+    }
+
+
+
+    public List<Loginlog>  findAllLoginLog() throws Exception{
+        return userloginMapper.selectAllLoginLog();
+    }
+
+    public void deleteLoginLog() throws Exception{
+        userloginMapper.deleteLoginLog();
+    }
+
+    public int getCountLoginLog() throws Exception{
+        return userloginMapper.getCountLoginLog();
+    }
+
+    public List<Loginlog> findAllLoginLogByPaging(Integer toPageNo) throws Exception {
+        PagingVO pagingVO = new PagingVO();
+        pagingVO.setToPageNo(toPageNo);
+
+        List<Loginlog> list = userloginMapper.selectAllLoginLogByPage(pagingVO);
+
+        return list;
+    }
+
 
 
 

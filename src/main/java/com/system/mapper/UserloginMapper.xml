@@ -257,4 +257,39 @@
     userName = #{0}
   </update>
 
+  <insert id="insertLoginLog" parameterType="com.system.po.Loginlog" keyProperty="loginlogid" useGeneratedKeys="true">
+    insert into loginlog (userName, cip, cname, loginTime
+    )
+    values ( #{username,jdbcType=VARCHAR}, #{cip,jdbcType=VARCHAR}, #{cname,jdbcType=VARCHAR},
+    #{logintime,jdbcType=TIMESTAMP}
+    )
+   </insert>
+
+    <select id="selectAllLoginLog"  resultType="com.system.po.Loginlog">
+        select
+        *
+        from loginlog
+        order by loginlogID desc
+    </select>
+
+    <delete id="deleteLoginLog">
+        delete from loginlog
+        where
+        DATEDIFF(CAST(DATE_FORMAT(NOW(),'%y-%m-%d')AS DATE),CAST(DATE_FORMAT(loginTime,'%y-%m-%d') AS DATE)) > 30
+    </delete>
+
+    <select id="getCountLoginLog"  resultType="java.lang.Integer">
+        select
+        count(*)
+        from loginlog
+    </select>
+
+  <select id="selectAllLoginLogByPage"  parameterType="com.system.po.PagingVO" resultType="com.system.po.Loginlog">
+        select
+        *
+        from loginlog
+        order by loginlogID desc
+        limit #{toPageNo}, #{pageSize}
+    </select>
+
 </mapper>

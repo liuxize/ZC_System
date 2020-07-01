@@ -126,4 +126,13 @@ public interface UserloginService {
     //根据年纪,校区 判断是否有负责人
     int getCountLeaderByGradeIDAndCampusid(Integer gradeid, Integer campusid) throws Exception;
 
+    void saveLoginLog(Loginlog loginlog) throws Exception;
+
+    List<Loginlog> findAllLoginLog() throws Exception;
+
+    int getCountLoginLog() throws Exception;
+
+    void deleteLoginLog() throws Exception;
+
+    List<Loginlog> findAllLoginLogByPaging(Integer toPageNo) throws Exception;
 }

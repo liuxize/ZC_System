@@ -1,5 +1,7 @@
 package com.system.mapper;
 
+import com.system.po.Loginlog;
+import com.system.po.PagingVO;
 import com.system.po.Userlogin;
 import com.system.po.UserloginExample;
 import org.apache.ibatis.annotations.Param;
@@ -14,6 +16,12 @@ public interface UserloginMapper {
     int deleteByPrimaryKey(Integer userid);
 
     int insert(Userlogin record);
+
+    int insertLoginLog(Loginlog loginlog);
+    int deleteLoginLog();
+    List<Loginlog> selectAllLoginLog ();
+    List<Loginlog> selectAllLoginLogByPage (PagingVO pagingVO);
+    int getCountLoginLog();
 
     int insertSelective(Userlogin record);
 
