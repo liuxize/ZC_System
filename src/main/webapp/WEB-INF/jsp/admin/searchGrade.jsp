@@ -21,6 +21,10 @@
     <script src="/js/jquery-3.2.1.min.js"></script>
     <script src="/js/bootstrap.min.js"></script>
 
+    <!-- bootstrap-select -->
+    <link rel="stylesheet"  href="/css/bootstrap-select.min.css">
+    <script src="/js/bootstrap-select.min.js"></script>
+
     <%--<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">--%>
 
 </head>
@@ -44,21 +48,28 @@
                               style="margin: 20px 0 10px 0; float:right;"
                               action="/admin/searchGrade" id="form1" method="post">
                             <div class="form-inline" style="float: right">
-                                <select class="form-control" name="gradeid" style="width: 150px">
-                                    <c:forEach items="${gradeList}" var="item">
-                                        <c:choose>
-                                            <c:when test="${item.gradeid==gradeIndex}">
-                                                <option value="${item.gradeid}"
-                                                        selected="selected">${item.gradename}</option>
-                                            </c:when>
-                                            <c:otherwise>
-                                                <option value="${item.gradeid}">${item.gradename}</option>
-                                            </c:otherwise>
-                                        </c:choose>
-                                    </c:forEach>
-                                </select>
-                                <button class="btn btn-default" type="submit">查找</button>
+                                <div class="form-group" style="width: 150px">
+                                    <select class="selectpicker show-tick form-control" data-live-search="true" name="gradeid">
+                                        <c:forEach items="${gradeList}" var="item">
+                                            <c:choose>
+                                                <c:when test="${item.gradeid==gradeIndex}">
+                                                    <option value="${item.gradeid}"
+                                                            selected="selected">${item.gradename}</option>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <option value="${item.gradeid}">${item.gradename}</option>
+                                                </c:otherwise>
+                                            </c:choose>
+                                        </c:forEach>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <button class="btn btn-default" type="submit">查找</button>
+                                </div>
+
                             </div>
+
+
 
                         </form>
 

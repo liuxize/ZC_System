@@ -21,6 +21,10 @@
     <script src="/js/jquery-3.2.1.min.js"></script>
     <script src="/js/bootstrap.min.js"></script>
 
+    <!-- bootstrap-select -->
+    <link rel="stylesheet"  href="/css/bootstrap-select.min.css">
+    <script src="/js/bootstrap-select.min.js"></script>
+
     <%--<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">--%>
 
 </head>
@@ -43,21 +47,27 @@
                                 <input class="form-control" type="date"  max="9999-12-31" name="enddate" value="${endtime}"/>
                             </div>
                             <div class="form-inline" style="margin: 10px 0 10px 0; float: right" >
-                                <b>专业：</b> &nbsp;&nbsp;
-                                <select class="form-control" name="majorName" style="width: 150px">
-                                    <c:forEach items="${majorList}" var="item">
-                                        <c:choose>
-                                            <c:when test="${item.majorname==majorTemp}">
-                                                <option value="${item.majorname}"
-                                                        selected="selected">${item.majorname}</option>
-                                            </c:when>
-                                            <c:otherwise>
-                                                <option value="${item.majorname}">${item.majorname}</option>
-                                            </c:otherwise>
-                                        </c:choose>
-                                    </c:forEach>
-                                </select>
-                                <button class="btn btn-default" type="submit">查找</button>
+                                <div class="form-group">
+                                <b>专业：</b>
+                                </div>
+                                <div class="form-group" style="width: 180px">
+                                    <select class="selectpicker show-tick form-control" data-live-search="true" name="majorName" >
+                                        <c:forEach items="${majorList}" var="item">
+                                            <c:choose>
+                                                <c:when test="${item.majorname==majorTemp}">
+                                                    <option value="${item.majorname}"
+                                                            selected="selected">${item.majorname}</option>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <option value="${item.majorname}">${item.majorname}</option>
+                                                </c:otherwise>
+                                            </c:choose>
+                                        </c:forEach>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <button class="btn btn-default" type="submit">查找</button>
+                                </div>
                             </div>
                         </form>
 

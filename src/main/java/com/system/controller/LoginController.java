@@ -44,6 +44,22 @@ public class LoginController {
         //如果获取不到用户名就是登录失败，但登录失败的话，会直接抛出异常
         subject.login(token);
 
+        String ip = request.getHeader("x-forwarded-for");
+        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+            ip = request.getHeader("Proxy-Client-IP");
+        }
+        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+            ip = request.getHeader("WL-Proxy-Client-IP");
+        }
+        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+            ip = request.getRemoteAddr();
+        }
+        if (ip.equals("0:0:0:0:0:0:0:1")) {
+            ip = "本地";
+        }
+
+        //System.out.println(ip);
+
 
         if (subject.hasRole("admin")) {
             putSession(userlogin.getUsername(),nowUseKey);

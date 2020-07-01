@@ -21,6 +21,10 @@
     <script src="/js/jquery-3.2.1.min.js"></script>
     <script src="/js/bootstrap.min.js"></script>
 
+    <!-- bootstrap-select -->
+    <link rel="stylesheet"  href="/css/bootstrap-select.min.css">
+    <script src="/js/bootstrap-select.min.js"></script>
+
     <%--<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">--%>
 
 </head>
@@ -38,20 +42,25 @@
                         <form class="bs-example bs-example-form col-md-5" role="form" style="margin: 20px 0 10px 0; float:right;"
                               action="/admin/searchSchool" id="form1" method="post">
                             <div class="form-inline" style="float: right">
-                                <select class="form-control" name="schoolName" style="width: 250px">
-                                    <c:forEach items="${schoolList}" var="item">
-                                        <c:choose>
-                                            <c:when test="${item.schoolname==schoolTemp}">
-                                                <option value="${item.schoolname}"
-                                                        selected="selected">${item.schoolname}</option>
-                                            </c:when>
-                                            <c:otherwise>
-                                                <option value="${item.schoolname}">${item.schoolname}</option>
-                                            </c:otherwise>
-                                        </c:choose>
-                                    </c:forEach>
-                                </select>
-                                <button class="btn btn-default" type="submit">查找</button>
+                                <div class="form-group" style="width: 250px">
+                                    <select class="selectpicker show-tick form-control" data-live-search="true" name="schoolName" >
+                                        <c:forEach items="${schoolList}" var="item">
+                                            <c:choose>
+                                                <c:when test="${item.schoolname==schoolTemp}">
+                                                    <option value="${item.schoolname}"
+                                                            selected="selected">${item.schoolname}</option>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <option value="${item.schoolname}">${item.schoolname}</option>
+                                                </c:otherwise>
+                                            </c:choose>
+                                        </c:forEach>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <button class="btn btn-default" type="submit">查找</button>
+                                </div>
+                                
                             </div>
                         </form>
 
